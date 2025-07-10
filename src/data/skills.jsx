@@ -204,7 +204,27 @@ const skills = [
 
     //     }
     // },
-  
+    {
+        id: 19,
+        icon: <CPlusPlus />,
+        name: "C++",
+        style: {
+            shadow: "shadow-[#004482]",
+            cover: "from-black to-[#004482] rounded-b-md",
+            opacity: "opacity-80"
+        }
+    },
+    {
+        id: 20,
+        icon: <Python />,
+        name: "Python",
+        style: {
+            shadow: "shadow-[#ddbe4e]",
+            cover: "from-black to-[#ddbe4e] rounded-b-md",
+            opacity: "opacity-80"
+
+        }
+    },
     // {
     //     id: 21,
     //     icon: <Java />,
@@ -249,8 +269,28 @@ const skills = [
 
     //     }
     // },
-   
+    {
+        id: 25,
+        icon: <VSCode />,
+        name: "VS Code",
+        style: {
+            shadow: "shadow-[#1D95E5]",
+            cover: "from-black to-[#1D95E5] rounded-b-md",
+            opacity: "opacity-80"
 
+        }
+    },
+    {
+        id: 26,
+        icon: <Bash />,
+        name: "Bash",
+        style: {
+            shadow: "shadow-[#4dbc85]",
+            cover: "from-black to-[#4dbc85] rounded-b-md",
+            opacity: "opacity-80"
+
+        }
+    },
     {
         id: 27,
         icon: <Redis />,
@@ -308,8 +348,8 @@ const skills = [
     },
     {
         id: 32,
-        icon: <Kubernetes />,
-        name: "Kubernetes",
+        icon: <Kubernets />,
+        name: "Kubernets",
         style: {
             shadow: "shadow-[#326DE6]",
             cover: "from-black to-[#326DE6] rounded-b-md",
@@ -356,6 +396,17 @@ const skills = [
         name: "Ansible",
         style: {
             shadow: "shadow-[#FFFFFF]",
+            cover: "from-black to-[#326DE6] rounded-b-md",
+            opacity: "opacity-80"
+
+        }
+    },
+    {
+        id: 38,
+        icon: <Kafka />,
+        name: "Kafka",
+        style: {
+            shadow: "shadow-[#AEDADD]",
             cover: "from-black to-[#326DE6] rounded-b-md",
             opacity: "opacity-80"
 
@@ -471,18 +522,6 @@ const skills = [
 
         }
     },
-    {
-        id: 48,
-        icon: <Azure/>,
-        name: "Azure",
-        style: {
-            shadow: "shadow-[#5C4EE5]",
-            cover: "from-black to-[#326DE6] rounded-b-md",
-            opacity: "opacity-80"
-
-        }
-    },
- 
     // {
     //     id: 49,
     //     icon: <Jenkins />,

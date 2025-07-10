@@ -4,7 +4,7 @@ import AnimatedWrapper from "./ui/AnimatedWrapper";
 
 import { Download } from "./Icons";
 import resume from "../assets/resume.pdf";
-import profile from "../assets/profile.png";
+import profile from "../assets/profile.jpg";
 import SectionHeading from "./SectionHeading";
 import techStack from "../data/techStack";
 
@@ -36,15 +36,15 @@ const About = () => {
             <h3 className="text-2xl xs:text-3xl  sm:text-4xl md:text-5xl lg:text-6xl font-semibold ">
               Hi, I'm{" "}
               <span className="text-cyan-500 block xs:inline">
-                Rupal Soni
+                Vaibhav Soni
               </span>
             </h3>
           </AnimatedWrapper>
           <div className="text-gray-400 py-4 space-y-2 md:space-y-2 md:pt-8 lg:pt-12 font-semibold text-justify">
             <AnimatedWrapper>
               <p className="leading-tight">
-                Aspiring DevOps Engineer, based in Udaipur, India.
-                Currently working as DevOps Intern @ GKMIT Ltd. Udaipur.
+                Aspiring DevOps Engineer, based in Ahmedabad, India.
+                Currently working as DevOps Engineer @  Inexture Solutions Ahmedabad.
               </p>
             </AnimatedWrapper>
             {/* <AnimatedWrapper>

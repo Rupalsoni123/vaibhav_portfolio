@@ -5,19 +5,19 @@ const contactInfo = [
     {
         id: 1,
         name: "LinkedIn",
-        link: "https://www.linkedin.com/in/rupal-soni-ba2754228/",
+        link: "https://linkedin.com/in/vaibhavsonii21",
         icon: <LinkedIn />,
     },
     {
         id: 2,
         name: "GitHub",
-        link: "https://github.com/Rupalsoni123",
+        link: "https://github.com/Vaibhavsoni123",
         icon: <GitHub />,
     },
     {
         id: 3,
         name: "Mail",
-        link: "mailto:rupalsoni518@gmail.com",
+        link: "mailto:vaibhavsoni5567@gmail.com",
         icon: <GMail />,
     },
 

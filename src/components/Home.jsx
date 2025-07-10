@@ -5,7 +5,7 @@ import { Link } from "react-scroll";
 import AnimatedWrapper from "./ui/AnimatedWrapper";
 
 import { ArrowDown } from "./Icons";
-import Avatar from "../assets/Avatars/Avatar.svg";
+import Avatar from "../assets/Avatars/Avatars/93f50dd8-9dec-4f20-ad88-d40acc26dec5.jpg";
 import contactInfo from "../data/contactInfo";
 
 const Home = () => {
@@ -28,7 +28,7 @@ const Home = () => {
           <AnimatedWrapper delay={0.8} animateFrom="left">
             <img
               src={Avatar}
-              alt="Rupal's Avatar"
+              alt="Vaibhav's Avatar"
               width="auto"
               height="auto"
               loading="eager"
@@ -43,7 +43,7 @@ const Home = () => {
               <span className="block">Hi There, </span>
               <span>I'm </span>
               <span className="text-transparent bg-gradient-to-br from-cyan-300 to-blue-600 bg-clip-text">
-                Rupal
+                Vaibhav
               </span>
             </h1>
           </AnimatedWrapper>
