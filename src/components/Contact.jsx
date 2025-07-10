@@ -15,40 +15,36 @@ const Contact = () => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const isValid = validateForm(
-      formData,
-      setFormData,
-      setErrData,
-      initialFormData,
-      initialErrData
-    );
-
+  
+    const isValid = validateForm(formData, setErrData);
     if (!isValid) return;
-
+  
+    const form = new FormData();
+    form.append("name", formData.name.trim());
+    form.append("email", formData.email.trim());
+    form.append("message", formData.message.trim());
+  
     try {
-      const res = await fetch("/api/send", {
+      const response = await fetch(import.meta.env.VITE_GETFORM_URL, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: form,
       });
-
-      const data = await res.json();
-
-      if (data.success) {
-        alert("Message sent successfully!");
+  
+      if (response.redirected) {
+        window.location.href = import.meta.env.VITE_GETFORM_SUCCESS_URL;
         setFormData(initialFormData);
+        setErrData(initialErrData);
       } else {
-        alert("Failed to send: " + data.message);
+        alert("Failed to submit the form. Try again.");
       }
-    } catch (error) {
-      console.error("Email send error:", error);
-      alert("An error occurred. Please try again later.");
+    } catch (err) {
+      console.error("Submission error:", err);
+      alert("Something went wrong.");
     }
   };
+  
 
   return (
     <div
