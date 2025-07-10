@@ -4,14 +4,18 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
-    return res.status(405).send({ error: 'Only POST requests allowed' });
+    return res.status(405).json({ success: false, error: 'Only POST requests allowed' });
   }
 
   const { name, email, message } = req.body;
 
+  if (!name || !email || !message) {
+    return res.status(400).json({ success: false, message: 'All fields are required' });
+  }
+
   const msg = {
-    to: 'vaibhavnee2021@gmail.com',
-    from: 'vaibhavsoni5567@gmail.com',
+    to: 'vaibhavnee2021@gmail.com', // Your receiving email
+    from: 'vaibhavsoni5567@gmail.com', // Verified sender in SendGrid
     subject: `New Contact Form Message from ${name}`,
     text: `From: ${email}\n\nMessage:\n${message}`,
   };
