@@ -11,7 +11,7 @@ const contactInfo = [
     {
         id: 2,
         name: "GitHub",
-        link: "https://github.com/Vaibhavsoni123",
+        link: "https://github.com/vaibhav21soni",
         icon: <GitHub />,
     },
     {
