@@ -25,24 +25,18 @@ const Contact = () => {
     form.append("name", formData.name.trim());
     form.append("email", formData.email.trim());
     form.append("message", formData.message.trim());
-  
-    try {
-      const response = await fetch(import.meta.env.VITE_GETFORM_URL, {
-        method: "POST",
-        body: form,
-      });
-  
-      if (response.redirected) {
-        window.location.href = import.meta.env.VITE_GETFORM_SUCCESS_URL;
-        setFormData(initialFormData);
-        setErrData(initialErrData);
-      } else {
-        alert("Failed to submit the form. Try again.");
-      }
-    } catch (err) {
-      console.error("Submission error:", err);
-      alert("Something went wrong.");
+    
+    const response = await fetch(import.meta.env.VITE_GETFORM_URL, {
+      method: "POST",
+      body: form,
+    });
+    
+    if (response.redirected) {
+      window.location.href = import.meta.env.VITE_GETFORM_SUCCESS_URL;
+      setFormData(initialFormData);
+      setErrData(initialErrData);
     }
+    
   };
   
 
