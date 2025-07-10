@@ -15,22 +15,41 @@ const Contact = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    validateForm(
+
+    const isValid = validateForm(
       formData,
       setFormData,
       setErrData,
       initialFormData,
       initialErrData
     );
+
+    if (!isValid) return;
+
+    try {
+      const res = await fetch("/api/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        alert("Message sent successfully!");
+        setFormData(initialFormData);
+      } else {
+        alert("Failed to send: " + data.message);
+      }
+    } catch (error) {
+      console.error("Email send error:", error);
+      alert("An error occurred. Please try again later.");
+    }
   };
-
-  useEffect(() => {
-    setFormData(initialFormData);
-    setErrData(initialErrData);
-  }, []);
-
   return (
     <div
       name="Contact"
@@ -56,9 +75,8 @@ const Contact = () => {
                       type="text"
                       name="name"
                       placeholder="Enter Your Name"
-                      className={`peer form-input ${
-                        errData.nameError !== "" && "border-red-500"
-                      }`}
+                      className={`peer form-input ${errData.nameError !== "" && "border-red-500"
+                        }`}
                       value={formData.name}
                       onChange={handleChange}
                     />
@@ -74,9 +92,8 @@ const Contact = () => {
                       type="email"
                       name="email"
                       placeholder="Enter Your Email"
-                      className={`peer form-input ${
-                        errData.emailError !== "" && "border-red-500"
-                      }`}
+                      className={`peer form-input ${errData.emailError !== "" && "border-red-500"
+                        }`}
                       value={formData.email}
                       onChange={handleChange}
                     />
@@ -91,12 +108,11 @@ const Contact = () => {
                   <div className="relative">
                     <textarea
                       name="message"
-                      placeholder="Your Meaasge"
+                      placeholder="Your Meassge"
                       rows="10"
                       cols="30"
-                      className={`peer form-input ${
-                        errData.messageError !== "" && "border-red-500"
-                      }`}
+                      className={`peer form-input ${errData.messageError !== "" && "border-red-500"
+                        }`}
                       value={formData.message}
                       onChange={handleChange}
                     />
@@ -129,9 +145,8 @@ export default Contact;
 const FormIcon = ({ name }) => {
   return (
     <span
-      className={`peer-placeholder-shown:grayscale peer-focus:grayscale-0 peer-active:grayscale-0 absolute left-3 ${
-        name === "chat" ? "top-[0.8rem]" : "top-1/2 -translate-y-1/2"
-      }`}
+      className={`peer-placeholder-shown:grayscale peer-focus:grayscale-0 peer-active:grayscale-0 absolute left-3 ${name === "chat" ? "top-[0.8rem]" : "top-1/2 -translate-y-1/2"
+        }`}
     >
       {name === "person" && <Person />}
       {name === "gmail" && <GMail />}
