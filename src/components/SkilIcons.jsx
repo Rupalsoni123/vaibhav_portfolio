@@ -849,6 +849,35 @@ const Bash = ({ width = 60, height = 45 }) => {
     </>
   );
 };
+const TerragruntLogo = ({ width = 50, height = 50 }) => {
+  return (
+    <svg
+      width={width}
+      height={height}
+      viewBox="0 0 256 256"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect width="256" height="256" fill="#844FBA" rx="24" />
+      <g transform="translate(50,40)">
+        <path
+          fill="#FFFFFF"
+          d="M32 0L80 28.5V86L32 57.5V0Z"
+        />
+        <path
+          fill="#FFFFFF"
+          d="M88 33.5L136 62V119.5L88 91V33.5Z"
+        />
+        <path
+          fill="#FFFFFF"
+          d="M32 68.5L80 97V154.5L32 126V68.5Z"
+        />
+        <text x="0" y="190" fontSize="28" fontFamily="Arial" fill="#FFFFFF">
+          TerraGrunt
+        </text>
+      </g>
+    </svg>
+  );
+};
 const JQuery = ({ width = 35, height = 45 }) => {
   return (
     <>
@@ -994,7 +1023,7 @@ const Docker = ({ width = 35, height = 45 }) => {
     </>
   );
 };
-const Kubernets = ({ width = 40, height = 45 }) => {
+const Kubernetes = ({ width = 40, height = 45 }) => {
   return (
     <>
       <svg

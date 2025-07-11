@@ -204,27 +204,27 @@ const skills = [
 
     //     }
     // },
-    {
-        id: 19,
-        icon: <CPlusPlus />,
-        name: "C++",
-        style: {
-            shadow: "shadow-[#004482]",
-            cover: "from-black to-[#004482] rounded-b-md",
-            opacity: "opacity-80"
-        }
-    },
-    {
-        id: 20,
-        icon: <Python />,
-        name: "Python",
-        style: {
-            shadow: "shadow-[#ddbe4e]",
-            cover: "from-black to-[#ddbe4e] rounded-b-md",
-            opacity: "opacity-80"
+    // {
+    //     id: 19,
+    //     icon: <CPlusPlus />,
+    //     name: "C++",
+    //     style: {
+    //         shadow: "shadow-[#004482]",
+    //         cover: "from-black to-[#004482] rounded-b-md",
+    //         opacity: "opacity-80"
+    //     }
+    // },
+    // {
+    //     id: 20,
+    //     icon: <Python />,
+    //     name: "Python",
+    //     style: {
+    //         shadow: "shadow-[#ddbe4e]",
+    //         cover: "from-black to-[#ddbe4e] rounded-b-md",
+    //         opacity: "opacity-80"
 
-        }
-    },
+    //     }
+    // },
     // {
     //     id: 21,
     //     icon: <Java />,
@@ -348,8 +348,8 @@ const skills = [
     },
     {
         id: 32,
-        icon: <Kubernets />,
-        name: "Kubernets",
+        icon: <Kubernetes />,
+        name: "Kubernetes",
         style: {
             shadow: "shadow-[#326DE6]",
             cover: "from-black to-[#326DE6] rounded-b-md",
@@ -467,17 +467,17 @@ const skills = [
 
         }
     },
-    {
-        id: 44,
-        icon: <Serverless />,
-        name: "Serverless",
-        style: {
-            shadow: "shadow-[#FD5750]",
-            cover: "from-black to-[#326DE6] rounded-b-md",
-            opacity: "opacity-80"
+    // {
+    //     id: 44,
+    //     icon: <Serverless />,
+    //     name: "Serverless",
+    //     style: {
+    //         shadow: "shadow-[#FD5750]",
+    //         cover: "from-black to-[#326DE6] rounded-b-md",
+    //         opacity: "opacity-80"
 
-        }
-    },
+    //     }
+    // },
     {
         id: 45,
         icon: <Nginx />,
