@@ -34,7 +34,7 @@ const About = () => {
         <div className="flex flex-col justify-center w-full px-2 xs: sm:px-12 md:px-4 lg:px-14 text-white ">
           <AnimatedWrapper animateFrom="bottom">
             <h3 className="text-2xl xs:text-3xl  sm:text-4xl md:text-5xl lg:text-6xl font-semibold ">
-              Hi, I'm{" "}
+              I'm{" "}
               <span className="text-cyan-500 block xs:inline">
                 Vaibhav Soni
               </span>
@@ -43,8 +43,8 @@ const About = () => {
           <div className="text-gray-400 py-4 space-y-2 md:space-y-2 md:pt-8 lg:pt-12 font-semibold text-justify">
             <AnimatedWrapper>
               <p className="leading-tight">
-                Aspiring DevOps Engineer, based in Ahmedabad, India.
-                Currently working as DevOps Engineer @  Inexture Solutions Ahmedabad.
+                Aspiring DevOps Engineer based in Ahmedabad, India, currently contributing to projects at Inexture Solutions. 
+                Passionate about automation, cloud-native technologies, and building resilient, scalable systems.
               </p>
             </AnimatedWrapper>
             {/* <AnimatedWrapper>
@@ -55,14 +55,15 @@ const About = () => {
             </AnimatedWrapper> */}
             <AnimatedWrapper>
               <p className="leading-tight">
-                Deeply interested in innovation, technology and brainstorming. Also an avid reader and an out of the box thinker.
+                A strong believer in continuous learning, innovation, and collaborative problem-solving.
+                I thrive on brainstorming ideas, optimizing workflows, and delivering efficient DevOps solutions.
               </p>
             </AnimatedWrapper>
           </div>
           <AnimatedWrapper>
             <div className="py-3 text-gray-50 flex flex-col sm:flex-row font-semibold gap-3 sm:gap-5 sm:items-center">
               <div className="min-w-fit">
-                <p>My Tech Stack ~</p>
+                <p>Tech That Drives Me ~</p>
               </div>
               <AnimatedWrapper>
                 <ul className="px-2 flex gap-5 z-40 flex-wrap">
