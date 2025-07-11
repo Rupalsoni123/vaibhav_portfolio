@@ -55,7 +55,7 @@ const About = () => {
             </AnimatedWrapper> */}
             <AnimatedWrapper>
               <p className="leading-tight">
-              Deeply interested in innovation, technology and brainstorming. Also an avid reader and an out of the box thinker.
+                Deeply interested in innovation, technology and brainstorming. Also an avid reader and an out of the box thinker.
               </p>
             </AnimatedWrapper>
           </div>

@@ -6,12 +6,12 @@ module.exports = {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  important:true,
+  important: true,
   theme: {
     extend: {},
     fontFamily: {
       signature: ["Great Vibes"],
-      advanced:['Nunito']
+      advanced: ['Nunito']
     },
     screens: {
       'xs': '475px',

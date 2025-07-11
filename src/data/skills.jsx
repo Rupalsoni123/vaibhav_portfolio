@@ -1,5 +1,5 @@
 
-import ReactJs, { Bash, Bootstrap, C, Canva, CPlusPlus, CSS, Docker, ExpressJS, FireBase, Git, GitHub, Bitbucket, AzureIcon, Heroku, HTML, Java, JQuery, JS, Kotlin, Kubernetes, TerragruntLogo, MaterialUI, MongoDB, MySQL, NextJs, NodeJS, PHP, PostGreSql, PostMan, Python, Redux, TailwindCSS, TS, VSCode ,Redis, AWS, Ansible, Kafka, DBeaver, GithubActions, Gitlab, Grafana, Jira, Serverless, Nginx, RabbitMQ, SonarQube, Terraform, Jenkins } from "../components/SkilIcons";
+import ReactJs, { Bash, Bootstrap, C, Canva, CPlusPlus, CSS, Docker, ExpressJS, FireBase, Git, GitHub, Bitbucket, AzureIcon, Heroku, HTML, Java, JQuery, JS, Kotlin, Kubernetes, TerragruntLogo, MaterialUI, MongoDB, MySQL, NextJs, NodeJS, PHP, PostGreSql, PostMan, Python, Redux, TailwindCSS, TS, VSCode, Redis, AWS, Ansible, Kafka, DBeaver, GithubActions, Gitlab, Grafana, Jira, Serverless, Nginx, RabbitMQ, SonarQube, Terraform, Jenkins } from "../components/SkilIcons";
 
 
 const skills = [
@@ -183,14 +183,14 @@ const skills = [
         }
     },
     // {
-        //     id: 18,
+    //     id: 18,
     //     icon: <PHP />,
     //     name: "PHP",
     //     style: {
     //         shadow: "shadow-[#9597c8]",
     //         cover: "from-black to-[#9597c8] rounded-b-md",
     //         opacity: "opacity-80"
-    
+
     //     }
     // },
     // {
@@ -198,7 +198,7 @@ const skills = [
     //     icon: <CPlusPlus />,
     //     name: "C++",
     //     style: {
-        //         shadow: "shadow-[#004482]",
+    //         shadow: "shadow-[#004482]",
     //         cover: "from-black to-[#004482] rounded-b-md",
     //         opacity: "opacity-80"
     //     }
@@ -230,10 +230,10 @@ const skills = [
     //     icon: <C />,
     //     name: "C",
     //     style: {
-        //         shadow: "shadow-[#3949AB]",
+    //         shadow: "shadow-[#3949AB]",
     //         cover: "from-black to-[#3949AB] rounded-b-md",
     //         opacity: "opacity-80"
-    
+
     //     }
     // },
     // {
@@ -380,7 +380,7 @@ const skills = [
 
         }
     },
-             {
+    {
         id: 13,
         icon: <AzureIcon />,
         name: "Azure",
@@ -534,7 +534,7 @@ const skills = [
 
         }
     },
-        {
+    {
         id: 49,
         icon: <Jenkins />,
         name: "Jenkins",
@@ -545,7 +545,7 @@ const skills = [
 
         }
     },
-     {
+    {
         id: 13,
         icon: <Bitbucket />,
         name: "Bitbucket",

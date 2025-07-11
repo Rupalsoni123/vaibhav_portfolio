@@ -1,6 +1,6 @@
 import React from 'react'
 import Card from './Card';
-import { Code,Link } from './Icons';
+import { Code, Link } from './Icons';
 import CardCover from './CardCover';
 const Project = ({ project: { img, demo, code, description, style = { shadow: "shadow-gray-500", cover: "from-gray-500" } } }) => {
     return (

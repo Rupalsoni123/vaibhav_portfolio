@@ -17,28 +17,28 @@ const Contact = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     const isValid = validateForm(formData, setErrData);
     if (!isValid) return;
-  
+
     const form = new FormData();
     form.append("name", formData.name.trim());
     form.append("email", formData.email.trim());
     form.append("message", formData.message.trim());
-    
+
     const response = await fetch(import.meta.env.VITE_GETFORM_URL, {
       method: "POST",
       body: form,
     });
-    
+
     if (response.redirected) {
       window.location.href = import.meta.env.VITE_GETFORM_SUCCESS_URL;
       setFormData(initialFormData);
       setErrData(initialErrData);
     }
-    
+
   };
-  
+
 
   return (
     <div
@@ -132,9 +132,8 @@ export default Contact;
 // Icon for each form field
 const FormIcon = ({ name }) => (
   <span
-    className={`peer-placeholder-shown:grayscale peer-focus:grayscale-0 absolute left-3 ${
-      name === "chat" ? "top-[0.8rem]" : "top-1/2 -translate-y-1/2"
-    }`}
+    className={`peer-placeholder-shown:grayscale peer-focus:grayscale-0 absolute left-3 ${name === "chat" ? "top-[0.8rem]" : "top-1/2 -translate-y-1/2"
+      }`}
   >
     {name === "person" && <Person />}
     {name === "gmail" && <GMail />}
