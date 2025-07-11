@@ -130,10 +130,24 @@ const Contact = () => {
 export default Contact;
 
 // Icon for each form field
+// const FormIcon = ({ name }) => (
+//   <span
+//     className={`peer-placeholder-shown:grayscale peer-focus:grayscale-0 absolute left-3 ${name === "chat" ? "top-[1.2rem]" : "top-1/2 -translate-y-1/2"
+//       }`}
+//   >
+//     {name === "person" && <Person />}
+//     {name === "gmail" && <GMail />}
+//     {name === "chat" && <Chat />}
+//   </span>
+// );
+
 const FormIcon = ({ name }) => (
   <span
-    className={`peer-placeholder-shown:grayscale peer-focus:grayscale-0 absolute left-3 ${name === "chat" ? "top-[1.2rem]" : "top-1/2 -translate-y-1/2"
-      }`}
+    className={`peer-placeholder-shown:grayscale peer-focus:grayscale-0 absolute left-3 pointer-events-none ${
+      name === "chat" 
+        ? "top-4" // Fixed positioning for textarea
+        : "top-1/2 -translate-y-1/2" // Centered for input fields
+    }`}
   >
     {name === "person" && <Person />}
     {name === "gmail" && <GMail />}
