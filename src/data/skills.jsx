@@ -527,7 +527,7 @@ const skills = [
         icon: <TerragruntLogo />,
         name: "TerraGrunt",
         style: {
-            shadow: "shadow-[#231F20]",
+            shadow: "shadow-[#5C4EE5]",
             cover: "from-black to-[#326DE6] rounded-b-md",
             opacity: "opacity-80"
 
