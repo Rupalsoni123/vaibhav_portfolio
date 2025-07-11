@@ -132,7 +132,7 @@ export default Contact;
 // Icon for each form field
 const FormIcon = ({ name }) => (
   <span
-    className={`peer-placeholder-shown:grayscale peer-focus:grayscale-0 absolute left-3 ${name === "chat" ? "top-[0.8rem]" : "top-1/2 -translate-y-1/2"
+    className={`peer-placeholder-shown:grayscale peer-focus:grayscale-0 absolute left-3 ${name === "chat" ? "top-[1.2rem]" : "top-1/2 -translate-y-1/2"
       }`}
   >
     {name === "person" && <Person />}
