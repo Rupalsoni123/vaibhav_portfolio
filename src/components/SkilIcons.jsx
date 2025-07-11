@@ -849,35 +849,6 @@ const Bash = ({ width = 60, height = 45 }) => {
     </>
   );
 };
-const TerragruntLogo = ({ width = 50, height = 50 }) => {
-  return (
-    <svg
-      width={width}
-      height={height}
-      viewBox="0 0 256 256"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <rect width="256" height="256" fill="#844FBA" rx="24" />
-      <g transform="translate(50,40)">
-        <path
-          fill="#FFFFFF"
-          d="M32 0L80 28.5V86L32 57.5V0Z"
-        />
-        <path
-          fill="#FFFFFF"
-          d="M88 33.5L136 62V119.5L88 91V33.5Z"
-        />
-        <path
-          fill="#FFFFFF"
-          d="M32 68.5L80 97V154.5L32 126V68.5Z"
-        />
-        <text x="0" y="190" fontSize="28" fontFamily="Arial" fill="#FFFFFF">
-          TerraGrunt
-        </text>
-      </g>
-    </svg>
-  );
-};
 const JQuery = ({ width = 35, height = 45 }) => {
   return (
     <>
@@ -899,7 +870,7 @@ const JQuery = ({ width = 35, height = 45 }) => {
         <path
           fill="#000000"
           d="m2.436 17.992-.004-.006-.007-.009zm4.158-.744.01.007.002.003z"
-        />
+          />
         <path
           fill="#1266a9"
           d="m13.666 1.427c-.909 1.327-.996 2.975-.37 4.438.665 1.554 2.024 2.774 3.608 3.352.065.025.128.046.195.07l.088.027c.092.029.185.063.28.084 4.381.841 5.567-2.238 5.886-2.691-1.043 1.49-2.792 1.848-4.938 1.329a4.753 4.753 0 0 1 -.55-.17l.033.011a6.196 6.196 0 0 1 -.656-.27l.038.017c-.41-.2-.762-.416-1.089-.664-1.918-1.45-3.104-4.211-1.852-6.46z"
@@ -960,7 +931,7 @@ const PostMan = ({ width = 40, height = 45 }) => {
         <path
           d="M49.033 21.534a.4.4 0 0 1-.32-.133l-3.627-3.627a.427.427 0 0 1 0-.667l4.533-4.453a.48.48 0 0 1 .8 0 5.6 5.6 0 0 1 0 8 4.88 4.88 0 0 1-1.067.853.43.43 0 0 1-.32.027zM46.1 17.428l3.013 3.013a5.12 5.12 0 0 0 .587-.48 4.72 4.72 0 0 0 1.387-3.333 4.58 4.58 0 0 0-1.147-3.04z"
           fill="#ff6c37"
-        />
+          />
         <path
           d="M43.353 20.948a1.948 1.948 0 0 0-2.667 0L28.607 33l2 2.027 12.773-11.2a1.977 1.977 0 0 0-.027-2.88z"
           fill="#ffffff"
@@ -1002,6 +973,7 @@ const PostMan = ({ width = 40, height = 45 }) => {
     </>
   );
 };
+
 const Docker = ({ width = 35, height = 45 }) => {
   return (
     <>
@@ -1493,6 +1465,36 @@ const SonarQube = ({ width = 50, height = 50 }) => {
         />
       </svg>
     </>
+  );
+};
+const TerragruntLogo = ({ width = 60, height = 60 }) => {
+  return (
+    <svg
+        width={width}
+        height={height}
+        viewBox="0 0 64 64"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect width="256" height="256" fill="#844FBA" rx="24" />
+      <g transform="translate(50,40)">
+        <path
+          fill="#FFFFFF"
+          d="M32 0L80 28.5V86L32 57.5V0Z"
+        />
+        <path
+          fill="#FFFFFF"
+          d="M88 33.5L136 62V119.5L88 91V33.5Z"
+        />
+        <path
+          fill="#FFFFFF"
+          d="M32 68.5L80 97V154.5L32 126V68.5Z"
+        />
+        <text x="0" y="190" fontSize="28" fontFamily="Arial" fill="#FFFFFF">
+          TerraGrunt
+        </text>
+      </g>
+    </svg>
   );
 };
 const Terraform = ({ width = 60, height = 60 }) => {
