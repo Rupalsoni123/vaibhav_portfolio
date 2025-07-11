@@ -1518,7 +1518,7 @@ const Terraform = ({ width = 60, height = 60 }) => {
     </>
   );
 };
-const Bitbucket = ({ width = 30, height = 25 }) => {
+const Bitbucket = ({ width = 35, height = 35 }) => {
   return (
     <>
       <svg
@@ -1526,21 +1526,21 @@ const Bitbucket = ({ width = 30, height = 25 }) => {
         width={width}
         height={height}
         fill="none"
-        viewBox="0 0 30 25"
+        viewBox="0 0 35 35"
         >
-        <g clip-path="url(#clip0_227_448)" transform="translate(6.5, 2.5)">
-          <path d="M0.539029 4.64218C0.215579 4.64218 -0.0539631 4.92891 -5.47399e-05 5.24171L2.29105 18.6659C2.34496 19.0047 2.64145 19.2654 3.01881 19.2654H13.9892C14.2587 19.2654 14.4743 19.0829 14.5282 18.8223L16.8194 5.24171C16.8733 4.92891 16.6307 4.64218 16.2803 4.64218H0.539029ZM10.1886 14.3389H6.68458L5.74118 9.54265H11.0512L10.1886 14.3389Z" fill="#2684FF" />
-          <path d="M16.0915 9.54265H11.0241L10.1886 14.3389H6.68451L2.53357 19.0829C2.53357 19.0829 2.72225 19.2654 3.01874 19.2654H13.9891C14.2586 19.2654 14.4743 19.0829 14.5282 18.8223L16.0915 9.54265Z" fill="url(#paint0_linear_227_448)" />
-        </g>
-        <defs>
-          <linearGradient id="paint0_linear_227_448" x1="17.2536" y1="10.89" x2="9.10613" y2="17.4665" gradientUnits="userSpaceOnUse">
-            <stop offset="0.176" stop-color="#0052CC" />
-            <stop offset="1" stop-color="#2684FF" />
-          </linearGradient>
-          <clipPath id="clip0_227_448">
-            <rect width="17" height="20" fill="none" />
-          </clipPath>
-        </defs>
+  <g clip-path="url(#clip0_227_448)" transform="translate(6.5, 0) scale(1.3)">
+    <path d="M0.539029 4.64218C0.215579 4.64218 -0.0539631 4.92891 -5.47399e-05 5.24171L2.29105 18.6659C2.34496 19.0047 2.64145 19.2654 3.01881 19.2654H13.9892C14.2587 19.2654 14.4743 19.0829 14.5282 18.8223L16.8194 5.24171C16.8733 4.92891 16.6307 4.64218 16.2803 4.64218H0.539029ZM10.1886 14.3389H6.68458L5.74118 9.54265H11.0512L10.1886 14.3389Z" fill="#2684FF"/>
+    <path d="M16.0915 9.54265H11.0241L10.1886 14.3389H6.68451L2.53357 19.0829C2.53357 19.0829 2.72225 19.2654 3.01874 19.2654H13.9891C14.2586 19.2654 14.4743 19.0829 14.5282 18.8223L16.0915 9.54265Z" fill="url(#paint0_linear_227_448)"/>
+  </g>
+  <defs>
+    <linearGradient id="paint0_linear_227_448" x1="17.2536" y1="10.89" x2="9.10613" y2="17.4665" gradientUnits="userSpaceOnUse">
+      <stop offset="0.176" stop-color="#0052CC"/>
+      <stop offset="1" stop-color="#2684FF"/>
+    </linearGradient>
+    <clipPath id="clip0_227_448">
+      <rect width="20" height="20" fill="none"/>
+    </clipPath>
+  </defs>
       </svg>
     </>
   );
