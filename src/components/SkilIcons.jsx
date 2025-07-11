@@ -1467,14 +1467,13 @@ const SonarQube = ({ width = 50, height = 50 }) => {
     </>
   );
 };
-const TerragruntLogo = ({ width = 60, height = 60 }) => {
+const TerragruntLogo = ({ width = 50, height = 50 }) => {
   return (
     <svg
-        width={width}
-        height={height}
-        viewBox="0 0 64 64"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
+      width={width}
+      height={height}
+      viewBox="0 0 256 256"
+      xmlns="http://www.w3.org/2000/svg"
     >
       <rect width="256" height="256" fill="#844FBA" rx="24" />
       <g transform="translate(50,40)">
