@@ -18,7 +18,7 @@ const About = () => {
         <AnimatedWrapper>
           <SectionHeading heading="About Me" />
         </AnimatedWrapper>
-        <div className="mb-10  flex flex-col justify-center ">
+        {/* <div className="mb-10  flex flex-col justify-center ">
           <AnimatedWrapper animateFrom="bottom">
             <img
               src={profile}
@@ -30,7 +30,7 @@ const About = () => {
               className="cursor-pointer grayscale hover:grayscale-0 hover:scale-[1.02] transition-all delay-75 border-4 border-transparent hover:border-white duration-300 rounded-2xl min-w-[240px] w-1/2 mx-auto  md:w-[270px]"
             />
           </AnimatedWrapper>
-        </div>
+        </div> */}
         <div className="flex flex-col justify-center w-full px-2 xs: sm:px-12 md:px-4 lg:px-14 text-white ">
           <AnimatedWrapper animateFrom="bottom">
             <h3 className="text-2xl xs:text-3xl  sm:text-4xl md:text-5xl lg:text-6xl font-semibold ">
@@ -43,8 +43,8 @@ const About = () => {
           <div className="text-gray-400 py-4 space-y-2 md:space-y-2 md:pt-8 lg:pt-12 font-semibold text-justify">
             <AnimatedWrapper>
               <p className="leading-tight">
-                Aspiring DevOps Engineer based in Ahmedabad, India, currently contributing to projects at Inexture Solutions. 
-                Passionate about automation, cloud-native technologies, and building resilient, scalable systems.
+                Aspiring DevOps Engineer based in Ahmedabad, India, currently contributing to Devops related projects at Inexture Solutions.
+                Passionate about streamlining workflows, embracing cloud-native technologies, and building resilient, scalable infrastructure that empowers development teams to deliver faster and more reliably.
               </p>
             </AnimatedWrapper>
             {/* <AnimatedWrapper>
@@ -55,14 +55,15 @@ const About = () => {
             </AnimatedWrapper> */}
             <AnimatedWrapper>
               <p className="leading-tight">
-                A strong believer in continuous learning, innovation, and collaborative problem-solving.
-                I thrive on brainstorming ideas, optimizing workflows, and delivering efficient DevOps solutions.
+                I believe in always learning, thinking creatively, and working together to solve problems.
+                I enjoy coming up with new ideas, improving workflows, and building DevOps solutions that work well and make a real difference.
               </p>
             </AnimatedWrapper>
           </div>
+          {/* "min-w-fit" */}
           <AnimatedWrapper>
             <div className="py-3 text-gray-50 flex flex-col sm:flex-row font-semibold gap-3 sm:gap-5 sm:items-center">
-              <div className="min-w-fit">
+              <div className="whitespace-nowrap">
                 <p>Tech That Drives Me ~</p>
               </div>
               <AnimatedWrapper>
