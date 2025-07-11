@@ -1171,11 +1171,11 @@ const AWS = ({ width = 35, height = 45 }) => {
     </>
   );
 };
-const AzureIcon = ({ width = 18, height = 18 }) => (
+const AzureIcon = ({ width = 40, height = 40 }) => (
   <svg
     width={width}
     height={height}
-    viewBox="0 0 18 18"
+    viewBox="0 0 40 40"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
