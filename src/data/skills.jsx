@@ -1,5 +1,5 @@
 
-import ReactJs, { Bash, Bootstrap, C, Canva, CPlusPlus, CSS, Docker, ExpressJS, FireBase, Git, GitHub, Heroku, HTML, Java, JQuery, JS, Kotlin, Kubernets, MaterialUI, MongoDB, MySQL, NextJs, NodeJS, PHP, PostGreSql, PostMan, Python, Redux, TailwindCSS, TS, VSCode ,Redis, AWS, Ansible, Kafka, DBeaver, GithubActions, Gitlab, Grafana, Jira, Serverless, Nginx, RabbitMQ, SonarQube, Terraform} from "../components/SkilIcons";
+import ReactJs, { Bash, Bootstrap, C, Canva, CPlusPlus, CSS, Docker, ExpressJS, FireBase, Git, GitHub, Heroku, HTML, Java, JQuery, JS, Kotlin, Kubernetes,TerragruntLogo, MaterialUI, MongoDB, MySQL, NextJs, NodeJS, PHP, PostGreSql, PostMan, Python, Redux, TailwindCSS, TS, VSCode ,Redis, AWS, Ansible, Kafka, DBeaver, GithubActions, Gitlab, Grafana, Jira, Serverless, Nginx, RabbitMQ, SonarQube, Terraform} from "../components/SkilIcons";
 
 
 const skills = [
