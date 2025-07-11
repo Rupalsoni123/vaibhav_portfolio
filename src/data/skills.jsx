@@ -1,5 +1,5 @@
 
-import ReactJs, { Bash, Bootstrap, C, Canva, CPlusPlus, CSS, Docker, ExpressJS, FireBase, Git, GitHub, Bitbucket, Heroku, HTML, Java, JQuery, JS, Kotlin, Kubernetes, TerragruntLogo, MaterialUI, MongoDB, MySQL, NextJs, NodeJS, PHP, PostGreSql, PostMan, Python, Redux, TailwindCSS, TS, VSCode ,Redis, AWS, Ansible, Kafka, DBeaver, GithubActions, Gitlab, Grafana, Jira, Serverless, Nginx, RabbitMQ, SonarQube, Terraform, Jenkins} from "../components/SkilIcons";
+import ReactJs, { Bash, Bootstrap, C, Canva, CPlusPlus, CSS, Docker, ExpressJS, FireBase, Git, GitHub, Bitbucket, AzureIcon, Heroku, HTML, Java, JQuery, JS, Kotlin, Kubernetes, TerragruntLogo, MaterialUI, MongoDB, MySQL, NextJs, NodeJS, PHP, PostGreSql, PostMan, Python, Redux, TailwindCSS, TS, VSCode ,Redis, AWS, Ansible, Kafka, DBeaver, GithubActions, Gitlab, Grafana, Jira, Serverless, Nginx, RabbitMQ, SonarQube, Terraform, Jenkins, AzureIcon} from "../components/SkilIcons";
 
 
 const skills = [
@@ -538,6 +538,17 @@ const skills = [
         id: 13,
         icon: <Bitbucket />,
         name: "Bitbucket",
+        style: {
+            shadow: "shadow-[#3481d3]",
+            cover: "from-black to-[#3481d3] rounded-b-md",
+            opacity: "opacity-80"
+
+        }
+    },
+         {
+        id: 13,
+        icon: <AzureIcon />,
+        name: "AzureIcon",
         style: {
             shadow: "shadow-[#3481d3]",
             cover: "from-black to-[#3481d3] rounded-b-md",
