@@ -1,5 +1,5 @@
 
-import ReactJs, { Bash, Bootstrap, C, Canva, CPlusPlus, CSS, Docker, ExpressJS, FireBase, Git, GitHub, Heroku, HTML, Java, JQuery, JS, Kotlin, Kubernetes, TerragruntLogo, MaterialUI, MongoDB, MySQL, NextJs, NodeJS, PHP, PostGreSql, PostMan, Python, Redux, TailwindCSS, TS, VSCode ,Redis, AWS, Ansible, Kafka, DBeaver, GithubActions, Gitlab, Grafana, Jira, Serverless, Nginx, RabbitMQ, SonarQube, Terraform, Jenkins} from "../components/SkilIcons";
+import ReactJs, { Bash, Bootstrap, C, Canva, CPlusPlus, CSS, Docker, ExpressJS, FireBase, Git, GitHub, Bitbucket, Heroku, HTML, Java, JQuery, JS, Kotlin, Kubernetes, TerragruntLogo, MaterialUI, MongoDB, MySQL, NextJs, NodeJS, PHP, PostGreSql, PostMan, Python, Redux, TailwindCSS, TS, VSCode ,Redis, AWS, Ansible, Kafka, DBeaver, GithubActions, Gitlab, Grafana, Jira, Serverless, Nginx, RabbitMQ, SonarQube, Terraform, Jenkins} from "../components/SkilIcons";
 
 
 const skills = [
@@ -129,17 +129,6 @@ const skills = [
 
     //     }
     // },
-    // {
-    //     id: 13,
-    //     icon: <MaterialUI />,
-    //     name: "MaterialUI",
-    //     style: {
-    //         shadow: "shadow-[#1266A9]",
-    //         cover: "from-black to-[#1266A9] rounded-b-md",
-    //         opacity: "opacity-80"
-
-    //     }
-    // },
     {
         id: 14,
         icon: <MySQL />,
@@ -194,14 +183,14 @@ const skills = [
         }
     },
     // {
-    //     id: 18,
+        //     id: 18,
     //     icon: <PHP />,
     //     name: "PHP",
     //     style: {
     //         shadow: "shadow-[#9597c8]",
     //         cover: "from-black to-[#9597c8] rounded-b-md",
     //         opacity: "opacity-80"
-
+    
     //     }
     // },
     // {
@@ -209,7 +198,7 @@ const skills = [
     //     icon: <CPlusPlus />,
     //     name: "C++",
     //     style: {
-    //         shadow: "shadow-[#004482]",
+        //         shadow: "shadow-[#004482]",
     //         cover: "from-black to-[#004482] rounded-b-md",
     //         opacity: "opacity-80"
     //     }
@@ -241,10 +230,10 @@ const skills = [
     //     icon: <C />,
     //     name: "C",
     //     style: {
-    //         shadow: "shadow-[#3949AB]",
+        //         shadow: "shadow-[#3949AB]",
     //         cover: "from-black to-[#3949AB] rounded-b-md",
     //         opacity: "opacity-80"
-
+    
     //     }
     // },
     // {
@@ -262,6 +251,7 @@ const skills = [
     //     id: 24,
     //     icon: <CSharp />,
     //     name: "C#",
+    //,
     //     style: {
     //         shadow: "shadow-[#A179DC]",
     //         cover: "from-black to-[#A179DC] rounded-b-md",
@@ -544,6 +534,17 @@ const skills = [
 
         }
     },
+     {
+        id: 13,
+        icon: <Bitbucket />,
+        name: "Bitbucket",
+        style: {
+            shadow: "shadow-[#3481d3]",
+            cover: "from-black to-[#3481d3] rounded-b-md",
+            opacity: "opacity-80"
+
+        }
+    }
 ]
 export default skills;
 
