@@ -380,6 +380,17 @@ const skills = [
 
         }
     },
+             {
+        id: 13,
+        icon: <AzureIcon />,
+        name: "Azure",
+        style: {
+            shadow: "shadow-[#3481d3]",
+            cover: "from-black to-[#3481d3] rounded-b-md",
+            opacity: "opacity-80"
+
+        }
+    },
     {
         id: 37,
         icon: <Ansible />,
@@ -544,18 +555,8 @@ const skills = [
             opacity: "opacity-80"
 
         }
-    },
-         {
-        id: 13,
-        icon: <AzureIcon />,
-        name: "AzureIcon",
-        style: {
-            shadow: "shadow-[#3481d3]",
-            cover: "from-black to-[#3481d3] rounded-b-md",
-            opacity: "opacity-80"
-
-        }
     }
+
 ]
 export default skills;
 
