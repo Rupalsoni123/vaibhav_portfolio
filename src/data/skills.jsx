@@ -3,36 +3,36 @@ import ReactJs, { Bash, Bootstrap, C, Canva, CPlusPlus, CSS, Docker, ExpressJS, 
 
 
 const skills = [
-    {
-        id: 1,
-        icon: <HTML />,
-        name: "HTML",
-        style: {
-            shadow: "shadow-[#ca4828]",
-            cover: "from-black to-[#ca4828]  rounded-b-md",
-            opacity: "opacity-80"
-        }
-    },
-    {
-        id: 2,
-        icon: <CSS />,
-        name: "CSS",
-        style: {
-            shadow: "shadow-[#1d64c7]",
-            cover: "from-black to-[#1d64c7] rounded-b-md",
-            opacity: "opacity-80"
-        }
-    },
-    {
-        id: 3,
-        icon: <JS />,
-        name: "JS",
-        style: {
-            shadow: "shadow-[#ffda53]",
-            cover: "from-black to-[#ffda53] rounded-b-md",
-            opacity: "opacity-80"
-        }
-    },
+    // {
+    //     id: 1,
+    //     icon: <HTML />,
+    //     name: "HTML",
+    //     style: {
+    //         shadow: "shadow-[#ca4828]",
+    //         cover: "from-black to-[#ca4828]  rounded-b-md",
+    //         opacity: "opacity-80"
+    //     }
+    // },
+    // {
+    //     id: 2,
+    //     icon: <CSS />,
+    //     name: "CSS",
+    //     style: {
+    //         shadow: "shadow-[#1d64c7]",
+    //         cover: "from-black to-[#1d64c7] rounded-b-md",
+    //         opacity: "opacity-80"
+    //     }
+    // },
+    // {
+    //     id: 3,
+    //     icon: <JS />,
+    //     name: "JS",
+    //     style: {
+    //         shadow: "shadow-[#ffda53]",
+    //         cover: "from-black to-[#ffda53] rounded-b-md",
+    //         opacity: "opacity-80"
+    //     }
+    // },
     {
         id: 4,
         icon: <TS />,
