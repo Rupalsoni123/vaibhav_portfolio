@@ -1,5 +1,5 @@
 
-import ReactJs, { Bash, Bootstrap, C, Canva, CPlusPlus, CSS, Docker, ExpressJS, FireBase, Git, GitHub, Bitbucket, AzureIcon, Heroku, HTML, Java, JQuery,prometheus, JS, Kotlin, Kubernetes, TerragruntLogo, MaterialUI, MongoDB, MySQL, NextJs, NodeJS, PHP, PostGreSql, PostMan, Python, Redux, TailwindCSS, TS, VSCode, Redis, AWS, Ansible, Kafka, DBeaver, GithubActions, Gitlab, Grafana, Jira, Serverless, Nginx, RabbitMQ, SonarQube, Terraform, Jenkins } from "../components/SkilIcons";
+import ReactJs, { Bash, Bootstrap, C, Canva, CPlusPlus, CSS, Docker, ExpressJS, FireBase, Git, GitHub, Bitbucket, AzureIcon, Heroku, HTML, Java, JQuery, Prometheus, JS, Kotlin, Kubernetes, TerragruntLogo, MaterialUI, MongoDB, MySQL, NextJs, NodeJS, PHP, PostGreSql, PostMan, Python, Redux, TailwindCSS, TS, VSCode, Redis, AWS, Ansible, Kafka, DBeaver, GithubActions, Gitlab, Grafana, Jira, Serverless, Nginx, RabbitMQ, SonarQube, Terraform, Jenkins } from "../components/SkilIcons";
 
 
 const skills = [
@@ -130,7 +130,7 @@ const skills = [
     //     }
     // },
     {
-        id: 14,
+        id: 13,
         icon: <MySQL />,
         name: "MySQL",
         style: {
@@ -141,7 +141,7 @@ const skills = [
         }
     },
     {
-        id: 33,
+        id: 14,
         icon: <PostGreSql />,
         name: "PostgreSql",
         style: {
@@ -348,7 +348,7 @@ const skills = [
         }
     },
     // {
-    //     id: 34,
+    //     id: 33,
     //     icon: <Canva />,
     //     name: "Canva",
     //     style: {
@@ -359,7 +359,7 @@ const skills = [
     //     }
     // },
     // {
-    //     id: 35,
+    //     id: 34,
     //     icon: <DotNet />,
     //     name: "DotNet Core",
     //     style: {
@@ -370,7 +370,7 @@ const skills = [
     //     }
     // },
     {
-        id: 36,
+        id: 35,
         icon: <AWS />,
         name: "AWS",
         style: {
@@ -381,7 +381,7 @@ const skills = [
         }
     },
     {
-        id: 13,
+        id: 36,
         icon: <AzureIcon />,
         name: "Azure",
         style: {
@@ -457,20 +457,20 @@ const skills = [
 
         }
     },
-       {
-        id: 42,
-        icon: <prometheus />,
-        name: "prometheus",
-        style: {
-            shadow: "shadow-[#F15A2A]",
-            cover: "from-black to-[#326DE6] rounded-b-md",
-            opacity: "opacity-80"
-
-        }
-    },
     
     {
-        id: 43,
+     id: 43,
+     icon: <Prometheus />,
+     name: "Prometheus",
+     style: {
+         shadow: "shadow-[#F15A2A]",
+         cover: "from-black to-[#326DE6] rounded-b-md",
+         opacity: "opacity-80"
+
+     }
+ },
+    {
+        id: 44,
         icon: <Jira />,
         name: "Jira",
         style: {
@@ -481,7 +481,7 @@ const skills = [
         }
     },
     // {
-    //     id: 44,
+    //     id: 45,
     //     icon: <Serverless />,
     //     name: "Serverless",
     //     style: {
@@ -492,7 +492,7 @@ const skills = [
     //     }
     // },
     {
-        id: 45,
+        id: 46,
         icon: <Nginx />,
         name: "Nginx",
         style: {
@@ -503,7 +503,7 @@ const skills = [
         }
     },
     {
-        id: 46,
+        id: 47,
         icon: <RabbitMQ />,
         name: "RabbitMQ",
         style: {
@@ -514,7 +514,7 @@ const skills = [
         }
     },
     {
-        id: 47,
+        id: 48,
         icon: <SonarQube />,
         name: "SonarQube",
         style: {
@@ -525,7 +525,7 @@ const skills = [
         }
     },
     {
-        id: 48,
+        id: 49,
         icon: <Terraform />,
         name: "Terraform",
         style: {
@@ -536,7 +536,7 @@ const skills = [
         }
     },
     {
-        id: 49,
+        id: 50,
         icon: <TerragruntLogo />,
         name: "TerraGrunt",
         style: {
@@ -547,7 +547,7 @@ const skills = [
         }
     },
     {
-        id: 49,
+        id: 51,
         icon: <Jenkins />,
         name: "Jenkins",
         style: {
@@ -558,7 +558,7 @@ const skills = [
         }
     },
     {
-        id: 13,
+        id: 52,
         icon: <Bitbucket />,
         name: "Bitbucket",
         style: {

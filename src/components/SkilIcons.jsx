@@ -1387,7 +1387,7 @@ const Gitlab = ({ width = 35, height = 45 }) => {
   );
 };
 
-const prometheus = ({ width = 35, height = 45, className = '' }) => {
+const Prometheus = ({ width = 35, height = 45, className = '' }) => {
   return (
     <svg
       width={width}
@@ -1722,7 +1722,7 @@ const Jenkins = ({ width = 35, height = 35 }) => {
 export default ReactJs;
 export {
   JS,
-  prometheus,
+  Prometheus,
   NextJs,
   HTML,
   AzureIcon,
