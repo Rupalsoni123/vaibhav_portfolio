@@ -151,6 +151,17 @@ const skills = [
 
         }
     },
+    {
+        id: 27,
+        icon: <Redis />,
+        name: "Redis",
+        style: {
+            shadow: "shadow-[#C6302B]",
+            cover: "from-black to-[#C6302B] rounded-b-md",
+            opacity: "opacity-80"
+
+        }
+    },
     // {
     //     id: 15,
     //     icon: <FireBase />,
@@ -180,6 +191,28 @@ const skills = [
             shadow: "shadow-[#5c5a5a]",
             cover: "from-black to-[#5c5a5a] rounded-b-md",
             opacity: "opacity-80"
+        }
+    },
+        {
+        id: 40,
+        icon: <GithubActions />,
+        name: "GH Actions",
+        style: {
+            shadow: "shadow-[#2188FF]",
+            cover: "from-black to-[#326DE6] rounded-b-md",
+            opacity: "opacity-80"
+
+        }
+    },
+    {
+        id: 41,
+        icon: <Gitlab />,
+        name: "Gitlab",
+        style: {
+            shadow: "shadow-[#FCA326]",
+            cover: "from-black to-[#326DE6] rounded-b-md",
+            opacity: "opacity-80"
+
         }
     },
     // {
@@ -281,17 +314,7 @@ const skills = [
 
         }
     },
-    {
-        id: 27,
-        icon: <Redis />,
-        name: "Redis",
-        style: {
-            shadow: "shadow-[#C6302B]",
-            cover: "from-black to-[#C6302B] rounded-b-md",
-            opacity: "opacity-80"
 
-        }
-    },
     // {
     //     id: 28,
     //     icon: <Redux />,
@@ -424,28 +447,7 @@ const skills = [
 
     //     }
     // },
-    {
-        id: 40,
-        icon: <GithubActions />,
-        name: "GH Actions",
-        style: {
-            shadow: "shadow-[#2188FF]",
-            cover: "from-black to-[#326DE6] rounded-b-md",
-            opacity: "opacity-80"
 
-        }
-    },
-    {
-        id: 41,
-        icon: <Gitlab />,
-        name: "Gitlab",
-        style: {
-            shadow: "shadow-[#FCA326]",
-            cover: "from-black to-[#326DE6] rounded-b-md",
-            opacity: "opacity-80"
-
-        }
-    },
     {
         id: 42,
         icon: <Grafana />,
@@ -457,18 +459,18 @@ const skills = [
 
         }
     },
-    
-    {
-     id: 43,
-     icon: <Prometheus />,
-     name: "Prometheus",
-     style: {
-         shadow: "shadow-[#F15A2A]",
-         cover: "from-black to-[#326DE6] rounded-b-md",
-         opacity: "opacity-80"
 
-     }
- },
+    {
+        id: 43,
+        icon: <Prometheus />,
+        name: "Prometheus",
+        style: {
+            shadow: "shadow-[#F15A2A]",
+            cover: "from-black to-[#326DE6] rounded-b-md",
+            opacity: "opacity-80"
+
+        }
+    },
     // {
     //     id: 44,
     //     icon: <Jira />,
