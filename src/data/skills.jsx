@@ -120,7 +120,7 @@ const skills = [
         icon: <Jenkins />,
         name: "Jenkins",
         style: {
-            shadow: "shadow-[#5C4EE5]",
+            shadow: "shadow-[#C6302B]",
             cover: "from-black to-[#326DE6] rounded-b-md",
             opacity: "opacity-80"
 
