@@ -259,17 +259,17 @@ const skills = [
 
     //     }
     // },
-    {
-        id: 25,
-        icon: <VSCode />,
-        name: "VS Code",
-        style: {
-            shadow: "shadow-[#1D95E5]",
-            cover: "from-black to-[#1D95E5] rounded-b-md",
-            opacity: "opacity-80"
+    // {
+    //     id: 25,
+    //     icon: <VSCode />,
+    //     name: "VS Code",
+    //     style: {
+    //         shadow: "shadow-[#1D95E5]",
+    //         cover: "from-black to-[#1D95E5] rounded-b-md",
+    //         opacity: "opacity-80"
 
-        }
-    },
+    //     }
+    // },
     {
         id: 26,
         icon: <Bash />,
@@ -303,17 +303,17 @@ const skills = [
 
     //     }
     // },
-    {
-        id: 29,
-        icon: <PostMan />,
-        name: "PostMan",
-        style: {
-            shadow: "shadow-[#FF6C37]",
-            cover: "from-black to-[#FF6C37] rounded-b-md",
-            opacity: "opacity-80"
+    // {
+    //     id: 29,
+    //     icon: <PostMan />,
+    //     name: "PostMan",
+    //     style: {
+    //         shadow: "shadow-[#FF6C37]",
+    //         cover: "from-black to-[#FF6C37] rounded-b-md",
+    //         opacity: "opacity-80"
 
-        }
-    },
+    //     }
+    // },
     // {
     //     id: 30,
     //     icon: <JQuery />,
@@ -402,28 +402,28 @@ const skills = [
 
         }
     },
-    {
-        id: 38,
-        icon: <Kafka />,
-        name: "Kafka",
-        style: {
-            shadow: "shadow-[#AEDADD]",
-            cover: "from-black to-[#326DE6] rounded-b-md",
-            opacity: "opacity-80"
+    // {
+    //     id: 38,
+    //     icon: <Kafka />,
+    //     name: "Kafka",
+    //     style: {
+    //         shadow: "shadow-[#AEDADD]",
+    //         cover: "from-black to-[#326DE6] rounded-b-md",
+    //         opacity: "opacity-80"
 
-        }
-    },
-    {
-        id: 39,
-        icon: <DBeaver />,
-        name: "DBeaver",
-        style: {
-            shadow: "shadow-[#887363]",
-            cover: "from-black to-[#326DE6] rounded-b-md",
-            opacity: "opacity-80"
+    //     }
+    // },
+    // {
+    //     id: 39,
+    //     icon: <DBeaver />,
+    //     name: "DBeaver",
+    //     style: {
+    //         shadow: "shadow-[#887363]",
+    //         cover: "from-black to-[#326DE6] rounded-b-md",
+    //         opacity: "opacity-80"
 
-        }
-    },
+    //     }
+    // },
     {
         id: 40,
         icon: <GithubActions />,
@@ -469,17 +469,17 @@ const skills = [
 
      }
  },
-    {
-        id: 44,
-        icon: <Jira />,
-        name: "Jira",
-        style: {
-            shadow: "shadow-[#2784FF]",
-            cover: "from-black to-[#326DE6] rounded-b-md",
-            opacity: "opacity-80"
+    // {
+    //     id: 44,
+    //     icon: <Jira />,
+    //     name: "Jira",
+    //     style: {
+    //         shadow: "shadow-[#2784FF]",
+    //         cover: "from-black to-[#326DE6] rounded-b-md",
+    //         opacity: "opacity-80"
 
-        }
-    },
+    //     }
+    // },
     // {
     //     id: 45,
     //     icon: <Serverless />,
