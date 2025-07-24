@@ -14,35 +14,39 @@ const Navbar = () => {
     
     return (
         <>
-            <div className='fixed w-full max-w-[100vw] h-20 bg-gradient-to-b from-black via-black to-transparent dark:from-gray-900 dark:via-gray-900 z-50 bg-opacity-[0.9]'>
-                <div className='flex justify-between items-center px-5 max-w-screen-2xl mx-auto'>
-                    <div className='text-[2.5rem] duration-500 font-semibold group cursor-pointer'>
-                        <p className='animatedHeading font-signature'>
-                            <span className='text-transparent'>Vaibhav Soni</span>
-                        </p>
-                    </div>
+            <div className='fixed w-full max-w-[100vw] h-20 z-50 bg-opacity-[0.9]'>
+                <div className={`w-full h-full ${theme === 'dark' ? 'bg-gradient-to-b from-gray-900 via-gray-900 to-transparent' : 'bg-gradient-to-b from-white via-white to-transparent'}`}>
+                    <div className='flex justify-between items-center px-5 max-w-screen-2xl mx-auto'>
+                        <div className='text-[2.5rem] duration-500 font-semibold group cursor-pointer'>
+                            <p className='animatedHeading font-signature'>
+                                <span className='text-transparent'>Vaibhav Soni</span>
+                            </p>
+                        </div>
 
-                    <div className="hidden md:flex items-center">
-                        <Navigation ulClass="flex mr-4" liClass="" />
-                        <ThemeToggle />
-                    </div>
-                    
-                    <div className="md:hidden flex items-center">
-                        <ThemeToggle />
-                        <HamBurgerMenu handleClick={handleClick} navOpen={navOpen} />
-                    </div>
+                        <div className="hidden md:flex items-center">
+                            <Navigation ulClass="flex mr-4" liClass="" />
+                            <ThemeToggle />
+                        </div>
+                        
+                        <div className="md:hidden flex items-center">
+                            <ThemeToggle />
+                            <HamBurgerMenu handleClick={handleClick} navOpen={navOpen} />
+                        </div>
 
-                    <Navigation 
-                        handleClick={handleClick} 
-                        ulClass={`${navOpen ? "-translate-x-0":"translate-x-full"} duration-500 flex flex-col h-screen bg-gradient-to-b from-black to-gray-800 dark:from-gray-900 dark:to-gray-950 w-screen xs:w-80 top-0 right-0 absolute items-center justify-center md:scale-0`} 
-                        liClass="my-4 py-2 text-lg" 
-                    />
+                        <Navigation 
+                            handleClick={handleClick} 
+                            ulClass={`${navOpen ? "-translate-x-0":"translate-x-full"} duration-500 flex flex-col h-screen bg-gradient-to-b from-white to-gray-200 dark:from-gray-900 dark:to-gray-950 w-screen xs:w-80 top-0 right-0 absolute items-center justify-center md:scale-0`} 
+                            liClass="my-4 py-2 text-lg" 
+                        />
+                    </div>
                 </div>
             </div>
-            <div className="md:hidden h-32 w-full bg-black dark:bg-gray-900"></div>
+            <div className="md:hidden h-32 w-full bg-white dark:bg-gray-900"></div>
         </>
     )
 }
 
 export default Navbar;
+
+
 

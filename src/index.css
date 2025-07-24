@@ -95,6 +95,20 @@
   
   /* Light mode specific styles */
   .light .bg-gradient-custom {
-    @apply bg-gradient-to-b from-white to-gray-200;
+    @apply bg-gradient-to-b from-gray-50 to-gray-200;
+  }
+  
+  /* Dimming light mode */
+  .light {
+    --bg-primary: #f5f7fa;
+    --text-primary: #4a5568;
+  }
+  
+  .light .bg-white {
+    background-color: var(--bg-primary);
+  }
+  
+  .light .text-gray-900 {
+    color: var(--text-primary);
   }
 }

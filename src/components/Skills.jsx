@@ -13,8 +13,7 @@ const skillCategories = [
   "Containers",
   "CI/CD",
   "Monitoring",
-  "Databases",
-  "Security"
+  "Databases"
 ];
 
 // Helper function to determine if a skill belongs to a category
@@ -36,8 +35,6 @@ const skillBelongsToCategory = (skill, category) => {
       return ["grafana", "prometheus", "elk", "cloudwatch", "monitor"].some(monitoring => name.includes(monitoring));
     case "Databases":
       return ["sql", "mongo", "redis", "postgres", "mysql"].some(db => name.includes(db));
-    case "Security":
-      return ["iam", "secret", "security", "policy"].some(security => name.includes(security));
     default:
       return false;
   }
