@@ -95,12 +95,13 @@
   
   /* Light mode specific styles */
   .light .bg-gradient-custom {
-    @apply bg-gradient-to-b from-gray-50 to-gray-200;
+    @apply bg-gradient-to-b from-blue-50 to-blue-100;
   }
   
-  /* Dimming light mode */
+  /* Dimming light mode with blue tint */
   .light {
-    --bg-primary: #f5f7fa;
+    --bg-primary: #eef3fb;
+    --bg-secondary: #e6f0ff;
     --text-primary: #4a5568;
   }
   
@@ -110,5 +111,26 @@
   
   .light .text-gray-900 {
     color: var(--text-primary);
+  }
+  
+  /* Override all white backgrounds with blue tint */
+  .light .from-white {
+    --tw-gradient-from: #eef3fb !important;
+  }
+  
+  .light .to-white {
+    --tw-gradient-to: #eef3fb !important;
+  }
+  
+  .light .via-white {
+    --tw-gradient-via: #eef3fb !important;
+  }
+  
+  .light .to-gray-200 {
+    --tw-gradient-to: #e6f0ff !important;
+  }
+  
+  .light .from-gray-200 {
+    --tw-gradient-from: #e6f0ff !important;
   }
 }
