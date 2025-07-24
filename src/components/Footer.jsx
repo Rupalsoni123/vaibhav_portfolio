@@ -13,7 +13,7 @@ const Footer = () => {
         <div className="flex flex-wrap justify-between">
           <div className="w-full sm:w-3/5 lg:w-2/5 pr-2 mb-6 lg:mb-0">
             <AnimatedWrapper>
-              <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-100 dark:border-gray-700 h-full">
+              <div className="p-2">
                 <h3 className="text-gray-800 dark:text-white text-[1.75rem] font-bold pb-2 flex items-center">
                   <span className="w-1.5 h-8 bg-cyan-500 rounded-full mr-3"></span>
                   Vaibhav Soni
@@ -30,7 +30,7 @@ const Footer = () => {
           
           <div className="w-full xs:w-2/5 sm:w-2/5 lg:w-[30%] sm:pl-20 lg:pl-12 justify-start mb-6 lg:mb-0">
             <AnimatedWrapper>
-              <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-100 dark:border-gray-700 h-full">
+              <div className="p-2">
                 <h3 className="text-gray-800 dark:text-white text-[1.35rem] xs:text-2xl font-bold pb-4 flex items-center">
                   <span className="w-1.5 h-6 bg-cyan-500 rounded-full mr-3"></span>
                   Quick Links
@@ -57,7 +57,7 @@ const Footer = () => {
           
           <div className="w-full xs:w-3/5 sm:w-full lg:w-[30%] lg:pl-0">
             <AnimatedWrapper>
-              <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-100 dark:border-gray-700 h-full">
+              <div className="p-2">
                 <h3 className="text-gray-800 dark:text-white text-2xl font-bold pb-4 flex items-center">
                   <span className="w-1.5 h-6 bg-cyan-500 rounded-full mr-3"></span>
                   Contact Info
@@ -80,7 +80,7 @@ const Footer = () => {
                       return (
                         <li
                           key={id}
-                          className="group relative w-10 h-10 flex justify-center items-center rounded-full p-1 sm:grayscale cursor-pointer duration-[450ms] transition ease-in hover:grayscale-0 hover:scale-110 focus:grayscale-0 focus:scale-110 active:grayscale-0 active:scale-110 bg-gray-100 dark:bg-gray-700 hover:bg-cyan-100 dark:hover:bg-cyan-900"
+                          className="group relative w-10 h-10 flex justify-center items-center rounded-full p-1 cursor-pointer duration-[450ms] transition ease-in hover:scale-110 focus:scale-110 active:scale-110 bg-gray-700 dark:bg-gray-700 hover:bg-cyan-600 dark:hover:bg-cyan-600 text-white"
                         >
                           <a
                             href={link}
@@ -122,3 +122,4 @@ const Footer = () => {
 };
 
 export default Footer;
+
