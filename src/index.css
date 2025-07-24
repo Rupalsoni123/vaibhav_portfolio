@@ -41,6 +41,7 @@
 
   html {
     font-family: "Raleway", sans-serif;
+    scroll-behavior: smooth;
   }
 
   body {
@@ -72,6 +73,17 @@
       background-position: right;
     }
   }
+  
+  /* Focus styles for accessibility */
+  a:focus, button:focus, input:focus, textarea:focus {
+    outline: 2px solid #0ea5e9;
+    outline-offset: 2px;
+  }
+  
+  /* Improved heading styles */
+  h1, h2, h3, h4, h5, h6 {
+    letter-spacing: -0.025em;
+  }
 }
 
 @layer components {
@@ -88,12 +100,29 @@
            dark:focus:border-white focus:border-gray-800;
   }
   
+  /* Card styles for visual hierarchy */
+  .content-card {
+    @apply bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 transition-all duration-300 hover:shadow-lg;
+  }
+  
+  /* Button styles with improved interactions */
+  .btn-primary {
+    @apply px-6 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-medium rounded-md
+           transition-all duration-300 hover:shadow-lg hover:from-cyan-600 hover:to-blue-700
+           focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 active:scale-95;
+  }
+  
+  /* Section heading with left border accent */
+  .section-heading {
+    @apply border-l-4 border-cyan-500 pl-3 font-bold text-gray-800 dark:text-white;
+  }
+  
   /* Dark mode specific styles */
   .dark .bg-gradient-custom {
     @apply bg-gradient-to-b from-gray-900 to-black;
   }
   
-  /* Light mode specific styles */
+  /* Light mode specific styles with improved contrast */
   .light .bg-gradient-custom {
     @apply bg-gradient-to-b from-blue-100 to-blue-200;
   }
@@ -102,8 +131,10 @@
   .light {
     --bg-primary: #dce7f7;
     --bg-secondary: #cde0f7;
-    --text-primary: #2d3748;
-    --text-secondary: #4a5568;
+    --text-primary: #1a202c;
+    --text-secondary: #2d3748;
+    --accent-primary: #0369a1;
+    --accent-secondary: #0284c7;
   }
   
   .light .bg-white {
@@ -111,15 +142,19 @@
   }
   
   .light .text-gray-900 {
-    color: var(--text-primary);
+    color: var(--text-primary) !important;
   }
   
   .light .text-gray-800 {
-    color: var(--text-primary);
+    color: var(--text-primary) !important;
   }
   
   .light .text-gray-700 {
-    color: var(--text-secondary);
+    color: var(--text-secondary) !important;
+  }
+  
+  .light .text-gray-600 {
+    color: var(--text-secondary) !important;
   }
   
   /* Override all white backgrounds with blue tint */
@@ -145,10 +180,27 @@
   
   /* Improve contrast for form inputs in light mode */
   .light .form-input {
-    border-color: #a0aec0;
+    border-color: #64748b;
   }
   
   .light .form-input::placeholder {
-    color: #718096;
+    color: #4b5563;
+  }
+  
+  /* Improved link styles */
+  .link-hover {
+    @apply relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 
+           after:bg-cyan-500 after:transition-all after:duration-300 hover:after:w-full;
+  }
+  
+  /* Subtle animations for sections */
+  .fade-in {
+    animation: fadeIn 0.5s ease-in-out forwards;
+    opacity: 0;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 }

@@ -4,92 +4,114 @@ import { Link } from "react-scroll";
 import navLinks from "../data/navlinks";
 import contactInfo from "../data/contactInfo";
 import AnimatedWrapper from "./ui/AnimatedWrapper";
+
 const Footer = () => {
   const year = new Date().getFullYear().toString();
   return (
     <div className="bg-gradient-to-t from-blue-200 via-blue-100 to-gray-100 dark:from-black dark:via-black dark:to-gray-700 w-full text-gray-700 dark:text-gray-300">
       <div className="section pb-5">
-        <div className="flex flex-wrap justify-between ">
-          <div className="w-full sm:w-3/5 lg:w-2/5 pr-2">
+        <div className="flex flex-wrap justify-between">
+          <div className="w-full sm:w-3/5 lg:w-2/5 pr-2 mb-6 lg:mb-0">
             <AnimatedWrapper>
-              <h3 className="text-gray-800 dark:text-white text-[1.75rem] font-bold pb-2">
-                Vaibhav Soni
-              </h3>
-              <p className="text-lg text-cyan-600 dark:text-cyan-400 pb-5">Devops Engineer</p>
-              <p>Thank you for visiting My Portfolio.</p>
-              <p>You can connect with me over socials.</p>
-              <p>Have any Suggestions. Type it above. </p>
-            </AnimatedWrapper>
-          </div>
-          <div className="w-full xs:w-2/5 mt-8 sm:w-2/5 sm:mt-0 lg:w-[30%] sm:pl-20 lg:pl-12 justify-start">
-            <AnimatedWrapper>
-              <h3 className="text-gray-800 dark:text-white text-[1.35rem] xs:text-2xl font-bold pb-4">
-                Quick Links
-              </h3>
-              {navLinks.map(({ link, id }) => {
-                return (
-                  <div key={id} className="group w-fit px-3">
-                    <Link to={link} smooth duration={500}>
-                      <div className="flex items-center justify-between w-fit gap-2 font-semibold text-gray-800 dark:text-white cursor-pointer">
-                        <ArrowRightLong />
-                        <span className="bg-clip-text bg-gradient-to-r from-cyan-500 via-cyan-500 to-blue-500 group-hover:text-transparent duration-500 group-hover:animate-pulse ">
-                          {link}
-                        </span>
-                      </div>
-                    </Link>
-                  </div>
-                );
-              })}
-            </AnimatedWrapper>
-          </div>
-          <div className="w-full mt-8 xs:w-3/5 sm:w-full lg:mt-0 lg:w-[30%] lg:pl-0">
-            <AnimatedWrapper>
-              <h3 className="text-gray-800 dark:text-white text-2xl font-bold pb-4">
-                Contact info
-              </h3>
-              <div className="flex flex-col sm:flex-row lg:flex-col gap-5 xs:gap-10 sm:gap-5 md:gap-10 justify-between">
-                <div className="text-[0.9rem] font-advanced">
-                  <p className="flex items-center gap-3 mb-1">
-                    <GMail />vaibhavsoni5567@gmail.com
-                  </p>
-                  <p className="flex items-center gap-3 ">
-                    {" "}
-                    <Map />
-                    <span className="pt-1">Ahmedabad, Gujarat, India</span>
-                  </p>
+              <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-100 dark:border-gray-700 h-full">
+                <h3 className="text-gray-800 dark:text-white text-[1.75rem] font-bold pb-2 flex items-center">
+                  <span className="w-1.5 h-8 bg-cyan-500 rounded-full mr-3"></span>
+                  Vaibhav Soni
+                </h3>
+                <p className="text-lg text-cyan-600 dark:text-cyan-400 pb-5 font-semibold">DevOps Engineer</p>
+                <div className="space-y-2 text-gray-700 dark:text-gray-300">
+                  <p>Thank you for visiting My Portfolio.</p>
+                  <p>You can connect with me over socials.</p>
+                  <p>Have any Suggestions? Type it above.</p>
                 </div>
-                <ul className="flex items-center gap-5 md:gap-8 lg:gap-4 justify-start ">
-                  {contactInfo.map(({ id, link, name, icon, download }) => {
+              </div>
+            </AnimatedWrapper>
+          </div>
+          
+          <div className="w-full xs:w-2/5 sm:w-2/5 lg:w-[30%] sm:pl-20 lg:pl-12 justify-start mb-6 lg:mb-0">
+            <AnimatedWrapper>
+              <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-100 dark:border-gray-700 h-full">
+                <h3 className="text-gray-800 dark:text-white text-[1.35rem] xs:text-2xl font-bold pb-4 flex items-center">
+                  <span className="w-1.5 h-6 bg-cyan-500 rounded-full mr-3"></span>
+                  Quick Links
+                </h3>
+                <nav aria-label="Quick navigation links">
+                  {navLinks.map(({ link, id }) => {
                     return (
-                      <li
-                        key={id}
-                        className={`group relative w-8 h-8 flex justify-center items-center rounded-full p-1 sm:grayscale cursor-pointer duration-[450ms] transition ease-in hover:grayscale-0 hover:scale-105 focus:grayscale-0 focus:scale-105 active:grayscale-0 active:scale-105`}
-                      >
-                        <a
-                          href={link}
-                          download={download}
-                          target="_blank"
-                          rel="noferrer"
-                        >
-                          {icon}
-                        </a>
-                      </li>
+                      <div key={id} className="group w-fit px-3 mb-2">
+                        <Link to={link} smooth duration={500} className="focus:outline-none focus:ring-2 focus:ring-cyan-500 rounded">
+                          <div className="flex items-center justify-between w-fit gap-2 font-medium text-gray-800 dark:text-white cursor-pointer">
+                            <ArrowRightLong />
+                            <span className="bg-clip-text bg-gradient-to-r from-cyan-500 via-cyan-500 to-blue-500 group-hover:text-transparent duration-500 group-hover:animate-pulse link-hover">
+                              {link}
+                            </span>
+                          </div>
+                        </Link>
+                      </div>
                     );
                   })}
-                </ul>
+                </nav>
+              </div>
+            </AnimatedWrapper>
+          </div>
+          
+          <div className="w-full xs:w-3/5 sm:w-full lg:w-[30%] lg:pl-0">
+            <AnimatedWrapper>
+              <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-100 dark:border-gray-700 h-full">
+                <h3 className="text-gray-800 dark:text-white text-2xl font-bold pb-4 flex items-center">
+                  <span className="w-1.5 h-6 bg-cyan-500 rounded-full mr-3"></span>
+                  Contact Info
+                </h3>
+                <div className="flex flex-col sm:flex-row lg:flex-col gap-5 xs:gap-10 sm:gap-5 md:gap-10 justify-between">
+                  <div className="text-[0.9rem] font-medium">
+                    <p className="flex items-center gap-3 mb-3 text-gray-700 dark:text-gray-300">
+                      <GMail />
+                      <a href="mailto:vaibhavsoni5567@gmail.com" className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
+                        vaibhavsoni5567@gmail.com
+                      </a>
+                    </p>
+                    <p className="flex items-center gap-3 text-gray-700 dark:text-gray-300">
+                      <Map />
+                      <span className="pt-1">Ahmedabad, Gujarat, India</span>
+                    </p>
+                  </div>
+                  <ul className="flex items-center gap-5 md:gap-8 lg:gap-4 justify-start" aria-label="Social media links">
+                    {contactInfo.map(({ id, link, name, icon, download }) => {
+                      return (
+                        <li
+                          key={id}
+                          className="group relative w-10 h-10 flex justify-center items-center rounded-full p-1 sm:grayscale cursor-pointer duration-[450ms] transition ease-in hover:grayscale-0 hover:scale-110 focus:grayscale-0 focus:scale-110 active:grayscale-0 active:scale-110 bg-gray-100 dark:bg-gray-700 hover:bg-cyan-100 dark:hover:bg-cyan-900"
+                        >
+                          <a
+                            href={link}
+                            download={download}
+                            target="_blank"
+                            rel="noferrer"
+                            aria-label={name}
+                            className="flex items-center justify-center w-full h-full"
+                          >
+                            {icon}
+                          </a>
+                          <span className="absolute -bottom-8 scale-0 group-hover:scale-100 transition-all duration-200 bg-gray-800 text-white text-xs py-1 px-2 rounded">
+                            {name}
+                          </span>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
               </div>
             </AnimatedWrapper>
           </div>
         </div>
       </div>
-      <div className="section py-2 font-advanced">
+      <div className="section py-2 font-medium">
         <div className="">
           <AnimatedWrapper animateFrom="bottom">
             <p className="text-sm text-gray-700 dark:text-gray-300 flex justify-center items-center">
               <span className="px-1 pb-[0.2rem]">
-                {" "}
                 <CopyRight />
-              </span>{" "}
+              </span>
               {`2022- ${year}`} | All Rights Reserved
             </p>
           </AnimatedWrapper>

@@ -36,11 +36,8 @@ const Contact = () => {
       setFormData(initialFormData);
       setErrData(initialErrData);
     }
-
   };
 
-
- 
   return (
     <div
       name="Contact"
@@ -57,20 +54,24 @@ const Contact = () => {
           <div className="flex justify-center items-center">
             <form
               onSubmit={handleSubmit}
-              className="flex gap-3 flex-col w-full md:w-1/2 "
+              className="flex gap-4 flex-col w-full md:w-1/2 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700"
+              aria-label="Contact form"
             >
               <AnimatedWrapper>
-                <div className=" w-full">
+                <div className="w-full">
                   <div className="relative">
                     <input
                       type="text"
                       name="name"
                       placeholder="Enter Your Name"
                       className={`peer form-input ${
-                        errData.nameError !== "" && "border-red-500"
-                      }`}
+                        errData.nameError !== "" ? "border-red-500" : "border-gray-300 dark:border-gray-600"
+                      } rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent`}
                       value={formData.name}
                       onChange={handleChange}
+                      aria-label="Your name"
+                      aria-required="true"
+                      aria-invalid={errData.nameError !== ""}
                     />
                     <FormIcon name="person" />
                   </div>
@@ -85,10 +86,13 @@ const Contact = () => {
                       name="email"
                       placeholder="Enter Your Email"
                       className={`peer form-input ${
-                        errData.emailError !== "" && "border-red-500"
-                      }`}
+                        errData.emailError !== "" ? "border-red-500" : "border-gray-300 dark:border-gray-600"
+                      } rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent`}
                       value={formData.email}
                       onChange={handleChange}
+                      aria-label="Your email"
+                      aria-required="true"
+                      aria-invalid={errData.emailError !== ""}
                     />
                     <FormIcon name="gmail" />
                   </div>
@@ -97,18 +101,21 @@ const Contact = () => {
               </AnimatedWrapper>
 
               <AnimatedWrapper>
-                <div className=" w-full">
+                <div className="w-full">
                   <div className="relative">
                     <textarea
                       name="message"
-                      placeholder="Your Meaasge"
-                      rows="10"
+                      placeholder="Your Message"
+                      rows="8"
                       cols="30"
                       className={`peer form-input ${
-                        errData.messageError !== "" && "border-red-500"
-                      }`}
+                        errData.messageError !== "" ? "border-red-500" : "border-gray-300 dark:border-gray-600"
+                      } rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent`}
                       value={formData.message}
                       onChange={handleChange}
+                      aria-label="Your message"
+                      aria-required="true"
+                      aria-invalid={errData.messageError !== ""}
                     />
                     <FormIcon name="chat" />
                   </div>
@@ -117,11 +124,13 @@ const Contact = () => {
               </AnimatedWrapper>
 
               <AnimatedWrapper>
-                {" "}
-                <button className="hover:text-blue-800 flex items-center justify-center mr-auto group text-white bg-gradient-to-b from-cyan-500 to-blue-500 rounded-md font-semibold px-12 py-2 hover:scale-[1.02] duration-500">
+                <button 
+                  type="submit"
+                  className="btn-primary flex items-center justify-center mr-auto group"
+                  aria-label="Submit contact form"
+                >
                   Let's Connect
                   <span className="scale-0 -translate-x-10 origin-left group-hover:scale-100 group-hover:translate-x-3 duration-300 transition-all delay-200 ease-in-out">
-                    {" "}
                     <Submit />
                   </span>
                 </button>
@@ -142,6 +151,7 @@ const FormIcon = ({ name }) => {
       className={`peer-placeholder-shown:grayscale peer-focus:grayscale-0 peer-active:grayscale-0 absolute left-3 ${
         name === "chat" ? "top-[0.8rem]" : "top-1/2 -translate-y-1/2"
       }`}
+      aria-hidden="true"
     >
       {name === "person" && <Person />}
       {name === "gmail" && <GMail />}
@@ -149,8 +159,13 @@ const FormIcon = ({ name }) => {
     </span>
   );
 };
+
 const ErrorBox = ({ message }) => {
-  return (
-    <div className=" text-sm min-h-[1.3rem] text-red-500 px-3">{message}</div>
+  return message ? (
+    <div className="text-sm min-h-[1.3rem] text-red-500 px-3 mt-1" role="alert">
+      {message}
+    </div>
+  ) : (
+    <div className="text-sm min-h-[1.3rem] px-3"></div>
   );
 };

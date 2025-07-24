@@ -58,17 +58,18 @@ const Skills = () => {
         </AnimatedWrapper>
 
         {/* Category Filter */}
-        <div className="mb-6">
-          <div className="flex flex-wrap justify-center gap-2 mb-6">
+        <div className="mb-8">
+          <div className="flex flex-wrap justify-center gap-3 mb-6">
             {skillCategories.map(category => (
               <button
                 key={category}
                 onClick={() => setActiveCategory(category)}
-                className={`px-4 py-2 rounded-md transition-colors duration-200 ${
+                className={`px-5 py-2.5 rounded-md transition-all duration-300 shadow-sm ${
                   activeCategory === category 
-                    ? 'bg-cyan-500 text-white' 
-                    : 'bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600'
+                    ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold shadow-md scale-105' 
+                    : 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600 hover:scale-105'
                 }`}
+                aria-pressed={activeCategory === category}
               >
                 {category}
               </button>
@@ -77,8 +78,11 @@ const Skills = () => {
         </div>
 
         <AnimatedWrapper>
-          <div className="py-2 xs:p-4 rounded-lg bg-gray-100 dark:bg-gray-900 shadow-md">
-            <GridLayout style="grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4">
+          <div className="p-6 rounded-xl bg-white dark:bg-gray-800 shadow-lg border border-gray-100 dark:border-gray-700">
+            <h3 className="text-xl font-semibold mb-4 text-gray-800 dark:text-white pl-2 border-l-4 border-cyan-500">
+              {activeCategory} Technologies
+            </h3>
+            <GridLayout style="grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-6">
               {filteredSkills.map((skill, i) => (
                 <AnimatedWrapper
                   key={skill.name}
@@ -93,11 +97,12 @@ const Skills = () => {
         </AnimatedWrapper>
 
         {filteredSkills.length === 0 && (
-          <div className="text-center py-10">
-            <p className="text-xl text-gray-800 dark:text-gray-200">No skills found in this category.</p>
+          <div className="text-center py-10 bg-white dark:bg-gray-800 rounded-lg shadow-md p-8">
+            <p className="text-xl text-gray-800 dark:text-gray-200 mb-4">No skills found in this category.</p>
             <button 
               onClick={() => setActiveCategory("All")}
-              className="mt-4 px-6 py-2 bg-cyan-500 text-white rounded-md hover:bg-cyan-600 transition-colors"
+              className="btn-primary"
+              aria-label="Show all skills"
             >
               Show All Skills
             </button>
@@ -109,5 +114,7 @@ const Skills = () => {
 };
 
 export default Skills;
+
+
 
 
