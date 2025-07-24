@@ -12,7 +12,7 @@ const About = () => {
   return (
     <div
       name="About"
-      className=" pt-8 h-full min-h-screen w-full flex items-center  bg-gradient-to-b to-black via-black from-gray-800 "
+      className="pt-8 h-full min-h-screen w-full flex items-center bg-gradient-to-b to-white via-white from-gray-200 dark:to-black dark:via-black dark:from-gray-800"
     >
       <div className="section justify-between">
         <AnimatedWrapper>
@@ -31,16 +31,16 @@ const About = () => {
             />
           </AnimatedWrapper>
         </div> */}
-        <div className="flex flex-col justify-center w-full px-2 xs: sm:px-12 md:px-4 lg:px-14 text-white ">
+        <div className="flex flex-col justify-center w-full px-2 xs: sm:px-12 md:px-4 lg:px-14 text-gray-800 dark:text-white">
           <AnimatedWrapper animateFrom="bottom">
-            <h3 className="text-2xl xs:text-3xl  sm:text-4xl md:text-5xl lg:text-6xl font-semibold ">
+            <h3 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold">
               I'm{" "}
-              <span className="text-cyan-500 block xs:inline">
+              <span className="text-cyan-600 dark:text-cyan-500 block xs:inline">
                 Vaibhav Soni
               </span>
             </h3>
           </AnimatedWrapper>
-          <div className="text-gray-400 py-4 space-y-2 md:space-y-2 md:pt-8 lg:pt-12 font-semibold text-justify">
+          <div className="text-gray-600 dark:text-gray-400 py-4 space-y-2 md:space-y-2 md:pt-8 lg:pt-12 font-semibold text-justify">
             <AnimatedWrapper>
               <p className="leading-tight">
                 Aspiring DevOps Engineer based in Ahmedabad, India, currently contributing to Devops related projects at Inexture Solutions.
@@ -62,7 +62,7 @@ const About = () => {
           </div>
           {/* "min-w-fit" */}
           <AnimatedWrapper>
-            <div className="py-3 text-gray-50 flex flex-col sm:flex-row font-semibold gap-3 sm:gap-5 sm:items-center">
+            <div className="py-3 text-gray-700 dark:text-gray-50 flex flex-col sm:flex-row font-semibold gap-3 sm:gap-5 sm:items-center">
               <div className="whitespace-nowrap">
                 <p>Tech That Drives Me ~</p>
               </div>
@@ -70,11 +70,11 @@ const About = () => {
                 <ul className="px-2 flex gap-5 z-40 flex-wrap">
                   {techStack.map(({ id, icon, name }) => {
                     return (
-                      <li key={id} className=" relative list-none group">
+                      <li key={id} className="relative list-none group">
                         <span className="z-20">{icon}</span>
-                        {/* <div className="flex scale-0 sm:group-hover:scale-100 group-focus:scale-100 transition ease-out duration-300 delay-100 origin-center justify-center items-center absolute z-50 -bottom-10 left-1/2 -translate-x-1/2 w-auto h-6 py-2 px-3 bg-gray-900 text-sm text-gray-300">
+                        <div className="flex scale-0 sm:group-hover:scale-100 group-focus:scale-100 transition ease-out duration-300 delay-100 origin-center justify-center items-center absolute z-50 -bottom-10 left-1/2 -translate-x-1/2 w-auto h-6 py-2 px-3 bg-gray-200 dark:bg-gray-900 text-sm text-gray-800 dark:text-gray-300">
                           {name}
-                        </div> */}
+                        </div>
                       </li>
                     );
                   })}
@@ -89,12 +89,12 @@ const About = () => {
                 target="_blank"
                 rel="noreferrer"
                 download={true}
-                className="z-30  group bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center gap-3 px-6 py-3  rounded-lg ease-linear duration-300 delay-75 transition-all cursor-pointer w-36 relative"
+                className="z-30 group bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center gap-3 px-6 py-3 rounded-lg ease-linear duration-300 delay-75 transition-all cursor-pointer w-36 relative text-white"
               >
                 <span className="pr-6 sm:pr-0 sm:group-hover:-translate-x-5 sm:transition-transform delay-[400ms] ease-out">
                   Resume
                 </span>
-                <span className="absolute right-5 sm:scale-0 transition-all group-hover:scale-100 ease-in delay-200 animate-pulse duration-500 ">
+                <span className="absolute right-5 sm:scale-0 transition-all group-hover:scale-100 ease-in delay-200 animate-pulse duration-500">
                   <Download />
                 </span>
               </a>
@@ -107,3 +107,5 @@ const About = () => {
 };
 
 export default About;
+
+
