@@ -18,17 +18,25 @@ const App = () => {
   return (
     <div className={`${theme} transition-colors duration-300`}>
       <SkipLink />
-      <div className="bg-blue-100 dark:bg-gray-900 text-gray-900 dark:text-white">
+      <div className="bg-slate-200 dark:bg-gray-900 text-gray-900 dark:text-white">
         <Navbar />
         <main id="main-content" role="main">
           <Home />
-          <Suspense fallback={<div className="h-screen flex items-center justify-center"><LoadingSpinner /></div>}>
+          <Suspense fallback={
+            <div className="h-screen flex items-center justify-center bg-slate-200 dark:bg-gray-900">
+              <LoadingSpinner />
+            </div>
+          }>
             <About />
             <Skills />
             <Contact />
           </Suspense>
         </main>
-        <Suspense fallback={<div className="h-32 flex items-center justify-center"><LoadingSpinner /></div>}>
+        <Suspense fallback={
+          <div className="h-32 flex items-center justify-center bg-slate-200 dark:bg-gray-900">
+            <LoadingSpinner />
+          </div>
+        }>
           <Footer />
           <BackToTopButton />
         </Suspense>

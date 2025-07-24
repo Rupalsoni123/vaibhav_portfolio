@@ -137,17 +137,17 @@
   
   /* Light mode specific styles with improved contrast */
   .light .bg-gradient-custom {
-    @apply bg-gradient-to-b from-blue-100 to-blue-200;
+    @apply bg-gradient-to-b from-slate-200 to-slate-300;
   }
   
   /* Dimming light mode with darker blue tint */
   .light {
-    --bg-primary: #dce7f7;
-    --bg-secondary: #cde0f7;
-    --text-primary: #1a202c;
-    --text-secondary: #2d3748;
-    --accent-primary: #0369a1;
-    --accent-secondary: #0284c7;
+    --bg-primary: #e2e8f0;    /* Slate-200 - Even darker background */
+    --bg-secondary: #cbd5e1;   /* Slate-300 - Darker secondary */
+    --text-primary: #1e293b;   /* Slate-800 - Darker text */
+    --text-secondary: #334155; /* Slate-700 - Secondary text */
+    --accent-primary: #0369a1; /* Sky-700 - Darker accent */
+    --accent-secondary: #0284c7; /* Sky-600 */
   }
   
   .light .bg-white {
