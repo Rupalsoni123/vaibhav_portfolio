@@ -29,8 +29,8 @@ const Home = () => {
             <img
               src={Avatar}
               alt="Vaibhav's Avatar"
-              width="auto"
-              height="auto"
+              width="320"
+              height="320"
               loading="eager"
               title="Avatar"
               className="rounded-full mx-auto w-full border-4 border-gray-200 dark:border-gray-700 shadow-lg"
@@ -67,8 +67,7 @@ const Home = () => {
                 return (
                   <li
                     key={id}
-                    link={link}
-                    className={`group relative w-8 h-8 flex justify-center items-center rounded-full p-1 sm:grayscale cursor-pointer duration-[450ms] transition ease-in hover:grayscale-0 hover:scale-105 focus:grayscale-0 focus:scale-105 active:grayscale-0 active:scale-105`}
+                    className="group relative min-w-[44px] min-h-[44px] flex justify-center items-center rounded-full p-2 sm:grayscale cursor-pointer duration-[450ms] transition ease-in hover:grayscale-0 hover:scale-105 focus-within:grayscale-0 focus-within:scale-105 active:grayscale-0 active:scale-105"
                   >
                     <a
                       href={link}
@@ -76,10 +75,11 @@ const Home = () => {
                       target="_blank"
                       rel="noferrer"
                       aria-label={name}
+                      className="flex items-center justify-center w-full h-full rounded-full focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2"
                     >
                       {icon}
                     </a>
-                    <div className="flex scale-0 sm:group-hover:scale-100 group-focus:scale-100 transition ease-out duration-300 delay-100 origin-center justify-center items-center absolute z-50 -bottom-10 w-auto h-6 py-2 px-3 bg-gray-200 dark:bg-gray-900 text-sm text-gray-800 dark:text-gray-300">
+                    <div className="flex scale-0 sm:group-hover:scale-100 group-focus-within:scale-100 transition ease-out duration-300 delay-100 origin-center justify-center items-center absolute z-50 -bottom-10 w-auto h-6 py-2 px-3 bg-gray-200 dark:bg-gray-900 text-sm text-gray-800 dark:text-gray-300 rounded shadow-md">
                       {name}
                     </div>
                   </li>

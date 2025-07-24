@@ -24,7 +24,7 @@ const contactInfo = [
     // {
     //     id: 4,
     //     name: "Telegram",
-    //     link: "https://t.me/DV_793",
+    //     link: "",
     //     icon: <Telegram />,
     // },
     {

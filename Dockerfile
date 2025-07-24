@@ -1,6 +1,6 @@
 FROM node:18.20.4
 
-WORKDIR /devfolio
+WORKDIR /portfolio
 
 RUN npm install -g pnpm
 COPY /package.json .
@@ -10,7 +10,7 @@ COPY . ./
 
 EXPOSE 3000
 
-CMD ["pnpm", "run", "devfolio"]
+CMD ["pnpm", "run", "portfolio"]
 
 
 

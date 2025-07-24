@@ -45,7 +45,7 @@ This portfolio website is built with:
 
 1. Clone the repository
    ```bash
-   git clone https://github.com/vaibhav21soni/my_portfolio.git
+   git clone https://github.com/vaibhav21soni/vaibhav_portfolio.git
    ```
 
 2. Install dependencies
