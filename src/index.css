@@ -95,42 +95,60 @@
   
   /* Light mode specific styles */
   .light .bg-gradient-custom {
-    @apply bg-gradient-to-b from-blue-50 to-blue-100;
+    @apply bg-gradient-to-b from-blue-100 to-blue-200;
   }
   
-  /* Dimming light mode with blue tint */
+  /* Dimming light mode with darker blue tint */
   .light {
-    --bg-primary: #eef3fb;
-    --bg-secondary: #e6f0ff;
-    --text-primary: #4a5568;
+    --bg-primary: #dce7f7;
+    --bg-secondary: #cde0f7;
+    --text-primary: #2d3748;
+    --text-secondary: #4a5568;
   }
   
   .light .bg-white {
-    background-color: var(--bg-primary);
+    background-color: var(--bg-primary) !important;
   }
   
   .light .text-gray-900 {
     color: var(--text-primary);
   }
   
+  .light .text-gray-800 {
+    color: var(--text-primary);
+  }
+  
+  .light .text-gray-700 {
+    color: var(--text-secondary);
+  }
+  
   /* Override all white backgrounds with blue tint */
   .light .from-white {
-    --tw-gradient-from: #eef3fb !important;
+    --tw-gradient-from: var(--bg-primary) !important;
   }
   
   .light .to-white {
-    --tw-gradient-to: #eef3fb !important;
+    --tw-gradient-to: var(--bg-primary) !important;
   }
   
   .light .via-white {
-    --tw-gradient-via: #eef3fb !important;
+    --tw-gradient-via: var(--bg-primary) !important;
   }
   
   .light .to-gray-200 {
-    --tw-gradient-to: #e6f0ff !important;
+    --tw-gradient-to: var(--bg-secondary) !important;
   }
   
   .light .from-gray-200 {
-    --tw-gradient-from: #e6f0ff !important;
+    --tw-gradient-from: var(--bg-secondary) !important;
+  }
+  
+  /* Improve contrast for form inputs in light mode */
+  .light .form-input {
+    border-color: #a0aec0;
+  }
+  
+  .light .form-input::placeholder {
+    color: #718096;
   }
 }

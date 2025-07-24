@@ -47,7 +47,7 @@ const Skills = () => {
   return (
     <div
       name="Skills"
-      className="pt-10 h-full min-h-screen w-full flex items-center bg-gradient-to-b to-gray-200 from-white dark:to-gray-800 dark:from-black"
+      className="pt-10 h-full min-h-screen w-full flex items-center bg-gradient-to-b to-white from-white dark:to-gray-800 dark:from-black"
     >
       <div className="section">
         <AnimatedWrapper>

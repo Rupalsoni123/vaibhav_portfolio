@@ -13,7 +13,7 @@ const App = () => {
   
   return (
     <div className={`${theme} transition-colors duration-300`}>
-      <div className="bg-blue-50 dark:bg-gray-900 text-gray-900 dark:text-white">
+      <div className="bg-blue-100 dark:bg-gray-900 text-gray-900 dark:text-white">
         <Navbar />
         <Home />
         <About />

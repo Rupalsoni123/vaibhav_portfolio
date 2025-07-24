@@ -44,7 +44,7 @@ const Contact = () => {
   return (
     <div
       name="Contact"
-      className="pt-10 h-full min-h-screen w-full flex items-center bg-gradient-to-b from-gray-100 to-blue-100 dark:from-gray-800 dark:to-black"
+      className="pt-10 h-full min-h-screen w-full flex items-center bg-gradient-to-b from-white to-white dark:from-gray-800 dark:to-black"
     >
       <div className="section">
         <AnimatedWrapper>
