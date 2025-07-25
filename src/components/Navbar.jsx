@@ -15,24 +15,33 @@ const Navbar = () => {
     return (
         <>
             <nav 
-                className='fixed w-full max-w-[100vw] h-20 z-50 bg-opacity-[0.95]'
+                className='fixed w-full max-w-[100vw] h-20 z-50 backdrop-blur-md bg-white/80 dark:bg-gray-900/80 border-b border-gray-200/50 dark:border-gray-700/50'
                 role="navigation"
                 aria-label="Main navigation"
             >
-                <div className={`w-full h-full ${theme === 'dark' ? 'bg-gradient-to-b from-gray-900 via-gray-900 to-transparent' : 'bg-gradient-to-b from-blue-100 via-blue-100 to-transparent'}`}>
-                    <div className='flex justify-between items-center px-5 max-w-screen-2xl mx-auto'>
-                        <div className='text-[2.5rem] duration-500 font-semibold group cursor-pointer'>
-                            <h1 className='animatedHeading font-signature'>
-                                <span className='text-transparent'>Vaibhav Soni</span>
+                <div className='w-full h-full'>
+                    <div className='flex justify-between items-center px-6 max-w-screen-2xl mx-auto h-full'>
+                        {/* Logo */}
+                        <div className='text-2xl duration-500 font-bold group cursor-pointer'>
+                            <h1 className='font-signature'>
+                                <span className='text-transparent bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 bg-clip-text animatedHeading'>
+                                    Vaibhav Soni
+                                </span>
+                                <span className='block text-xs font-medium text-gray-600 dark:text-gray-400 mt-1'>
+                                    DevOps Engineer
+                                </span>
                             </h1>
                         </div>
 
-                        <div className="hidden md:flex items-center">
-                            <Navigation ulClass="flex mr-4" liClass="" />
+                        {/* Desktop Navigation */}
+                        <div className="hidden md:flex items-center gap-8">
+                            <Navigation ulClass="flex items-center gap-1" liClass="" />
+                            <div className="w-px h-6 bg-gray-300 dark:bg-gray-600"></div>
                             <ThemeToggle />
                         </div>
                         
-                        <div className="md:hidden flex items-center">
+                        {/* Mobile Navigation */}
+                        <div className="md:hidden flex items-center gap-4">
                             <ThemeToggle />
                             <HamBurgerMenu 
                                 handleClick={handleClick} 
@@ -42,17 +51,20 @@ const Navbar = () => {
                             />
                         </div>
 
+                        {/* Mobile Menu */}
                         <Navigation 
                             handleClick={handleClick} 
-                            ulClass={`${navOpen ? "-translate-x-0":"translate-x-full"} duration-500 flex flex-col h-screen bg-gradient-to-b from-blue-100 to-blue-200 dark:from-gray-900 dark:to-gray-950 w-screen xs:w-80 top-0 right-0 absolute items-center justify-center md:scale-0`} 
-                            liClass="my-4 py-2 text-lg"
+                            ulClass={`${navOpen ? "-translate-x-0":"translate-x-full"} duration-500 flex flex-col h-screen bg-white/95 dark:bg-gray-900/95 backdrop-blur-md w-screen xs:w-80 top-0 right-0 absolute items-center justify-center md:scale-0 border-l border-gray-200/50 dark:border-gray-700/50`} 
+                            liClass="my-6 py-2 text-xl"
                             id="mobile-menu"
                             aria-hidden={!navOpen}
                         />
                     </div>
                 </div>
             </nav>
-            <div className="md:hidden h-32 w-full bg-blue-100 dark:bg-gray-900"></div>
+            
+            {/* Spacer for fixed navbar */}
+            <div className="h-20 w-full"></div>
         </>
     )
 }

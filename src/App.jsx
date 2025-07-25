@@ -8,6 +8,7 @@ import SkipLink from "./components/ui/SkipLink";
 // Lazy load non-critical components
 const About = lazy(() => import("./components/About"));
 const Skills = lazy(() => import("./components/Skills"));
+const Projects = lazy(() => import("./components/Projects"));
 const Contact = lazy(() => import("./components/Contact"));
 const Footer = lazy(() => import("./components/Footer"));
 const BackToTopButton = lazy(() => import("./components/BackToTopButton"));
@@ -29,6 +30,7 @@ const App = () => {
           }>
             <About />
             <Skills />
+            <Projects />
             <Contact />
           </Suspense>
         </main>

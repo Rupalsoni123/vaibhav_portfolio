@@ -7,21 +7,16 @@ const navLinks = [
         id: 2,
         link: "About"
     },
-    // {
-    //     id: 3,
-    //     link: "Projects"
-    // },
     {
-        id: 4,
+        id: 3,
         link: "Skills"
     },
-    // {
-    //     id: 5,
-    //     href:"",
-    //     link: "Blog"
-    // },
     {
-        id: 6,
+        id: 4,
+        link: "Projects"
+    },
+    {
+        id: 5,
         link: "Contact"
     }
 ];
