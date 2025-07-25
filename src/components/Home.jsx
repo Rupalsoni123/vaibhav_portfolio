@@ -72,19 +72,19 @@ const Home = () => {
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Floating Orbs */}
-        <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-primary-400/20 to-purple-400/20 rounded-full blur-3xl animate-float"></div>
+        <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-3xl animate-float"></div>
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }}></div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-br from-cyan-400/15 to-blue-400/15 rounded-full blur-3xl animate-float" style={{ animationDelay: '4s' }}></div>
         
         {/* Geometric Shapes */}
-        <div className="absolute top-32 right-32 w-20 h-20 border-2 border-primary-400/30 rotate-45 animate-spin opacity-60" style={{ animationDuration: '20s' }}></div>
+        <div className="absolute top-32 right-32 w-20 h-20 border-2 border-blue-400/30 rotate-45 animate-spin opacity-60" style={{ animationDuration: '20s' }}></div>
         <div className="absolute bottom-32 left-32 w-16 h-16 border-2 border-purple-400/30 rotate-12 animate-bounce opacity-60"></div>
         
         {/* Grid Pattern */}
         <div className="absolute inset-0 opacity-20">
           <div className="grid grid-cols-12 gap-4 h-full">
             {Array.from({ length: 144 }).map((_, i) => (
-              <div key={i} className="w-1 h-1 bg-primary-400 rounded-full opacity-30"></div>
+              <div key={i} className="w-1 h-1 bg-blue-400 rounded-full opacity-30"></div>
             ))}
           </div>
         </div>
@@ -162,7 +162,7 @@ const Home = () => {
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                   {stats.map((stat, index) => (
                     <div key={index} className="group relative">
-                      <div className="absolute inset-0 bg-gradient-to-r from-primary-600/10 to-purple-600/10 rounded-2xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-purple-600/10 rounded-2xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                       <div className="relative card-gradient p-6 rounded-2xl text-center hover:scale-105 transform transition-all duration-300">
                         <div className="text-3xl mb-3 group-hover:animate-bounce">{stat.icon}</div>
                         <div className="text-3xl font-bold text-gradient mb-1">{stat.value}</div>
@@ -187,7 +187,7 @@ const Home = () => {
                         target="_blank"
                         rel="noferrer"
                         aria-label={name}
-                        className="group relative w-12 h-12 rounded-full glass flex items-center justify-center transition-all duration-300 hover:shadow-xl hover:scale-110 hover:bg-gradient-to-br hover:from-primary-500 hover:to-purple-600"
+                        className="group relative w-12 h-12 rounded-full glass flex items-center justify-center transition-all duration-300 hover:shadow-xl hover:scale-110 hover:bg-gradient-to-br hover:from-blue-500 hover:to-purple-600"
                       >
                         <span className="text-secondary-600 dark:text-secondary-400 group-hover:text-white transition-colors duration-300 text-lg">
                           {icon}

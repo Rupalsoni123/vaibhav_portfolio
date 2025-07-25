@@ -124,13 +124,13 @@ const About = () => {
               <AnimatedWrapper delay={0.2}>
                 <div className="card-gradient p-8 rounded-3xl">
                   <div className="flex items-center gap-4 mb-6">
-                    <div className="w-12 h-12 bg-gradient-to-r from-primary-500 to-purple-600 rounded-2xl flex items-center justify-center">
+                    <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center">
                       <Code className="w-6 h-6 text-white" />
                     </div>
-                    <h3 className="text-2xl font-bold text-secondary-800 dark:text-white">My Journey</h3>
+                    <h3 className="text-2xl font-bold text-gray-800 dark:text-white">My Journey</h3>
                   </div>
                   
-                  <div className="space-y-6 text-secondary-700 dark:text-secondary-300 leading-relaxed">
+                  <div className="space-y-6 text-gray-700 dark:text-gray-300 leading-relaxed">
                     <p>
                       Aspiring DevOps Engineer based in Ahmedabad, India, currently contributing to DevOps related projects at{" "}
                       <span className="font-bold text-gradient">Inexture Solutions</span>. 
@@ -162,8 +162,8 @@ const About = () => {
                         <div className={`w-14 h-14 bg-gradient-to-r ${highlight.gradient} rounded-2xl flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform duration-300`}>
                           {highlight.icon}
                         </div>
-                        <h4 className="text-lg font-bold text-secondary-800 dark:text-white mb-2">{highlight.title}</h4>
-                        <p className="text-sm text-secondary-600 dark:text-secondary-400 mb-3 leading-relaxed">{highlight.description}</p>
+                        <h4 className="text-lg font-bold text-gray-800 dark:text-white mb-2">{highlight.title}</h4>
+                        <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 leading-relaxed">{highlight.description}</p>
                         <div className="text-xs font-semibold text-gradient">{highlight.stats}</div>
                       </div>
                     </div>
