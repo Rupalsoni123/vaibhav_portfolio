@@ -120,18 +120,18 @@ const Projects = () => {
           />
         </AnimatedWrapper>
 
-        {/* Category Filter */}
+        {/* Enhanced Category Filter */}
         <AnimatedWrapper delay={0.2}>
-          <div className="mb-12">
+          <div className="mb-16">
             <div className="flex flex-wrap gap-3 justify-center">
               {categories.map((category) => (
                 <button
                   key={category}
                   onClick={() => setActiveCategory(category)}
-                  className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+                  className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 ${
                     activeCategory === category 
-                      ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg' 
-                      : 'bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 shadow-sm'
+                      ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg shadow-blue-500/25' 
+                      : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 hover:border-blue-300 dark:hover:border-blue-600 shadow-md hover:shadow-lg'
                   }`}
                 >
                   {category}
@@ -142,22 +142,28 @@ const Projects = () => {
         </AnimatedWrapper>
 
         {/* Projects Grid */}
-        <div className="grid lg:grid-cols-2 gap-6 lg:gap-8 mb-16">
+        <div className="grid lg:grid-cols-2 gap-8 mb-20">
           {filteredProjects.map((project, index) => (
             <AnimatedWrapper key={project.id} delay={0.1 * index} animateFrom="bottom">
-              <div className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-xl border border-gray-200 dark:border-gray-700 transition-all duration-500 hover:shadow-2xl hover:shadow-cyan-500/10 hover:scale-[1.02] hover:border-cyan-500/40 h-full">
-                <div className="p-6 lg:p-8 h-full flex flex-col">
+              <div className="group relative bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-xl border border-gray-200 dark:border-gray-700 transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/10 hover:scale-[1.02] hover:border-blue-500/40 h-full">
+                {/* Gradient overlay on hover */}
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                
+                {/* Top gradient line */}
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-cyan-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+                
+                <div className="relative p-8 h-full flex flex-col">
                   {/* Project Header */}
                   <div className="flex items-start justify-between mb-6">
                     <div className="flex items-center gap-4">
-                      <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${project.gradient} flex items-center justify-center text-2xl shadow-lg`}>
+                      <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${project.gradient} flex items-center justify-center text-2xl shadow-lg group-hover:scale-110 transition-transform duration-300`}>
                         {project.icon}
                       </div>
                       <div>
-                        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">
+                        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
                           {project.title}
                         </h3>
-                        <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gray-100 dark:bg-gray-700 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20">
+                        <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 text-blue-800 dark:text-blue-200 border border-blue-200 dark:border-blue-700">
                           {project.category}
                         </span>
                       </div>
@@ -165,20 +171,21 @@ const Projects = () => {
                   </div>
 
                   {/* Project Description */}
-                  <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed flex-grow">
+                  <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed flex-grow text-base">
                     {project.description}
                   </p>
 
                   {/* Technologies */}
                   <div className="mb-6">
-                    <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">
+                    <h4 className="text-sm font-bold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+                      <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
                       Technologies Used
                     </h4>
                     <div className="flex flex-wrap gap-2">
                       {project.technologies.map((tech, techIndex) => (
                         <span
                           key={techIndex}
-                          className="px-3 py-1 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 border border-cyan-500/20 rounded-lg text-cyan-600 dark:text-cyan-400 text-sm font-medium"
+                          className="px-3 py-1 bg-gradient-to-r from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-600 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-800 dark:text-gray-200 text-sm font-medium hover:from-blue-100 hover:to-purple-100 dark:hover:from-blue-900/30 dark:hover:to-purple-900/30 hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-300"
                         >
                           {tech}
                         </span>
@@ -187,15 +194,16 @@ const Projects = () => {
                   </div>
 
                   {/* Key Achievements */}
-                  <div className="mb-6">
-                    <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">
+                  <div className="mb-8">
+                    <h4 className="text-sm font-bold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+                      <span className="w-2 h-2 bg-green-500 rounded-full"></span>
                       Key Achievements
                     </h4>
                     <ul className="space-y-2">
                       {project.achievements.slice(0, 3).map((achievement, achIndex) => (
-                        <li key={achIndex} className="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-400">
-                          <span className="text-green-500 mt-1 text-xs">✓</span>
-                          <span>{achievement}</span>
+                        <li key={achIndex} className="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-400">
+                          <span className="text-green-500 mt-1 text-base">✓</span>
+                          <span className="leading-relaxed">{achievement}</span>
                         </li>
                       ))}
                     </ul>
@@ -207,10 +215,10 @@ const Projects = () => {
                       setSelectedProject(project);
                       setShowModal(true);
                     }}
-                    className="mt-auto group flex items-center gap-2 text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 font-medium transition-colors duration-300"
+                    className="mt-auto group/btn flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 transform"
                   >
-                    <span>View Details</span>
-                    <ArrowRightLong className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+                    <span className="group-hover/btn:-translate-x-1 transition-transform duration-300">View Details</span>
+                    <ArrowRightLong className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform duration-300" />
                   </button>
                 </div>
               </div>
@@ -218,70 +226,77 @@ const Projects = () => {
           ))}
         </div>
 
-        {/* Project Stats */}
+        {/* Enhanced Project Stats */}
         <AnimatedWrapper delay={0.5}>
-          <div className="grid md:grid-cols-4 gap-6 mb-16">
-            <div className="text-center p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700">
-              <div className="text-3xl font-bold text-cyan-600 dark:text-cyan-400 mb-2">
+          <div className="grid md:grid-cols-4 gap-6 mb-20">
+            <div className="group text-center p-8 bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 rounded-2xl shadow-lg border border-blue-200/50 dark:border-blue-800/50 hover:shadow-xl transition-all duration-300 hover:scale-105">
+              <div className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent mb-3 group-hover:scale-110 transition-transform duration-300">
                 4+
               </div>
-              <div className="text-gray-700 dark:text-gray-300 font-medium">
+              <div className="text-gray-700 dark:text-gray-300 font-semibold">
                 Projects Completed
               </div>
             </div>
-            <div className="text-center p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700">
-              <div className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">
+            <div className="group text-center p-8 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-2xl shadow-lg border border-purple-200/50 dark:border-purple-800/50 hover:shadow-xl transition-all duration-300 hover:scale-105">
+              <div className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-3 group-hover:scale-110 transition-transform duration-300">
                 20+
               </div>
-              <div className="text-gray-700 dark:text-gray-300 font-medium">
+              <div className="text-gray-700 dark:text-gray-300 font-semibold">
                 Technologies Used
               </div>
             </div>
-            <div className="text-center p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700">
-              <div className="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-2">
+            <div className="group text-center p-8 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-2xl shadow-lg border border-green-200/50 dark:border-green-800/50 hover:shadow-xl transition-all duration-300 hover:scale-105">
+              <div className="text-4xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent mb-3 group-hover:scale-110 transition-transform duration-300">
                 70%
               </div>
-              <div className="text-gray-700 dark:text-gray-300 font-medium">
+              <div className="text-gray-700 dark:text-gray-300 font-semibold">
                 Efficiency Improvement
               </div>
             </div>
-            <div className="text-center p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700">
-              <div className="text-3xl font-bold text-green-600 dark:text-green-400 mb-2">
+            <div className="group text-center p-8 bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-900/20 dark:to-red-900/20 rounded-2xl shadow-lg border border-orange-200/50 dark:border-orange-800/50 hover:shadow-xl transition-all duration-300 hover:scale-105">
+              <div className="text-4xl font-bold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent mb-3 group-hover:scale-110 transition-transform duration-300">
                 100%
               </div>
-              <div className="text-gray-700 dark:text-gray-300 font-medium">
+              <div className="text-gray-700 dark:text-gray-300 font-semibold">
                 Project Success Rate
               </div>
             </div>
           </div>
         </AnimatedWrapper>
 
-        {/* Call to Action */}
+        {/* Enhanced Call to Action */}
         <AnimatedWrapper delay={0.6}>
-          <div className="text-center bg-gradient-to-r from-cyan-500/10 to-blue-500/10 dark:from-cyan-500/5 dark:to-blue-500/5 rounded-2xl p-8 border border-cyan-500/20">
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-              Let's Build Something Amazing Together
-            </h3>
-            <p className="text-gray-600 dark:text-gray-400 mb-6">
-              I'm always excited to discuss new projects and opportunities. 
-              Let's connect and explore how I can help with your DevOps initiatives.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="mailto:vaibhavsoni5567@gmail.com"
-                className="px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-              >
-                Get In Touch
-              </a>
-              <a
-                href="https://github.com/vaibhav21soni"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-8 py-3 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 font-bold rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-300 hover:scale-105 inline-flex items-center gap-2"
-              >
-                <span>View GitHub</span>
-                <Code className="w-4 h-4" />
-              </a>
+          <div className="relative text-center bg-gradient-to-br from-blue-50 via-purple-50 to-cyan-50 dark:from-blue-900/20 dark:via-purple-900/20 dark:to-cyan-900/20 rounded-3xl p-12 border border-blue-200/50 dark:border-blue-800/50 shadow-xl overflow-hidden">
+            {/* Background decoration */}
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-cyan-500/5 opacity-50"></div>
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-cyan-500"></div>
+            
+            <div className="relative z-10">
+              <h3 className="text-3xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 bg-clip-text text-transparent mb-6">
+                Let's Build Something Amazing Together
+              </h3>
+              <p className="text-lg text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto leading-relaxed">
+                I'm always excited to discuss new projects and opportunities. 
+                Let's connect and explore how I can help with your DevOps initiatives.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <a
+                  href="mailto:vaibhavsoni5567@gmail.com"
+                  className="group px-8 py-4 bg-gradient-to-r from-blue-600 via-purple-600 to-cyan-600 hover:from-blue-700 hover:via-purple-700 hover:to-cyan-700 text-white font-bold rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 transform relative overflow-hidden"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <span className="relative">Get In Touch</span>
+                </a>
+                <a
+                  href="https://github.com/vaibhav21soni"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group px-8 py-4 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 font-bold rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 hover:shadow-2xl transition-all duration-300 hover:scale-105 inline-flex items-center gap-3"
+                >
+                  <span>View GitHub</span>
+                  <Code className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
+                </a>
+              </div>
             </div>
           </div>
         </AnimatedWrapper>
