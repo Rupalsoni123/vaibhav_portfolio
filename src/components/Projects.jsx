@@ -160,7 +160,7 @@ const Projects = () => {
           <div className="grid lg:grid-cols-2 gap-8 mb-20">
             {filteredProjects.map((project, index) => (
               <AnimatedWrapper key={project.id} delay={0.1 * index} animateFrom="bottom">
-                <div className="project-card card-gradient p-8 rounded-3xl hover:scale-[1.02] hover:-translate-y-2 transform transition-all duration-500 h-full flex flex-col">
+                <div className="project-card group card-gradient p-8 rounded-3xl hover:scale-[1.02] hover:-translate-y-2 transform transition-all duration-500 h-full flex flex-col">
                   
                   {/* Project Header */}
                   <div className="flex items-start justify-between mb-6">
