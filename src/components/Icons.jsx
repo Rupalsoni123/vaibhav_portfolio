@@ -262,4 +262,58 @@ function Cancel({ color }) {
 
 
 export default LinkedIn;
-export { GMail, GitHub, Telegram, Person, Discord, Twitter, Resume, Portfolio, Map, CopyRight, Code, Link, Chat, Submit, ArrowRightLong, ArrowDown, ArrowUp, Download, Hamburger, Menu, Cancel, Award, MapPin, Calendar };
+export { GMail, GitHub, Telegram, Person, Discord, Twitter, Resume, Portfolio, Map, CopyRight, Code, Link, Chat, Submit, ArrowRightLong, ArrowDown, ArrowUp, Download, Hamburger, Menu, Cancel, Award, MapPin, Calendar, Mail, Phone, Send, CheckCircle, AlertCircle, Heart };
+
+// Mail Icon
+function Mail({ className = "w-6 h-6", color = "currentColor" }) {
+  return (
+    <svg className={className} fill="none" stroke={color} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+    </svg>
+  );
+}
+
+// Phone Icon
+function Phone({ className = "w-6 h-6", color = "currentColor" }) {
+  return (
+    <svg className={className} fill="none" stroke={color} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+    </svg>
+  );
+}
+
+// Send Icon
+function Send({ className = "w-6 h-6", color = "currentColor" }) {
+  return (
+    <svg className={className} fill="none" stroke={color} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+    </svg>
+  );
+}
+
+// CheckCircle Icon
+function CheckCircle({ className = "w-6 h-6", color = "currentColor" }) {
+  return (
+    <svg className={className} fill="none" stroke={color} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+  );
+}
+
+// AlertCircle Icon
+function AlertCircle({ className = "w-6 h-6", color = "currentColor" }) {
+  return (
+    <svg className={className} fill="none" stroke={color} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+  );
+}
+
+// Heart Icon
+function Heart({ className = "w-6 h-6", color = "currentColor" }) {
+  return (
+    <svg className={className} fill={color} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+    </svg>
+  );
+}
