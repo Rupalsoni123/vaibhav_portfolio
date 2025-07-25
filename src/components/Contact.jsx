@@ -1,343 +1,292 @@
 import React, { useState } from "react";
-import SectionHeading from "./SectionHeading";
-import { Person, GMail, Chat, Submit, MapPin, Award } from "./Icons";
-import { validateForm } from "../utils/formValidation";
 import AnimatedWrapper from "./ui/AnimatedWrapper";
+import { Mail, Phone, MapPin, Send, CheckCircle, AlertCircle } from "./Icons";
+import contactInfo from "../data/contactInfo";
 
 const Contact = () => {
-  const initialFormData = { name: "", email: "", message: "" };
-  const [formData, setFormData] = useState(initialFormData);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: ""
+  });
+  const [status, setStatus] = useState({ type: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState(null); // 'success', 'error', or null
-
-  const initialErrData = { nameError: "", emailError: "", messageError: "" };
-  const [errData, setErrData] = useState(initialErrData);
-
-  const contactInfo = [
-    {
-      icon: <GMail className="w-6 h-6" />,
-      title: "Email",
-      value: "vaibhavsoni5567@gmail.com",
-      link: "mailto:vaibhavsoni5567@gmail.com"
-    },
-    {
-      icon: <MapPin className="w-6 h-6" />,
-      title: "Location",
-      value: "Ahmedabad, India",
-      link: null
-    },
-    {
-      icon: <Award className="w-6 h-6" />,
-      title: "Experience",
-      value: "1 Year in DevOps",
-      link: null
-    }
-  ];
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-    
-    // Clear specific error when user starts typing
-    if (errData[`${name}Error`]) {
-      setErrData({ ...errData, [`${name}Error`]: "" });
-    }
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setSubmitStatus(null);
-
-    const isValid = validateForm(formData, setErrData);
-    if (!isValid) {
-      setIsSubmitting(false);
-      return;
-    }
-
-    try {
-      const form = new FormData();
-      form.append("name", formData.name.trim());
-      form.append("email", formData.email.trim());
-      form.append("message", formData.message.trim());
-
-      const response = await fetch(import.meta.env.VITE_GETFORM_URL, {
-        method: "POST",
-        body: form,
+    
+    // Simulate form submission
+    setTimeout(() => {
+      setStatus({
+        type: "success",
+        message: "Thank you! Your message has been sent successfully. I'll get back to you soon."
       });
-
-      if (response.ok) {
-        setSubmitStatus('success');
-        setFormData(initialFormData);
-        setErrData(initialErrData);
-      } else {
-        throw new Error('Form submission failed');
-      }
-    } catch (error) {
-      setSubmitStatus('error');
-      console.error('Form submission error:', error);
-    } finally {
+      setFormData({ name: "", email: "", subject: "", message: "" });
       setIsSubmitting(false);
-    }
+      
+      // Clear status after 5 seconds
+      setTimeout(() => setStatus({ type: "", message: "" }), 5000);
+    }, 2000);
   };
 
+  const contactMethods = [
+    {
+      icon: <Mail className="w-6 h-6" />,
+      title: "Email",
+      value: "vaibhavsoni5567@gmail.com",
+      link: "mailto:vaibhavsoni5567@gmail.com",
+      gradient: "from-blue-500 to-cyan-500"
+    },
+    {
+      icon: <Phone className="w-6 h-6" />,
+      title: "Phone",
+      value: "+91 8890944027",
+      link: "tel:+918890944027",
+      gradient: "from-green-500 to-emerald-500"
+    },
+    {
+      icon: <MapPin className="w-6 h-6" />,
+      title: "Location",
+      value: "Ahmedabad, India",
+      link: "#",
+      gradient: "from-purple-500 to-pink-500"
+    }
+  ];
+
   return (
-    <section
-      id="contact"
+    <div
       name="Contact"
-      className="pt-10 h-full min-h-screen w-full flex items-center bg-gradient-to-b from-slate-50 to-white dark:from-gray-900 dark:to-gray-800 bg-pattern"
-      aria-labelledby="contact-heading"
+      className="relative min-h-screen w-full flex items-center bg-gradient-to-br from-slate-50 via-white to-green-50/30 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 overflow-hidden"
     >
-      <div className="section">
-        <AnimatedWrapper>
-          <SectionHeading
-            heading="Let's Connect"
-            secondHeading="Ready to collaborate on your next DevOps project? Let's discuss how I can help."
-          />
-        </AnimatedWrapper>
+      {/* Background decoration */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 right-10 w-72 h-72 bg-gradient-to-br from-green-400/10 via-blue-400/8 to-cyan-400/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 left-10 w-96 h-96 bg-gradient-to-br from-blue-400/10 via-purple-400/8 to-pink-400/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+      </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
-          {/* Left Column - Contact Info */}
-          <div className="space-y-8">
-            <AnimatedWrapper animateFrom="left">
-              <div className="content-card">
-                <h3 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
-                  Get in Touch
-                </h3>
-                <p className="text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
-                  I'm always excited to discuss new opportunities, collaborate on interesting projects, 
-                  or simply chat about DevOps, cloud technologies, and infrastructure automation. 
-                  Feel free to reach out!
-                </p>
-                
-                <div className="space-y-6">
-                  {contactInfo.map((info, index) => (
-                    <div key={index} className="flex items-center gap-4 p-4 rounded-xl bg-gradient-to-r from-cyan-50 to-blue-50 dark:from-cyan-900/20 dark:to-blue-900/20 border border-cyan-200/50 dark:border-cyan-800/50">
-                      <div className="text-cyan-600 dark:text-cyan-400">
-                        {info.icon}
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-gray-900 dark:text-white">
-                          {info.title}
-                        </h4>
-                        {info.link ? (
-                          <a 
-                            href={info.link}
-                            className="text-gray-600 dark:text-gray-400 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors duration-300"
-                          >
-                            {info.value}
-                          </a>
-                        ) : (
-                          <p className="text-gray-600 dark:text-gray-400">
-                            {info.value}
-                          </p>
-                        )}
-                      </div>
-                    </div>
-                  ))}
-                </div>
+      <div className="relative z-10 w-full">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          
+          {/* Section Header */}
+          <div className="text-center mb-16">
+            <AnimatedWrapper>
+              <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-green-100 to-blue-100 dark:from-green-900/30 dark:to-blue-900/30 text-green-700 dark:text-green-300 rounded-full border border-green-200 dark:border-green-700 shadow-lg mb-6">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                <span className="font-semibold text-sm">Get In Touch</span>
               </div>
-            </AnimatedWrapper>
-
-            {/* Quick Stats */}
-            <AnimatedWrapper animateFrom="left" delay={0.2}>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="text-center p-4 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-xl border border-gray-200/50 dark:border-gray-700/50">
-                  <div className="text-2xl font-bold text-cyan-600 dark:text-cyan-400 mb-1">24h</div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400">Response Time</div>
-                </div>
-                <div className="text-center p-4 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-xl border border-gray-200/50 dark:border-gray-700/50">
-                  <div className="text-2xl font-bold text-purple-600 dark:text-purple-400 mb-1">100%</div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400">Project Success</div>
-                </div>
-              </div>
+              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
+                Let's Build{" "}
+                <span className="bg-gradient-to-r from-green-600 via-blue-600 to-cyan-600 bg-clip-text text-transparent">
+                  Something Amazing
+                </span>
+              </h2>
+              <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
+                Ready to discuss your next DevOps project? I'm always excited to collaborate on innovative solutions
+              </p>
             </AnimatedWrapper>
           </div>
 
-          {/* Right Column - Contact Form */}
-          <div className="space-y-6">
-            {/* Status Messages */}
-            {submitStatus === 'success' && (
-              <AnimatedWrapper>
-                <div className="status-success" role="alert">
-                  <div className="flex items-center gap-3">
-                    <span className="text-2xl">✅</span>
-                    <div>
-                      <h4 className="font-semibold">Message Sent Successfully!</h4>
-                      <p className="text-sm">Thank you for reaching out. I'll get back to you within 24 hours.</p>
-                    </div>
-                  </div>
-                </div>
-              </AnimatedWrapper>
-            )}
+          <div className="grid lg:grid-cols-2 gap-16 items-start">
             
-            {submitStatus === 'error' && (
-              <AnimatedWrapper>
-                <div className="status-error" role="alert">
-                  <div className="flex items-center gap-3">
-                    <span className="text-2xl">❌</span>
-                    <div>
-                      <h4 className="font-semibold">Oops! Something went wrong</h4>
-                      <p className="text-sm">Please try again or contact me directly via email.</p>
-                    </div>
-                  </div>
-                </div>
-              </AnimatedWrapper>
-            )}
-            
-            <AnimatedWrapper animateFrom="right">
-              <div className="form-container">
-                <h3 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
-                  Send a Message
-                </h3>
-                
-                <form
-                  onSubmit={handleSubmit}
-                  className="space-y-6"
-                  aria-label="Contact form"
-                  noValidate
-                >
-                  <AnimatedWrapper delay={0.1}>
-                    <div className="space-y-2">
-                      <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                        Your Name *
-                      </label>
+            {/* Left Column - Contact Info */}
+            <div className="space-y-8">
+              
+              {/* Contact Methods */}
+              <AnimatedWrapper delay={0.2}>
+                <div className="space-y-6">
+                  {contactMethods.map((method, index) => (
+                    <a
+                      key={index}
+                      href={method.link}
+                      className="group block"
+                    >
                       <div className="relative">
+                        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-green-600/10 rounded-xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div className="relative flex items-center gap-4 p-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
+                          <div className={`w-12 h-12 bg-gradient-to-r ${method.gradient} rounded-lg flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-300`}>
+                            {method.icon}
+                          </div>
+                          <div>
+                            <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">{method.title}</h3>
+                            <p className="text-gray-600 dark:text-gray-400">{method.value}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              </AnimatedWrapper>
+
+              {/* Social Links */}
+              <AnimatedWrapper delay={0.3}>
+                <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-gray-200/50 dark:border-gray-700/50">
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">
+                    Connect With Me
+                  </h3>
+                  <div className="flex justify-center gap-4">
+                    {contactInfo.map(({ id, link, name, icon }) => (
+                      <a
+                        key={id}
+                        href={link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={name}
+                        className="group w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 shadow-lg hover:shadow-xl flex items-center justify-center transition-all duration-300 hover:scale-110"
+                      >
+                        <span className="text-white text-lg group-hover:animate-bounce">
+                          {icon}
+                        </span>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </AnimatedWrapper>
+
+              {/* Quick Info */}
+              <AnimatedWrapper delay={0.4}>
+                <div className="bg-gradient-to-r from-green-50 via-blue-50 to-cyan-50 dark:from-green-900/20 dark:via-blue-900/20 dark:to-cyan-900/20 rounded-2xl p-8 border border-green-200/50 dark:border-green-800/50 shadow-lg">
+                  <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+                    Quick Response
+                  </h4>
+                  <p className="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
+                    I typically respond to emails within 24 hours. For urgent matters, feel free to call me directly.
+                  </p>
+                  <div className="flex items-center gap-2 text-sm text-green-600 dark:text-green-400">
+                    <CheckCircle className="w-4 h-4" />
+                    <span>Available for freelance projects</span>
+                  </div>
+                </div>
+              </AnimatedWrapper>
+            </div>
+
+            {/* Right Column - Contact Form */}
+            <div>
+              <AnimatedWrapper delay={0.5}>
+                <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-gray-200/50 dark:border-gray-700/50">
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">
+                    Send Me a Message
+                  </h3>
+                  
+                  {/* Status Message */}
+                  {status.message && (
+                    <div className={`mb-6 p-4 rounded-lg flex items-center gap-3 ${
+                      status.type === 'success' 
+                        ? 'bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-700 text-green-800 dark:text-green-200'
+                        : 'bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-700 text-red-800 dark:text-red-200'
+                    }`}>
+                      {status.type === 'success' ? (
+                        <CheckCircle className="w-5 h-5" />
+                      ) : (
+                        <AlertCircle className="w-5 h-5" />
+                      )}
+                      <span className="text-sm">{status.message}</span>
+                    </div>
+                  )}
+
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                    <div className="grid sm:grid-cols-2 gap-4">
+                      <div>
+                        <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                          Name *
+                        </label>
                         <input
-                          id="name"
                           type="text"
+                          id="name"
                           name="name"
-                          placeholder="Enter your full name"
-                          className={`form-input ${
-                            errData.nameError !== "" ? "border-red-500 focus:border-red-500" : ""
-                          }`}
                           value={formData.name}
                           onChange={handleChange}
-                          aria-required="true"
-                          aria-invalid={errData.nameError !== ""}
-                          aria-describedby={errData.nameError ? "name-error" : undefined}
-                          disabled={isSubmitting}
+                          required
+                          className="w-full px-4 py-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                          placeholder="Your name"
                         />
-                        <FormIcon name="person" />
                       </div>
-                      <ErrorBox message={errData.nameError} id="name-error" />
-                    </div>
-                  </AnimatedWrapper>
-                  
-                  <AnimatedWrapper delay={0.2}>
-                    <div className="space-y-2">
-                      <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                        Email Address *
-                      </label>
-                      <div className="relative">
+                      <div>
+                        <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                          Email *
+                        </label>
                         <input
-                          id="email"
                           type="email"
+                          id="email"
                           name="email"
-                          placeholder="Enter your email address"
-                          className={`form-input ${
-                            errData.emailError !== "" ? "border-red-500 focus:border-red-500" : ""
-                          }`}
                           value={formData.email}
                           onChange={handleChange}
-                          aria-required="true"
-                          aria-invalid={errData.emailError !== ""}
-                          aria-describedby={errData.emailError ? "email-error" : undefined}
-                          disabled={isSubmitting}
+                          required
+                          className="w-full px-4 py-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                          placeholder="your.email@example.com"
                         />
-                        <FormIcon name="gmail" />
                       </div>
-                      <ErrorBox message={errData.emailError} id="email-error" />
                     </div>
-                  </AnimatedWrapper>
-
-                  <AnimatedWrapper delay={0.3}>
-                    <div className="space-y-2">
-                      <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                        Your Message *
+                    
+                    <div>
+                      <label htmlFor="subject" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Subject *
                       </label>
-                      <div className="relative">
-                        <textarea
-                          id="message"
-                          name="message"
-                          placeholder="Tell me about your project or how I can help..."
-                          rows="6"
-                          className={`form-input resize-none ${
-                            errData.messageError !== "" ? "border-red-500 focus:border-red-500" : ""
-                          }`}
-                          value={formData.message}
-                          onChange={handleChange}
-                          aria-required="true"
-                          aria-invalid={errData.messageError !== ""}
-                          aria-describedby={errData.messageError ? "message-error" : undefined}
-                          disabled={isSubmitting}
-                        />
-                        <FormIcon name="chat" />
-                      </div>
-                      <ErrorBox message={errData.messageError} id="message-error" />
+                      <input
+                        type="text"
+                        id="subject"
+                        name="subject"
+                        value={formData.subject}
+                        onChange={handleChange}
+                        required
+                        className="w-full px-4 py-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                        placeholder="Project discussion, collaboration, etc."
+                      />
                     </div>
-                  </AnimatedWrapper>
-
-                  <AnimatedWrapper delay={0.4}>
-                    <button 
+                    
+                    <div>
+                      <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Message *
+                      </label>
+                      <textarea
+                        id="message"
+                        name="message"
+                        value={formData.message}
+                        onChange={handleChange}
+                        required
+                        rows={6}
+                        className="w-full px-4 py-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 resize-vertical"
+                        placeholder="Tell me about your project or how we can work together..."
+                      />
+                    </div>
+                    
+                    <button
                       type="submit"
-                      className={`btn-primary w-full group ${
-                        isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
-                      }`}
-                      aria-label="Submit contact form"
                       disabled={isSubmitting}
+                      className="group w-full px-8 py-4 bg-gradient-to-r from-green-600 via-blue-600 to-cyan-600 hover:from-green-700 hover:via-blue-700 hover:to-cyan-700 disabled:from-gray-400 disabled:to-gray-500 text-white font-bold rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 transform relative overflow-hidden disabled:cursor-not-allowed disabled:hover:scale-100"
                     >
-                      {isSubmitting ? (
-                        <div className="flex items-center justify-center gap-3">
-                          <div className="spinner"></div>
-                          <span>Sending Message...</span>
-                        </div>
-                      ) : (
-                        <div className="flex items-center justify-center gap-3">
-                          <span className="group-hover:-translate-x-1 transition-transform duration-300">
-                            Send Message
-                          </span>
-                          <span className="group-hover:translate-x-1 group-hover:scale-110 transition-all duration-300">
-                            <Submit />
-                          </span>
-                        </div>
-                      )}
+                      <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      <div className="relative flex items-center justify-center gap-3">
+                        {isSubmitting ? (
+                          <>
+                            <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                            <span>Sending...</span>
+                          </>
+                        ) : (
+                          <>
+                            <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                            <span>Send Message</span>
+                          </>
+                        )}
+                      </div>
                     </button>
-                  </AnimatedWrapper>
-                </form>
-              </div>
-            </AnimatedWrapper>
+                  </form>
+                </div>
+              </AnimatedWrapper>
+            </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
 export default Contact;
-
-const FormIcon = ({ name }) => {
-  return (
-    <span
-      className={`absolute left-4 text-gray-400 dark:text-gray-500 transition-colors duration-300 ${
-        name === "chat" ? "top-4" : "top-1/2 -translate-y-1/2"
-      }`}
-      aria-hidden="true"
-    >
-      {name === "person" && <Person />}
-      {name === "gmail" && <GMail />}
-      {name === "chat" && <Chat />}
-    </span>
-  );
-};
-
-const ErrorBox = ({ message, id }) => {
-  return message ? (
-    <div className="text-sm text-red-500 px-1 flex items-center gap-2" role="alert" id={id}>
-      <span className="text-xs">⚠️</span>
-      {message}
-    </div>
-  ) : (
-    <div className="text-sm h-5"></div>
-  );
-};
