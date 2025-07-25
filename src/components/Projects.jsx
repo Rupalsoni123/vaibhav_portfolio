@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import AnimatedWrapper from "./ui/AnimatedWrapper";
 import SectionHeading from "./SectionHeading";
-import { Code, Link, ArrowRightLong } from "./Icons";
+import { Code, Link, ArrowRightLong, Cancel } from "./Icons";
 
 const Projects = () => {
   const [activeProject, setActiveProject] = useState(0);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
 
   const projects = [
     {
@@ -17,10 +19,15 @@ const Projects = () => {
         "Designed reusable dynamic Terraform modules",
         "Reduced code duplication by 70%",
         "Standardized naming conventions and tag policies",
-        "Ensured consistent, scalable deployments"
+        "Ensured consistent, scalable deployments",
+        "Implemented automated state management",
+        "Created comprehensive documentation and runbooks"
       ],
       icon: "☁️",
-      gradient: "from-blue-500 to-cyan-500"
+      gradient: "from-blue-500 to-cyan-500",
+      challenge: "Legacy Azure infrastructure was manually managed, leading to inconsistencies, deployment errors, and difficulty in scaling across multiple environments.",
+      solution: "Implemented Terraform-based Infrastructure as Code with modular design, automated state management, and standardized deployment pipelines.",
+      github: "https://github.com/vaibhav21soni"
     },
     {
       id: 2,
@@ -32,10 +39,15 @@ const Projects = () => {
         "Deployed Apache Kafka and ZooKeeper using custom YAML manifests",
         "Configured cluster for efficient distributed workload management",
         "Implemented built-in fault tolerance and high reliability",
-        "Established persistent volume management for stateful applications"
+        "Established persistent volume management for stateful applications",
+        "Set up monitoring and logging with Prometheus and Grafana",
+        "Configured auto-scaling based on resource utilization"
       ],
       icon: "🚢",
-      gradient: "from-purple-500 to-pink-500"
+      gradient: "from-purple-500 to-pink-500",
+      challenge: "Need for a scalable, fault-tolerant messaging system that could handle high-throughput data processing across multiple services.",
+      solution: "Deployed Apache Kafka on Kubernetes with ZooKeeper coordination, implementing persistent storage and automated failover mechanisms.",
+      github: "https://github.com/vaibhav21soni"
     },
     {
       id: 3,
@@ -187,7 +199,10 @@ const Projects = () => {
 
                   {/* View Details Button */}
                   <button
-                    onClick={() => setActiveProject(project.id)}
+                    onClick={() => {
+                      setSelectedProject(project);
+                      setShowModal(true);
+                    }}
                     className="mt-auto group flex items-center gap-2 text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 font-medium transition-colors duration-300"
                   >
                     <span>View Details</span>
@@ -272,6 +287,135 @@ const Projects = () => {
             </div>
           </div>
         </AnimatedWrapper>
+
+        {/* Project Details Modal */}
+        {showModal && selectedProject && (
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <div className="bg-white dark:bg-gray-800 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-gray-200 dark:border-gray-700">
+              {/* Modal Header */}
+              <div className="sticky top-0 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-6 flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${selectedProject.gradient} flex items-center justify-center text-2xl shadow-lg`}>
+                    {selectedProject.icon}
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                      {selectedProject.title}
+                    </h2>
+                    <span className="tech-badge">
+                      {selectedProject.category}
+                    </span>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setShowModal(false)}
+                  className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors duration-200"
+                >
+                  <Cancel color="currentColor" />
+                </button>
+              </div>
+
+              {/* Modal Content */}
+              <div className="p-6 space-y-8">
+                {/* Project Overview */}
+                <div>
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Project Overview</h3>
+                  <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-lg">
+                    {selectedProject.description}
+                  </p>
+                </div>
+
+                {/* Technologies Used */}
+                <div>
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Technologies Used</h3>
+                  <div className="flex flex-wrap gap-3">
+                    {selectedProject.technologies.map((tech, index) => (
+                      <span
+                        key={index}
+                        className="px-4 py-2 bg-gradient-to-r from-cyan-500/10 to-blue-500/10 border border-cyan-500/20 rounded-lg text-cyan-600 dark:text-cyan-400 font-medium"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Key Achievements */}
+                <div>
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Key Achievements</h3>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    {selectedProject.achievements.map((achievement, index) => (
+                      <div key={index} className="flex items-start gap-3 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                        <span className="text-green-500 mt-1 text-lg">✓</span>
+                        <span className="text-gray-700 dark:text-gray-300">{achievement}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Project Links */}
+                {selectedProject.github && (
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Project Links</h3>
+                    <div className="flex gap-4">
+                      <a
+                        href={selectedProject.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn-primary inline-flex items-center gap-2"
+                      >
+                        <Code className="w-4 h-4" />
+                        <span>View on GitHub</span>
+                      </a>
+                      {selectedProject.demo && (
+                        <a
+                          href={selectedProject.demo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn-secondary inline-flex items-center gap-2"
+                        >
+                          <Link className="w-4 h-4" />
+                          <span>Live Demo</span>
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                {/* Technical Details */}
+                <div>
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Technical Implementation</h3>
+                  <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-6">
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div>
+                        <h4 className="font-semibold text-gray-900 dark:text-white mb-2">Challenge</h4>
+                        <p className="text-gray-600 dark:text-gray-400 text-sm">
+                          {selectedProject.challenge || "Complex infrastructure requirements needed automation and scalability improvements."}
+                        </p>
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-gray-900 dark:text-white mb-2">Solution</h4>
+                        <p className="text-gray-600 dark:text-gray-400 text-sm">
+                          {selectedProject.solution || "Implemented modern DevOps practices with Infrastructure as Code and automated deployment pipelines."}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Modal Footer */}
+              <div className="sticky bottom-0 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 p-6 flex justify-end">
+                <button
+                  onClick={() => setShowModal(false)}
+                  className="btn-secondary"
+                >
+                  Close Details
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
