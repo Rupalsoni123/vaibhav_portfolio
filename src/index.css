@@ -272,7 +272,7 @@ h1, h2, h3, h4, h5, h6 {
 
   /* Skills */
   .skill-card {
-    @apply relative group cursor-pointer;
+    @apply relative cursor-pointer;
   }
 
   .skill-card::before {
@@ -291,7 +291,7 @@ h1, h2, h3, h4, h5, h6 {
 
   /* Projects */
   .project-card {
-    @apply relative overflow-hidden group;
+    @apply relative overflow-hidden;
   }
 
   .project-card::after {

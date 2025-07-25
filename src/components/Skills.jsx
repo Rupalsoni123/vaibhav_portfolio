@@ -89,7 +89,7 @@ const Skills = () => {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             {filteredSkills.map((skill, index) => (
               <AnimatedWrapper key={skill.id} delay={0.1 * (index % 8)} animateFrom="bottom">
-                <div className="skill-card">
+                <div className="skill-card group">
                   <div className="card-gradient p-6 rounded-2xl hover:scale-105 hover:-translate-y-2 transform transition-all duration-300">
                     
                     {/* Skill icon */}
