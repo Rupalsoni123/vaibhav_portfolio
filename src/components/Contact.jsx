@@ -65,31 +65,29 @@ const Contact = () => {
   return (
     <div
       name="Contact"
-      className="relative min-h-screen w-full flex items-center bg-gradient-to-br from-slate-50 via-white to-green-50/30 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 overflow-hidden"
+      className="relative min-h-screen hero-bg flex items-center overflow-hidden"
     >
-      {/* Background decoration */}
+      {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 right-10 w-72 h-72 bg-gradient-to-br from-green-400/10 via-blue-400/8 to-cyan-400/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 left-10 w-96 h-96 bg-gradient-to-br from-blue-400/10 via-purple-400/8 to-pink-400/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-20 right-10 w-72 h-72 bg-gradient-to-br from-green-400/10 to-cyan-400/10 rounded-full blur-3xl animate-float"></div>
+        <div className="absolute bottom-20 left-10 w-96 h-96 bg-gradient-to-br from-blue-400/10 to-purple-400/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }}></div>
       </div>
 
       <div className="relative z-10 w-full">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="container-custom section-padding">
           
           {/* Section Header */}
-          <div className="text-center mb-16">
+          <div className="text-center mb-20">
             <AnimatedWrapper>
-              <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-green-100 to-blue-100 dark:from-green-900/30 dark:to-blue-900/30 text-green-700 dark:text-green-300 rounded-full border border-green-200 dark:border-green-700 shadow-lg mb-6">
+              <div className="inline-flex items-center gap-3 px-6 py-3 glass rounded-full shadow-lg mb-8">
                 <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                <span className="font-semibold text-sm">Get In Touch</span>
+                <span className="font-semibold text-sm text-green-700 dark:text-green-300">Get In Touch</span>
               </div>
-              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
+              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-shadow mb-8">
                 Let's Build{" "}
-                <span className="bg-gradient-to-r from-green-600 via-blue-600 to-cyan-600 bg-clip-text text-transparent">
-                  Something Amazing
-                </span>
+                <span className="text-gradient">Something Amazing</span>
               </h2>
-              <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
+              <p className="text-xl text-secondary-600 dark:text-secondary-400 max-w-4xl mx-auto leading-relaxed">
                 Ready to discuss your next DevOps project? I'm always excited to collaborate on innovative solutions
               </p>
             </AnimatedWrapper>
