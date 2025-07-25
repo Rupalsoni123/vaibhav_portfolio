@@ -3,17 +3,17 @@ import ReactJs, { Bash, Bootstrap, C, Canva, CPlusPlus, CSS, Docker, ExpressJS, 
 
 // 
 const skills = [
-    {
-        id: 35,
-        icon: <AWS />,
-        name: "AWS",
-        style: {
-            shadow: "shadow-[#FF9902]",
-            cover: "from-black to-[#326DE6] rounded-b-md",
-            opacity: "opacity-80"
+    // {
+    //     id: 35,
+    //     icon: <AWS />,
+    //     name: "AWS",
+    //     style: {
+    //         shadow: "shadow-[#FF9902]",
+    //         cover: "from-black to-[#326DE6] rounded-b-md",
+    //         opacity: "opacity-80"
 
-        }
-    },
+    //     }
+    // },
     {
         id: 36,
         icon: <AzureIcon />,
