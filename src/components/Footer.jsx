@@ -120,10 +120,10 @@ const Footer = () => {
             <div className="flex flex-col md:flex-row justify-between items-center text-center md:text-left">
               <div className="flex items-center text-gray-400 text-sm mb-4 md:mb-0">
                 <CopyRight className="mr-2" />
-                <span>{year} Vaibhav Soni. All rights reserved. Built with React & Tailwind CSS.</span>
+                <span>{year} Vaibhav Soni. All rights reserved. </span>
               </div>
               <div className="flex items-center space-x-6 text-sm text-gray-400">
-                <span>Made with ❤️ in India</span>
+                
                 <span className="text-cyan-400">DevOps Engineer</span>
               </div>
             </div>
