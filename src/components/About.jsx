@@ -19,7 +19,7 @@ const About = () => {
     },
     {
       icon: <Calendar className="w-6 h-6" />,
-      title: "2+ Years Experience",
+      title: "1 Year Experience",
       description: "Hands-on experience with cloud-native technologies"
     },
     {
@@ -33,7 +33,7 @@ const About = () => {
     "🏆 HashiCorp Certified Terraform Associate (003) - 2024",
     "☁️ AWS Certified Cloud Practitioner - 2023", 
     "🐧 Red Hat Certified System Administrator (RHCSA) - 2022",
-    "🚀 15+ successful project deployments",
+    "🚀 4+ successful project deployments",
     "⚡ Reduced deployment time by 70% through automation",
     "🔧 Expertise in multi-cloud environments (AWS, Azure, DigitalOcean)"
   ];
