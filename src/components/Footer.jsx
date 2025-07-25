@@ -1,138 +1,180 @@
 import React from "react";
-import { GMail, Map, CopyRight, ArrowRightLong } from "./Icons";
 import { Link } from "react-scroll";
-import navLinks from "../data/navlinks";
+import { ArrowUp, Heart, Code } from "./Icons";
 import contactInfo from "../data/contactInfo";
-import AnimatedWrapper from "./ui/AnimatedWrapper";
 
 const Footer = () => {
-  const year = new Date().getFullYear().toString();
+  const currentYear = new Date().getFullYear();
+  
+  const quickLinks = [
+    { name: "Home", to: "Home" },
+    { name: "About", to: "About" },
+    { name: "Skills", to: "Skills" },
+    { name: "Projects", to: "Projects" },
+    { name: "Contact", to: "Contact" }
+  ];
+
+  const services = [
+    "Cloud Infrastructure",
+    "DevOps Automation",
+    "CI/CD Pipelines",
+    "Container Orchestration",
+    "Infrastructure as Code",
+    "System Administration"
+  ];
+
   return (
-    <div className="bg-gradient-to-t from-gray-900 via-gray-800 to-gray-700 dark:from-black dark:via-gray-900 dark:to-gray-800 w-full text-gray-300 dark:text-gray-300">
-      <div className="section pb-5">
-        <div className="flex flex-wrap justify-between">
-          <div className="w-full sm:w-3/5 lg:w-2/5 pr-2 mb-6 lg:mb-0">
-            <AnimatedWrapper>
-              <div className="p-2">
-                <h3 className="text-white dark:text-white text-[1.75rem] font-bold pb-2 flex items-center">
-                  <span className="w-1.5 h-8 bg-gradient-to-b from-cyan-500 to-blue-600 rounded-full mr-3"></span>
-                  <span className="text-transparent bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text">
-                    Vaibhav Soni
-                  </span>
+    <footer className="relative bg-gradient-to-br from-gray-900 via-slate-900 to-black dark:from-black dark:via-gray-900 dark:to-slate-900 text-white overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-50"></div>
+        <div className="absolute top-10 right-10 w-32 h-32 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-full blur-2xl"></div>
+        <div className="absolute bottom-10 left-10 w-40 h-40 bg-gradient-to-br from-purple-500/10 to-cyan-500/10 rounded-full blur-2xl"></div>
+      </div>
+
+      <div className="relative z-10">
+        {/* Main Footer Content */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-8">
+            
+            {/* Brand Section */}
+            <div className="lg:col-span-1 space-y-6">
+              <div>
+                <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent mb-4">
+                  Vaibhav Soni
                 </h3>
-                <p className="text-lg text-cyan-400 dark:text-cyan-400 pb-5 font-semibold">DevOps Engineer</p>
-                <div className="space-y-2 text-gray-300 dark:text-gray-300 leading-relaxed">
-                  <p>Thank you for visiting my portfolio.</p>
-                  <p>Let's connect and build something amazing together!</p>
-                  <p>Open to DevOps opportunities and collaborations.</p>
-                </div>
-                
-                {/* Social Links */}
-                <div className="flex space-x-4 mt-6">
-                  {contactInfo.slice(0, 4).map(({ id, link, name, icon, download }) => (
+                <p className="text-gray-400 leading-relaxed">
+                  DevOps Engineer passionate about building scalable infrastructure and automating workflows to empower development teams.
+                </p>
+              </div>
+              
+              {/* Social Links */}
+              <div>
+                <h4 className="text-lg font-semibold text-white mb-4">Connect With Me</h4>
+                <div className="flex gap-3">
+                  {contactInfo.map(({ id, link, name, icon }) => (
                     <a
                       key={id}
                       href={link}
-                      download={download}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-10 h-10 bg-gray-700 hover:bg-gradient-to-r hover:from-cyan-500 hover:to-blue-600 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 group"
                       aria-label={name}
+                      className="group w-10 h-10 rounded-full bg-gray-800 hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-600 border border-gray-700 hover:border-transparent flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-blue-500/25"
                     >
-                      <span className="text-lg group-hover:text-white transition-colors duration-300">{icon}</span>
+                      <span className="text-gray-400 group-hover:text-white transition-colors duration-300">
+                        {icon}
+                      </span>
                     </a>
                   ))}
                 </div>
               </div>
-            </AnimatedWrapper>
-          </div>
-          
-          <div className="w-full xs:w-2/5 sm:w-2/5 lg:w-[30%] sm:pl-20 lg:pl-12 justify-start mb-6 lg:mb-0">
-            <AnimatedWrapper>
-              <div className="p-2">
-                <h3 className="text-white dark:text-white text-[1.35rem] xs:text-2xl font-bold pb-4 flex items-center">
-                  <span className="w-1.5 h-6 bg-gradient-to-b from-cyan-500 to-blue-600 rounded-full mr-3"></span>
-                  Quick Links
-                </h3>
-                <nav aria-label="Quick navigation links">
-                  {navLinks.map(({ link, id }) => {
-                    return (
-                      <div key={id} className="group w-fit px-3 mb-2">
-                        <Link to={link} smooth duration={500} className="focus:outline-none focus:ring-2 focus:ring-cyan-500 rounded">
-                          <div className="flex items-center justify-between w-fit gap-2 font-medium text-gray-300 hover:text-white cursor-pointer transition-colors duration-300">
-                            <ArrowRightLong className="text-cyan-400 group-hover:text-cyan-300 transition-colors duration-300" />
-                            <span className="bg-clip-text bg-gradient-to-r from-cyan-400 via-cyan-400 to-blue-500 group-hover:text-transparent duration-500 group-hover:animate-pulse link-hover">
-                              {link}
-                            </span>
-                          </div>
-                        </Link>
-                      </div>
-                    );
-                  })}
-                </nav>
-              </div>
-            </AnimatedWrapper>
-          </div>
-          
-          <div className="w-full xs:w-3/5 sm:w-2/5 lg:w-[30%] mb-6 lg:mb-0">
-            <AnimatedWrapper>
-              <div className="p-2">
-                <h3 className="text-white dark:text-white text-[1.35rem] xs:text-2xl font-bold pb-4 flex items-center">
-                  <span className="w-1.5 h-6 bg-gradient-to-b from-cyan-500 to-blue-600 rounded-full mr-3"></span>
-                  Contact Info
-                </h3>
-                <div className="space-y-4">
-                  <div className="flex items-center text-gray-300">
-                    <GMail className="mr-3 text-cyan-400" />
-                    <a 
-                      href="mailto:vaibhavsoni5567@gmail.com"
-                      className="hover:text-cyan-400 transition-colors duration-300"
+            </div>
+
+            {/* Quick Links */}
+            <div className="space-y-6">
+              <h4 className="text-lg font-semibold text-white">Quick Links</h4>
+              <ul className="space-y-3">
+                {quickLinks.map((link) => (
+                  <li key={link.name}>
+                    <Link
+                      to={link.to}
+                      smooth
+                      duration={500}
+                      className="group text-gray-400 hover:text-white transition-colors duration-300 cursor-pointer flex items-center gap-2"
                     >
-                      vaibhavsoni5567@gmail.com
-                    </a>
+                      <span className="w-1 h-1 bg-blue-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Services */}
+            <div className="space-y-6">
+              <h4 className="text-lg font-semibold text-white">Services</h4>
+              <ul className="space-y-3">
+                {services.map((service, index) => (
+                  <li key={index} className="text-gray-400 flex items-center gap-2">
+                    <span className="w-1 h-1 bg-purple-500 rounded-full"></span>
+                    {service}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Contact Info */}
+            <div className="space-y-6">
+              <h4 className="text-lg font-semibold text-white">Get In Touch</h4>
+              <div className="space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg flex items-center justify-center">
+                    <span className="text-white text-sm">📧</span>
                   </div>
-                  <div className="flex items-center text-gray-300">
-                    <span className="text-cyan-400 mr-3 text-lg">📱</span>
-                    <a 
-                      href="tel:+918890944027"
-                      className="hover:text-cyan-400 transition-colors duration-300"
-                    >
-                      +91 8890944027
-                    </a>
-                  </div>
-                  <div className="flex items-center text-gray-300">
-                    <Map className="mr-3 text-cyan-400" />
-                    <span>Ahmedabad, India</span>
-                  </div>
-                  <div className="flex items-center text-gray-300">
-                    <span className="w-2 h-2 bg-green-500 rounded-full mr-3 animate-pulse"></span>
-                    <span className="text-green-400">Available for opportunities</span>
-                  </div>
+                  <a 
+                    href="mailto:vaibhavsoni5567@gmail.com"
+                    className="text-gray-400 hover:text-white transition-colors duration-300"
+                  >
+                    vaibhavsoni5567@gmail.com
+                  </a>
                 </div>
-              </div>
-            </AnimatedWrapper>
-          </div>
-        </div>
-        
-        {/* Bottom Section */}
-        <AnimatedWrapper>
-          <div className="border-t border-gray-600 dark:border-gray-700 mt-12 pt-8">
-            <div className="flex flex-col md:flex-row justify-between items-center text-center md:text-left">
-              <div className="flex items-center text-gray-400 text-sm mb-4 md:mb-0">
-                <CopyRight className="mr-2" />
-                <span>{year} Vaibhav Soni. All rights reserved. </span>
-              </div>
-              <div className="flex items-center space-x-6 text-sm text-gray-400">
-                
-                <span className="text-cyan-400">DevOps Engineer</span>
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center">
+                    <span className="text-white text-sm">📱</span>
+                  </div>
+                  <a 
+                    href="tel:+918890944027"
+                    className="text-gray-400 hover:text-white transition-colors duration-300"
+                  >
+                    +91 8890944027
+                  </a>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
+                    <span className="text-white text-sm">📍</span>
+                  </div>
+                  <span className="text-gray-400">Ahmedabad, India</span>
+                </div>
               </div>
             </div>
           </div>
-        </AnimatedWrapper>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="border-t border-gray-800">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+              
+              {/* Copyright */}
+              <div className="flex items-center gap-2 text-gray-400">
+                <span>© {currentYear} Vaibhav Soni. Made with</span>
+                <Heart className="w-4 h-4 text-red-500 animate-pulse" />
+                <span>and</span>
+                <Code className="w-4 h-4 text-blue-500" />
+                <span>in India</span>
+              </div>
+
+              {/* Back to Top */}
+              <Link
+                to="Home"
+                smooth
+                duration={500}
+                className="group flex items-center gap-2 px-4 py-2 bg-gray-800 hover:bg-gradient-to-r hover:from-blue-600 hover:to-purple-600 border border-gray-700 hover:border-transparent rounded-lg transition-all duration-300 hover:scale-105 cursor-pointer"
+              >
+                <span className="text-gray-400 group-hover:text-white transition-colors duration-300 text-sm">
+                  Back to Top
+                </span>
+                <ArrowUp className="w-4 h-4 text-gray-400 group-hover:text-white group-hover:-translate-y-1 transition-all duration-300" />
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* Decorative Elements */}
+        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-30"></div>
       </div>
-    </div>
+    </footer>
   );
 };
-
 
 export default Footer;
