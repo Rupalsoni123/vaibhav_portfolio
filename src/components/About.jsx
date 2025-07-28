@@ -47,13 +47,13 @@ const About = () => {
     year: "2024",
       title: "career break",
       company: "family's health issues",
-      description: "focused on family responsibilities and personal development. also completed HashiCorp Certified: Terraform Associate (003) certification."
+      description: "Focused on family responsibilities and personal development. Also completed HashiCorp Certified: Terraform Associate (003) certification."
   },
     {
       year: "2023",
       title: "DevOps Engineer",
       company: "HighSkyIT Solutions",
-      description: "Migrated 240+ Azure resources to Terraform, reducing code duplication by 70% with reusable dynamic modules. Implemented CI/CD pipelines using GitLab and Bitbucket for automated deployments."
+      description: "sucessfully delivered multiple projects, including migrating Azure resources to Terraform, building Kubernetes clusters, and automating AWS infrastructure with Terragrunt."
     },
     {
       year: "2022",
