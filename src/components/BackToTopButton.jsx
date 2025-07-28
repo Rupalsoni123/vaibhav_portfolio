@@ -31,8 +31,19 @@ const BackToTopButton = () => {
                     : 'opacity-0 translate-y-16 pointer-events-none'
             }`}
         >
-            <div className="w-12 h-12 flex justify-center items-center rounded-xl bg-gradient-to-br from-primary-500 to-accent-500 hover:from-primary-600 hover:to-accent-600 cursor-pointer hover:scale-110 transition-all duration-300 text-white shadow-lg hover:shadow-xl group">
-                <ArrowUp className="w-5 h-5 group-hover:-translate-y-0.5 transition-transform duration-300" />
+            <div className="cyber-button p-3 group relative overflow-hidden">
+                {/* Scan Line Effect */}
+                <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-neon-green to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                
+                {/* Icon */}
+                <ArrowUp className="w-5 h-5 group-hover:-translate-y-1 transition-transform duration-300" />
+                
+                {/* Terminal Text */}
+                <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+                    <div className="bg-black border border-neon-green rounded px-2 py-1">
+                        <span className="font-mono text-xs text-neon-green">$ cd /</span>
+                    </div>
+                </div>
             </div>
         </Link>
     )

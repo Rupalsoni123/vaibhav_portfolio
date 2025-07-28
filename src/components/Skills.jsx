@@ -12,33 +12,85 @@ const Skills = () => {
     : skills.filter(skill => skill.category === activeCategory);
 
   const skillStats = [
-    { label: "Technologies", value: "20+", icon: "⚙️", description: "DevOps Tools & Platforms", color: "from-blue-500 to-cyan-500" },
-    { label: "Cloud Platforms", value: "3", icon: "☁️", description: "AWS, Azure, DigitalOcean", color: "from-orange-500 to-red-500" },
-    { label: "Years Learning", value: "2+", icon: "📚", description: "Continuous Learning Journey", color: "from-green-500 to-emerald-500" },
-    { label: "Certifications", value: "3", icon: "🏆", description: "Industry Certifications", color: "from-purple-500 to-pink-500" }
+    { 
+      label: "TECHNOLOGIES", 
+      value: "20+", 
+      icon: "⚙️", 
+      description: "DevOps Tools & Platforms",
+      status: "LOADED"
+    },
+    { 
+      label: "CLOUD_PLATFORMS", 
+      value: "03", 
+      icon: "☁️", 
+      description: "AWS, Azure, DigitalOcean",
+      status: "ACTIVE"
+    },
+    { 
+      label: "LEARNING_TIME", 
+      value: "2+ YRS", 
+      icon: "📚", 
+      description: "Continuous Learning",
+      status: "ONGOING"
+    },
+    { 
+      label: "CERTIFICATIONS", 
+      value: "03", 
+      icon: "🏆", 
+      description: "Industry Validated",
+      status: "VERIFIED"
+    }
   ];
 
   return (
     <section
       name="Skills"
-      className="section-padding bg-secondary-50 dark:bg-secondary-900 relative overflow-hidden"
+      className="section-cyber matrix-bg relative overflow-hidden"
     >
-      {/* Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-green-400/10 to-cyan-400/10 rounded-full blur-3xl animate-float"></div>
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-br from-purple-400/10 to-pink-400/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }}></div>
+      {/* Background Effects */}
+      <div className="absolute inset-0">
+        <div className="scan-lines"></div>
+        {/* Floating Tech Icons */}
+        {[...Array(20)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute text-neon-green/10 font-mono text-lg animate-float-slow"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 5}s`
+            }}
+          >
+            {['⚙️', '☁️', '🐳', '⚓', '🔧', '📊'][Math.floor(Math.random() * 6)]}
+          </div>
+        ))}
       </div>
 
-      <div className="container-custom relative z-10">
+      <div className="cyber-container relative z-10">
         {/* Section Header */}
         <AnimatedWrapper animation="fade-in" delay={0.2}>
           <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
-              Technical <span className="gradient-text">Skills</span>
-            </h2>
-            <p className="text-xl text-secondary-600 dark:text-secondary-300 max-w-3xl mx-auto leading-relaxed">
-              Comprehensive expertise in modern DevOps tools, cloud platforms, and automation technologies
-            </p>
+            <div className="terminal-window max-w-3xl mx-auto">
+              <div className="terminal-header">
+                <div className="flex space-x-2">
+                  <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                  <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                  <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                </div>
+                <div className="flex-1 text-center text-xs text-gray-400 font-mono">
+                  skills-inventory.sh
+                </div>
+              </div>
+              <div className="terminal-content">
+                <div className="font-mono text-sm space-y-2">
+                  <div className="text-neon-blue">$ ./scan_skills.sh --verbose --all</div>
+                  <div className="text-neon-green">Scanning technical capabilities...</div>
+                  <div className="text-white">Found: {skills.length} skills loaded</div>
+                  <div className="text-white">Categories: {categories.length - 1} active</div>
+                  <div className="text-neon-green">Status: READY FOR DEPLOYMENT</div>
+                </div>
+              </div>
+            </div>
           </div>
         </AnimatedWrapper>
 
@@ -47,17 +99,25 @@ const Skills = () => {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
             {skillStats.map((stat, index) => (
               <div key={index} className="stat-card group">
-                <div className={`stat-icon bg-gradient-to-br ${stat.color} text-white group-hover:shadow-xl`}>
+                <div className="stat-icon group-hover:shadow-neon">
                   {stat.icon}
                 </div>
-                <div className="text-3xl font-bold text-secondary-800 dark:text-secondary-200 mb-2">
+                <div className="neon-text text-2xl font-bold font-mono mb-2">
                   {stat.value}
                 </div>
-                <div className="text-sm font-medium text-secondary-600 dark:text-secondary-400 mb-1">
+                <div className="text-white font-mono text-xs uppercase tracking-wider mb-2">
                   {stat.label}
                 </div>
-                <div className="text-xs text-secondary-500 dark:text-secondary-500">
+                <div className="text-gray-400 font-mono text-xs mb-2">
                   {stat.description}
+                </div>
+                <div className={`font-mono text-xs px-2 py-1 rounded ${
+                  stat.status === 'LOADED' ? 'bg-neon-green/20 text-neon-green' :
+                  stat.status === 'ACTIVE' ? 'bg-neon-blue/20 text-neon-blue' :
+                  stat.status === 'ONGOING' ? 'bg-neon-purple/20 text-neon-purple' :
+                  'bg-neon-pink/20 text-neon-pink'
+                }`}>
+                  [{stat.status}]
                 </div>
               </div>
             ))}
@@ -66,25 +126,36 @@ const Skills = () => {
 
         {/* Category Filter */}
         <AnimatedWrapper animation="slide-up" delay={0.6}>
-          <div className="flex flex-wrap gap-3 justify-center mb-12">
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setActiveCategory(category)}
-                className={`px-6 py-3 rounded-xl font-medium transition-all duration-300 hover:scale-105 ${
-                  activeCategory === category 
-                    ? 'btn-primary' 
-                    : 'btn-secondary'
-                }`}
-              >
-                {category}
-              </button>
-            ))}
+          <div className="mb-12">
+            <div className="cyber-card p-6">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-8 h-8 border-2 border-neon-green rounded bg-black flex items-center justify-center">
+                  <span className="text-neon-green font-mono text-sm">$</span>
+                </div>
+                <h3 className="neon-text-blue font-cyber text-xl">FILTER_CATEGORIES</h3>
+              </div>
+              
+              <div className="flex flex-wrap gap-3">
+                {categories.map((category) => (
+                  <button
+                    key={category}
+                    onClick={() => setActiveCategory(category)}
+                    className={`font-mono text-sm px-4 py-2 rounded border-2 transition-all duration-300 hover:scale-105 ${
+                      activeCategory === category 
+                        ? 'border-neon-blue bg-neon-blue/20 text-neon-blue shadow-neon-sm' 
+                        : 'border-neon-green bg-black text-neon-green hover:border-neon-blue hover:text-neon-blue'
+                    }`}
+                  >
+                    ./{category.toLowerCase().replace(' ', '_')}.sh
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
         </AnimatedWrapper>
 
         {/* Skills Grid */}
-        <div className="skills-grid">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-16">
           {filteredSkills.map((skill, index) => (
             <AnimatedWrapper 
               key={skill.id} 
@@ -93,12 +164,12 @@ const Skills = () => {
             >
               <div className="skill-card group">
                 {/* Skill Icon */}
-                <div className="skill-icon bg-gradient-to-br from-primary-100 to-accent-100 dark:from-primary-900/30 dark:to-accent-900/30 text-primary-600 dark:text-primary-400 group-hover:scale-110">
+                <div className="skill-icon group-hover:scale-110 group-hover:shadow-neon">
                   {skill.icon}
                 </div>
                 
                 {/* Skill Name */}
-                <h3 className="text-lg font-semibold text-secondary-800 dark:text-secondary-200 mb-2">
+                <h3 className="text-white font-mono text-lg font-bold mb-2 group-hover:text-neon-green transition-colors duration-300">
                   {skill.name}
                 </h3>
                 
@@ -108,16 +179,22 @@ const Skills = () => {
                 </div>
                 
                 {/* Skill Level */}
-                <div className="w-full bg-secondary-200 dark:bg-secondary-700 rounded-full h-2 mb-3">
+                <div className="w-full bg-gray-800 rounded-full h-2 mb-4 overflow-hidden">
                   <div 
-                    className="bg-gradient-to-r from-primary-500 to-accent-500 h-2 rounded-full transition-all duration-1000 ease-out"
+                    className="bg-gradient-to-r from-neon-green to-neon-blue h-2 rounded-full transition-all duration-1000 ease-out"
                     style={{ width: `${skill.level || 85}%` }}
                   ></div>
                 </div>
                 
+                {/* Skill Level Text */}
+                <div className="flex justify-between items-center mb-3">
+                  <span className="font-mono text-xs text-gray-400">PROFICIENCY</span>
+                  <span className="font-mono text-xs text-neon-green font-bold">{skill.level || 85}%</span>
+                </div>
+                
                 {/* Skill Description */}
                 {skill.description && (
-                  <p className="text-sm text-secondary-600 dark:text-secondary-400 leading-relaxed">
+                  <p className="text-gray-400 text-xs leading-relaxed font-mono">
                     {skill.description}
                   </p>
                 )}
@@ -128,24 +205,38 @@ const Skills = () => {
 
         {/* Skills Summary */}
         <AnimatedWrapper animation="fade-in" delay={1.0}>
-          <div className="mt-16 text-center">
-            <div className="card-modern p-8 max-w-4xl mx-auto">
-              <h3 className="text-2xl font-bold text-secondary-800 dark:text-secondary-200 mb-4">
-                Continuous Learning Journey
-              </h3>
-              <p className="text-secondary-600 dark:text-secondary-300 leading-relaxed mb-6">
+          <div className="text-center">
+            <div className="cyber-card p-8 max-w-4xl mx-auto border-2 border-neon-purple">
+              <div className="flex items-center justify-center gap-3 mb-6">
+                <div className="w-8 h-8 border-2 border-neon-purple rounded bg-black flex items-center justify-center">
+                  <span className="text-neon-purple font-mono text-sm">∞</span>
+                </div>
+                <h3 className="neon-text-purple font-cyber text-2xl">CONTINUOUS_LEARNING</h3>
+              </div>
+              
+              <p className="text-gray-300 leading-relaxed mb-8 font-mono text-sm max-w-3xl mx-auto">
                 My technical expertise spans across cloud platforms, infrastructure automation, 
                 container orchestration, and monitoring solutions. I'm constantly learning new 
                 technologies and best practices to stay current with the rapidly evolving DevOps landscape.
               </p>
-              <div className="flex flex-wrap justify-center gap-4">
-                <div className="flex items-center gap-2 text-sm text-secondary-600 dark:text-secondary-400">
-                  <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                  <span>Currently Learning: <strong className="text-primary-600 dark:text-primary-400">GitOps & ArgoCD</strong></span>
+              
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="cyber-card p-4 border border-neon-green/50">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-2 h-2 bg-neon-green rounded-full animate-pulse"></div>
+                    <span className="font-mono text-sm text-neon-green">CURRENTLY_LEARNING</span>
+                  </div>
+                  <div className="font-mono text-white font-bold">GitOps & ArgoCD</div>
+                  <div className="font-mono text-xs text-gray-400">Continuous Deployment</div>
                 </div>
-                <div className="flex items-center gap-2 text-sm text-secondary-600 dark:text-secondary-400">
-                  <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
-                  <span>Next Focus: <strong className="text-accent-600 dark:text-accent-400">Service Mesh & Istio</strong></span>
+                
+                <div className="cyber-card p-4 border border-neon-blue/50">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-2 h-2 bg-neon-blue rounded-full animate-pulse"></div>
+                    <span className="font-mono text-sm text-neon-blue">NEXT_TARGET</span>
+                  </div>
+                  <div className="font-mono text-white font-bold">Service Mesh & Istio</div>
+                  <div className="font-mono text-xs text-gray-400">Microservices Architecture</div>
                 </div>
               </div>
             </div>

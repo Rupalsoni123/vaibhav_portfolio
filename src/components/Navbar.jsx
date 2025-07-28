@@ -27,47 +27,60 @@ const Navbar = () => {
     return (
         <>
             <nav 
-                className={`nav-modern transition-all duration-300 ${
+                className={`cyber-nav fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
                     scrolled 
-                        ? 'bg-white/90 dark:bg-secondary-900/90 shadow-lg backdrop-blur-xl' 
-                        : 'bg-white/70 dark:bg-secondary-900/70 backdrop-blur-md'
+                        ? 'bg-black/95 border-neon-green shadow-neon' 
+                        : 'bg-black/80 border-neon-green/50'
                 }`}
                 role="navigation"
                 aria-label="Main navigation"
             >
-                <div className='w-full h-full'>
-                    <div className='flex justify-between items-center container-custom h-20'>
+                <div className="cyber-container">
+                    <div className="flex justify-between items-center h-16">
                         {/* Logo */}
-                        <div className='text-2xl duration-500 font-bold group cursor-pointer'>
-                            <h1 className='font-signature'>
-                                <span className='gradient-text font-black text-3xl hover:scale-105 transition-transform duration-300'>
-                                    Vaibhav Soni
-                                </span>
-                                <span className='block text-xs font-medium text-secondary-600 dark:text-secondary-400 mt-1 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-300'>
-                                    DevOps Engineer
-                                </span>
-                            </h1>
+                        <div className="flex items-center space-x-4">
+                            <div className="text-2xl font-bold group cursor-pointer">
+                                <div className="flex items-center space-x-2">
+                                    <div className="w-8 h-8 border-2 border-neon-green rounded bg-black flex items-center justify-center">
+                                        <span className="text-neon-green font-mono text-sm font-bold">V</span>
+                                    </div>
+                                    <div>
+                                        <h1 className="font-cyber text-lg neon-text hover:neon-text-blue transition-colors duration-300">
+                                            VAIBHAV.SONI
+                                        </h1>
+                                        <div className="text-xs font-mono text-gray-400 -mt-1">
+                                            &lt;/DevOps_Engineer&gt;
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         {/* Desktop Navigation */}
-                        <div className='hidden lg:flex items-center space-x-8'>
+                        <div className="hidden lg:flex items-center space-x-8">
                             <Navigation />
-                            <div className='flex items-center space-x-4'>
+                            <div className="flex items-center space-x-4">
                                 <ThemeToggle />
+                                
+                                {/* Status Indicator */}
+                                <div className="flex items-center space-x-2 px-3 py-1 border border-neon-green rounded bg-black/50">
+                                    <div className="w-2 h-2 bg-neon-green rounded-full animate-pulse"></div>
+                                    <span className="font-mono text-xs text-neon-green">ONLINE</span>
+                                </div>
+
+                                {/* Contact Button */}
                                 <a
                                     href="mailto:vaibhavsoni5567@gmail.com"
-                                    className="btn-primary text-sm px-4 py-2 inline-flex items-center gap-2 group"
+                                    className="cyber-button text-sm px-4 py-2 inline-flex items-center gap-2 group"
                                 >
-                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                    </svg>
-                                    <span>Let's Talk</span>
+                                    <span>CONTACT.exe</span>
+                                    <span className="text-lg group-hover:animate-pulse">⚡</span>
                                 </a>
                             </div>
                         </div>
 
                         {/* Mobile Menu Button */}
-                        <div className='lg:hidden flex items-center space-x-4'>
+                        <div className="lg:hidden flex items-center space-x-4">
                             <ThemeToggle />
                             <HamBurgerMenu 
                                 navOpen={navOpen} 
@@ -88,32 +101,47 @@ const Navbar = () => {
             >
                 {/* Backdrop */}
                 <div 
-                    className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+                    className="absolute inset-0 bg-black/90 backdrop-blur-sm"
                     onClick={() => setNavOpen(false)}
                 />
                 
                 {/* Mobile Menu */}
                 <div 
-                    className={`absolute top-20 left-0 right-0 bg-white dark:bg-secondary-900 border-t border-secondary-200 dark:border-secondary-700 shadow-2xl transform transition-transform duration-300 ${
+                    className={`absolute top-16 left-0 right-0 cyber-card mx-4 transform transition-transform duration-300 ${
                         navOpen 
                             ? 'translate-y-0' 
                             : '-translate-y-full'
                     }`}
                 >
-                    <div className="container-custom py-8">
+                    <div className="p-6">
+                        {/* Terminal Header */}
+                        <div className="border-b border-neon-green pb-4 mb-6">
+                            <div className="font-mono text-sm text-neon-green">
+                                root@mobile-nav:~$ ls -la menu/
+                            </div>
+                        </div>
+
                         <Navigation mobile onItemClick={() => setNavOpen(false)} />
                         
-                        {/* Mobile CTA */}
-                        <div className="mt-8 pt-8 border-t border-secondary-200 dark:border-secondary-700">
+                        {/* Mobile Status & CTA */}
+                        <div className="mt-8 pt-6 border-t border-neon-green/30 space-y-4">
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-center space-x-2">
+                                    <div className="w-2 h-2 bg-neon-green rounded-full animate-pulse"></div>
+                                    <span className="font-mono text-xs text-neon-green">STATUS: ONLINE</span>
+                                </div>
+                                <div className="font-mono text-xs text-gray-400">
+                                    {new Date().toLocaleTimeString()}
+                                </div>
+                            </div>
+                            
                             <a
                                 href="mailto:vaibhavsoni5567@gmail.com"
-                                className="btn-primary w-full text-center inline-flex items-center justify-center gap-2"
+                                className="cyber-button w-full text-center inline-flex items-center justify-center gap-2"
                                 onClick={() => setNavOpen(false)}
                             >
-                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                </svg>
-                                <span>Get In Touch</span>
+                                <span>INITIATE_CONTACT.sh</span>
+                                <span className="text-lg">📡</span>
                             </a>
                         </div>
                     </div>
