@@ -117,7 +117,7 @@ const About = () => {
 
       <div className="cyber-container relative z-10">
         {/* Section Header */}
-        <AnimatedWrapper animation="fade-in" delay={0.2}>
+        <AnimatedWrapper animateFrom="bottom" delay={0.2}>
           <div className="text-center mb-16">
             <div className="terminal-window max-w-2xl mx-auto">
               <div className="terminal-header">
@@ -144,11 +144,11 @@ const About = () => {
           </div>
         </AnimatedWrapper>
 
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Left Column - Profile & Journey */}
           <div className="space-y-8">
             {/* System Information */}
-            <AnimatedWrapper animation="slide-right" delay={0.4}>
+            <AnimatedWrapper animateFrom="right" delay={0.4}>
               <div className="cyber-card p-6">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-8 h-8 border-2 border-neon-green rounded bg-black flex items-center justify-center">
@@ -162,12 +162,15 @@ const About = () => {
                     <div key={index} className="cyber-card p-4 hover:border-neon-blue transition-colors duration-300">
                       <div className="flex items-center justify-between mb-2">
                         <span className="text-2xl">{info.icon}</span>
-                        <span className={`font-mono text-xs px-2 py-1 rounded ${
-                          info.status === 'ACTIVE' ? 'bg-neon-green/20 text-neon-green' :
-                          info.status === 'ONLINE' ? 'bg-neon-blue/20 text-neon-blue' :
-                          info.status === 'GROWING' ? 'bg-neon-purple/20 text-neon-purple' :
-                          'bg-neon-pink/20 text-neon-pink'
-                        }`}>
+                        <span 
+                          className="font-mono text-xs px-2 py-1 rounded text-neon-green"
+                          style={{ 
+                            backgroundColor: info.status === 'ACTIVE' ? 'rgba(0, 255, 65, 0.2)' :
+                            info.status === 'ONLINE' ? 'rgba(0, 212, 255, 0.2)' :
+                            info.status === 'GROWING' ? 'rgba(191, 0, 255, 0.2)' :
+                            'rgba(255, 0, 128, 0.2)'
+                          }}
+                        >
                           {info.status}
                         </span>
                       </div>
@@ -180,7 +183,7 @@ const About = () => {
               </div>
             </AnimatedWrapper>
 
-            {/* Professional Journey */}
+            {/* Professional Journey - Career Log */}
             <AnimatedWrapper animateFrom="right" delay={0.6}>
               <div className="cyber-card p-6">
                 <div className="flex items-center gap-3 mb-6">
@@ -195,7 +198,10 @@ const About = () => {
                     <div key={index} className="relative pl-8">
                       {/* Timeline line */}
                       {index !== journey.length - 1 && (
-                        <div className="absolute left-2 top-8 bottom-0 w-0.5" style={{ backgroundColor: 'rgba(0, 255, 65, 0.3)' }}></div>
+                        <div 
+                          className="absolute left-2 top-8 bottom-0 w-0.5" 
+                          style={{ backgroundColor: 'rgba(0, 255, 65, 0.3)' }}
+                        ></div>
                       )}
                       
                       {/* Timeline dot */}
@@ -210,7 +216,10 @@ const About = () => {
                           <h4 className="neon-text font-mono text-sm font-bold">{phase.phase}</h4>
                           <span className="font-mono text-xs text-gray-400">{phase.year}</span>
                         </div>
-                        <div className="font-mono text-xs text-neon-blue bg-black p-3 rounded border border-neon-blue" style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', borderColor: 'rgba(0, 212, 255, 0.3)' }}>
+                        <div 
+                          className="font-mono text-xs text-neon-blue bg-black p-3 rounded border" 
+                          style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', borderColor: 'rgba(0, 212, 255, 0.3)' }}
+                        >
                           $ {phase.command}
                         </div>
                         <p className="text-gray-300 text-sm leading-relaxed">{phase.description}</p>
@@ -227,7 +236,7 @@ const About = () => {
             </AnimatedWrapper>
 
             {/* Download Resume */}
-            <AnimatedWrapper animation="slide-right" delay={0.8}>
+            <AnimatedWrapper animateFrom="right" delay={0.8}>
               <div className="text-center">
                 <a
                   href={resume}
@@ -241,10 +250,10 @@ const About = () => {
             </AnimatedWrapper>
           </div>
 
-          {/* Right Column - Certifications & Skills */}
+          {/* Right Column - Certifications & Tech Stack */}
           <div className="space-y-8">
             {/* Certifications */}
-            <AnimatedWrapper animation="slide-left" delay={0.4}>
+            <AnimatedWrapper animateFrom="left" delay={0.4}>
               <div className="cyber-card p-6">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-8 h-8 border-2 border-neon-green rounded bg-black flex items-center justify-center">
@@ -260,11 +269,17 @@ const About = () => {
                         <div className="flex-1">
                           <div className="flex items-center gap-2 mb-2">
                             <span className="font-mono text-xs text-neon-green">{cert.id}</span>
-                            <span className={`font-mono text-xs px-2 py-1 rounded ${
-                              cert.level === 'PROFESSIONAL' ? 'bg-neon-purple/20 text-neon-purple' :
-                              cert.level === 'ASSOCIATE' ? 'bg-neon-blue/20 text-neon-blue' :
-                              'bg-neon-green/20 text-neon-green'
-                            }`}>
+                            <span 
+                              className="font-mono text-xs px-2 py-1 rounded"
+                              style={{ 
+                                backgroundColor: cert.level === 'PROFESSIONAL' ? 'rgba(191, 0, 255, 0.2)' :
+                                cert.level === 'ASSOCIATE' ? 'rgba(0, 212, 255, 0.2)' :
+                                'rgba(0, 255, 65, 0.2)',
+                                color: cert.level === 'PROFESSIONAL' ? 'var(--neon-purple)' :
+                                cert.level === 'ASSOCIATE' ? 'var(--neon-blue)' :
+                                'var(--neon-green)'
+                              }}
+                            >
                               {cert.level}
                             </span>
                           </div>
@@ -393,7 +408,7 @@ const About = () => {
             </AnimatedWrapper>
 
             {/* Contact CTA */}
-            <AnimatedWrapper animation="slide-left" delay={0.8}>
+            <AnimatedWrapper animateFrom="left" delay={0.8}>
               <div className="cyber-card p-6 text-center border-2 border-neon-blue">
                 <h4 className="neon-text-blue font-cyber text-xl mb-4">
                   INITIATE_COLLABORATION
@@ -418,4 +433,3 @@ const About = () => {
 };
 
 export default About;
-   
