@@ -170,57 +170,53 @@ const Home = () => {
               </AnimatedWrapper>
 
               {/* Action Buttons */}
-              <AnimatedWrapper animateFrom="right" delay={0.6}>
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <Link
-                    to="Projects"
-                    smooth
-                    duration={500}
-                    className="cyber-button cursor-pointer inline-flex items-center justify-center gap-3 group"
-                  >
-                    <span>VIEW_PROJECTS.exe</span>
-                    <span className="text-lg group-hover:translate-x-1 transition-transform duration-300">→</span>
-                  </Link>
-                  
-                  <a
-                    href={contactInfo.find(item => item.name === "Resume")?.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="cyber-button-secondary cursor-pointer inline-flex items-center justify-center gap-3 group"
-                  >
-                    <span>DOWNLOAD_CV.pdf</span>
-                    <span className="text-lg group-hover:animate-bounce">↓</span>
-                  </a>
-                </div>
-              </AnimatedWrapper>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link
+                  to="Projects"
+                  smooth
+                  duration={500}
+                  className="cyber-button cursor-pointer inline-flex items-center justify-center gap-3 group"
+                >
+                  <span>VIEW_PROJECTS.exe</span>
+                  <span className="text-lg group-hover:translate-x-1 transition-transform duration-300">→</span>
+                </Link>
+                
+                <a
+                  href={contactInfo.find(item => item.name === "Resume")?.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="cyber-button-secondary cursor-pointer inline-flex items-center justify-center gap-3 group"
+                >
+                  <span>DOWNLOAD_CV.pdf</span>
+                  <span className="text-lg group-hover:animate-bounce">↓</span>
+                </a>
+              </div>
 
               {/* Tech Stack Status */}
-              <AnimatedWrapper animateFrom="right" delay={0.8}>
-                <div className="cyber-card p-6">
-                  <div className="neon-text-blue font-mono text-sm mb-4 uppercase tracking-wider">
-                    // SYSTEM STATUS
-                  </div>
-                  <div className="space-y-3">
-                    {techStack.map((tech, index) => (
-                      <div key={index} className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <div className="w-2 h-2 bg-neon-green rounded-full animate-pulse"></div>
-                          <span className="font-mono text-sm text-white">{tech.name}</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <div className="w-20 h-1 bg-gray-800 rounded-full overflow-hidden">
-                            <div 
-                              className="h-full bg-gradient-to-r from-neon-green to-neon-blue transition-all duration-1000"
-                              style={{ width: `${tech.level}%` }}
-                            ></div>
-                          </div>
-                          <span className="font-mono text-xs text-neon-green">{tech.status}</span>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+              <div className="cyber-card p-6">
+                <div className="neon-text-blue font-mono text-sm mb-4 uppercase tracking-wider">
+                  // SYSTEM STATUS
                 </div>
-              </AnimatedWrapper>
+                <div className="space-y-3">
+                  {techStack.map((tech, index) => (
+                    <div key={index} className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="w-2 h-2 bg-neon-green rounded-full animate-pulse"></div>
+                        <span className="font-mono text-sm text-white">{tech.name}</span>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <div className="w-20 h-1 bg-gray-800 rounded-full overflow-hidden">
+                          <div 
+                            className="h-full bg-gradient-to-r from-neon-green to-neon-blue transition-all duration-1000"
+                            style={{ width: `${tech.level}%` }}
+                          ></div>
+                        </div>
+                        <span className="font-mono text-xs text-neon-green">{tech.status}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
 
             {/* Right Column - Avatar & Stats */}
