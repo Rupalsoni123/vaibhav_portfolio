@@ -35,16 +35,11 @@ const About = () => {
     }
   };
 
-  const systemInfo = [
-    { label: "OS", value: "Linux (Ubuntu 22.04)" },
-    { label: "Editor", value: "VS Code" },
-    { label: "Terminal", value: "Zsh + Oh My Zsh" },
-    { label: "Cloud", value: "AWS, Azure, DigitalOcean" }
-  ];
+ 
 
   const journey = [
     {
-      year: "2024",
+      year: "2025",
       title: "DevOps Engineer",
       company: "Inexture Solutions",
       description: "Working on cloud infrastructure, CI/CD pipelines, and container orchestration."
@@ -96,29 +91,6 @@ const About = () => {
             and optimizing CI/CD workflows. With hands-on experience across AWS, Azure, Kubernetes, Docker, and Terraform, 
             I bridge the gap between development and operations to deliver faster, more reliable software deployments.
           </p>
-        </div>
-        
-        <div>
-          <h3 style={{ fontWeight: '600', marginBottom: '1rem', color: 'var(--text-primary)' }}>
-            Development Environment
-          </h3>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
-            {systemInfo.map((info, index) => (
-              <div key={index} style={{
-                padding: '1rem',
-                background: 'var(--card-bg)',
-                border: '1px solid var(--border-color)',
-                borderRadius: '0.5rem'
-              }}>
-                <div style={{ fontWeight: '500', color: 'var(--text-primary)', marginBottom: '0.5rem' }}>
-                  {info.label}
-                </div>
-                <div style={{ color: 'var(--text-secondary)', fontSize: '0.875rem' }}>
-                  {info.value}
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
       </div>
     ),
@@ -426,6 +398,7 @@ const About = () => {
         }
       `}</style>
     </section>
+    
   );
 };
 
