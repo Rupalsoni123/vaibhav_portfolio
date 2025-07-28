@@ -177,54 +177,57 @@ const Contact = () => {
                   <h3 className="neon-text-blue font-cyber text-xl">SOCIAL_NETWORKS</h3>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4 mb-6">
-                  {contactInfo.slice(0, 4).map(({ id, link, name, icon }) => (
+                <div className="space-y-4">
+                  {contactInfo.filter(item => item.name !== 'Resume').slice(0, 3).map(({ id, link, name, icon }) => (
                     <a
                       key={id}
                       href={link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="cyber-card p-4 hover:border-neon-blue transition-colors duration-300 group flex items-center gap-3"
+                      className="flex items-center gap-4 p-4 cyber-card hover:border-neon-blue transition-colors duration-300 group"
                       aria-label={name}
                     >
-                      <div className="w-10 h-10 bg-gradient-to-br from-neon-green/20 to-neon-blue/20 rounded-lg flex items-center justify-center text-neon-green group-hover:text-neon-blue transition-colors duration-300 border border-neon-green group-hover:border-neon-blue">
+                      <div className="w-12 h-12 bg-gradient-to-br from-neon-green/20 to-neon-blue/20 rounded-lg flex items-center justify-center text-neon-green group-hover:text-neon-blue transition-colors duration-300 border border-neon-green group-hover:border-neon-blue text-xl">
                         {icon}
                       </div>
-                      <div>
+                      <div className="flex-1">
                         <div className="font-mono text-sm font-bold text-white group-hover:text-neon-blue transition-colors duration-300">
                           {name.toUpperCase()}
                         </div>
                         <div className="font-mono text-xs text-gray-400">
-                          {name === 'LinkedIn' ? 'PROFESSIONAL' : 
-                           name === 'GitHub' ? 'REPOSITORIES' : 
-                           name === 'Mail' ? 'DIRECT_CONTACT' : 'DOCUMENT'}
+                          {name === 'LinkedIn' ? 'Professional Network' : 
+                           name === 'GitHub' ? 'Code Repositories' : 
+                           'Direct Communication'}
                         </div>
+                      </div>
+                      <div className="text-neon-green group-hover:text-neon-blue transition-colors duration-300">
+                        →
                       </div>
                     </a>
                   ))}
-                </div>
-
-                {/* Quick Connect */}
-                <div className="border-t border-neon-green/30 pt-4">
-                  <div className="font-mono text-xs text-neon-blue mb-2">QUICK_CONNECT:</div>
-                  <div className="flex gap-2">
-                    <a
-                      href="https://linkedin.com/in/vaibhavsonii21"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="cyber-button-secondary text-xs px-3 py-1"
-                    >
-                      LINKEDIN.connect
-                    </a>
-                    <a
-                      href="https://github.com/vaibhav21soni"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="cyber-button-secondary text-xs px-3 py-1"
-                    >
-                      GITHUB.follow
-                    </a>
-                  </div>
+                  
+                  {/* Resume Download */}
+                  <a
+                    href={contactInfo.find(item => item.name === 'Resume')?.link}
+                    download="Vaibhav_Soni_DevOps_Resume.pdf"
+                    className="flex items-center gap-4 p-4 cyber-card hover:border-neon-purple transition-colors duration-300 group"
+                    aria-label="Download Resume"
+                  >
+                    <div className="w-12 h-12 bg-gradient-to-br from-neon-purple/20 to-neon-pink/20 rounded-lg flex items-center justify-center text-neon-purple group-hover:text-neon-pink transition-colors duration-300 border border-neon-purple group-hover:border-neon-pink text-xl">
+                      📄
+                    </div>
+                    <div className="flex-1">
+                      <div className="font-mono text-sm font-bold text-white group-hover:text-neon-purple transition-colors duration-300">
+                        RESUME.PDF
+                      </div>
+                      <div className="font-mono text-xs text-gray-400">
+                        Download CV Document
+                      </div>
+                    </div>
+                    <div className="text-neon-purple group-hover:text-neon-pink transition-colors duration-300">
+                      ↓
+                    </div>
+                  </a>
                 </div>
               </div>
             </AnimatedWrapper>

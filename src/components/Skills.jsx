@@ -135,23 +135,18 @@ const Skills = () => {
                 <h3 className="neon-text-blue font-cyber text-xl">FILTER_CATEGORIES</h3>
               </div>
               
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+              <div className="flex flex-wrap gap-3 justify-center">
                 {categories.map((category) => (
                   <button
                     key={category}
                     onClick={() => setActiveCategory(category)}
-                    className={`font-mono text-sm px-4 py-3 rounded border-2 transition-all duration-300 hover:scale-105 text-center ${
+                    className={`font-mono text-sm px-4 py-2 rounded border-2 transition-all duration-300 hover:scale-105 ${
                       activeCategory === category 
                         ? 'border-neon-blue bg-neon-blue/20 text-neon-blue shadow-neon-sm' 
                         : 'border-neon-green bg-black text-neon-green hover:border-neon-blue hover:text-neon-blue'
                     }`}
                   >
-                    <div className="truncate">
-                      {category === "All" ? "show_all" : category.toLowerCase().replace(/\s+/g, '_')}
-                    </div>
-                    <div className="text-xs opacity-70 mt-1">
-                      .{category === "All" ? "sh" : "exe"}
-                    </div>
+                    {category === "All" ? "ALL" : category.toUpperCase()}
                   </button>
                 ))}
               </div>
@@ -160,10 +155,10 @@ const Skills = () => {
               <div className="mt-4 pt-4 border-t border-neon-green/30">
                 <div className="flex items-center justify-between">
                   <div className="font-mono text-sm text-neon-blue">
-                    ACTIVE_FILTER: <span className="text-neon-green">{activeCategory}</span>
+                    ACTIVE: <span className="text-neon-green">{activeCategory}</span>
                   </div>
                   <div className="font-mono text-sm text-gray-400">
-                    RESULTS: <span className="text-neon-green">{filteredSkills.length}</span> skills
+                    SHOWING: <span className="text-neon-green">{filteredSkills.length}</span> skills
                   </div>
                 </div>
               </div>

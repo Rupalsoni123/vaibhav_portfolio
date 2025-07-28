@@ -13,12 +13,12 @@ const Projects = () => {
       title: "Azure Cloud Infrastructure Migration",
       category: "Infrastructure as Code",
       description: "Successfully migrated 240+ Azure resources to Terraform-based IaC, enabling full automation and version control.",
-      technologies: ["Terraform", "Azure", "App Services", "API Management", "Logic Apps", "Service Bus"],
+      technologies: ["Terraform", "Azure", "App Services", "API Management", "Logic Apps", "Service Bus", "Storage Accounts", "Key Vaults"],
       achievements: [
-        "Designed reusable dynamic Terraform modules",
+        "Designed reusable dynamic Terraform modules for various Azure services",
         "Reduced code duplication by 70%",
-        "Standardized naming conventions and tag policies",
-        "Ensured consistent, scalable deployments",
+        "Developed standardized naming conventions and tag policies",
+        "Ensured consistent, scalable deployments across environments",
         "Implemented automated state management",
         "Created comprehensive documentation and runbooks"
       ],
@@ -33,8 +33,8 @@ const Projects = () => {
       id: 2,
       title: "DigitalOcean Kubernetes Cluster",
       category: "Container Orchestration",
-      description: "Designed and deployed a highly available, production-grade Kubernetes cluster with multi-node architecture.",
-      technologies: ["Kubernetes", "DigitalOcean", "Apache Kafka", "ZooKeeper", "YAML"],
+      description: "Designed and deployed a highly available, production-grade Kubernetes cluster with multi-node architecture and persistent volume provisioning.",
+      technologies: ["Kubernetes", "DigitalOcean", "Apache Kafka", "ZooKeeper", "YAML", "Persistent Volumes"],
       achievements: [
         "Deployed Apache Kafka and ZooKeeper using custom YAML manifests",
         "Configured cluster for efficient distributed workload management",
@@ -52,33 +52,54 @@ const Projects = () => {
     },
     {
       id: 3,
-      title: "Multi-Cloud CI/CD Pipeline",
-      category: "CI/CD & Automation",
-      description: "Built comprehensive CI/CD pipeline supporting multiple cloud providers with automated testing and deployment.",
-      technologies: ["GitHub Actions", "Docker", "AWS", "Azure", "Terraform"],
+      title: "AWS Infrastructure Automation with Terragrunt",
+      category: "Infrastructure as Code",
+      description: "Provisioned and managed scalable AWS infrastructure using Terragrunt, adhering to IaC best practices for modularity and maintainability.",
+      technologies: ["AWS", "Terragrunt", "Bitbucket CI/CD", "AWS Organizations", "AWS SSO", "EC2", "Systems Manager", "Service Control Policies"],
       achievements: [
-        "Automated build, test, and deployment processes",
-        "Implemented multi-environment deployment strategy",
-        "Integrated security scanning and compliance checks",
-        "Created rollback mechanisms for failed deployments",
-        "Established monitoring and alerting for pipeline health",
-        "Reduced manual deployment effort by 90%"
+        "Automated end-to-end infrastructure deployments using Bitbucket CI/CD pipelines",
+        "Implemented structured code review process with two peer reviewers",
+        "Enhanced cloud environment resilience with modular Terragrunt architecture",
+        "Managed 6 AWS accounts using AWS Organizations with centralized billing",
+        "Implemented AWS SSO for secure access management across all accounts",
+        "Configured EC2 instances accessible via AWS Systems Manager Session Manager"
       ],
-      icon: "🔄",
+      icon: "🏗️",
       gradient: "from-neon-green to-neon-blue",
-      challenge: "Manual deployment processes were error-prone and time-consuming, leading to delayed releases and inconsistent environments.",
-      solution: "Implemented automated CI/CD pipeline with comprehensive testing, security scanning, and multi-cloud deployment capabilities.",
+      challenge: "Managing multiple AWS accounts with consistent security policies and streamlined deployment processes across environments.",
+      solution: "Implemented Terragrunt-based infrastructure with AWS Organizations, centralized billing, and automated CI/CD pipelines.",
       status: "OPTIMIZING",
       impact: "90% faster deployments"
     },
     {
       id: 4,
+      title: "Docker Container Customization",
+      category: "Container Orchestration",
+      description: "Designed and built a custom Docker image for FreePBX with embedded Asterisk-9 server, customized for specific client requirements.",
+      technologies: ["Docker", "FreePBX", "Asterisk-9", "Private Registry", "SIP Trunking", "Call Routing"],
+      achievements: [
+        "Customized Asterisk configurations for advanced client needs",
+        "Implemented SIP trunking and call routing functionality",
+        "Pushed customized Docker image to private registry for reuse",
+        "Enabled consistent rollouts across environments",
+        "Streamlined deployment process for communication infrastructure",
+        "Created client-specific configuration templates"
+      ],
+      icon: "🐳",
+      gradient: "from-neon-pink to-neon-purple",
+      challenge: "Client required specialized communication infrastructure with custom Asterisk configurations that needed to be consistently deployed.",
+      solution: "Built custom Docker image with embedded FreePBX and Asterisk-9, stored in private registry for Kubernetes deployments.",
+      status: "DEPLOYED",
+      impact: "100% client satisfaction"
+    },
+    {
+      id: 5,
       title: "Infrastructure Monitoring Stack",
       category: "Monitoring & Observability",
       description: "Implemented comprehensive monitoring and observability solution for distributed microservices architecture.",
-      technologies: ["Prometheus", "Grafana", "ELK Stack", "Kubernetes", "Docker"],
+      technologies: ["Prometheus", "Grafana", "ELK Stack", "Kubernetes", "Docker", "CloudWatch"],
       achievements: [
-        "Deployed Prometheus for metrics collection",
+        "Deployed Prometheus for metrics collection across infrastructure",
         "Created custom Grafana dashboards for visualization",
         "Implemented centralized logging with ELK Stack",
         "Set up alerting rules for proactive monitoring",
@@ -86,11 +107,32 @@ const Projects = () => {
         "Reduced MTTR by 60% through better observability"
       ],
       icon: "📊",
-      gradient: "from-neon-pink to-neon-purple",
+      gradient: "from-neon-blue to-neon-purple",
       challenge: "Lack of visibility into system performance and health across distributed microservices architecture.",
       solution: "Implemented comprehensive monitoring stack with metrics, logs, and traces for full observability.",
       status: "MONITORING",
       impact: "60% faster issue resolution"
+    },
+    {
+      id: 6,
+      title: "Cloud Infrastructure Automation (Current)",
+      category: "CI/CD & Automation",
+      description: "Currently contributing to cloud infrastructure automation and deployment optimization initiatives at Inexture Solutions.",
+      technologies: ["Kubernetes", "Cloud-native Solutions", "Scalable Architecture", "Modern DevOps Practices"],
+      achievements: [
+        "Implementing modern DevOps practices for enterprise clients",
+        "Optimizing deployment workflows for better efficiency",
+        "Designing scalable cloud infrastructure solutions",
+        "Contributing to automation initiatives",
+        "Enhancing deployment optimization processes",
+        "Working on enterprise-grade solutions"
+      ],
+      icon: "🚀",
+      gradient: "from-neon-green to-neon-pink",
+      challenge: "Enterprise clients need modern, scalable infrastructure solutions with optimized deployment workflows.",
+      solution: "Implementing cloud-native solutions with Kubernetes orchestration and modern DevOps practices.",
+      status: "ACTIVE",
+      impact: "Ongoing optimization"
     }
   ];
 
@@ -291,14 +333,14 @@ const Projects = () => {
               <div className="stat-icon bg-gradient-to-br from-neon-green to-neon-blue text-black group-hover:shadow-neon">
                 🚀
               </div>
-              <div className="neon-text text-3xl font-bold font-mono mb-2">04+</div>
+              <div className="neon-text text-3xl font-bold font-mono mb-2">06+</div>
               <div className="text-white font-mono text-sm">PROJECTS_DEPLOYED</div>
             </div>
             <div className="stat-card group">
               <div className="stat-icon bg-gradient-to-br from-neon-blue to-neon-purple text-black group-hover:shadow-neon">
                 ⚙️
               </div>
-              <div className="neon-text text-3xl font-bold font-mono mb-2">20+</div>
+              <div className="neon-text text-3xl font-bold font-mono mb-2">25+</div>
               <div className="text-white font-mono text-sm">TECHNOLOGIES_USED</div>
             </div>
             <div className="stat-card group">

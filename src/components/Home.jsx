@@ -42,28 +42,24 @@ const Home = () => {
       label: "YEARS_EXP", 
       value: "01+", 
       icon: "⚡", 
-      color: "neon-green",
       description: "Professional Experience"
     },
     { 
       label: "PROJECTS", 
-      value: "04+", 
+      value: "06+", 
       icon: "🚀", 
-      color: "neon-blue",
       description: "Deployed Successfully"
     },
     { 
       label: "TECH_STACK", 
-      value: "20+", 
+      value: "25+", 
       icon: "⚙️", 
-      color: "neon-purple",
       description: "Technologies Mastered"
     },
     { 
       label: "CERTS", 
       value: "03", 
       icon: "🏆", 
-      color: "neon-pink",
       description: "Industry Certifications"
     }
   ];
@@ -83,7 +79,7 @@ const Home = () => {
       <div className="absolute inset-0">
         <div className="scan-lines"></div>
         {/* Floating Matrix Characters */}
-        {[...Array(20)].map((_, i) => (
+        {[...Array(15)].map((_, i) => (
           <div
             key={i}
             className="absolute text-neon-green opacity-20 font-mono text-sm animate-matrix-rain"
@@ -99,11 +95,11 @@ const Home = () => {
       </div>
 
       <div className="cyber-container relative z-10">
-        <div className="min-h-screen flex items-center">
-          <div className="grid lg:grid-cols-2 gap-12 w-full items-center">
+        <div className="min-h-screen flex items-center justify-center py-16">
+          <div className="grid lg:grid-cols-2 gap-12 xl:gap-16 w-full items-center max-w-7xl">
             
             {/* Left Column - Terminal Interface */}
-            <div className="space-y-8">
+            <div className="space-y-6 lg:space-y-8 order-2 lg:order-1">
               <AnimatedWrapper animation="fade-in" delay={0.2}>
                 {/* Terminal Header */}
                 <div className="terminal-window">
@@ -131,13 +127,13 @@ const Home = () => {
                       </div>
                       
                       <div className="space-y-2 mb-6">
-                        <div className="text-neon-green font-mono text-lg">
+                        <div className="text-neon-green font-mono text-base lg:text-lg">
                           ╔══════════════════════════════════════╗
                         </div>
-                        <div className="text-neon-green font-mono text-lg">
+                        <div className="text-neon-green font-mono text-base lg:text-lg">
                           ║        VAIBHAV SONI - v2.0.24        ║
                         </div>
-                        <div className="text-neon-green font-mono text-lg">
+                        <div className="text-neon-green font-mono text-base lg:text-lg">
                           ╚══════════════════════════════════════╝
                         </div>
                       </div>
@@ -228,16 +224,16 @@ const Home = () => {
             </div>
 
             {/* Right Column - Avatar & Stats */}
-            <div className="space-y-8">
+            <div className="space-y-6 lg:space-y-8 order-1 lg:order-2 flex flex-col items-center">
               {/* Avatar Section */}
               <AnimatedWrapper animation="scale-in" delay={0.4}>
-                <div className="relative flex justify-center">
+                <div className="relative flex justify-center items-center">
                   {/* Holographic Effect */}
                   <div className="absolute inset-0 bg-gradient-to-r from-neon-green via-neon-blue to-neon-purple opacity-20 rounded-full blur-2xl animate-pulse-neon"></div>
                   
                   {/* Avatar Container */}
                   <div className="relative">
-                    <div className="w-80 h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden border-4 border-neon-green shadow-neon-lg hover:border-neon-blue transition-all duration-500 hover:shadow-neon-lg">
+                    <div className="w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden border-4 border-neon-green shadow-neon-lg hover:border-neon-blue transition-all duration-500">
                       <img
                         src={Avatar}
                         alt="Vaibhav Soni - DevOps Engineer"
@@ -247,14 +243,14 @@ const Home = () => {
                     </div>
                     
                     {/* Floating Status Indicators */}
-                    <div className="absolute -top-4 -right-4 cyber-card px-3 py-1">
+                    <div className="absolute -top-2 -right-2 sm:-top-4 sm:-right-4 cyber-card px-2 py-1 sm:px-3 sm:py-1">
                       <div className="flex items-center gap-2">
                         <div className="w-2 h-2 bg-neon-green rounded-full animate-pulse"></div>
                         <span className="font-mono text-xs text-neon-green">ONLINE</span>
                       </div>
                     </div>
                     
-                    <div className="absolute -bottom-4 -left-4 cyber-card px-3 py-1">
+                    <div className="absolute -bottom-2 -left-2 sm:-bottom-4 sm:-left-4 cyber-card px-2 py-1 sm:px-3 sm:py-1">
                       <div className="flex items-center gap-2">
                         <span className="font-mono text-xs text-neon-blue">DEVOPS_ENG</span>
                         <div className="w-2 h-2 bg-neon-blue rounded-full animate-pulse"></div>
@@ -266,7 +262,7 @@ const Home = () => {
 
               {/* Stats Grid */}
               <AnimatedWrapper animation="slide-up" delay={1.0}>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-4 sm:gap-6 w-full max-w-md">
                   {stats.map((stat, index) => (
                     <div
                       key={index}
@@ -276,13 +272,13 @@ const Home = () => {
                       <div className="stat-icon group-hover:shadow-neon">
                         {stat.icon}
                       </div>
-                      <div className="neon-text text-2xl font-bold font-mono mb-1">
+                      <div className="neon-text text-xl sm:text-2xl font-bold font-mono mb-2">
                         {stat.value}
                       </div>
                       <div className="text-white font-mono text-xs uppercase tracking-wider mb-1">
                         {stat.label}
                       </div>
-                      <div className="text-gray-400 font-mono text-xs">
+                      <div className="text-gray-400 font-mono text-xs text-center">
                         {stat.description}
                       </div>
                     </div>
@@ -316,4 +312,3 @@ const Home = () => {
 };
 
 export default Home;
-        
