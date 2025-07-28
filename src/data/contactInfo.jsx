@@ -14,7 +14,7 @@ const contactInfo = {
     },
     {
       id: 2,
-      platform: "GitHub", 
+      platform: "GitHub",
       url: "https://github.com/vaibhav21soni",
       icon: <GitHub style={{ width: '20px', height: '20px' }} />,
     },
