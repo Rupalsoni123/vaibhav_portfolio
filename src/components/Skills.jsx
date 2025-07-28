@@ -1,9 +1,9 @@
 import React, { useState, useMemo } from "react";
-import AnimatedWrapper from "./ui/AnimatedWrapper";
 import skillsData from "../data/skills";
 
 const Skills = () => {
   const [activeCategory, setActiveCategory] = useState("All");
+  const [hoveredSkill, setHoveredSkill] = useState(null);
 
   // Get unique categories from skills data
   const categories = useMemo(() => {
@@ -23,225 +23,327 @@ const Skills = () => {
     {
       icon: "⚡",
       value: "25+",
-      label: "TECHNOLOGIES",
+      label: "Technologies",
       description: "Tools & Frameworks",
-      status: "LOADED"
+      color: "var(--primary-blue)"
     },
     {
       icon: "🚀",
-      value: "04+",
-      label: "CATEGORIES",
+      value: "4+",
+      label: "Categories",
       description: "Skill Domains",
-      status: "ACTIVE"
+      color: "var(--primary-purple)"
     },
     {
       icon: "📈",
       value: "90%",
-      label: "PROFICIENCY",
+      label: "Proficiency",
       description: "Average Level",
-      status: "ONGOING"
+      color: "var(--primary-teal)"
     },
     {
       icon: "🎯",
-      value: "03+",
-      label: "CERTIFICATIONS",
+      value: "3+",
+      label: "Certifications",
       description: "Industry Validated",
-      status: "VERIFIED"
+      color: "var(--accent-pink)"
     }
   ];
 
   return (
-    <section name="Skills" className="section-cyber matrix-bg relative overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute inset-0">
-        <div className="scan-lines"></div>
-        {/* Floating Tech Icons */}
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute text-neon-green opacity-10 font-mono text-lg animate-float-slow"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`
-            }}
-          >
-            {['⚙️', '🔧', '📦', '☁️', '🐳', '⚡'][Math.floor(Math.random() * 6)]}
-          </div>
-        ))}
-      </div>
-
-      <div className="cyber-container relative z-10">
+    <section id="skills" className="section" style={{ background: 'var(--bg-secondary)' }}>
+      <div className="container">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <div className="terminal-window max-w-3xl mx-auto">
-            <div className="terminal-header">
-              <div className="flex space-x-2">
-                <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-              </div>
-              <div className="flex-1 text-center text-xs text-gray-400 font-mono">
-                skills-inventory.sh
-              </div>
-            </div>
-            <div className="terminal-content">
-              <div className="font-mono text-sm space-y-2">
-                <div className="text-neon-blue">$ ./scan_skills.sh --verbose</div>
-                <div className="text-neon-green">Scanning technical capabilities...</div>
-                <div className="text-white">Cloud Platforms: <span className="text-neon-green">LOADED</span></div>
-                <div className="text-white">DevOps Tools: <span className="text-neon-green">LOADED</span></div>
-                <div className="text-white">Programming: <span className="text-neon-green">LOADED</span></div>
-                <div className="text-neon-green">All systems operational. Ready for deployment.</div>
-              </div>
-            </div>
+        <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+          <div className="badge badge-primary" style={{ marginBottom: '1rem' }}>
+            💻 Technical Expertise
           </div>
+          <h2 className="heading-lg" style={{ marginBottom: '1rem' }}>
+            Skills & <span className="text-gradient">Technologies</span>
+          </h2>
+          <p style={{
+            fontSize: '1.125rem',
+            color: 'var(--text-secondary)',
+            maxWidth: '600px',
+            margin: '0 auto',
+            lineHeight: '1.7'
+          }}>
+            A comprehensive toolkit of modern technologies and frameworks that power 
+            scalable, reliable infrastructure and seamless development workflows.
+          </p>
         </div>
 
-        {/* Skills Stats */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        {/* Stats Grid */}
+        <div className="grid-responsive" style={{ marginBottom: '4rem' }}>
           {skillStats.map((stat, index) => (
-            <div key={index} className="stat-card group">
-              <div className="stat-icon group-hover:shadow-neon">
+            <div
+              key={index}
+              className="card animate-scale-in"
+              style={{
+                textAlign: 'center',
+                padding: '2rem 1.5rem',
+                animationDelay: `${index * 0.1}s`,
+                position: 'relative',
+                overflow: 'hidden'
+              }}
+            >
+              {/* Background gradient */}
+              <div style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                height: '4px',
+                background: `linear-gradient(90deg, ${stat.color}, transparent)`,
+                opacity: 0.8
+              }} />
+              
+              <div style={{
+                fontSize: '2rem',
+                marginBottom: '1rem'
+              }}>
                 {stat.icon}
               </div>
-              <div className="neon-text text-2xl font-bold font-mono mb-2">
+              <div className="heading-md text-gradient" style={{ marginBottom: '0.5rem' }}>
                 {stat.value}
               </div>
-              <div className="text-white font-mono text-xs uppercase tracking-wider mb-2">
+              <div style={{
+                fontWeight: '600',
+                color: 'var(--text-primary)',
+                marginBottom: '0.5rem'
+              }}>
                 {stat.label}
               </div>
-              <div className="text-gray-400 font-mono text-xs mb-2">
-                {stat.description}
-              </div>
-              <div className={`font-mono text-xs px-2 py-1 rounded`} style={{
-                backgroundColor: stat.status === 'LOADED' ? 'rgba(0, 255, 65, 0.2)' :
-                stat.status === 'ACTIVE' ? 'rgba(0, 212, 255, 0.2)' :
-                stat.status === 'ONGOING' ? 'rgba(191, 0, 255, 0.2)' :
-                'rgba(255, 0, 128, 0.2)',
-                color: stat.status === 'LOADED' ? '#00ff41' :
-                stat.status === 'ACTIVE' ? '#00d4ff' :
-                stat.status === 'ONGOING' ? '#bf00ff' :
-                '#ff0080'
+              <div style={{
+                fontSize: '0.875rem',
+                color: 'var(--text-tertiary)'
               }}>
-                [{stat.status}]
+                {stat.description}
               </div>
             </div>
           ))}
         </div>
 
         {/* Category Filter */}
-        <div className="mb-12">
-          <div className="cyber-card p-6">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-8 h-8 border-2 border-neon-green rounded bg-black flex items-center justify-center">
-                <span className="text-neon-green font-mono text-sm">$</span>
-              </div>
-              <h3 className="neon-text-blue font-cyber text-xl">FILTER_CATEGORIES</h3>
-            </div>
-            
-            <div className="flex flex-wrap gap-3 justify-center">
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => setActiveCategory(category)}
-                  className={`font-mono text-sm px-4 py-2 rounded border-2 transition-all duration-300 hover:scale-105`}
-                  style={{
-                    borderColor: activeCategory === category ? '#00d4ff' : '#00ff41',
-                    backgroundColor: activeCategory === category ? 'rgba(0, 212, 255, 0.2)' : 'transparent',
-                    color: activeCategory === category ? '#00d4ff' : '#00ff41'
-                  }}
-                >
-                  {category === "All" ? "ALL" : category.toUpperCase()}
-                </button>
-              ))}
-            </div>
-
-            {/* Active Filter Display */}
-            <div className="mt-4 pt-4" style={{ borderTop: '1px solid rgba(0, 255, 65, 0.3)' }}>
-              <div className="flex items-center justify-between">
-                <div className="font-mono text-sm text-neon-blue">
-                  ACTIVE: <span className="text-neon-green">{activeCategory}</span>
-                </div>
-                <div className="font-mono text-sm text-gray-400">
-                  SHOWING: <span className="text-neon-green">{filteredSkills.length}</span> skills
-                </div>
-              </div>
-            </div>
-          </div>
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          marginBottom: '3rem',
+          flexWrap: 'wrap',
+          gap: '0.5rem'
+        }}>
+          {categories.map((category) => (
+            <button
+              key={category}
+              onClick={() => setActiveCategory(category)}
+              style={{
+                padding: '0.75rem 1.5rem',
+                borderRadius: 'var(--border-radius-md)',
+                border: 'none',
+                background: activeCategory === category 
+                  ? 'var(--gradient-primary)' 
+                  : 'var(--card-bg)',
+                color: activeCategory === category 
+                  ? 'white' 
+                  : 'var(--text-secondary)',
+                fontWeight: '500',
+                fontSize: '0.875rem',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                boxShadow: activeCategory === category 
+                  ? 'var(--shadow-md)' 
+                  : 'none',
+                border: activeCategory === category 
+                  ? 'none' 
+                  : '1px solid var(--border-color)'
+              }}
+              onMouseEnter={(e) => {
+                if (activeCategory !== category) {
+                  e.target.style.borderColor = 'var(--primary-blue)';
+                  e.target.style.color = 'var(--primary-blue)';
+                  e.target.style.transform = 'translateY(-2px)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (activeCategory !== category) {
+                  e.target.style.borderColor = 'var(--border-color)';
+                  e.target.style.color = 'var(--text-secondary)';
+                  e.target.style.transform = 'translateY(0)';
+                }
+              }}
+            >
+              {category}
+            </button>
+          ))}
         </div>
 
         {/* Skills Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-16">
+        <div className="grid-3" style={{ gap: '1.5rem' }}>
           {filteredSkills.map((skill, index) => (
-            <div key={skill.id} className="skill-card group">
-              {/* Skill Icon */}
-              <div className="skill-icon group-hover:scale-110 group-hover:shadow-neon">
-                {skill.icon}
+            <div
+              key={skill.id || index}
+              className="card animate-fade-in-up"
+              style={{
+                padding: '1.5rem',
+                textAlign: 'center',
+                cursor: 'pointer',
+                animationDelay: `${index * 0.05}s`,
+                position: 'relative',
+                overflow: 'hidden',
+                transform: hoveredSkill === skill.name ? 'translateY(-8px)' : 'translateY(0)',
+                boxShadow: hoveredSkill === skill.name ? 'var(--shadow-xl)' : 'var(--shadow-md)'
+              }}
+              onMouseEnter={() => setHoveredSkill(skill.name)}
+              onMouseLeave={() => setHoveredSkill(null)}
+            >
+              {/* Skill Icon/Logo */}
+              <div style={{
+                width: '4rem',
+                height: '4rem',
+                margin: '0 auto 1rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: 'var(--border-radius-lg)',
+                background: hoveredSkill === skill.name 
+                  ? 'var(--gradient-primary)' 
+                  : 'var(--bg-tertiary)',
+                color: hoveredSkill === skill.name ? 'white' : 'var(--text-primary)',
+                fontSize: '1.5rem',
+                transition: 'all 0.3s ease'
+              }}>
+                {skill.icon || skill.name.charAt(0)}
               </div>
-              
+
               {/* Skill Name */}
-              <h3 className="text-white font-mono text-lg font-bold mb-2 group-hover:text-neon-green transition-colors duration-300">
+              <h3 style={{
+                fontWeight: '600',
+                color: 'var(--text-primary)',
+                marginBottom: '0.5rem',
+                fontSize: '1rem'
+              }}>
                 {skill.name}
               </h3>
-              
-              {/* Skill Category */}
-              <div className="project-badge mb-3">
+
+              {/* Skill Level */}
+              <div style={{ marginBottom: '1rem' }}>
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  marginBottom: '0.5rem'
+                }}>
+                  <span style={{
+                    fontSize: '0.75rem',
+                    color: 'var(--text-tertiary)',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.05em'
+                  }}>
+                    Proficiency
+                  </span>
+                  <span style={{
+                    fontSize: '0.75rem',
+                    fontWeight: '600',
+                    color: 'var(--primary-blue)'
+                  }}>
+                    {skill.level || '90%'}
+                  </span>
+                </div>
+                
+                {/* Progress Bar */}
+                <div style={{
+                  width: '100%',
+                  height: '4px',
+                  background: 'var(--bg-tertiary)',
+                  borderRadius: '2px',
+                  overflow: 'hidden'
+                }}>
+                  <div style={{
+                    width: skill.level || '90%',
+                    height: '100%',
+                    background: hoveredSkill === skill.name 
+                      ? 'var(--gradient-primary)' 
+                      : 'var(--primary-blue)',
+                    borderRadius: '2px',
+                    transition: 'all 0.3s ease',
+                    animation: hoveredSkill === skill.name ? 'pulse 1s ease-in-out infinite' : 'none'
+                  }} />
+                </div>
+              </div>
+
+              {/* Category Badge */}
+              <div className={`badge ${
+                skill.category === 'Cloud Platforms' ? 'badge-primary' :
+                skill.category === 'Containers' ? 'badge-secondary' :
+                skill.category === 'CI/CD' ? 'badge-accent' : 'badge-primary'
+              }`} style={{ fontSize: '0.6875rem' }}>
                 {skill.category}
               </div>
-              
-              {/* Skill Level */}
-              <div className="w-full bg-gray-800 rounded-full h-2 mb-4 overflow-hidden">
-                <div 
-                  className="bg-gradient-to-r from-neon-green to-neon-blue h-2 rounded-full transition-all duration-1000 ease-out"
-                  style={{ width: `${skill.level || 85}%` }}
-                ></div>
-              </div>
-              
-              {/* Skill Status */}
-              <div className={`font-mono text-xs px-2 py-1 rounded text-center`} style={{
-                backgroundColor: skill.status === 'EXPERT' ? 'rgba(0, 255, 65, 0.2)' :
-                skill.status === 'ADVANCED' ? 'rgba(0, 212, 255, 0.2)' :
-                skill.status === 'INTERMEDIATE' ? 'rgba(191, 0, 255, 0.2)' :
-                'rgba(255, 0, 128, 0.2)',
-                color: skill.status === 'EXPERT' ? '#00ff41' :
-                skill.status === 'ADVANCED' ? '#00d4ff' :
-                skill.status === 'INTERMEDIATE' ? '#bf00ff' :
-                '#ff0080'
-              }}>
-                [{skill.status}]
-              </div>
+
+              {/* Hover Effect Overlay */}
+              {hoveredSkill === skill.name && (
+                <div style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  background: 'linear-gradient(135deg, rgba(37, 99, 235, 0.05), rgba(124, 58, 237, 0.05))',
+                  pointerEvents: 'none',
+                  borderRadius: 'var(--border-radius-lg)'
+                }} />
+              )}
             </div>
           ))}
         </div>
 
-        {/* Skills Summary */}
-        <div className="grid md:grid-cols-3 gap-8 mb-16">
-          <div className="cyber-card p-6 text-center">
-            <div className="flex items-center gap-2 mb-4 justify-center">
-              <div className="w-2 h-2 bg-neon-green rounded-full animate-pulse"></div>
-              <span className="font-mono text-sm text-neon-green">CURRENT_FOCUS</span>
-            </div>
-            <div className="font-mono text-white font-bold mb-2">Cloud-Native DevOps</div>
-            <div className="font-mono text-xs text-gray-400">Kubernetes & Microservices</div>
-          </div>
-          
-          <div className="cyber-card p-6 text-center">
-            <div className="flex items-center gap-2 mb-4 justify-center">
-              <div className="w-2 h-2 bg-neon-purple rounded-full animate-pulse"></div>
-              <span className="font-mono text-sm text-neon-purple">LEARNING</span>
-            </div>
-            <div className="font-mono text-white font-bold mb-2">GitOps & ArgoCD</div>
-            <div className="font-mono text-xs text-gray-400">Continuous Deployment</div>
-          </div>
-          
-          <div className="cyber-card p-6 text-center">
-            <div className="flex items-center gap-2 mb-4 justify-center">
-              <div className="w-2 h-2 bg-neon-blue rounded-full animate-pulse"></div>
-              <span className="font-mono text-sm text-neon-blue">NEXT_TARGET</span>
-            </div>
-            <div className="font-mono text-white font-bold mb-2">Service Mesh & Istio</div>
-            <div className="font-mono text-xs text-gray-400">Microservices Architecture</div>
+        {/* Call to Action */}
+        <div style={{
+          textAlign: 'center',
+          marginTop: '4rem',
+          padding: '3rem 2rem',
+          background: 'var(--gradient-primary)',
+          borderRadius: 'var(--border-radius-xl)',
+          color: 'white'
+        }}>
+          <h3 className="heading-md" style={{ marginBottom: '1rem', color: 'white' }}>
+            Ready to Build Something Amazing?
+          </h3>
+          <p style={{
+            fontSize: '1.125rem',
+            marginBottom: '2rem',
+            opacity: 0.9,
+            maxWidth: '600px',
+            margin: '0 auto 2rem'
+          }}>
+            Let's leverage these technologies to create scalable, reliable infrastructure 
+            that powers your next big project.
+          </p>
+          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <a
+              href="#contact"
+              className="btn"
+              style={{
+                background: 'white',
+                color: 'var(--primary-blue)',
+                textDecoration: 'none',
+                fontWeight: '600'
+              }}
+            >
+              Start a Project
+            </a>
+            <a
+              href="#projects"
+              className="btn"
+              style={{
+                background: 'transparent',
+                color: 'white',
+                border: '2px solid white',
+                textDecoration: 'none'
+              }}
+            >
+              View My Work
+            </a>
           </div>
         </div>
       </div>
@@ -250,3 +352,4 @@ const Skills = () => {
 };
 
 export default Skills;
+ 

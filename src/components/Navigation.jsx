@@ -1,48 +1,144 @@
-import React from 'react'
-import { Link } from 'react-scroll'
-import navLinks from '../data/navlinks'
+import React, { useState } from 'react';
+import { Link } from 'react-scroll';
+import navLinks from '../data/navlinks';
 
-const Navigation = ({ mobile, onItemClick }) => {
+const Navigation = ({ mobile = false, onItemClick }) => {
+  const [activeSection, setActiveSection] = useState('home');
+
+  const handleSetActive = (to) => {
+    setActiveSection(to);
+  };
+
+  if (mobile) {
     return (
-        <ul className={mobile ? 'flex flex-col gap-4' : 'flex items-center gap-6'}>
-            {navLinks.map(({ id, link, href }) => {
-                return (
-                    <li key={id}>
-                        {href ? (
-                            <a 
-                                href={href} 
-                                target="_blank" 
-                                rel='noopener noreferrer'
-                                className={`nav-link-cyber ${mobile ? 'text-base py-3' : 'text-sm'}`}
-                                onClick={mobile ? onItemClick : undefined}
-                            >
-                                <span className="font-mono">
-                                    {mobile && <span className="text-neon-blue mr-2">$</span>}
-                                    ./{link.toLowerCase()}.sh
-                                </span>
-                            </a>
-                        ) : (
-                            <Link
-                                onClick={mobile ? onItemClick : undefined}
-                                to={link} 
-                                smooth 
-                                duration={500}
-                                className={`nav-link-cyber cursor-pointer ${mobile ? 'text-base py-3' : 'text-sm'}`}
-                                activeClass="active border-neon-blue text-neon-blue shadow-neon-sm"
-                                spy={true}
-                                offset={-80}
-                            >
-                                <span className="font-mono">
-                                    {mobile && <span className="text-neon-blue mr-2">$</span>}
-                                    ./{link.toLowerCase()}.exe
-                                </span>
-                            </Link>
-                        )}
-                    </li>
-                )
-            })}
-        </ul>
-    )
-}
+      <div style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '1rem',
+        padding: '1rem 0'
+      }}>
+        {navLinks.map(({ id, link, href }) => {
+          if (href) {
+            return (
+              <a
+                key={id}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={onItemClick}
+                style={{
+                  display: 'block',
+                  padding: '1rem 1.5rem',
+                  borderRadius: 'var(--border-radius-md)',
+                  color: 'var(--text-secondary)',
+                  background: 'transparent',
+                  textDecoration: 'none',
+                  fontWeight: '500',
+                  fontSize: '1.125rem',
+                  transition: 'all 0.3s ease',
+                  cursor: 'pointer',
+                  border: '1px solid transparent'
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.color = 'var(--primary-blue)';
+                  e.target.style.background = 'rgba(37, 99, 235, 0.05)';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.color = 'var(--text-secondary)';
+                  e.target.style.background = 'transparent';
+                }}
+              >
+                {link}
+              </a>
+            );
+          }
 
-export default Navigation
+          return (
+            <Link
+              key={id}
+              to={link}
+              smooth={true}
+              duration={500}
+              spy={true}
+              offset={-80}
+              onSetActive={handleSetActive}
+              onClick={onItemClick}
+              style={{
+                display: 'block',
+                padding: '1rem 1.5rem',
+                borderRadius: 'var(--border-radius-md)',
+                color: activeSection === link ? 'var(--primary-blue)' : 'var(--text-secondary)',
+                background: activeSection === link ? 'rgba(37, 99, 235, 0.1)' : 'transparent',
+                textDecoration: 'none',
+                fontWeight: '500',
+                fontSize: '1.125rem',
+                transition: 'all 0.3s ease',
+                cursor: 'pointer',
+                border: activeSection === link ? '1px solid rgba(37, 99, 235, 0.2)' : '1px solid transparent'
+              }}
+              onMouseEnter={(e) => {
+                if (activeSection !== link) {
+                  e.target.style.color = 'var(--primary-blue)';
+                  e.target.style.background = 'rgba(37, 99, 235, 0.05)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (activeSection !== link) {
+                  e.target.style.color = 'var(--text-secondary)';
+                  e.target.style.background = 'transparent';
+                }
+              }}
+            >
+              {link}
+            </Link>
+          );
+        })}
+      </div>
+    );
+  }
+
+  return (
+    <div style={{
+      display: 'flex',
+      alignItems: 'center',
+      gap: '0.5rem'
+    }}>
+      {navLinks.map(({ id, link, href }) => {
+        if (href) {
+          return (
+            <a
+              key={id}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="nav-link"
+            >
+              {link}
+            </a>
+          );
+        }
+
+        return (
+          <Link
+            key={id}
+            to={link}
+            smooth={true}
+            duration={500}
+            spy={true}
+            offset={-80}
+            onSetActive={handleSetActive}
+            className="nav-link"
+            style={{
+              color: activeSection === link ? 'var(--primary-blue)' : 'var(--text-secondary)',
+              background: activeSection === link ? 'rgba(37, 99, 235, 0.1)' : 'transparent'
+            }}
+          >
+            {link}
+          </Link>
+        );
+      })}
+    </div>
+  );
+};
+
+export default Navigation;

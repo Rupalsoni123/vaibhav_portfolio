@@ -1,37 +1,38 @@
-import React from "react";
-import AnimatedWrapper from "./ui/AnimatedWrapper";
+import React, { useState } from "react";
 import { Download } from "./Icons";
 import resume from "../assets/resume.pdf";
 
 const About = () => {
+  const [activeTab, setActiveTab] = useState("overview");
+
   const systemInfo = [
     {
       icon: "🏆",
-      label: "CERTIFICATIONS",
-      value: "03",
+      label: "Certifications",
+      value: "3",
       description: "Industry Validated",
-      status: "ACTIVE"
+      color: "var(--primary-blue)"
     },
     {
       icon: "📍",
-      label: "LOCATION",
-      value: "AHMEDABAD",
+      label: "Location",
+      value: "Ahmedabad",
       description: "Gujarat, India",
-      status: "ONLINE"
+      color: "var(--primary-purple)"
     },
     {
       icon: "⚡",
-      label: "EXPERIENCE",
-      value: "01+ YEAR",
+      label: "Experience",
+      value: "1+ Year",
       description: "Professional DevOps",
-      status: "GROWING"
+      color: "var(--primary-teal)"
     },
     {
       icon: "🏢",
-      label: "COMPANY",
-      value: "INEXTURE",
+      label: "Company",
+      value: "Inexture",
       description: "Solutions Pvt Ltd",
-      status: "EMPLOYED"
+      color: "var(--accent-pink)"
     }
   ];
 
@@ -40,380 +41,468 @@ const About = () => {
       id: "CERT_001",
       name: "HashiCorp Terraform Associate (003)",
       year: "2024",
-      status: "VERIFIED",
-      level: "ASSOCIATE",
-      description: "Infrastructure as Code expertise"
+      status: "Active",
+      level: "Associate",
+      description: "Infrastructure as Code expertise",
+      icon: "🏗️"
     },
     {
       id: "CERT_002", 
       name: "AWS Certified Cloud Practitioner",
       year: "2023",
-      status: "VERIFIED",
-      level: "FOUNDATIONAL",
-      description: "Cloud fundamentals and services"
+      status: "Active",
+      level: "Foundational",
+      description: "AWS cloud fundamentals",
+      icon: "☁️"
     },
     {
       id: "CERT_003",
       name: "Red Hat Certified System Administrator",
-      year: "2022", 
-      status: "VERIFIED",
-      level: "PROFESSIONAL",
-      description: "Linux system administration"
+      year: "2022",
+      status: "Active", 
+      level: "Professional",
+      description: "Linux system administration",
+      icon: "🐧"
     }
   ];
 
   const journey = [
     {
-      phase: "INITIALIZATION",
-      year: "2022",
-      command: "sudo systemctl start career.service",
-      description: "Started with Linux system administration, earned RHCSA certification",
-      status: "COMPLETED"
+      year: "2024",
+      title: "DevOps Engineer",
+      company: "Inexture Solutions",
+      description: "Leading infrastructure automation and cloud deployments",
+      achievements: ["Automated CI/CD pipelines", "Reduced deployment time by 60%", "Managed multi-cloud infrastructure"]
     },
     {
-      phase: "CLOUD_MIGRATION", 
       year: "2023",
-      command: "aws configure --profile devops-engineer",
-      description: "Transitioned to cloud technologies, earned AWS Cloud Practitioner",
-      status: "COMPLETED"
+      title: "Cloud Practitioner Certification",
+      company: "AWS",
+      description: "Gained foundational knowledge of AWS cloud services",
+      achievements: ["Learned cloud fundamentals", "Understood AWS services", "Prepared for advanced certifications"]
     },
     {
-      phase: "INFRASTRUCTURE_CODE",
-      year: "2024", 
-      command: "terraform init && terraform apply",
-      description: "Specialized in Terraform and infrastructure automation",
-      status: "COMPLETED"
-    },
-    {
-      phase: "PRODUCTION_READY",
-      year: "CURRENT",
-      command: "kubectl apply -f devops-engineer.yaml",
-      description: "Contributing to enterprise DevOps projects at Inexture Solutions",
-      status: "RUNNING"
+      year: "2022",
+      title: "System Administrator",
+      company: "Red Hat Certified",
+      description: "Mastered Linux system administration and server management",
+      achievements: ["Linux server management", "Shell scripting automation", "System monitoring and troubleshooting"]
     }
   ];
 
-  return (
-    <section name="About" className="section-cyber matrix-bg relative overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute inset-0">
-        <div className="scan-lines"></div>
-        {/* Floating Code Snippets */}
-        {[...Array(15)].map((_, i) => (
+  const tabContent = {
+    overview: (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+        <div>
+          <h3 className="heading-sm" style={{ marginBottom: '1rem' }}>
+            Professional Summary
+          </h3>
+          <p style={{
+            color: 'var(--text-secondary)',
+            lineHeight: '1.7',
+            fontSize: '1rem'
+          }}>
+            Results-driven DevOps Engineer with a passion for automating infrastructure, 
+            scaling cloud-native applications, and optimizing CI/CD workflows. With hands-on 
+            experience across AWS, Azure, Kubernetes, Docker, and Terraform, I bridge the gap 
+            between development and operations to deliver reliable, scalable solutions.
+          </p>
+        </div>
+        
+        <div>
+          <h3 className="heading-sm" style={{ marginBottom: '1rem' }}>
+            Core Expertise
+          </h3>
+          <div className="grid-2" style={{ gap: '1rem' }}>
+            {[
+              "Cloud Infrastructure (AWS, Azure)",
+              "Container Orchestration (Kubernetes, Docker)",
+              "Infrastructure as Code (Terraform, CDK)",
+              "CI/CD Automation (GitHub Actions, GitLab)",
+              "Monitoring & Observability (Prometheus, Grafana)",
+              "Security & Compliance (IAM, Secret Management)"
+            ].map((skill, index) => (
+              <div
+                key={index}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.75rem',
+                  padding: '0.75rem',
+                  background: 'var(--bg-tertiary)',
+                  borderRadius: 'var(--border-radius-md)',
+                  color: 'var(--text-primary)'
+                }}
+              >
+                <div style={{
+                  width: '8px',
+                  height: '8px',
+                  background: 'var(--primary-blue)',
+                  borderRadius: '50%'
+                }} />
+                <span style={{ fontSize: '0.875rem', fontWeight: '500' }}>
+                  {skill}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    ),
+    
+    journey: (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+        {journey.map((item, index) => (
           <div
-            key={i}
-            className="absolute text-neon-green opacity-20 font-mono text-xs animate-float-slow"
+            key={index}
+            className="card"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`
+              padding: '2rem',
+              position: 'relative',
+              borderLeft: '4px solid var(--primary-blue)'
             }}
           >
-            {['kubectl', 'terraform', 'docker', 'aws', 'azure'][Math.floor(Math.random() * 5)]}
+            <div style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'flex-start',
+              marginBottom: '1rem',
+              flexWrap: 'wrap',
+              gap: '1rem'
+            }}>
+              <div>
+                <div className="badge badge-primary" style={{ marginBottom: '0.5rem' }}>
+                  {item.year}
+                </div>
+                <h3 style={{
+                  fontWeight: '600',
+                  color: 'var(--text-primary)',
+                  marginBottom: '0.25rem'
+                }}>
+                  {item.title}
+                </h3>
+                <p style={{
+                  color: 'var(--primary-blue)',
+                  fontWeight: '500',
+                  fontSize: '0.875rem'
+                }}>
+                  {item.company}
+                </p>
+              </div>
+            </div>
+            
+            <p style={{
+              color: 'var(--text-secondary)',
+              lineHeight: '1.6',
+              marginBottom: '1.5rem'
+            }}>
+              {item.description}
+            </p>
+            
+            <div>
+              <h4 style={{
+                fontWeight: '600',
+                color: 'var(--text-primary)',
+                marginBottom: '0.75rem',
+                fontSize: '0.875rem'
+              }}>
+                Key Achievements:
+              </h4>
+              <ul style={{
+                listStyle: 'none',
+                padding: 0,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '0.5rem'
+              }}>
+                {item.achievements.map((achievement, achIndex) => (
+                  <li
+                    key={achIndex}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.75rem',
+                      color: 'var(--text-secondary)',
+                      fontSize: '0.875rem'
+                    }}
+                  >
+                    <div style={{
+                      width: '6px',
+                      height: '6px',
+                      background: 'var(--primary-teal)',
+                      borderRadius: '50%'
+                    }} />
+                    {achievement}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         ))}
       </div>
-
-      <div className="cyber-container relative z-10">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <div className="terminal-window max-w-2xl mx-auto">
-            <div className="terminal-header">
-              <div className="flex space-x-2">
-                <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-              </div>
-              <div className="flex-1 text-center text-xs text-gray-400 font-mono">
-                about-vaibhav.sh
-              </div>
+    ),
+    
+    certifications: (
+      <div className="grid-responsive" style={{ gap: '1.5rem' }}>
+        {certifications.map((cert, index) => (
+          <div
+            key={cert.id}
+            className="card animate-scale-in"
+            style={{
+              padding: '2rem',
+              textAlign: 'center',
+              animationDelay: `${index * 0.1}s`,
+              position: 'relative',
+              overflow: 'hidden'
+            }}
+          >
+            {/* Background decoration */}
+            <div style={{
+              position: 'absolute',
+              top: '-50%',
+              right: '-50%',
+              width: '100%',
+              height: '100%',
+              background: 'var(--gradient-primary)',
+              opacity: 0.05,
+              borderRadius: '50%'
+            }} />
+            
+            <div style={{
+              fontSize: '3rem',
+              marginBottom: '1rem'
+            }}>
+              {cert.icon}
             </div>
-            <div className="terminal-content">
-              <div className="font-mono text-sm space-y-2">
-                <div className="text-neon-blue">$ cat /proc/engineer/info</div>
-                <div className="text-white">Name: Vaibhav Soni</div>
-                <div className="text-white">Role: DevOps Engineer</div>
-                <div className="text-white">Status: <span className="text-neon-green">ACTIVE</span></div>
-                <div className="text-neon-blue">$ ./load_profile.sh --verbose</div>
-                <div className="text-neon-green">Loading professional profile...</div>
+            
+            <div className="badge badge-secondary" style={{ marginBottom: '1rem' }}>
+              {cert.level}
+            </div>
+            
+            <h3 style={{
+              fontWeight: '600',
+              color: 'var(--text-primary)',
+              marginBottom: '0.5rem',
+              fontSize: '1.125rem'
+            }}>
+              {cert.name}
+            </h3>
+            
+            <p style={{
+              color: 'var(--text-secondary)',
+              marginBottom: '1rem',
+              fontSize: '0.875rem'
+            }}>
+              {cert.description}
+            </p>
+            
+            <div style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              paddingTop: '1rem',
+              borderTop: '1px solid var(--border-color)'
+            }}>
+              <span style={{
+                color: 'var(--text-tertiary)',
+                fontSize: '0.875rem'
+              }}>
+                {cert.year}
+              </span>
+              <div className="badge badge-accent">
+                {cert.status}
               </div>
             </div>
           </div>
+        ))}
+      </div>
+    )
+  };
+
+  return (
+    <section id="about" className="section" style={{ background: 'var(--bg-secondary)' }}>
+      <div className="container">
+        {/* Section Header */}
+        <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+          <div className="badge badge-accent" style={{ marginBottom: '1rem' }}>
+            👨‍💻 Get to Know Me
+          </div>
+          <h2 className="heading-lg" style={{ marginBottom: '1rem' }}>
+            About <span className="text-gradient-accent">Vaibhav Soni</span>
+          </h2>
+          <p style={{
+            fontSize: '1.125rem',
+            color: 'var(--text-secondary)',
+            maxWidth: '600px',
+            margin: '0 auto',
+            lineHeight: '1.7'
+          }}>
+            Passionate DevOps Engineer transforming ideas into scalable, 
+            reliable infrastructure solutions.
+          </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
-          {/* Left Column - Profile & Journey */}
-          <div className="space-y-8">
-            {/* System Information */}
-            <div className="cyber-card p-6">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-8 h-8 border-2 border-neon-green rounded bg-black flex items-center justify-center">
-                  <span className="text-neon-green font-mono text-sm">i</span>
-                </div>
-                <h3 className="neon-text-blue font-cyber text-xl">SYSTEM_INFO</h3>
-              </div>
+        {/* Stats Grid */}
+        <div className="grid-responsive" style={{ marginBottom: '4rem' }}>
+          {systemInfo.map((info, index) => (
+            <div
+              key={index}
+              className="card animate-fade-in-up"
+              style={{
+                textAlign: 'center',
+                padding: '2rem 1.5rem',
+                animationDelay: `${index * 0.1}s`,
+                position: 'relative',
+                overflow: 'hidden'
+              }}
+            >
+              {/* Top accent line */}
+              <div style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                height: '4px',
+                background: info.color,
+                opacity: 0.8
+              }} />
               
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {systemInfo.map((info, index) => (
-                  <div key={index} className="cyber-card p-4 hover:border-neon-blue transition-colors duration-300">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-2xl">{info.icon}</span>
-                      <span 
-                        className="font-mono text-xs px-2 py-1 rounded"
-                        style={{ 
-                          backgroundColor: info.status === 'ACTIVE' ? 'rgba(0, 255, 65, 0.2)' :
-                          info.status === 'ONLINE' ? 'rgba(0, 212, 255, 0.2)' :
-                          info.status === 'GROWING' ? 'rgba(191, 0, 255, 0.2)' :
-                          'rgba(255, 0, 128, 0.2)',
-                          color: info.status === 'ACTIVE' ? '#00ff41' :
-                          info.status === 'ONLINE' ? '#00d4ff' :
-                          info.status === 'GROWING' ? '#bf00ff' :
-                          '#ff0080'
-                        }}
-                      >
-                        {info.status}
-                      </span>
-                    </div>
-                    <div className="font-mono text-xs text-gray-400 mb-1">{info.label}</div>
-                    <div className="neon-text font-mono text-sm font-bold mb-1">{info.value}</div>
-                    <div className="font-mono text-xs text-gray-500">{info.description}</div>
-                  </div>
-                ))}
+              <div style={{
+                fontSize: '2rem',
+                marginBottom: '1rem'
+              }}>
+                {info.icon}
+              </div>
+              <div className="heading-sm text-gradient" style={{ marginBottom: '0.5rem' }}>
+                {info.value}
+              </div>
+              <div style={{
+                fontWeight: '600',
+                color: 'var(--text-primary)',
+                marginBottom: '0.5rem'
+              }}>
+                {info.label}
+              </div>
+              <div style={{
+                fontSize: '0.875rem',
+                color: 'var(--text-tertiary)'
+              }}>
+                {info.description}
               </div>
             </div>
+          ))}
+        </div>
 
-            {/* Professional Journey - Career Log */}
-            <div className="cyber-card p-6">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-8 h-8 border-2 border-neon-green rounded bg-black flex items-center justify-center">
-                  <span className="text-neon-green font-mono text-sm">$</span>
-                </div>
-                <h3 className="neon-text-blue font-cyber text-xl">CAREER_LOG</h3>
-              </div>
+        {/* Tab Navigation */}
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          marginBottom: '3rem',
+          flexWrap: 'wrap',
+          gap: '0.5rem'
+        }}>
+          {[
+            { key: 'overview', label: 'Overview', icon: '👨‍💻' },
+            { key: 'journey', label: 'Journey', icon: '🚀' },
+            { key: 'certifications', label: 'Certifications', icon: '🏆' }
+          ].map((tab) => (
+            <button
+              key={tab.key}
+              onClick={() => setActiveTab(tab.key)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                padding: '0.75rem 1.5rem',
+                borderRadius: 'var(--border-radius-md)',
+                border: 'none',
+                background: activeTab === tab.key 
+                  ? 'var(--gradient-accent)' 
+                  : 'var(--card-bg)',
+                color: activeTab === tab.key 
+                  ? 'white' 
+                  : 'var(--text-secondary)',
+                fontWeight: '500',
+                fontSize: '0.875rem',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                boxShadow: activeTab === tab.key 
+                  ? 'var(--shadow-md)' 
+                  : 'none',
+                border: activeTab === tab.key 
+                  ? 'none' 
+                  : '1px solid var(--border-color)'
+              }}
+              onMouseEnter={(e) => {
+                if (activeTab !== tab.key) {
+                  e.target.style.borderColor = 'var(--accent-pink)';
+                  e.target.style.color = 'var(--accent-pink)';
+                  e.target.style.transform = 'translateY(-2px)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (activeTab !== tab.key) {
+                  e.target.style.borderColor = 'var(--border-color)';
+                  e.target.style.color = 'var(--text-secondary)';
+                  e.target.style.transform = 'translateY(0)';
+                }
+              }}
+            >
+              <span>{tab.icon}</span>
+              {tab.label}
+            </button>
+          ))}
+        </div>
 
-              <div className="space-y-6">
-                {journey.map((phase, index) => (
-                  <div key={index} className="relative pl-8">
-                    {/* Timeline line */}
-                    {index !== journey.length - 1 && (
-                      <div 
-                        className="absolute left-2 top-8 bottom-0 w-0.5" 
-                        style={{ backgroundColor: 'rgba(0, 255, 65, 0.3)' }}
-                      ></div>
-                    )}
-                    
-                    {/* Timeline dot */}
-                    <div className="absolute left-0 top-2 w-4 h-4 bg-black border-2 border-neon-green rounded-full flex items-center justify-center">
-                      <div className={`w-2 h-2 rounded-full ${
-                        phase.status === 'RUNNING' ? 'bg-neon-green animate-pulse' : 'bg-neon-blue'
-                      }`}></div>
-                    </div>
-                    
-                    <div className="space-y-3">
-                      <div className="flex items-center justify-between">
-                        <h4 className="neon-text font-mono text-sm font-bold">{phase.phase}</h4>
-                        <span className="font-mono text-xs text-gray-400">{phase.year}</span>
-                      </div>
-                      <div 
-                        className="font-mono text-xs text-neon-blue p-3 rounded border" 
-                        style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', borderColor: 'rgba(0, 212, 255, 0.3)' }}
-                      >
-                        $ {phase.command}
-                      </div>
-                      <p className="text-gray-300 text-sm leading-relaxed">{phase.description}</p>
-                      <div className={`font-mono text-xs ${
-                        phase.status === 'RUNNING' ? 'text-neon-green' : 'text-neon-blue'
-                      }`}>
-                        [{phase.status}]
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+        {/* Tab Content */}
+        <div className="animate-fade-in-up" style={{ minHeight: '400px' }}>
+          {tabContent[activeTab]}
+        </div>
 
-            {/* Download Resume */}
-            <div className="text-center">
-              <a
-                href={resume}
-                download="Vaibhav_Soni_DevOps_Resume.pdf"
-                className="cyber-button inline-flex items-center gap-3 group"
-              >
-                <Download className="w-5 h-5 group-hover:animate-bounce" />
-                <span>DOWNLOAD_RESUME.pdf</span>
-              </a>
-            </div>
-          </div>
-
-          {/* Right Column - Certifications & Tech Stack */}
-          <div className="space-y-8">
-            {/* Certifications */}
-            <div className="cyber-card p-6">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-8 h-8 border-2 border-neon-green rounded bg-black flex items-center justify-center">
-                  <span className="text-neon-green font-mono text-sm">🏆</span>
-                </div>
-                <h3 className="neon-text-blue font-cyber text-xl">CERTIFICATIONS</h3>
-              </div>
-
-              <div className="space-y-4">
-                {certifications.map((cert, index) => (
-                  <div key={index} className="cyber-card p-4 hover:border-neon-blue transition-colors duration-300">
-                    <div className="flex items-start justify-between mb-3">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-2">
-                          <span className="font-mono text-xs text-neon-green">{cert.id}</span>
-                          <span 
-                            className="font-mono text-xs px-2 py-1 rounded"
-                            style={{ 
-                              backgroundColor: cert.level === 'PROFESSIONAL' ? 'rgba(191, 0, 255, 0.2)' :
-                              cert.level === 'ASSOCIATE' ? 'rgba(0, 212, 255, 0.2)' :
-                              'rgba(0, 255, 65, 0.2)',
-                              color: cert.level === 'PROFESSIONAL' ? '#bf00ff' :
-                              cert.level === 'ASSOCIATE' ? '#00d4ff' :
-                              '#00ff41'
-                            }}
-                          >
-                            {cert.level}
-                          </span>
-                        </div>
-                        <h4 className="text-white font-mono text-sm font-bold mb-2">{cert.name}</h4>
-                        <p className="text-gray-400 text-xs">{cert.description}</p>
-                      </div>
-                      <div className="text-right ml-4">
-                        <div className="font-mono text-xs text-gray-400">{cert.year}</div>
-                        <div className="font-mono text-xs text-neon-green">{cert.status}</div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Tech Stack Preview */}
-            <div className="cyber-card p-6">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-8 h-8 border-2 border-neon-green rounded bg-black flex items-center justify-center">
-                  <span className="text-neon-green font-mono text-sm">⚙</span>
-                </div>
-                <h3 className="neon-text-blue font-cyber text-xl">TECH_STACK</h3>
-              </div>
-
-              <div className="space-y-6">
-                <div className="font-mono text-sm text-neon-blue mb-4">$ ls -la /usr/local/skills/</div>
-                
-                {/* Primary Technologies */}
-                <div className="space-y-6">
-                  <div>
-                    <div className="font-mono text-xs text-neon-purple mb-3 flex items-center gap-2">
-                      <span className="w-2 h-2 bg-neon-purple rounded-full"></span>
-                      CLOUD_PLATFORMS/
-                    </div>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                      {['AWS', 'Azure', 'DigitalOcean'].map((tech, index) => (
-                        <div
-                          key={index}
-                          className="font-mono text-xs text-white px-3 py-2 rounded border hover:border-neon-blue hover:text-neon-blue transition-colors duration-300 text-center"
-                          style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', borderColor: 'rgba(0, 255, 65, 0.3)' }}
-                        >
-                          {tech}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div>
-                    <div className="font-mono text-xs text-neon-purple mb-3 flex items-center gap-2">
-                      <span className="w-2 h-2 bg-neon-purple rounded-full"></span>
-                      DEVOPS_TOOLS/
-                    </div>
-                    <div className="grid grid-cols-2 gap-2">
-                      {['Terraform', 'Kubernetes', 'Docker', 'Jenkins'].map((tech, index) => (
-                        <div
-                          key={index}
-                          className="font-mono text-xs text-white px-3 py-2 rounded border hover:border-neon-blue hover:text-neon-blue transition-colors duration-300 text-center"
-                          style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', borderColor: 'rgba(0, 255, 65, 0.3)' }}
-                        >
-                          {tech}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div>
-                    <div className="font-mono text-xs text-neon-purple mb-3 flex items-center gap-2">
-                      <span className="w-2 h-2 bg-neon-purple rounded-full"></span>
-                      MONITORING/
-                    </div>
-                    <div className="grid grid-cols-2 gap-2">
-                      {['Prometheus', 'Grafana', 'ELK Stack', 'CloudWatch'].map((tech, index) => (
-                        <div
-                          key={index}
-                          className="font-mono text-xs text-white px-3 py-2 rounded border hover:border-neon-blue hover:text-neon-blue transition-colors duration-300 text-center"
-                          style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', borderColor: 'rgba(0, 255, 65, 0.3)' }}
-                        >
-                          {tech}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div>
-                    <div className="font-mono text-xs text-neon-purple mb-3 flex items-center gap-2">
-                      <span className="w-2 h-2 bg-neon-purple rounded-full"></span>
-                      PROGRAMMING/
-                    </div>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                      {['Python', 'Bash', 'JavaScript', 'TypeScript', 'YAML', 'JSON'].map((tech, index) => (
-                        <div
-                          key={index}
-                          className="font-mono text-xs text-white px-3 py-2 rounded border hover:border-neon-blue hover:text-neon-blue transition-colors duration-300 text-center"
-                          style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', borderColor: 'rgba(0, 255, 65, 0.3)' }}
-                        >
-                          {tech}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Summary */}
-                <div className="border-t pt-4" style={{ borderColor: 'rgba(0, 255, 65, 0.3)' }}>
-                  <div className="font-mono text-xs text-gray-400 space-y-1">
-                    <div>Total: <span className="text-neon-green">25+</span> technologies loaded</div>
-                    <div>Status: <span className="text-neon-blue">PRODUCTION_READY</span></div>
-                    <div>Last Updated: <span className="text-neon-purple">2024-CURRENT</span></div>
-                  </div>
-                </div>
-
-                {/* Quick Actions */}
-                <div className="flex gap-2">
-                  <button className="cyber-button-secondary text-xs px-3 py-2 flex-1">
-                    VIEW_ALL.sh
-                  </button>
-                  <button className="cyber-button-secondary text-xs px-3 py-2 flex-1">
-                    SKILLS.json
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* Contact CTA */}
-            <div className="cyber-card p-6 text-center border-2 border-neon-blue">
-              <h4 className="neon-text-blue font-cyber text-xl mb-4">
-                INITIATE_COLLABORATION
-              </h4>
-              <p className="text-gray-300 mb-6 leading-relaxed font-mono text-sm">
-                Ready to discuss your next DevOps project? Let's build something amazing together.
-              </p>
-              <a
-                href="mailto:vaibhavsoni5567@gmail.com"
-                className="cyber-button-secondary inline-flex items-center gap-2"
-              >
-                <span>SEND_MESSAGE.sh</span>
-                <span className="text-lg">📡</span>
-              </a>
-            </div>
+        {/* Call to Action */}
+        <div style={{
+          textAlign: 'center',
+          marginTop: '4rem',
+          padding: '3rem 2rem',
+          background: 'var(--card-bg)',
+          borderRadius: 'var(--border-radius-xl)',
+          border: '1px solid var(--border-color)'
+        }}>
+          <h3 className="heading-md" style={{ marginBottom: '1rem' }}>
+            Ready to Collaborate?
+          </h3>
+          <p style={{
+            fontSize: '1.125rem',
+            color: 'var(--text-secondary)',
+            marginBottom: '2rem',
+            maxWidth: '600px',
+            margin: '0 auto 2rem'
+          }}>
+            Let's discuss how we can work together to build amazing infrastructure 
+            solutions that scale and perform.
+          </p>
+          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <a
+              href={resume}
+              download="Vaibhav_Soni_Resume.pdf"
+              className="btn btn-primary"
+              style={{
+                textDecoration: 'none',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem'
+              }}
+            >
+              <Download size={16} />
+              Download Resume
+            </a>
+            <a
+              href="#contact"
+              className="btn btn-outline"
+              style={{ textDecoration: 'none' }}
+            >
+              Get In Touch
+            </a>
           </div>
         </div>
       </div>
@@ -422,3 +511,4 @@ const About = () => {
 };
 
 export default About;
+     

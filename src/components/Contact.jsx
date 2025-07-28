@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import AnimatedWrapper from "./ui/AnimatedWrapper";
 import { Mail, Phone, MapPin, Send, CheckCircle, AlertCircle } from "./Icons";
 import contactInfo from "../data/contactInfo";
 
@@ -12,6 +11,7 @@ const Contact = () => {
   });
   const [status, setStatus] = useState({ type: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [focusedField, setFocusedField] = useState(null);
 
   const handleChange = (e) => {
     setFormData({
@@ -24,11 +24,21 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
+    // Basic validation
+    if (!formData.name || !formData.email || !formData.message) {
+      setStatus({
+        type: "error",
+        message: "Please fill in all required fields."
+      });
+      setIsSubmitting(false);
+      return;
+    }
+
     // Simulate form submission
     setTimeout(() => {
       setStatus({
         type: "success",
-        message: "MESSAGE_SENT_SUCCESSFULLY. Response expected within 24 hours."
+        message: "Message sent successfully! I'll get back to you within 24 hours."
       });
       setFormData({ name: "", email: "", subject: "", message: "" });
       setIsSubmitting(false);
@@ -40,411 +50,454 @@ const Contact = () => {
 
   const contactMethods = [
     {
-      icon: <Mail className="w-6 h-6" />,
-      title: "EMAIL_PROTOCOL",
+      icon: <Mail size={24} />,
+      title: "Email",
       value: "vaibhavsoni5567@gmail.com",
       link: "mailto:vaibhavsoni5567@gmail.com",
-      status: "ACTIVE",
-      response: "< 24 hours"
+      description: "Drop me a line anytime",
+      color: "var(--primary-blue)"
     },
     {
-      icon: <Phone className="w-6 h-6" />,
-      title: "VOICE_CHANNEL",
+      icon: <Phone size={24} />,
+      title: "Phone",
       value: "+91 8890944027",
       link: "tel:+918890944027",
-      status: "AVAILABLE",
-      response: "Immediate"
+      description: "Let's have a conversation",
+      color: "var(--primary-purple)"
     },
     {
-      icon: <MapPin className="w-6 h-6" />,
-      title: "LOCATION_DATA",
-      value: "Ahmedabad, Gujarat, India",
-      link: "#",
-      status: "TIMEZONE",
-      response: "UTC +5:30"
+      icon: <MapPin size={24} />,
+      title: "Location",
+      value: "Ahmedabad, India",
+      link: "https://maps.google.com/?q=Ahmedabad,India",
+      description: "Gujarat, India",
+      color: "var(--primary-teal)"
     }
   ];
 
+  const quickTopics = [
+    "DevOps Consultation",
+    "Infrastructure Setup",
+    "CI/CD Implementation",
+    "Cloud Migration",
+    "Automation Solutions",
+    "General Inquiry"
+  ];
+
   return (
-    <section
-      name="Contact"
-      className="section-cyber matrix-bg relative overflow-hidden"
-    >
-      {/* Background Effects */}
-      <div className="absolute inset-0">
-        <div className="scan-lines"></div>
-        {/* Floating Communication Icons */}
-        {[...Array(12)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute text-neon-green/10 font-mono text-xl animate-float-slow"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`
-            }}
-          >
-            {['📡', '💬', '📧', '📱', '🔗', '⚡'][Math.floor(Math.random() * 6)]}
-          </div>
-        ))}
-      </div>
-
-      <div className="cyber-container relative z-10">
+    <section id="contact" className="section" style={{ background: 'var(--bg-primary)' }}>
+      <div className="container">
         {/* Section Header */}
-        <AnimatedWrapper animation="fade-in" delay={0.2}>
-          <div className="text-center mb-16">
-            <div className="terminal-window max-w-3xl mx-auto">
-              <div className="terminal-header">
-                <div className="flex space-x-2">
-                  <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                  <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                  <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                </div>
-                <div className="flex-1 text-center text-xs text-gray-400 font-mono">
-                  contact-interface.sh
-                </div>
-              </div>
-              <div className="terminal-content">
-                <div className="font-mono text-sm space-y-2">
-                  <div className="text-neon-blue">$ ./establish_connection.sh</div>
-                  <div className="text-neon-green">Initializing communication protocols...</div>
-                  <div className="text-white">Email: READY</div>
-                  <div className="text-white">Phone: STANDBY</div>
-                  <div className="text-white">Social: CONNECTED</div>
-                  <div className="text-neon-green">All channels operational. Ready for contact.</div>
-                </div>
+        <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+          <div className="badge badge-accent" style={{ marginBottom: '1rem' }}>
+            📬 Let's Connect
+          </div>
+          <h2 className="heading-lg" style={{ marginBottom: '1rem' }}>
+            Get In <span className="text-gradient-accent">Touch</span>
+          </h2>
+          <p style={{
+            fontSize: '1.125rem',
+            color: 'var(--text-secondary)',
+            maxWidth: '600px',
+            margin: '0 auto',
+            lineHeight: '1.7'
+          }}>
+            Ready to discuss your next project? I'm here to help you build 
+            scalable, reliable infrastructure solutions.
+          </p>
+        </div>
+
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
+          gap: '3rem',
+          alignItems: 'start'
+        }}>
+          {/* Contact Information */}
+          <div className="animate-slide-in-left">
+            <h3 className="heading-md" style={{ marginBottom: '2rem' }}>
+              Let's Start a Conversation
+            </h3>
+            
+            <p style={{
+              color: 'var(--text-secondary)',
+              lineHeight: '1.7',
+              marginBottom: '2rem'
+            }}>
+              Whether you need help with cloud infrastructure, DevOps automation, 
+              or just want to discuss technology, I'm always excited to connect 
+              with fellow professionals and potential collaborators.
+            </p>
+
+            {/* Contact Methods */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginBottom: '2rem' }}>
+              {contactMethods.map((method, index) => (
+                <a
+                  key={index}
+                  href={method.link}
+                  target={method.link.startsWith('http') ? '_blank' : '_self'}
+                  rel={method.link.startsWith('http') ? 'noopener noreferrer' : ''}
+                  className="card"
+                  style={{
+                    padding: '1.5rem',
+                    textDecoration: 'none',
+                    color: 'inherit',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '1rem',
+                    transition: 'all 0.3s ease',
+                    cursor: 'pointer',
+                    position: 'relative',
+                    overflow: 'hidden'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-4px)';
+                    e.currentTarget.style.borderColor = method.color;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.borderColor = 'var(--border-color)';
+                  }}
+                >
+                  {/* Icon */}
+                  <div style={{
+                    width: '3rem',
+                    height: '3rem',
+                    borderRadius: 'var(--border-radius-lg)',
+                    background: `linear-gradient(135deg, ${method.color}, ${method.color}20)`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: 'white',
+                    flexShrink: 0
+                  }}>
+                    {method.icon}
+                  </div>
+                  
+                  {/* Content */}
+                  <div style={{ flex: 1 }}>
+                    <h4 style={{
+                      fontWeight: '600',
+                      color: 'var(--text-primary)',
+                      marginBottom: '0.25rem'
+                    }}>
+                      {method.title}
+                    </h4>
+                    <p style={{
+                      color: 'var(--primary-blue)',
+                      fontWeight: '500',
+                      marginBottom: '0.25rem'
+                    }}>
+                      {method.value}
+                    </p>
+                    <p style={{
+                      color: 'var(--text-tertiary)',
+                      fontSize: '0.875rem'
+                    }}>
+                      {method.description}
+                    </p>
+                  </div>
+                </a>
+              ))}
+            </div>
+
+            {/* Social Links */}
+            <div>
+              <h4 style={{
+                fontWeight: '600',
+                color: 'var(--text-primary)',
+                marginBottom: '1rem'
+              }}>
+                Connect on Social Media
+              </h4>
+              <div style={{
+                display: 'flex',
+                gap: '1rem',
+                flexWrap: 'wrap'
+              }}>
+                {contactInfo.socialLinks.map((link, index) => (
+                  <a
+                    key={index}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="social-icon"
+                    title={link.platform}
+                    style={{
+                      width: '3rem',
+                      height: '3rem',
+                      fontSize: '1.25rem'
+                    }}
+                  >
+                    {link.icon}
+                  </a>
+                ))}
               </div>
             </div>
           </div>
-        </AnimatedWrapper>
 
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16">
-          {/* Left Column - Contact Information */}
-          <div className="space-y-8">
-            {/* Contact Methods */}
-            <AnimatedWrapper animateFrom="right" delay={0.4}>
-              <div className="cyber-card p-6">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-8 h-8 border-2 border-neon-green rounded bg-black flex items-center justify-center">
-                    <span className="text-neon-green font-mono text-sm">@</span>
-                  </div>
-                  <h3 className="neon-text-blue font-cyber text-xl">CONTACT_METHODS</h3>
-                </div>
+          {/* Contact Form */}
+          <div className="animate-slide-in-right">
+            <div className="card" style={{ padding: '2rem' }}>
+              <h3 className="heading-md" style={{ marginBottom: '1.5rem' }}>
+                Send a Message
+              </h3>
 
-                <div className="space-y-4">
-                  {contactMethods.map((method, index) => (
-                    <a
+              {/* Quick Topic Selection */}
+              <div style={{ marginBottom: '2rem' }}>
+                <label className="form-label">
+                  Quick Topics (Optional)
+                </label>
+                <div style={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: '0.5rem'
+                }}>
+                  {quickTopics.map((topic, index) => (
+                    <button
                       key={index}
-                      href={method.link}
-                      className="block group"
+                      type="button"
+                      onClick={() => setFormData({ ...formData, subject: topic })}
+                      style={{
+                        padding: '0.5rem 1rem',
+                        borderRadius: 'var(--border-radius-md)',
+                        border: '1px solid var(--border-color)',
+                        background: formData.subject === topic 
+                          ? 'var(--primary-blue)' 
+                          : 'var(--card-bg)',
+                        color: formData.subject === topic 
+                          ? 'white' 
+                          : 'var(--text-secondary)',
+                        fontSize: '0.75rem',
+                        cursor: 'pointer',
+                        transition: 'all 0.3s ease'
+                      }}
+                      onMouseEnter={(e) => {
+                        if (formData.subject !== topic) {
+                          e.target.style.borderColor = 'var(--primary-blue)';
+                          e.target.style.color = 'var(--primary-blue)';
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (formData.subject !== topic) {
+                          e.target.style.borderColor = 'var(--border-color)';
+                          e.target.style.color = 'var(--text-secondary)';
+                        }
+                      }}
                     >
-                      <div className="cyber-card p-4 hover:border-neon-blue transition-all duration-300">
-                        <div className="flex items-center gap-4">
-                          <div className="w-12 h-12 rounded-lg flex items-center justify-center text-neon-green group-hover:text-neon-blue transition-colors duration-300 border border-neon-green group-hover:border-neon-blue flex-shrink-0" style={{ background: 'linear-gradient(135deg, rgba(0, 255, 65, 0.2), rgba(0, 212, 255, 0.2))' }}>
-                            {method.icon}
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <div className="flex items-center justify-between mb-2">
-                              <h4 className="font-mono text-sm font-bold text-white group-hover:text-neon-blue transition-colors duration-300">
-                                {method.title}
-                              </h4>
-                              <span className={`font-mono text-xs px-2 py-1 rounded ${
-                                method.status === 'ACTIVE' ? 'text-neon-green' :
-                                method.status === 'AVAILABLE' ? 'text-neon-blue' :
-                                'text-neon-purple'
-                              }`} style={{ 
-                                backgroundColor: method.status === 'ACTIVE' ? 'rgba(0, 255, 65, 0.2)' :
-                                method.status === 'AVAILABLE' ? 'rgba(0, 212, 255, 0.2)' :
-                                'rgba(191, 0, 255, 0.2)'
-                              }}>
-                                [{method.status}]
-                              </span>
-                            </div>
-                            <p className="text-gray-300 font-mono text-sm mb-2 break-all">
-                              {method.value}
-                            </p>
-                            <div className="flex items-center justify-between">
-                              <span className="font-mono text-xs text-gray-400">Response time:</span>
-                              <span className="font-mono text-xs text-neon-green">{method.response}</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </a>
+                      {topic}
+                    </button>
                   ))}
                 </div>
               </div>
-            </AnimatedWrapper>
 
-            {/* Social Networks */}
-            <AnimatedWrapper animateFrom="right" delay={0.6}>
-              <div className="cyber-card p-6">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-8 h-8 border-2 border-neon-green rounded bg-black flex items-center justify-center">
-                    <span className="text-neon-green font-mono text-sm">#</span>
-                  </div>
-                  <h3 className="neon-text-blue font-cyber text-xl">SOCIAL_NETWORKS</h3>
+              <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                {/* Name Field */}
+                <div>
+                  <label htmlFor="name" className="form-label">
+                    Name *
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    onFocus={() => setFocusedField('name')}
+                    onBlur={() => setFocusedField(null)}
+                    className="form-input"
+                    placeholder="Your full name"
+                    required
+                    style={{
+                      borderColor: focusedField === 'name' ? 'var(--primary-blue)' : 'var(--border-color)',
+                      boxShadow: focusedField === 'name' ? '0 0 0 3px rgba(37, 99, 235, 0.1)' : 'none'
+                    }}
+                  />
                 </div>
 
-                <div className="space-y-4">
-                  {contactInfo.filter(item => item.name !== 'Resume').slice(0, 3).map(({ id, link, name, icon }) => (
-                    <a
-                      key={id}
-                      href={link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-4 p-4 cyber-card hover:border-neon-blue transition-all duration-300 group"
-                      aria-label={name}
-                    >
-                      <div className="w-12 h-12 rounded-lg flex items-center justify-center text-neon-green group-hover:text-neon-blue transition-colors duration-300 border border-neon-green group-hover:border-neon-blue text-xl flex-shrink-0" style={{ background: 'linear-gradient(135deg, rgba(0, 255, 65, 0.2), rgba(0, 212, 255, 0.2))' }}>
-                        {icon}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="font-mono text-sm font-bold text-white group-hover:text-neon-blue transition-colors duration-300 mb-1">
-                          {name.toUpperCase()}
-                        </div>
-                        <div className="font-mono text-xs text-gray-400">
-                          {name === 'LinkedIn' ? 'Professional Network' : 
-                           name === 'GitHub' ? 'Code Repositories' : 
-                           'Direct Communication'}
-                        </div>
-                      </div>
-                      <div className="text-neon-green group-hover:text-neon-blue transition-colors duration-300 text-lg flex-shrink-0">
-                        →
-                      </div>
-                    </a>
-                  ))}
-                  
-                  {/* Resume Download */}
-                  <a
-                    href={contactInfo.find(item => item.name === 'Resume')?.link}
-                    download="Vaibhav_Soni_DevOps_Resume.pdf"
-                    className="flex items-center gap-4 p-4 cyber-card hover:border-neon-purple transition-all duration-300 group"
-                    aria-label="Download Resume"
-                  >
-                    <div className="w-12 h-12 rounded-lg flex items-center justify-center text-neon-purple group-hover:text-neon-pink transition-colors duration-300 border border-neon-purple group-hover:border-neon-pink text-xl flex-shrink-0" style={{ background: 'linear-gradient(135deg, rgba(191, 0, 255, 0.2), rgba(255, 0, 128, 0.2))' }}>
-                      📄
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="font-mono text-sm font-bold text-white group-hover:text-neon-purple transition-colors duration-300 mb-1">
-                        RESUME.PDF
-                      </div>
-                      <div className="font-mono text-xs text-gray-400">
-                        Download CV Document
-                      </div>
-                    </div>
-                    <div className="text-neon-purple group-hover:text-neon-pink transition-colors duration-300 text-lg flex-shrink-0">
-                      ↓
-                    </div>
-                  </a>
-                </div>
-              </div>
-            </AnimatedWrapper>
-          </div>
-
-          {/* Right Column - Contact Form */}
-          <div className="space-y-8">
-            {/* Contact Form */}
-            <AnimatedWrapper animateFrom="left" delay={0.4}>
-              <div className="cyber-card p-6">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-8 h-8 border-2 border-neon-green rounded bg-black flex items-center justify-center">
-                    <span className="text-neon-green font-mono text-sm">✉</span>
-                  </div>
-                  <h3 className="neon-text-blue font-cyber text-xl">SEND_MESSAGE</h3>
+                {/* Email Field */}
+                <div>
+                  <label htmlFor="email" className="form-label">
+                    Email *
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    onFocus={() => setFocusedField('email')}
+                    onBlur={() => setFocusedField(null)}
+                    className="form-input"
+                    placeholder="your.email@example.com"
+                    required
+                    style={{
+                      borderColor: focusedField === 'email' ? 'var(--primary-blue)' : 'var(--border-color)',
+                      boxShadow: focusedField === 'email' ? '0 0 0 3px rgba(37, 99, 235, 0.1)' : 'none'
+                    }}
+                  />
                 </div>
 
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="form-label">
-                        NAME_INPUT
-                      </label>
-                      <input
-                        type="text"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        className="form-input"
-                        placeholder="Enter your name..."
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label className="form-label">
-                        EMAIL_ADDRESS
-                      </label>
-                      <input
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        className="form-input"
-                        placeholder="your.email@domain.com"
-                        required
-                      />
-                    </div>
-                  </div>
+                {/* Subject Field */}
+                <div>
+                  <label htmlFor="subject" className="form-label">
+                    Subject
+                  </label>
+                  <input
+                    type="text"
+                    id="subject"
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    onFocus={() => setFocusedField('subject')}
+                    onBlur={() => setFocusedField(null)}
+                    className="form-input"
+                    placeholder="What's this about?"
+                    style={{
+                      borderColor: focusedField === 'subject' ? 'var(--primary-blue)' : 'var(--border-color)',
+                      boxShadow: focusedField === 'subject' ? '0 0 0 3px rgba(37, 99, 235, 0.1)' : 'none'
+                    }}
+                  />
+                </div>
 
-                  <div>
-                    <label className="form-label">
-                      MESSAGE_SUBJECT
-                    </label>
-                    <input
-                      type="text"
-                      name="subject"
-                      value={formData.subject}
-                      onChange={handleChange}
-                      className="form-input"
-                      placeholder="Brief subject line..."
-                      required
-                    />
-                  </div>
+                {/* Message Field */}
+                <div>
+                  <label htmlFor="message" className="form-label">
+                    Message *
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    onFocus={() => setFocusedField('message')}
+                    onBlur={() => setFocusedField(null)}
+                    className="form-textarea"
+                    rows="5"
+                    placeholder="Tell me about your project or inquiry..."
+                    required
+                    style={{
+                      borderColor: focusedField === 'message' ? 'var(--primary-blue)' : 'var(--border-color)',
+                      boxShadow: focusedField === 'message' ? '0 0 0 3px rgba(37, 99, 235, 0.1)' : 'none',
+                      resize: 'vertical'
+                    }}
+                  />
+                </div>
 
-                  <div>
-                    <label className="form-label">
-                      MESSAGE_CONTENT
-                    </label>
-                    <textarea
-                      name="message"
-                      value={formData.message}
-                      onChange={handleChange}
-                      className="form-textarea"
-                      placeholder="Type your message here..."
-                      rows="6"
-                      required
-                    />
-                  </div>
-
-                  {/* Status Message */}
-                  {status.message && (
-                    <div className={`${
-                      status.type === 'success' ? 'status-success' : 'status-error'
-                    }`}>
+                {/* Status Message */}
+                {status.message && (
+                  <div className={status.type === 'success' ? 'status-success' : 'status-error'}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                       {status.type === 'success' ? (
-                        <CheckCircle className="w-5 h-5" />
+                        <CheckCircle size={16} />
                       ) : (
-                        <AlertCircle className="w-5 h-5" />
+                        <AlertCircle size={16} />
                       )}
-                      <span className="font-mono text-sm">{status.message}</span>
+                      {status.message}
                     </div>
+                  </div>
+                )}
+
+                {/* Submit Button */}
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="btn btn-primary"
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '0.5rem',
+                    opacity: isSubmitting ? 0.7 : 1,
+                    cursor: isSubmitting ? 'not-allowed' : 'pointer'
+                  }}
+                >
+                  {isSubmitting ? (
+                    <>
+                      <div style={{
+                        width: '16px',
+                        height: '16px',
+                        border: '2px solid transparent',
+                        borderTop: '2px solid white',
+                        borderRadius: '50%',
+                        animation: 'spin 1s linear infinite'
+                      }} />
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      <Send size={16} />
+                      Send Message
+                    </>
                   )}
-
-                  {/* Submit Button */}
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="cyber-button w-full inline-flex items-center justify-center gap-3 group"
-                  >
-                    {isSubmitting ? (
-                      <>
-                        <div className="cyber-loading"></div>
-                        <span>TRANSMITTING...</span>
-                      </>
-                    ) : (
-                      <>
-                        <Send className="w-5 h-5 group-hover:animate-pulse" />
-                        <span>SEND_MESSAGE.exe</span>
-                      </>
-                    )}
-                  </button>
-                </form>
-              </div>
-            </AnimatedWrapper>
-
-            {/* Collaboration Protocol */}
-            <AnimatedWrapper animateFrom="left" delay={0.6}>
-              <div className="cyber-card p-6 border-2 border-neon-blue">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-8 h-8 border-2 border-neon-blue rounded bg-black flex items-center justify-center">
-                    <span className="text-neon-blue font-mono text-sm">🤝</span>
-                  </div>
-                  <h3 className="neon-text-blue font-cyber text-xl">COLLABORATION_PROTOCOL</h3>
-                </div>
-
-                <div className="space-y-4">
-                  <div className="font-mono text-sm text-neon-blue mb-4">$ cat collaboration_guidelines.txt</div>
-                  
-                  <div className="space-y-3">
-                    <div className="flex items-start gap-3">
-                      <span className="text-neon-green mt-1 text-base flex-shrink-0">✓</span>
-                      <span className="text-gray-300 font-mono text-sm leading-relaxed">
-                        <strong className="text-white">Project Discussion:</strong> Initial consultation to understand requirements and scope
-                      </span>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <span className="text-neon-green mt-1 text-base flex-shrink-0">✓</span>
-                      <span className="text-gray-300 font-mono text-sm leading-relaxed">
-                        <strong className="text-white">Technical Planning:</strong> Architecture design and technology stack selection
-                      </span>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <span className="text-neon-green mt-1 text-base flex-shrink-0">✓</span>
-                      <span className="text-gray-300 font-mono text-sm leading-relaxed">
-                        <strong className="text-white">Implementation:</strong> Agile development with regular progress updates
-                      </span>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <span className="text-neon-green mt-1 text-base flex-shrink-0">✓</span>
-                      <span className="text-gray-300 font-mono text-sm leading-relaxed">
-                        <strong className="text-white">Deployment & Support:</strong> Production deployment with ongoing maintenance
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="border-t pt-4 mt-6" style={{ borderColor: 'rgba(0, 212, 255, 0.3)' }}>
-                    <p className="text-gray-300 font-mono text-sm leading-relaxed mb-4">
-                      Ready to start your next DevOps project? Let's build something amazing together that scales, performs, and delivers real business value.
-                    </p>
-                    <a
-                      href="mailto:vaibhavsoni5567@gmail.com"
-                      className="cyber-button-secondary w-full inline-flex items-center justify-center gap-2"
-                    >
-                      <span>INITIATE_PROJECT.sh</span>
-                      <span className="text-lg">🚀</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </AnimatedWrapper>
+                </button>
+              </form>
+            </div>
           </div>
         </div>
 
-        {/* Separate CTA Section with proper spacing */}
-        <div className="mt-16">
-          <AnimatedWrapper animateFrom="bottom" delay={1.0}>
-            <div className="text-center">
-              <div className="cyber-card p-8 max-w-4xl mx-auto border-2 border-neon-purple">
-                <h3 className="neon-text-purple font-cyber text-2xl mb-6">
-                  READY_TO_COLLABORATE
-                </h3>
-                <p className="text-gray-300 leading-relaxed mb-8 font-mono text-sm max-w-2xl mx-auto">
-                  Whether you need infrastructure automation, cloud migration, CI/CD pipelines, or DevOps consulting, 
-                  I'm here to help transform your ideas into scalable, reliable solutions.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <a
-                    href="mailto:vaibhavsoni5567@gmail.com"
-                    className="cyber-button inline-flex items-center gap-2"
-                  >
-                    <Mail className="w-5 h-5" />
-                    <span>START_PROJECT.exe</span>
-                  </a>
-                  <a
-                    href="tel:+918890944027"
-                    className="cyber-button-secondary inline-flex items-center gap-2"
-                  >
-                    <Phone className="w-5 h-5" />
-                    <span>SCHEDULE_CALL.sh</span>
-                  </a>
-                </div>
+        {/* Additional Info */}
+        <div style={{
+          textAlign: 'center',
+          marginTop: '4rem',
+          padding: '2rem',
+          background: 'var(--bg-secondary)',
+          borderRadius: 'var(--border-radius-xl)'
+        }}>
+          <h3 className="heading-sm" style={{ marginBottom: '1rem' }}>
+            Response Time
+          </h3>
+          <p style={{
+            color: 'var(--text-secondary)',
+            marginBottom: '1rem'
+          }}>
+            I typically respond to all inquiries within 24 hours. For urgent matters, 
+            feel free to reach out via phone or LinkedIn.
+          </p>
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            gap: '2rem',
+            flexWrap: 'wrap'
+          }}>
+            <div style={{ textAlign: 'center' }}>
+              <div className="heading-sm text-gradient">
+                &lt; 24h
+              </div>
+              <div style={{ fontSize: '0.875rem', color: 'var(--text-tertiary)' }}>
+                Email Response
               </div>
             </div>
-          </AnimatedWrapper>
+            <div style={{ textAlign: 'center' }}>
+              <div className="heading-sm text-gradient">
+                &lt; 2h
+              </div>
+              <div style={{ fontSize: '0.875rem', color: 'var(--text-tertiary)' }}>
+                Urgent Inquiries
+              </div>
+            </div>
+            <div style={{ textAlign: 'center' }}>
+              <div className="heading-sm text-gradient">
+                100%
+              </div>
+              <div style={{ fontSize: '0.875rem', color: 'var(--text-tertiary)' }}>
+                Response Rate
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+
+      {/* Add spin animation for loading spinner */}
+      <style jsx>{`
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+      `}</style>
     </section>
   );
 };
 
 export default Contact;
+     
