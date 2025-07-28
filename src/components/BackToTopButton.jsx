@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { ArrowUp } from "./Icons"
-import { Link } from 'react-scroll'
 
 const BackToTopButton = () => {
     const [btnVisibility, setBtnVisibility] = useState(false)
@@ -19,34 +18,44 @@ const BackToTopButton = () => {
         }
     }, [])
 
+    if (!btnVisibility) return null;
+
     return (
-        <Link 
-            onClick={handleScroll} 
-            to="Home" 
-            smooth 
-            duration={500} 
-            className={`fixed bottom-6 right-6 z-50 transition-all duration-300 ${
-                btnVisibility 
-                    ? 'opacity-100 translate-y-0' 
-                    : 'opacity-0 translate-y-16 pointer-events-none'
-            }`}
+        <button
+            onClick={handleScroll}
+            style={{
+                position: 'fixed',
+                bottom: '2rem',
+                right: '2rem',
+                width: '3rem',
+                height: '3rem',
+                borderRadius: '50%',
+                background: 'var(--gradient-primary)',
+                border: 'none',
+                color: 'white',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                boxShadow: 'var(--shadow-lg)',
+                transition: 'all 0.3s ease',
+                zIndex: 1000,
+                opacity: btnVisibility ? 1 : 0,
+                transform: btnVisibility ? 'translateY(0)' : 'translateY(20px)'
+            }}
+            onMouseEnter={(e) => {
+                e.target.style.transform = 'translateY(-4px) scale(1.1)';
+                e.target.style.boxShadow = 'var(--shadow-xl)';
+            }}
+            onMouseLeave={(e) => {
+                e.target.style.transform = 'translateY(0) scale(1)';
+                e.target.style.boxShadow = 'var(--shadow-lg)';
+            }}
+            aria-label="Back to top"
         >
-            <div className="cyber-button p-3 group relative overflow-hidden">
-                {/* Scan Line Effect */}
-                <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-neon-green to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                
-                {/* Icon */}
-                <ArrowUp className="w-5 h-5 group-hover:-translate-y-1 transition-transform duration-300" />
-                
-                {/* Terminal Text */}
-                <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
-                    <div className="bg-black border border-neon-green rounded px-2 py-1">
-                        <span className="font-mono text-xs text-neon-green">$ cd /</span>
-                    </div>
-                </div>
-            </div>
-        </Link>
+            <ArrowUp size={20} />
+        </button>
     )
 }
 
-export default BackToTopButton;
+export default BackToTopButton

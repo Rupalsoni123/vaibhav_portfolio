@@ -4,32 +4,39 @@ import { Hamburger, Menu, Cancel } from './Icons';
 const HamBurgerMenu = ({ handleClick, navOpen, ...props }) => {
     return (
         <button
-            className='group lg:hidden z-50 cursor-pointer p-3 rounded-lg bg-black border-2 border-neon-green text-neon-green hover:border-neon-blue hover:text-neon-blue transition-all duration-300 focus:outline-none hover:scale-105 min-w-[44px] min-h-[44px] flex items-center justify-center relative overflow-hidden'
+            style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '2.75rem',
+                height: '2.75rem',
+                padding: '0.75rem',
+                borderRadius: 'var(--border-radius-md)',
+                background: 'var(--card-bg)',
+                border: '1px solid var(--border-color)',
+                color: 'var(--text-secondary)',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                position: 'relative',
+                overflow: 'hidden',
+                zIndex: 50
+            }}
             onClick={handleClick}
             aria-label={navOpen ? "Close navigation menu" : "Open navigation menu"}
             aria-expanded={navOpen}
+            onMouseEnter={(e) => {
+                e.target.style.borderColor = 'var(--primary-blue)';
+                e.target.style.color = 'var(--primary-blue)';
+                e.target.style.transform = 'scale(1.05)';
+            }}
+            onMouseLeave={(e) => {
+                e.target.style.borderColor = 'var(--border-color)';
+                e.target.style.color = 'var(--text-secondary)';
+                e.target.style.transform = 'scale(1)';
+            }}
             {...props}
         >
-            {/* Background Effect */}
-            <div className="absolute inset-0 bg-gradient-to-r from-neon-green/10 to-neon-blue/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            
-            {/* Icon Container */}
-            <div className="relative z-10 transition-transform duration-300 group-hover:scale-110">
-                {navOpen ? (
-                    <div className='flex items-center gap-1'>
-                        <Cancel className="w-5 h-5 transition-transform duration-300 group-hover:rotate-90" />
-                        <span className="text-xs font-mono hidden sm:block">CLOSE</span>
-                    </div>
-                ) : (
-                    <div className='flex items-center gap-1'>
-                        <Menu className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
-                        <span className="text-xs font-mono hidden sm:block">MENU</span>
-                    </div>
-                )}
-            </div>
-
-            {/* Scan Line Effect */}
-            <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-neon-green to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            {navOpen ? <Cancel size={20} /> : <Menu size={20} />}
         </button>
     )
 }
