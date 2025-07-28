@@ -144,7 +144,7 @@ const About = () => {
           </div>
         </AnimatedWrapper>
 
-        <div className="grid lg:grid-cols-2 gap-16">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
           {/* Left Column - Profile & Journey */}
           <div className="space-y-8">
             {/* System Information */}
@@ -157,7 +157,7 @@ const About = () => {
                   <h3 className="neon-text-blue font-cyber text-xl">SYSTEM_INFO</h3>
                 </div>
                 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {systemInfo.map((info, index) => (
                     <div key={index} className="cyber-card p-4 hover:border-neon-blue transition-colors duration-300">
                       <div className="flex items-center justify-between mb-2">
@@ -190,21 +190,27 @@ const About = () => {
                   <h3 className="neon-text-blue font-cyber text-xl">CAREER_LOG</h3>
                 </div>
 
-                <div className="space-y-4">
+                <div className="space-y-6">
                   {journey.map((phase, index) => (
-                    <div key={index} className="border-l-2 border-neon-green/30 pl-6 pb-6 relative">
-                      <div className="absolute -left-2 top-0 w-4 h-4 bg-black border-2 border-neon-green rounded-full flex items-center justify-center">
+                    <div key={index} className="relative pl-8">
+                      {/* Timeline line */}
+                      {index !== journey.length - 1 && (
+                        <div className="absolute left-2 top-8 bottom-0 w-0.5 bg-neon-green/30"></div>
+                      )}
+                      
+                      {/* Timeline dot */}
+                      <div className="absolute left-0 top-2 w-4 h-4 bg-black border-2 border-neon-green rounded-full flex items-center justify-center">
                         <div className={`w-2 h-2 rounded-full ${
                           phase.status === 'RUNNING' ? 'bg-neon-green animate-pulse' : 'bg-neon-blue'
                         }`}></div>
                       </div>
                       
-                      <div className="space-y-2">
+                      <div className="space-y-3">
                         <div className="flex items-center justify-between">
                           <h4 className="neon-text font-mono text-sm font-bold">{phase.phase}</h4>
                           <span className="font-mono text-xs text-gray-400">{phase.year}</span>
                         </div>
-                        <div className="font-mono text-xs text-neon-blue bg-black/50 p-2 rounded border border-neon-blue/30">
+                        <div className="font-mono text-xs text-neon-blue bg-black/50 p-3 rounded border border-neon-blue/30">
                           $ {phase.command}
                         </div>
                         <p className="text-gray-300 text-sm leading-relaxed">{phase.description}</p>
@@ -252,7 +258,7 @@ const About = () => {
                     <div key={index} className="cyber-card p-4 hover:border-neon-blue transition-colors duration-300">
                       <div className="flex items-start justify-between mb-3">
                         <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-1">
+                          <div className="flex items-center gap-2 mb-2">
                             <span className="font-mono text-xs text-neon-green">{cert.id}</span>
                             <span className={`font-mono text-xs px-2 py-1 rounded ${
                               cert.level === 'PROFESSIONAL' ? 'bg-neon-purple/20 text-neon-purple' :
@@ -262,10 +268,10 @@ const About = () => {
                               {cert.level}
                             </span>
                           </div>
-                          <h4 className="text-white font-mono text-sm font-bold mb-1">{cert.name}</h4>
-                          <p className="text-gray-400 text-xs mb-2">{cert.description}</p>
+                          <h4 className="text-white font-mono text-sm font-bold mb-2">{cert.name}</h4>
+                          <p className="text-gray-400 text-xs">{cert.description}</p>
                         </div>
-                        <div className="text-right">
+                        <div className="text-right ml-4">
                           <div className="font-mono text-xs text-gray-400">{cert.year}</div>
                           <div className="font-mono text-xs text-neon-green">{cert.status}</div>
                         </div>
@@ -290,10 +296,13 @@ const About = () => {
                   <div className="font-mono text-sm text-neon-blue mb-4">$ ls -la /usr/local/skills/</div>
                   
                   {/* Primary Technologies */}
-                  <div className="space-y-4">
+                  <div className="space-y-6">
                     <div>
-                      <div className="font-mono text-xs text-neon-purple mb-2">CLOUD_PLATFORMS/</div>
-                      <div className="grid grid-cols-3 gap-2">
+                      <div className="font-mono text-xs text-neon-purple mb-3 flex items-center gap-2">
+                        <span className="w-2 h-2 bg-neon-purple rounded-full"></span>
+                        CLOUD_PLATFORMS/
+                      </div>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                         {['AWS', 'Azure', 'DigitalOcean'].map((tech, index) => (
                           <div
                             key={index}
@@ -306,7 +315,10 @@ const About = () => {
                     </div>
 
                     <div>
-                      <div className="font-mono text-xs text-neon-purple mb-2">DEVOPS_TOOLS/</div>
+                      <div className="font-mono text-xs text-neon-purple mb-3 flex items-center gap-2">
+                        <span className="w-2 h-2 bg-neon-purple rounded-full"></span>
+                        DEVOPS_TOOLS/
+                      </div>
                       <div className="grid grid-cols-2 gap-2">
                         {['Terraform', 'Kubernetes', 'Docker', 'Jenkins'].map((tech, index) => (
                           <div
@@ -320,7 +332,10 @@ const About = () => {
                     </div>
 
                     <div>
-                      <div className="font-mono text-xs text-neon-purple mb-2">MONITORING/</div>
+                      <div className="font-mono text-xs text-neon-purple mb-3 flex items-center gap-2">
+                        <span className="w-2 h-2 bg-neon-purple rounded-full"></span>
+                        MONITORING/
+                      </div>
                       <div className="grid grid-cols-2 gap-2">
                         {['Prometheus', 'Grafana', 'ELK Stack', 'CloudWatch'].map((tech, index) => (
                           <div
@@ -334,8 +349,11 @@ const About = () => {
                     </div>
 
                     <div>
-                      <div className="font-mono text-xs text-neon-purple mb-2">PROGRAMMING/</div>
-                      <div className="grid grid-cols-3 gap-2">
+                      <div className="font-mono text-xs text-neon-purple mb-3 flex items-center gap-2">
+                        <span className="w-2 h-2 bg-neon-purple rounded-full"></span>
+                        PROGRAMMING/
+                      </div>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                         {['Python', 'Bash', 'JavaScript', 'TypeScript', 'YAML', 'JSON'].map((tech, index) => (
                           <div
                             key={index}
@@ -351,7 +369,7 @@ const About = () => {
                   {/* Summary */}
                   <div className="border-t border-neon-green/30 pt-4">
                     <div className="font-mono text-xs text-gray-400 space-y-1">
-                      <div>Total: <span className="text-neon-green">20+</span> technologies loaded</div>
+                      <div>Total: <span className="text-neon-green">25+</span> technologies loaded</div>
                       <div>Status: <span className="text-neon-blue">PRODUCTION_READY</span></div>
                       <div>Last Updated: <span className="text-neon-purple">2024-CURRENT</span></div>
                     </div>
@@ -359,10 +377,10 @@ const About = () => {
 
                   {/* Quick Actions */}
                   <div className="flex gap-2">
-                    <button className="cyber-button-secondary text-xs px-3 py-1 flex-1">
+                    <button className="cyber-button-secondary text-xs px-3 py-2 flex-1">
                       VIEW_ALL.sh
                     </button>
-                    <button className="cyber-button-secondary text-xs px-3 py-1 flex-1">
+                    <button className="cyber-button-secondary text-xs px-3 py-2 flex-1">
                       SKILLS.json
                     </button>
                   </div>

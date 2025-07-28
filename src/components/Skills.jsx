@@ -238,8 +238,8 @@ const Skills = () => {
                     <div className="w-2 h-2 bg-neon-green rounded-full animate-pulse"></div>
                     <span className="font-mono text-sm text-neon-green">CURRENTLY_LEARNING</span>
                   </div>
-                  <div className="font-mono text-white font-bold">GitOps & ArgoCD</div>
-                  <div className="font-mono text-xs text-gray-400">Continuous Deployment</div>
+                  <div className="font-mono text-white font-bold">AWS CDK (TypeScript)</div>
+                  <div className="font-mono text-xs text-gray-400">CKA & CKAD Exam Prep</div>
                 </div>
                 
                 <div className="cyber-card p-4 border border-neon-blue/50">

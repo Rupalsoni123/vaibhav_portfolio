@@ -95,11 +95,11 @@ const Home = () => {
       </div>
 
       <div className="cyber-container relative z-10">
-        <div className="min-h-screen flex items-center justify-center py-16">
-          <div className="grid lg:grid-cols-2 gap-12 xl:gap-16 w-full items-center max-w-7xl">
+        <div className="min-h-screen flex items-center justify-center py-16 lg:py-20">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 xl:gap-20 w-full items-center max-w-7xl mx-auto">
             
             {/* Left Column - Terminal Interface */}
-            <div className="space-y-6 lg:space-y-8 order-2 lg:order-1">
+            <div className="space-y-8 order-2 lg:order-1">
               <AnimatedWrapper animation="fade-in" delay={0.2}>
                 {/* Terminal Header */}
                 <div className="terminal-window">
@@ -131,7 +131,7 @@ const Home = () => {
                           ╔══════════════════════════════════════╗
                         </div>
                         <div className="text-neon-green font-mono text-base lg:text-lg">
-                          ║        VAIBHAV SONI - v2.0.24        ║
+                          ║              VAIBHAV SONI            ║
                         </div>
                         <div className="text-neon-green font-mono text-base lg:text-lg">
                           ╚══════════════════════════════════════╝
@@ -224,36 +224,38 @@ const Home = () => {
             </div>
 
             {/* Right Column - Avatar & Stats */}
-            <div className="space-y-6 lg:space-y-8 order-1 lg:order-2 flex flex-col items-center">
+            <div className="space-y-8 order-1 lg:order-2">
               {/* Avatar Section */}
               <AnimatedWrapper animation="scale-in" delay={0.4}>
-                <div className="relative flex justify-center items-center">
-                  {/* Holographic Effect */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-neon-green via-neon-blue to-neon-purple opacity-20 rounded-full blur-2xl animate-pulse-neon"></div>
-                  
-                  {/* Avatar Container */}
+                <div className="flex justify-center items-center w-full">
                   <div className="relative">
-                    <div className="w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden border-4 border-neon-green shadow-neon-lg hover:border-neon-blue transition-all duration-500">
-                      <img
-                        src={Avatar}
-                        alt="Vaibhav Soni - DevOps Engineer"
-                        className="w-full h-full object-cover object-center hover:scale-110 transition-transform duration-500"
-                        loading="eager"
-                      />
-                    </div>
+                    {/* Holographic Effect */}
+                    <div className="absolute -inset-8 bg-gradient-to-r from-neon-green via-neon-blue to-neon-purple opacity-20 rounded-full blur-2xl animate-pulse-neon"></div>
                     
-                    {/* Floating Status Indicators */}
-                    <div className="absolute -top-2 -right-2 sm:-top-4 sm:-right-4 cyber-card px-2 py-1 sm:px-3 sm:py-1">
-                      <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 bg-neon-green rounded-full animate-pulse"></div>
-                        <span className="font-mono text-xs text-neon-green">ONLINE</span>
+                    {/* Avatar Container */}
+                    <div className="relative z-10">
+                      <div className="w-72 h-72 sm:w-80 sm:h-80 lg:w-96 lg:h-96 xl:w-[400px] xl:h-[400px] rounded-full overflow-hidden border-4 border-neon-green shadow-neon-lg hover:border-neon-blue transition-all duration-500 mx-auto">
+                        <img
+                          src={Avatar}
+                          alt="Vaibhav Soni - DevOps Engineer"
+                          className="w-full h-full object-cover object-center hover:scale-110 transition-transform duration-500"
+                          loading="eager"
+                        />
                       </div>
-                    </div>
-                    
-                    <div className="absolute -bottom-2 -left-2 sm:-bottom-4 sm:-left-4 cyber-card px-2 py-1 sm:px-3 sm:py-1">
-                      <div className="flex items-center gap-2">
-                        <span className="font-mono text-xs text-neon-blue">DEVOPS_ENG</span>
-                        <div className="w-2 h-2 bg-neon-blue rounded-full animate-pulse"></div>
+                      
+                      {/* Floating Status Indicators */}
+                      <div className="absolute -top-4 -right-4 cyber-card px-3 py-1 z-20">
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 bg-neon-green rounded-full animate-pulse"></div>
+                          <span className="font-mono text-xs text-neon-green">ONLINE</span>
+                        </div>
+                      </div>
+                      
+                      <div className="absolute -bottom-4 -left-4 cyber-card px-3 py-1 z-20">
+                        <div className="flex items-center gap-2">
+                          <span className="font-mono text-xs text-neon-blue">DEVOPS_ENG</span>
+                          <div className="w-2 h-2 bg-neon-blue rounded-full animate-pulse"></div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -262,23 +264,23 @@ const Home = () => {
 
               {/* Stats Grid */}
               <AnimatedWrapper animation="slide-up" delay={1.0}>
-                <div className="grid grid-cols-2 gap-4 sm:gap-6 w-full max-w-md">
+                <div className="grid grid-cols-2 gap-6 max-w-lg mx-auto">
                   {stats.map((stat, index) => (
                     <div
                       key={index}
                       className="stat-card group"
                       style={{ animationDelay: `${index * 0.1}s` }}
                     >
-                      <div className="stat-icon group-hover:shadow-neon">
+                      <div className="stat-icon group-hover:shadow-neon mx-auto">
                         {stat.icon}
                       </div>
-                      <div className="neon-text text-xl sm:text-2xl font-bold font-mono mb-2">
+                      <div className="neon-text text-2xl font-bold font-mono mb-2 text-center">
                         {stat.value}
                       </div>
-                      <div className="text-white font-mono text-xs uppercase tracking-wider mb-1">
+                      <div className="text-white font-mono text-xs uppercase tracking-wider mb-1 text-center">
                         {stat.label}
                       </div>
-                      <div className="text-gray-400 font-mono text-xs text-center">
+                      <div className="text-gray-400 font-mono text-xs text-center leading-tight">
                         {stat.description}
                       </div>
                     </div>
