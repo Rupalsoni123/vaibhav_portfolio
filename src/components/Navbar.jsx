@@ -2,7 +2,6 @@ import React, { useState, useContext, useEffect } from 'react';
 import HamBurgerMenu from './HamBurgerMenu';
 import Navigation from './Navigation';
 import { ThemeContext } from '../utils/ThemeContext';
-import { Sun, Moon } from './Icons';
 
 const Navbar = () => {
     const [navOpen, setNavOpen] = useState(false);
@@ -111,7 +110,7 @@ const Navbar = () => {
                             }}
                             aria-label="Toggle theme"
                         >
-                            {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+                            {theme === 'dark' ? '☀️' : '🌙'}
                         </button>
 
                         {/* Mobile Menu Button */}
