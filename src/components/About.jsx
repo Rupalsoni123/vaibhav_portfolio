@@ -87,15 +87,15 @@ const About = () => {
             Professional Summary
           </h3>
           <p style={{ color: 'var(--text-secondary)', lineHeight: '1.7' }}>
-            Results-driven DevOps Engineer with 2+ years of hands-on experience in cloud infrastructure automation, containerization, and CI/CD pipeline optimization across AWS, Azure, and DigitalOcean platforms. Proven track record of migrating 240+ Azure resources to Terraform-based Infrastructure as Code, reducing code duplication by 70% through reusable dynamic modules and standardized deployment practices.
+            Self-driven professional who transitioned from non-CS background to DevOps through practical project experience, certifications, and continuous learning. Currently focused on advancing Kubernetes expertise and AWS CDK with TypeScript to deliver scalable, enterprise-grade cloud-native solutions.
           <br />
-            Expert in Kubernetes orchestration and Docker containerization, with experience designing production-grade clusters and custom container solutions for enterprise clients. Skilled in implementing comprehensive DevOps workflows using Terragrunt, GitLab CI/CD, and Bitbucket Pipelines, ensuring consistent and secure deployments across multiple environments.
+            Results-driven DevOps Engineer with 1 year of hands-on experience in cloud infrastructure automation, containerization, and CI/CD pipeline optimization across AWS, Azure, and DigitalOcean platforms. Proven track record of migrating 240+ Azure resources to Terraform-based Infrastructure as Code, reducing code duplication by 70% through reusable dynamic modules and standardized deployment practices.
+          <br />
+            Expert in Kubernetes orchestration and Docker containerization, with experience designing  clusters and custom container solutions for  clients. Skilled in implementing comprehensive DevOps workflows using Terragrunt, GitLab CI/CD, and Bitbucket Pipelines, ensuring consistent and secure deployments across multiple environments.
           <br />
             Demonstrated expertise in AWS Organizations management, handling 6 AWS accounts with centralized governance, SSO integration, and role-based access control. Proficient in monitoring and observability solutions including Prometheus, Grafana, and ELK Stack for maintaining system reliability and performance.
           <br />
             Strong foundation in security best practices, implementing IAM policies, secret management, and policy-as-code frameworks to ensure compliance and operational security. Continuously expanding skillset through industry certifications including HashiCorp Terraform Associate, AWS Cloud Practitioner, and pursuing CKA certification.
-          <br />
-            Self-driven professional who transitioned from non-CS background to DevOps through practical project experience, certifications, and continuous learning. Currently focused on advancing Kubernetes expertise and AWS CDK with TypeScript to deliver scalable, enterprise-grade cloud-native solutions.
 
           </p>
         </div>
