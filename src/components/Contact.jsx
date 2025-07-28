@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Mail, Phone, MapPin, Send, Loader } from "./Icons";
+import LinkedIn, { GitHub } from "./Icons";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -120,17 +121,12 @@ const Contact = () => {
     {
       platform: "LinkedIn",
       url: "https://linkedin.com/in/vaibhavsonii21",
-      icon: "💼"
+      icon: <LinkedIn style={{ width: '20px', height: '20px' }} />
     },
     {
       platform: "GitHub",
       url: "https://github.com/vaibhav21soni",
-      icon: "🐙"
-    },
-    {
-      platform: "Twitter",
-      url: "https://twitter.com/vaibhavsonii21",
-      icon: "🐦"
+      icon: <GitHub style={{ width: '20px', height: '20px' }} />
     }
   ];
 
@@ -287,7 +283,9 @@ const Contact = () => {
                       e.target.style.boxShadow = 'none';
                     }}
                   >
-                    {link.icon}
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      {link.icon}
+                    </div>
                   </a>
                 ))}
               </div>

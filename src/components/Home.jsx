@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { TypeAnimation } from "react-type-animation";
 import { ArrowDown } from "./Icons";
-import Avatar from "../assets/Avatars/Avatars/93f50dd8-9dec-4f20-ad88-d40acc26dec5.jpg";
+import AvatarImage from "../assets/Avatars/Avatars/93f50dd8-9dec-4f20-ad88-d40acc26dec5.jpg";
+// import FallbackAvatar from "../assets/profile.jpg";
 import contactInfo from "../data/contactInfo";
 
 const Home = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [avatarSrc, setAvatarSrc] = useState(AvatarImage);
+  const [avatarError, setAvatarError] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -89,29 +92,89 @@ const Home = () => {
             maxWidth: '800px',
             margin: '0 auto'
           }}>
-            {/* Status Badge */}
+            {/* Avatar */}
             <div style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              padding: '0.5rem 1rem',
-              background: 'var(--card-bg)',
-              border: '1px solid var(--border-color)',
-              borderRadius: 'var(--border-radius-full)',
-              marginBottom: '2rem',
-              fontSize: '0.875rem',
-              color: 'var(--text-secondary)'
+              display: 'flex',
+              justifyContent: 'center',
+              marginBottom: '2rem'
             }}>
               <div style={{
-                width: '8px',
-                height: '8px',
-                borderRadius: '50%',
-                background: '#10b981',
-                animation: 'pulse 2s infinite'
-              }} />
-              Available for DevOps opportunities
+                position: 'relative',
+                width: '180px',
+                height: '180px'
+              }}>
+                <img
+                  src={avatarSrc}
+                  alt="Vaibhav Soni - DevOps Engineer"
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    borderRadius: '50%',
+                    objectFit: 'cover',
+                    border: '4px solid #2563eb',
+                    boxShadow: '0 10px 30px rgba(37, 99, 235, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1)',
+                    transition: 'all 0.3s ease',
+                    background: 'var(--card-bg)',
+                    display: avatarError ? 'none' : 'block'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.transform = 'scale(1.05)';
+                    e.target.style.boxShadow = '0 15px 40px rgba(37, 99, 235, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.2)';
+                    e.target.style.borderColor = '#3b82f6';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.transform = 'scale(1)';
+                    e.target.style.boxShadow = '0 10px 30px rgba(37, 99, 235, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1)';
+                    e.target.style.borderColor = '#2563eb';
+                  }}
+                  onError={(e) => {
+                    console.error('Avatar image failed to load, trying fallback');
+                    if (avatarSrc === AvatarImage) {
+                      setAvatarSrc(FallbackAvatar);
+                    } else {
+                      setAvatarError(true);
+                      console.error('Both avatar images failed to load');
+                    }
+                  }}
+                  onLoad={() => {
+                    console.log('Avatar loaded successfully');
+                    setAvatarError(false);
+                  }}
+                  loading="eager"
+                />
+                
+                {/* Fallback when both images fail */}
+                {avatarError && (
+                  <div style={{
+                    width: '100%',
+                    height: '100%',
+                    borderRadius: '50%',
+                    background: 'linear-gradient(135deg, #2563eb, #3b82f6)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: 'white',
+                    fontSize: '4rem',
+                    fontWeight: '700',
+                    border: '4px solid #2563eb',
+                    boxShadow: '0 10px 30px rgba(37, 99, 235, 0.3)'
+                  }}>
+                    VS
+                  </div>
+                )}
+                {/* Decorative ring */}
+                <div style={{
+                  position: 'absolute',
+                  top: '-8px',
+                  left: '-8px',
+                  right: '-8px',
+                  bottom: '-8px',
+                  borderRadius: '50%',
+                  border: '2px solid rgba(59, 130, 246, 0.2)',
+                  animation: 'pulse 3s infinite'
+                }} />
+              </div>
             </div>
-
             {/* Main Heading */}
             <h1 className="heading-xl" style={{
               marginBottom: '1.5rem',

@@ -262,7 +262,7 @@ function Cancel({ color }) {
 
 
 export default LinkedIn;
-export { GMail, GitHub, Telegram, Person, Discord, Twitter, Resume, Portfolio, Map, CopyRight, Code, Link, Chat, Submit, ArrowRightLong, ArrowDown, ArrowUp, Download, Hamburger, Menu, Cancel, Award, MapPin, Calendar, Mail, Phone, Send, CheckCircle, AlertCircle, Heart, Sun, Moon, Loader };
+export { GMail, GitHub, Telegram, Person, Discord, Resume, Portfolio, Map, CopyRight, Code, Link, Chat, Submit, ArrowRightLong, ArrowDown, ArrowUp, Download, Hamburger, Menu, Cancel, Award, MapPin, Calendar, Mail, Phone, Send, CheckCircle, AlertCircle, Heart, Sun, Moon, Loader, Certificate, Cloud, Server, User, Rocket };
 
 // Mail Icon
 function Mail({ className = "w-6 h-6", color = "currentColor" }) {
@@ -305,6 +305,113 @@ function AlertCircle({ className = "w-6 h-6", color = "currentColor" }) {
   return (
     <svg className={className} fill="none" stroke={color} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+  );
+}
+
+// User Icon (for Overview)
+function User({ size = 24, color = "currentColor", className = "" }) {
+  return (
+    <svg 
+      width={size} 
+      height={size} 
+      viewBox="0 0 24 24" 
+      fill="none" 
+      stroke={color} 
+      strokeWidth="2" 
+      strokeLinecap="round" 
+      strokeLinejoin="round"
+      className={className}
+    >
+      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+      <circle cx="12" cy="7" r="4"/>
+    </svg>
+  );
+}
+
+// Rocket Icon (for Journey)
+function Rocket({ size = 24, color = "currentColor", className = "" }) {
+  return (
+    <svg 
+      width={size} 
+      height={size} 
+      viewBox="0 0 24 24" 
+      fill="none" 
+      stroke={color} 
+      strokeWidth="2" 
+      strokeLinecap="round" 
+      strokeLinejoin="round"
+      className={className}
+    >
+      <path d="M4.5 16.5c-1.5 1.5-2 4.5-2 4.5s3-0.5 4.5-2L12 14l-7.5 2.5z"/>
+      <path d="M12 14l9-9a2.828 2.828 0 1 0-4-4l-9 9"/>
+      <path d="M8.5 8.5L7 7"/>
+      <path d="M16.5 16.5L15 15"/>
+    </svg>
+  );
+}
+
+// Certificate Icon
+function Certificate({ size = 24, color = "currentColor", className = "" }) {
+  return (
+    <svg 
+      width={size} 
+      height={size} 
+      viewBox="0 0 24 24" 
+      fill="none" 
+      stroke={color} 
+      strokeWidth="2" 
+      strokeLinecap="round" 
+      strokeLinejoin="round"
+      className={className}
+    >
+      <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+      <path d="M10 17l5 5 5-5"/>
+      <path d="M15 22V7"/>
+      <path d="M3 7v10a2 2 0 0 0 2 2h4"/>
+    </svg>
+  );
+}
+
+// Cloud Icon
+function Cloud({ size = 24, color = "currentColor", className = "" }) {
+  return (
+    <svg 
+      width={size} 
+      height={size} 
+      viewBox="0 0 24 24" 
+      fill="none" 
+      stroke={color} 
+      strokeWidth="2" 
+      strokeLinecap="round" 
+      strokeLinejoin="round"
+      className={className}
+    >
+      <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/>
+    </svg>
+  );
+}
+
+// Server Icon (for Linux/System Admin)
+function Server({ size = 24, color = "currentColor", className = "" }) {
+  return (
+    <svg 
+      width={size} 
+      height={size} 
+      viewBox="0 0 24 24" 
+      fill="none" 
+      stroke={color} 
+      strokeWidth="2" 
+      strokeLinecap="round" 
+      strokeLinejoin="round"
+      className={className}
+    >
+      <rect x="2" y="3" width="20" height="4" rx="1"/>
+      <rect x="2" y="9" width="20" height="4" rx="1"/>
+      <rect x="2" y="15" width="20" height="4" rx="1"/>
+      <line x1="6" y1="5" x2="6.01" y2="5"/>
+      <line x1="6" y1="11" x2="6.01" y2="11"/>
+      <line x1="6" y1="17" x2="6.01" y2="17"/>
     </svg>
   );
 }

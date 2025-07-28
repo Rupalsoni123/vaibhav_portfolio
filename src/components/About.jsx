@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Download } from "./Icons";
+import { Download, Certificate, Cloud, Server, User, Rocket } from "./Icons";
 import resume from "../assets/resume.pdf";
 
 const About = () => {
@@ -68,19 +68,19 @@ const About = () => {
       name: "HashiCorp Certified: Terraform Associate (003)",
       issuer: "HashiCorp",
       year: "2024",
-      badge: "🏆"
+      badge: <Certificate size={48} color="#f59e0b" />
     },
     {
       name: "AWS Certified Cloud Practitioner",
       issuer: "Amazon Web Services",
       year: "2023",
-      badge: "☁️"
+      badge: <Cloud size={48} color="#2563eb" />
     },
     {
       name: "Red Hat Certified System Administrator (RHCSA)",
       issuer: "Red Hat",
       year: "2022",
-      badge: "🐧"
+      badge: <Server size={48} color="#dc2626" />
     }
   ];
 
@@ -158,35 +158,75 @@ const About = () => {
     ),
     
     certifications: (
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
+      <div style={{ 
+        display: 'grid', 
+        gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
+        gap: '2rem',
+        justifyItems: 'center',
+        alignItems: 'start'
+      }}>
         {certifications.map((cert, index) => (
           <div key={index} style={{
-            padding: '1.5rem',
+            padding: '2rem',
             background: 'var(--card-bg)',
             border: '1px solid var(--border-color)',
-            borderRadius: '0.5rem',
+            borderRadius: '1rem',
             textAlign: 'center',
             transition: 'all 0.3s ease',
-            transform: 'translateY(0)'
+            transform: 'translateY(0)',
+            width: '100%',
+            maxWidth: '350px',
+            height: 'auto',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            minHeight: '200px'
           }}
           onMouseEnter={(e) => {
             e.target.style.transform = 'translateY(-4px)';
             e.target.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.1)';
+            e.target.style.borderColor = '#2563eb';
           }}
           onMouseLeave={(e) => {
             e.target.style.transform = 'translateY(0)';
             e.target.style.boxShadow = 'none';
+            e.target.style.borderColor = 'var(--border-color)';
           }}
           >
-            <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>{cert.badge}</div>
-            <h3 style={{ fontWeight: '600', color: 'var(--text-primary)', marginBottom: '0.5rem' }}>
-              {cert.name}
-            </h3>
-            <div style={{ color: '#2563eb', fontWeight: '500', marginBottom: '0.5rem' }}>
-              {cert.issuer}
+            <div>
+              <div style={{ 
+                display: 'flex', 
+                justifyContent: 'center', 
+                marginBottom: '1rem' 
+              }}>
+                {cert.badge}
+              </div>
+              <h3 style={{ 
+                fontWeight: '600', 
+                color: 'var(--text-primary)', 
+                marginBottom: '1rem',
+                fontSize: '1.125rem',
+                lineHeight: '1.4'
+              }}>
+                {cert.name}
+              </h3>
             </div>
-            <div style={{ color: 'var(--text-tertiary)', fontSize: '0.875rem' }}>
-              {cert.year}
+            <div>
+              <div style={{ 
+                color: '#2563eb', 
+                fontWeight: '600', 
+                marginBottom: '0.5rem',
+                fontSize: '1rem'
+              }}>
+                {cert.issuer}
+              </div>
+              <div style={{ 
+                color: 'var(--text-tertiary)', 
+                fontSize: '0.875rem',
+                fontWeight: '500'
+              }}>
+                {cert.year}
+              </div>
             </div>
           </div>
         ))}
@@ -224,9 +264,9 @@ const About = () => {
           gap: '0.5rem'
         }}>
           {[
-            { key: 'overview', label: 'Overview', icon: '👨‍💻' },
-            { key: 'journey', label: 'Journey', icon: '🚀' },
-            { key: 'certifications', label: 'Certifications', icon: '🏆' }
+            { key: 'overview', label: 'Overview', icon: <User size={16} /> },
+            { key: 'journey', label: 'Journey', icon: <Rocket size={16} /> },
+            { key: 'certifications', label: 'Certifications', icon: <Certificate size={16} /> }
           ].map((tab) => (
             <button
               key={tab.key}
@@ -274,7 +314,9 @@ const About = () => {
               }}
               aria-label={`Switch to ${tab.label} tab`}
             >
-              <span>{tab.icon}</span>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                {tab.icon}
+              </div>
               {tab.label}
             </button>
           ))}
@@ -362,6 +404,27 @@ const About = () => {
           </div>
         </div>
       </div>
+
+      <style jsx>{`
+        @media (max-width: 768px) {
+          .container > div:last-child {
+            grid-template-columns: 1fr !important;
+            gap: 1.5rem !important;
+          }
+          
+          .container > div:last-child > div {
+            max-width: 100% !important;
+            padding: 1.5rem !important;
+          }
+        }
+        
+        @media (max-width: 480px) {
+          .container > div:last-child > div {
+            min-height: 180px !important;
+            padding: 1rem !important;
+          }
+        }
+      `}</style>
     </section>
   );
 };

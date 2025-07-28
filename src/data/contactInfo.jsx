@@ -10,56 +10,26 @@ const contactInfo = {
       id: 1,
       platform: "LinkedIn",
       url: "https://linkedin.com/in/vaibhavsonii21",
-      icon: <LinkedIn />,
+      icon: <LinkedIn style={{ width: '20px', height: '20px' }} />,
     },
     {
       id: 2,
       platform: "GitHub", 
       url: "https://github.com/vaibhav21soni",
-      icon: <GitHub />,
+      icon: <GitHub style={{ width: '20px', height: '20px' }} />,
     },
     {
       id: 3,
       platform: "Email",
       url: "mailto:vaibhavsoni5567@gmail.com",
-      icon: <GMail />,
+      icon: <GMail style={{ width: '20px', height: '20px' }} />,
     },
     {
       id: 4,
       platform: "Resume",
       url: ResumeLink,
-      icon: <Resume />,
-      download: true
-    }
-  ],
-  // Legacy array format for backward compatibility
-  links: [
-    {
-      id: 1,
-      name: "LinkedIn",
-      link: "https://linkedin.com/in/vaibhavsonii21",
-      icon: <LinkedIn />,
-    },
-    {
-      id: 2,
-      name: "GitHub",
-      link: "https://github.com/vaibhav21soni",
-      icon: <GitHub />,
-    },
-    {
-      id: 3,
-      name: "Mail",
-      link: "mailto:vaibhavsoni5567@gmail.com",
-      icon: <GMail />,
-    },
-    {
-      id: 5,
-      name: "Resume",
-      link: ResumeLink,
-      icon: <Resume />,
-      download: true
+      icon: <Resume style={{ width: '20px', height: '20px' }} />,
     }
   ]
-};
-
+}
 export default contactInfo;
