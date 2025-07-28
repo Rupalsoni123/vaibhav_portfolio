@@ -181,7 +181,7 @@ const About = () => {
             </AnimatedWrapper>
 
             {/* Professional Journey */}
-            <AnimatedWrapper animation="slide-right" delay={0.6}>
+            <AnimatedWrapper animateFrom="right" delay={0.6}>
               <div className="cyber-card p-6">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-8 h-8 border-2 border-neon-green rounded bg-black flex items-center justify-center">
@@ -195,7 +195,7 @@ const About = () => {
                     <div key={index} className="relative pl-8">
                       {/* Timeline line */}
                       {index !== journey.length - 1 && (
-                        <div className="absolute left-2 top-8 bottom-0 w-0.5 bg-neon-green/30"></div>
+                        <div className="absolute left-2 top-8 bottom-0 w-0.5" style={{ backgroundColor: 'rgba(0, 255, 65, 0.3)' }}></div>
                       )}
                       
                       {/* Timeline dot */}
@@ -210,7 +210,7 @@ const About = () => {
                           <h4 className="neon-text font-mono text-sm font-bold">{phase.phase}</h4>
                           <span className="font-mono text-xs text-gray-400">{phase.year}</span>
                         </div>
-                        <div className="font-mono text-xs text-neon-blue bg-black/50 p-3 rounded border border-neon-blue/30">
+                        <div className="font-mono text-xs text-neon-blue bg-black p-3 rounded border border-neon-blue" style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', borderColor: 'rgba(0, 212, 255, 0.3)' }}>
                           $ {phase.command}
                         </div>
                         <p className="text-gray-300 text-sm leading-relaxed">{phase.description}</p>
@@ -283,7 +283,7 @@ const About = () => {
             </AnimatedWrapper>
 
             {/* Tech Stack Preview */}
-            <AnimatedWrapper animation="slide-left" delay={0.6}>
+            <AnimatedWrapper animateFrom="left" delay={0.6}>
               <div className="cyber-card p-6">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-8 h-8 border-2 border-neon-green rounded bg-black flex items-center justify-center">
@@ -306,7 +306,8 @@ const About = () => {
                         {['AWS', 'Azure', 'DigitalOcean'].map((tech, index) => (
                           <div
                             key={index}
-                            className="font-mono text-xs text-white bg-black/50 px-3 py-2 rounded border border-neon-green/30 hover:border-neon-green hover:text-neon-green transition-colors duration-300 text-center"
+                            className="font-mono text-xs text-white bg-black px-3 py-2 rounded border border-neon-green hover:border-neon-blue hover:text-neon-blue transition-colors duration-300 text-center"
+                            style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', borderColor: 'rgba(0, 255, 65, 0.3)' }}
                           >
                             {tech}
                           </div>
@@ -323,7 +324,8 @@ const About = () => {
                         {['Terraform', 'Kubernetes', 'Docker', 'Jenkins'].map((tech, index) => (
                           <div
                             key={index}
-                            className="font-mono text-xs text-white bg-black/50 px-3 py-2 rounded border border-neon-green/30 hover:border-neon-green hover:text-neon-green transition-colors duration-300 text-center"
+                            className="font-mono text-xs text-white bg-black px-3 py-2 rounded border border-neon-green hover:border-neon-blue hover:text-neon-blue transition-colors duration-300 text-center"
+                            style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', borderColor: 'rgba(0, 255, 65, 0.3)' }}
                           >
                             {tech}
                           </div>
@@ -340,7 +342,8 @@ const About = () => {
                         {['Prometheus', 'Grafana', 'ELK Stack', 'CloudWatch'].map((tech, index) => (
                           <div
                             key={index}
-                            className="font-mono text-xs text-white bg-black/50 px-3 py-2 rounded border border-neon-green/30 hover:border-neon-green hover:text-neon-green transition-colors duration-300 text-center"
+                            className="font-mono text-xs text-white bg-black px-3 py-2 rounded border border-neon-green hover:border-neon-blue hover:text-neon-blue transition-colors duration-300 text-center"
+                            style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', borderColor: 'rgba(0, 255, 65, 0.3)' }}
                           >
                             {tech}
                           </div>
@@ -357,7 +360,8 @@ const About = () => {
                         {['Python', 'Bash', 'JavaScript', 'TypeScript', 'YAML', 'JSON'].map((tech, index) => (
                           <div
                             key={index}
-                            className="font-mono text-xs text-white bg-black/50 px-3 py-2 rounded border border-neon-green/30 hover:border-neon-green hover:text-neon-green transition-colors duration-300 text-center"
+                            className="font-mono text-xs text-white bg-black px-3 py-2 rounded border border-neon-green hover:border-neon-blue hover:text-neon-blue transition-colors duration-300 text-center"
+                            style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', borderColor: 'rgba(0, 255, 65, 0.3)' }}
                           >
                             {tech}
                           </div>
@@ -367,7 +371,7 @@ const About = () => {
                   </div>
 
                   {/* Summary */}
-                  <div className="border-t border-neon-green/30 pt-4">
+                  <div className="border-t pt-4" style={{ borderColor: 'rgba(0, 255, 65, 0.3)' }}>
                     <div className="font-mono text-xs text-gray-400 space-y-1">
                       <div>Total: <span className="text-neon-green">25+</span> technologies loaded</div>
                       <div>Status: <span className="text-neon-blue">PRODUCTION_READY</span></div>

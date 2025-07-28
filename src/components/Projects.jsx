@@ -236,18 +236,18 @@ const Projects = () => {
               animation="scale-in" 
               delay={0.1 * (index % 3)}
             >
-              <div className="project-card group h-full flex flex-col" onClick={() => {
+              <div className="project-card group flex flex-col h-full" onClick={() => {
                 setSelectedProject(project);
                 setShowModal(true);
               }}>
-                {/* Project Header */}
-                <div className="flex items-start justify-between mb-6">
-                  <div className="flex items-center gap-4 flex-1">
+                {/* Project Header - Fixed Height */}
+                <div className="flex items-start justify-between mb-6 min-h-80">
+                  <div className="flex items-start gap-4 flex-1">
                     <div className={`w-16 h-16 rounded-lg bg-gradient-to-br ${project.gradient} flex items-center justify-center text-2xl shadow-neon group-hover:scale-110 transition-transform duration-300 flex-shrink-0`}>
                       {project.icon}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 className="text-white font-mono text-lg font-bold mb-2 group-hover:text-neon-green transition-colors duration-300 leading-tight">
+                      <h3 className="text-white font-mono text-lg font-bold mb-2 group-hover:text-neon-green transition-colors duration-300 leading-tight line-clamp-2">
                         {project.title}
                       </h3>
                       <div className="project-badge">
@@ -265,19 +265,22 @@ const Projects = () => {
                   </div>
                 </div>
 
-                {/* Project Description */}
+                {/* Project Content - Flexible Height */}
                 <div className="flex-1 flex flex-col">
-                  <p className="text-gray-300 mb-6 leading-relaxed font-mono text-sm">
-                    {project.description}
-                  </p>
+                  {/* Project Description - Fixed Height */}
+                  <div className="mb-6 min-h-60">
+                    <p className="text-gray-300 leading-relaxed font-mono text-sm line-clamp-3">
+                      {project.description}
+                    </p>
+                  </div>
 
-                  {/* Technologies */}
+                  {/* Technologies - Consistent Spacing */}
                   <div className="mb-6">
                     <h4 className="font-mono text-sm text-neon-blue mb-3 flex items-center gap-2">
                       <span className="w-2 h-2 bg-neon-blue rounded-full"></span>
                       TECH_STACK
                     </h4>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-2 min-h-60 content-start">
                       {project.technologies.map((tech, techIndex) => (
                         <span
                           key={techIndex}
@@ -289,7 +292,7 @@ const Projects = () => {
                     </div>
                   </div>
 
-                  {/* Key Achievements Preview */}
+                  {/* Key Achievements - Flexible Height */}
                   <div className="mb-6 flex-1">
                     <h4 className="font-mono text-sm text-neon-green mb-3 flex items-center gap-2">
                       <span className="w-2 h-2 bg-neon-green rounded-full"></span>
@@ -311,7 +314,7 @@ const Projects = () => {
                     </ul>
                   </div>
 
-                  {/* Impact & View Details */}
+                  {/* Impact & View Details - Fixed at Bottom */}
                   <div className="flex items-center justify-between pt-4 border-t border-neon-green/30 mt-auto">
                     <div className="flex items-center gap-2">
                       <span className="w-2 h-2 bg-neon-purple rounded-full animate-pulse"></span>
