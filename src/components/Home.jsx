@@ -176,30 +176,47 @@ const Home = () => {
               marginBottom: '3rem',
               flexWrap: 'wrap'
             }}>
-              <Link
-                to="contact"
-                smooth={true}
-                duration={500}
+              <button
+                onClick={() => {
+                  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                }}
                 className="btn btn-primary"
-                style={{ textDecoration: 'none' }}
+                style={{ 
+                  textDecoration: 'none',
+                  border: 'none',
+                  cursor: 'pointer'
+                }}
               >
                 Get In Touch
-              </Link>
-              <Link
-                to="projects"
-                smooth={true}
-                duration={500}
+              </button>
+              <button
+                onClick={() => {
+                  document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+                }}
                 className="btn btn-outline"
-                style={{ textDecoration: 'none' }}
+                style={{ 
+                  textDecoration: 'none',
+                  border: '2px solid var(--primary-blue)',
+                  background: 'transparent',
+                  cursor: 'pointer'
+                }}
               >
                 View Projects
-              </Link>
+              </button>
               <a
                 href="/resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-secondary"
                 style={{ textDecoration: 'none' }}
+                onClick={(e) => {
+                  // If resume.pdf doesn't exist, try the assets path
+                  e.preventDefault();
+                  const link = document.createElement('a');
+                  link.href = '/src/assets/resume.pdf';
+                  link.download = 'Vaibhav_Soni_Resume.pdf';
+                  link.click();
+                }}
               >
                 Download CV
               </a>
@@ -341,18 +358,21 @@ const Home = () => {
           }}>
             Scroll to explore
           </span>
-          <Link
-            to="about"
-            smooth={true}
-            duration={500}
+          <button
+            onClick={() => {
+              document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+            }}
             style={{
               color: 'var(--primary-blue)',
               cursor: 'pointer',
-              animation: 'float 2s ease-in-out infinite'
+              animation: 'float 2s ease-in-out infinite',
+              background: 'none',
+              border: 'none',
+              padding: '0.5rem'
             }}
           >
             <ArrowDown size={24} />
-          </Link>
+          </button>
         </div>
       </div>
     </section>
