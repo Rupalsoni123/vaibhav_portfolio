@@ -6,7 +6,7 @@ import { ThemeContext } from '../utils/ThemeContext';
 const Navbar = () => {
     const [navOpen, setNavOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
-    const { theme } = useContext(ThemeContext);
+    const { theme, toggleTheme } = useContext(ThemeContext);
     
     const handleClick = () => {
         setNavOpen(prevValue => !prevValue)
@@ -26,125 +26,163 @@ const Navbar = () => {
     return (
         <>
             <nav 
-                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-black border-b-2 border-neon-green backdrop-blur-md ${
-                    scrolled 
-                        ? 'bg-black/95 shadow-neon' 
-                        : 'bg-black/80'
-                }`}
+                style={{
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    zIndex: 50,
+                    background: scrolled 
+                        ? 'rgba(var(--bg-primary-rgb, 255, 255, 255), 0.95)' 
+                        : 'rgba(var(--bg-primary-rgb, 255, 255, 255), 0.8)',
+                    backdropFilter: 'blur(12px)',
+                    borderBottom: scrolled ? '1px solid var(--border-color)' : 'none',
+                    transition: 'all 0.3s ease',
+                    boxShadow: scrolled ? 'var(--shadow-md)' : 'none'
+                }}
                 role="navigation"
                 aria-label="Main navigation"
             >
-                <div className="cyber-container">
-                    <div className="flex justify-between items-center h-16">
+                <div className="container">
+                    <div style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        height: '4rem',
+                        padding: '0 1rem'
+                    }}>
                         {/* Logo */}
-                        <div className="flex items-center space-x-4">
-                            <div className="text-2xl font-bold group cursor-pointer">
-                                <div className="flex items-center space-x-3">
-                                    <div className="w-10 h-10 border-2 border-neon-green rounded bg-black flex items-center justify-center">
-                                        <span className="text-neon-green font-mono text-lg font-bold">V</span>
-                                    </div>
-                                    <div>
-                                        <h1 className="font-cyber text-xl neon-text hover:neon-text-blue transition-colors duration-300">
-                                            VAIBHAV.SONI
-                                        </h1>
-                                        <div className="text-xs font-mono text-gray-400 -mt-1">
-                                            &lt;/DevOps_Engineer&gt;
-                                        </div>
-                                    </div>
+                        <div style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '0.75rem'
+                        }}>
+                            <div style={{
+                                width: '2.5rem',
+                                height: '2.5rem',
+                                background: 'var(--gradient-primary)',
+                                borderRadius: 'var(--border-radius-md)',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                color: 'white',
+                                fontWeight: '700',
+                                fontSize: '1.125rem',
+                                fontFamily: 'Space Grotesk, sans-serif'
+                            }}>
+                                V
+                            </div>
+                            <div>
+                                <h1 style={{
+                                    fontFamily: 'Space Grotesk, sans-serif',
+                                    fontSize: '1.25rem',
+                                    fontWeight: '600',
+                                    color: 'var(--text-primary)',
+                                    margin: 0,
+                                    lineHeight: 1
+                                }}>
+                                    Vaibhav Soni
+                                </h1>
+                                <div style={{
+                                    fontSize: '0.75rem',
+                                    color: 'var(--text-tertiary)',
+                                    fontFamily: 'JetBrains Mono, monospace',
+                                    marginTop: '-2px'
+                                }}>
+                                    DevOps Engineer
                                 </div>
                             </div>
                         </div>
 
                         {/* Desktop Navigation */}
-                        <div className="hidden lg:flex items-center space-x-6">
-                            <Navigation />
-                            <div className="flex items-center space-x-4">
-                                {/* Status Indicator */}
-                                <div className="flex items-center space-x-2 px-3 py-2 border border-neon-green rounded bg-black/50">
-                                    <div className="w-2 h-2 bg-neon-green rounded-full animate-pulse"></div>
-                                    <span className="font-mono text-xs text-neon-green">ONLINE</span>
-                                </div>
-
-                                {/* Contact Button */}
-                                <a
-                                    href="mailto:vaibhavsoni5567@gmail.com"
-                                    className="cyber-button text-sm px-4 py-2 inline-flex items-center gap-2 group"
-                                >
-                                    <span>CONTACT.exe</span>
-                                    <span className="text-lg group-hover:animate-pulse">⚡</span>
-                                </a>
+                        <div style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '2rem'
+                        }}>
+                            <div style={{ display: 'none' }} className="md:block">
+                                <Navigation />
                             </div>
-                        </div>
 
-                        {/* Mobile Menu Button */}
-                        <div className="lg:hidden flex items-center">
-                            <HamBurgerMenu 
-                                navOpen={navOpen} 
-                                handleClick={handleClick}
-                            />
+                            {/* Theme Toggle */}
+                            <button
+                                onClick={toggleTheme}
+                                style={{
+                                    width: '2.5rem',
+                                    height: '2.5rem',
+                                    borderRadius: '50%',
+                                    border: '1px solid var(--border-color)',
+                                    background: 'var(--card-bg)',
+                                    color: 'var(--text-secondary)',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    cursor: 'pointer',
+                                    transition: 'all 0.3s ease'
+                                }}
+                                onMouseEnter={(e) => {
+                                    e.target.style.borderColor = 'var(--primary-blue)';
+                                    e.target.style.color = 'var(--primary-blue)';
+                                    e.target.style.transform = 'translateY(-2px)';
+                                }}
+                                onMouseLeave={(e) => {
+                                    e.target.style.borderColor = 'var(--border-color)';
+                                    e.target.style.color = 'var(--text-secondary)';
+                                    e.target.style.transform = 'translateY(0)';
+                                }}
+                                title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+                            >
+                                {theme === 'dark' ? '☀️' : '🌙'}
+                            </button>
+
+                            {/* Mobile Menu Button */}
+                            <div style={{ display: 'block' }} className="md:hidden">
+                                <HamBurgerMenu 
+                                    navOpen={navOpen} 
+                                    handleClick={handleClick}
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>
             </nav>
 
             {/* Mobile Navigation Overlay */}
-            <div 
-                className={`fixed inset-0 z-40 lg:hidden transition-all duration-300 ${
-                    navOpen 
-                        ? 'opacity-100 visible' 
-                        : 'opacity-0 invisible'
-                }`}
-            >
-                {/* Backdrop */}
-                <div 
-                    className="absolute inset-0 bg-black/90 backdrop-blur-sm"
+            {navOpen && (
+                <div
+                    style={{
+                        position: 'fixed',
+                        top: '4rem',
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        background: 'var(--bg-primary)',
+                        zIndex: 40,
+                        padding: '2rem 1rem',
+                        backdropFilter: 'blur(12px)'
+                    }}
+                    className="md:hidden"
+                >
+                    <Navigation mobile onItemClick={() => setNavOpen(false)} />
+                </div>
+            )}
+
+            {/* Mobile Backdrop */}
+            {navOpen && (
+                <div
+                    style={{
+                        position: 'fixed',
+                        inset: 0,
+                        background: 'rgba(0, 0, 0, 0.5)',
+                        zIndex: 35
+                    }}
+                    className="md:hidden"
                     onClick={() => setNavOpen(false)}
                 />
-                
-                {/* Mobile Menu */}
-                <div 
-                    className={`absolute top-16 left-0 right-0 cyber-card mx-4 transform transition-transform duration-300 ${
-                        navOpen 
-                            ? 'translate-y-0' 
-                            : '-translate-y-full'
-                    }`}
-                >
-                    <div className="p-6">
-                        {/* Terminal Header */}
-                        <div className="border-b border-neon-green pb-4 mb-6">
-                            <div className="font-mono text-sm text-neon-green">
-                                root@mobile-nav:~$ ls -la menu/
-                            </div>
-                        </div>
-
-                        <Navigation mobile onItemClick={() => setNavOpen(false)} />
-                        
-                        {/* Mobile Status & CTA */}
-                        <div className="mt-8 pt-6 border-t border-neon-green/30 space-y-4">
-                            <div className="flex items-center justify-between">
-                                <div className="flex items-center space-x-2">
-                                    <div className="w-2 h-2 bg-neon-green rounded-full animate-pulse"></div>
-                                    <span className="font-mono text-xs text-neon-green">STATUS: ONLINE</span>
-                                </div>
-                                <div className="font-mono text-xs text-gray-400">
-                                    {new Date().toLocaleTimeString()}
-                                </div>
-                            </div>
-                            
-                            <a
-                                href="mailto:vaibhavsoni5567@gmail.com"
-                                className="cyber-button w-full text-center inline-flex items-center justify-center gap-2"
-                                onClick={() => setNavOpen(false)}
-                            >
-                                <span>INITIATE_CONTACT.sh</span>
-                                <span className="text-lg">📡</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            )}
         </>
     );
 };
 
 export default Navbar;
+                                          

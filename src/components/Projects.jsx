@@ -6,6 +6,7 @@ const Projects = () => {
   const [activeCategory, setActiveCategory] = useState("All");
   const [selectedProject, setSelectedProject] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [hoveredProject, setHoveredProject] = useState(null);
 
   // Get unique categories
   const categories = ["All", ...new Set(projectsData.map(project => project.category))];
@@ -15,402 +16,546 @@ const Projects = () => {
     ? projectsData 
     : projectsData.filter(project => project.category === activeCategory);
 
+  const openModal = (project) => {
+    setSelectedProject(project);
+    setShowModal(true);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+    setSelectedProject(null);
+    document.body.style.overflow = 'unset';
+  };
+
+  const projectStats = [
+    {
+      icon: "🚀",
+      value: "4+",
+      label: "Projects",
+      description: "Successfully Deployed"
+    },
+    {
+      icon: "⚙️",
+      value: "15+",
+      label: "Technologies",
+      description: "Tools & Frameworks"
+    },
+    {
+      icon: "☁️",
+      value: "3+",
+      label: "Cloud Platforms",
+      description: "AWS, Azure, DigitalOcean"
+    },
+    {
+      icon: "🔧",
+      value: "100%",
+      label: "Success Rate",
+      description: "Project Completion"
+    }
+  ];
+
   return (
-    <section name="Projects" className="section-cyber matrix-bg relative overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute inset-0">
-        <div className="scan-lines"></div>
-        {/* Floating Project Icons */}
-        {[...Array(15)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute text-neon-green opacity-10 font-mono text-lg animate-float-slow"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`
-            }}
-          >
-            {['🚀', '⚙️', '🔧', '📦', '☁️', '🐳'][Math.floor(Math.random() * 6)]}
-          </div>
-        ))}
-      </div>
-
-      <div className="cyber-container relative z-10">
+    <section id="projects" className="section" style={{ background: 'var(--bg-primary)' }}>
+      <div className="container">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <div className="terminal-window max-w-3xl mx-auto">
-            <div className="terminal-header">
-              <div className="flex space-x-2">
-                <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-              </div>
-              <div className="flex-1 text-center text-xs text-gray-400 font-mono">
-                projects-showcase.sh
-              </div>
-            </div>
-            <div className="terminal-content">
-              <div className="font-mono text-sm space-y-2">
-                <div className="text-neon-blue">$ ./deploy_portfolio.sh --showcase</div>
-                <div className="text-neon-green">Loading project repositories...</div>
-                <div className="text-white">Infrastructure: <span className="text-neon-green">DEPLOYED</span></div>
-                <div className="text-white">Applications: <span className="text-neon-green">RUNNING</span></div>
-                <div className="text-white">Monitoring: <span className="text-neon-green">ACTIVE</span></div>
-                <div className="text-neon-green">All systems operational. Projects ready for review.</div>
-              </div>
-            </div>
+        <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+          <div className="badge badge-secondary" style={{ marginBottom: '1rem' }}>
+            🚀 Portfolio Showcase
           </div>
+          <h2 className="heading-lg" style={{ marginBottom: '1rem' }}>
+            Featured <span className="text-gradient-secondary">Projects</span>
+          </h2>
+          <p style={{
+            fontSize: '1.125rem',
+            color: 'var(--text-secondary)',
+            maxWidth: '600px',
+            margin: '0 auto',
+            lineHeight: '1.7'
+          }}>
+            Real-world DevOps projects showcasing infrastructure automation, 
+            cloud deployments, and CI/CD pipeline implementations.
+          </p>
         </div>
 
-        {/* Category Filter */}
-        <div className="mb-12">
-          <div className="cyber-card p-6">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-8 h-8 border-2 border-neon-green rounded bg-black flex items-center justify-center">
-                <span className="text-neon-green font-mono text-sm">$</span>
-              </div>
-              <h3 className="neon-text-blue font-cyber text-xl">PROJECT_CATEGORIES</h3>
-            </div>
-            
-            <div className="flex flex-wrap gap-3 justify-center">
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => setActiveCategory(category)}
-                  className={`font-mono text-sm px-4 py-2 rounded border-2 transition-all duration-300 hover:scale-105`}
-                  style={{
-                    borderColor: activeCategory === category ? '#00d4ff' : '#00ff41',
-                    backgroundColor: activeCategory === category ? 'rgba(0, 212, 255, 0.2)' : 'transparent',
-                    color: activeCategory === category ? '#00d4ff' : '#00ff41'
-                  }}
-                >
-                  {category.toUpperCase()}
-                </button>
-              ))}
-            </div>
-
-            {/* Active Filter Display */}
-            <div className="mt-4 pt-4" style={{ borderTop: '1px solid rgba(0, 255, 65, 0.3)' }}>
-              <div className="flex items-center justify-between">
-                <div className="font-mono text-sm text-neon-blue">
-                  ACTIVE: <span className="text-neon-green">{activeCategory}</span>
-                </div>
-                <div className="font-mono text-sm text-gray-400">
-                  SHOWING: <span className="text-neon-green">{filteredProjects.length}</span> projects
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Projects Grid */}
-        <div className="grid lg:grid-cols-2 gap-8 mb-16">
-          {filteredProjects.map((project, index) => (
-            <div 
-              key={project.id} 
-              className="project-card group flex flex-col cursor-pointer" 
-              onClick={() => {
-                setSelectedProject(project);
-                setShowModal(true);
+        {/* Project Stats */}
+        <div className="grid-responsive" style={{ marginBottom: '4rem' }}>
+          {projectStats.map((stat, index) => (
+            <div
+              key={index}
+              className="card animate-scale-in"
+              style={{
+                textAlign: 'center',
+                padding: '2rem 1.5rem',
+                animationDelay: `${index * 0.1}s`,
+                background: 'var(--gradient-primary)',
+                color: 'white',
+                border: 'none'
               }}
             >
-              {/* Project Header */}
-              <div className="flex items-start justify-between mb-6" style={{ minHeight: '80px' }}>
-                <div className="flex items-start gap-4 flex-1">
-                  <div className={`w-16 h-16 rounded-lg bg-gradient-to-br ${project.gradient} flex items-center justify-center text-2xl shadow-neon group-hover:scale-110 transition-transform duration-300 flex-shrink-0`}>
-                    {project.icon}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <h3 className="text-white font-mono text-lg font-bold mb-2 group-hover:text-neon-green transition-colors duration-300 leading-tight" style={{ minHeight: '48px', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                      {project.title}
-                    </h3>
-                    <div className="project-badge">
-                      {project.category}
-                    </div>
-                  </div>
-                </div>
-                <div className={`font-mono text-xs px-2 py-1 rounded flex-shrink-0 ml-2`} style={{ 
-                  backgroundColor: project.status === 'DEPLOYED' ? 'rgba(0, 255, 65, 0.2)' :
-                  project.status === 'ACTIVE' ? 'rgba(0, 212, 255, 0.2)' :
-                  project.status === 'OPTIMIZING' ? 'rgba(191, 0, 255, 0.2)' :
-                  'rgba(255, 0, 128, 0.2)',
-                  color: project.status === 'DEPLOYED' ? '#00ff41' :
-                  project.status === 'ACTIVE' ? '#00d4ff' :
-                  project.status === 'OPTIMIZING' ? '#bf00ff' :
-                  '#ff0080'
-                }}>
-                  [{project.status}]
-                </div>
+              <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>
+                {stat.icon}
               </div>
-
-              {/* Project Content */}
-              <div className="flex-1 flex flex-col">
-                {/* Project Description */}
-                <div className="mb-6" style={{ minHeight: '60px' }}>
-                  <p className="text-gray-300 leading-relaxed font-mono text-sm" style={{ display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                    {project.description}
-                  </p>
-                </div>
-
-                {/* Technologies */}
-                <div className="mb-6">
-                  <h4 className="font-mono text-sm text-neon-blue mb-3 flex items-center gap-2">
-                    <span className="w-2 h-2 bg-neon-blue rounded-full"></span>
-                    TECH_STACK
-                  </h4>
-                  <div className="flex flex-wrap gap-2" style={{ minHeight: '60px', alignContent: 'flex-start' }}>
-                    {project.technologies.map((tech, techIndex) => (
-                      <span
-                        key={techIndex}
-                        className="font-mono text-xs text-white px-3 py-1 rounded border hover:border-neon-green hover:text-neon-green transition-colors duration-300"
-                        style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', borderColor: 'rgba(0, 255, 65, 0.3)' }}
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Key Achievements */}
-                <div className="mb-6 flex-1">
-                  <h4 className="font-mono text-sm text-neon-green mb-3 flex items-center gap-2">
-                    <span className="w-2 h-2 bg-neon-green rounded-full"></span>
-                    KEY_ACHIEVEMENTS
-                  </h4>
-                  <ul className="space-y-2">
-                    {project.achievements.slice(0, 3).map((achievement, achIndex) => (
-                      <li key={achIndex} className="flex items-start gap-3 text-sm text-gray-300 font-mono">
-                        <span className="text-neon-green mt-1 text-base flex-shrink-0">✓</span>
-                        <span className="leading-relaxed">{achievement}</span>
-                      </li>
-                    ))}
-                    {project.achievements.length > 3 && (
-                      <li className="flex items-start gap-3 text-sm text-gray-400 font-mono">
-                        <span className="text-neon-purple mt-1 text-base flex-shrink-0">+</span>
-                        <span className="leading-relaxed">{project.achievements.length - 3} more achievements...</span>
-                      </li>
-                    )}
-                  </ul>
-                </div>
-
-                {/* Impact & View Details */}
-                <div className="flex items-center justify-between pt-4 mt-auto" style={{ borderTop: '1px solid rgba(0, 255, 65, 0.3)' }}>
-                  <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 bg-neon-purple rounded-full animate-pulse"></span>
-                    <span className="font-mono text-xs text-neon-purple font-bold">{project.impact}</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-neon-blue font-mono text-sm group-hover:gap-3 transition-all duration-300">
-                    <span>VIEW_DETAILS</span>
-                    <ArrowRightLong className="w-4 h-4" />
-                  </div>
-                </div>
+              <div className="heading-md" style={{ marginBottom: '0.5rem', color: 'white' }}>
+                {stat.value}
+              </div>
+              <div style={{
+                fontWeight: '600',
+                marginBottom: '0.5rem',
+                color: 'rgba(255, 255, 255, 0.9)'
+              }}>
+                {stat.label}
+              </div>
+              <div style={{
+                fontSize: '0.875rem',
+                color: 'rgba(255, 255, 255, 0.7)'
+              }}>
+                {stat.description}
               </div>
             </div>
           ))}
         </div>
 
-        {/* Project Stats */}
-        <div className="grid md:grid-cols-4 gap-6 mb-16">
-          <div className="stat-card group">
-            <div className="stat-icon bg-gradient-to-br from-neon-green to-neon-blue text-black group-hover:shadow-neon">
-              🚀
-            </div>
-            <div className="neon-text text-3xl font-bold font-mono mb-2">06+</div>
-            <div className="text-white font-mono text-sm uppercase tracking-wider mb-2">PROJECTS</div>
-            <div className="text-gray-400 font-mono text-xs">Completed Successfully</div>
-          </div>
-          
-          <div className="stat-card group">
-            <div className="stat-icon bg-gradient-to-br from-neon-blue to-neon-purple text-black group-hover:shadow-neon">
-              ⚡
-            </div>
-            <div className="neon-text text-3xl font-bold font-mono mb-2">15+</div>
-            <div className="text-white font-mono text-sm uppercase tracking-wider mb-2">TECHNOLOGIES</div>
-            <div className="text-gray-400 font-mono text-xs">Tools & Frameworks</div>
-          </div>
-          
-          <div className="stat-card group">
-            <div className="stat-icon bg-gradient-to-br from-neon-purple to-neon-pink text-black group-hover:shadow-neon">
-              🏆
-            </div>
-            <div className="neon-text text-3xl font-bold font-mono mb-2">03+</div>
-            <div className="text-white font-mono text-sm uppercase tracking-wider mb-2">CERTIFICATIONS</div>
-            <div className="text-gray-400 font-mono text-xs">Industry Recognized</div>
-          </div>
-          
-          <div className="stat-card group">
-            <div className="stat-icon bg-gradient-to-br from-neon-pink to-neon-green text-black group-hover:shadow-neon">
-              📈
-            </div>
-            <div className="neon-text text-3xl font-bold font-mono mb-2">99%</div>
-            <div className="text-white font-mono text-sm uppercase tracking-wider mb-2">UPTIME</div>
-            <div className="text-gray-400 font-mono text-xs">System Reliability</div>
-          </div>
+        {/* Category Filter */}
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          marginBottom: '3rem',
+          flexWrap: 'wrap',
+          gap: '0.5rem'
+        }}>
+          {categories.map((category) => (
+            <button
+              key={category}
+              onClick={() => setActiveCategory(category)}
+              style={{
+                padding: '0.75rem 1.5rem',
+                borderRadius: 'var(--border-radius-md)',
+                border: 'none',
+                background: activeCategory === category 
+                  ? 'var(--gradient-secondary)' 
+                  : 'var(--card-bg)',
+                color: activeCategory === category 
+                  ? 'white' 
+                  : 'var(--text-secondary)',
+                fontWeight: '500',
+                fontSize: '0.875rem',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                boxShadow: activeCategory === category 
+                  ? 'var(--shadow-md)' 
+                  : 'none',
+                border: activeCategory === category 
+                  ? 'none' 
+                  : '1px solid var(--border-color)'
+              }}
+              onMouseEnter={(e) => {
+                if (activeCategory !== category) {
+                  e.target.style.borderColor = 'var(--primary-teal)';
+                  e.target.style.color = 'var(--primary-teal)';
+                  e.target.style.transform = 'translateY(-2px)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (activeCategory !== category) {
+                  e.target.style.borderColor = 'var(--border-color)';
+                  e.target.style.color = 'var(--text-secondary)';
+                  e.target.style.transform = 'translateY(0)';
+                }
+              }}
+            >
+              {category}
+            </button>
+          ))}
         </div>
 
-        {/* Technology Showcase */}
-        <div className="cyber-card p-8 text-center mb-16">
-          <h3 className="neon-text-blue font-cyber text-2xl mb-6">TECHNOLOGY_STACK</h3>
-          <div className="font-mono text-sm text-neon-blue mb-4">$ cat tech_stack.json | jq '.technologies[]'</div>
-          <div className="flex flex-wrap justify-center gap-3">
-            {['AWS', 'Azure', 'Terraform', 'Kubernetes', 'Docker', 'Jenkins', 'GitLab CI', 'Prometheus', 'Grafana', 'ELK Stack', 'Python', 'Bash', 'YAML', 'JSON', 'Ansible'].map((tech, index) => (
-              <span
-                key={index}
-                className="font-mono text-xs text-white px-3 py-2 rounded border hover:border-neon-green hover:text-neon-green transition-colors duration-300"
-                style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)', borderColor: 'rgba(0, 255, 65, 0.3)' }}
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        {/* CTA Section */}
-        <div className="text-center">
-          <div className="cyber-card p-8 max-w-4xl mx-auto border-2 border-neon-green">
-            <h3 className="neon-text-green font-cyber text-2xl mb-6">
-              READY_TO_COLLABORATE
-            </h3>
-            <p className="text-gray-300 mb-8 leading-relaxed font-mono text-sm max-w-2xl mx-auto">
-              Interested in working together on your next DevOps project? Let's build something amazing 
-              that scales, performs, and delivers real business value.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="mailto:vaibhavsoni5567@gmail.com"
-                className="cyber-button inline-flex items-center gap-2"
-              >
-                <span>START_PROJECT.exe</span>
-                <span className="text-lg">🚀</span>
-              </a>
-              <a
-                href="tel:+918890944027"
-                className="cyber-button-secondary inline-flex items-center gap-2"
-              >
-                <span>SCHEDULE_CALL.sh</span>
-                <span className="text-lg">📞</span>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        {/* Project Details Modal */}
-        {showModal && selectedProject && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm">
-            <div className="cyber-card max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-              {/* Modal Header */}
-              <div className="sticky top-0 bg-black border-b-2 border-neon-green p-6 flex justify-between items-center">
-                <div className="flex items-center gap-4">
-                  <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${selectedProject.gradient} flex items-center justify-center text-2xl`}>
-                    {selectedProject.icon}
+        {/* Projects Grid */}
+        <div className="grid-responsive" style={{ gap: '2rem' }}>
+          {filteredProjects.map((project, index) => (
+            <div
+              key={project.id || index}
+              className="card animate-fade-in-up"
+              style={{
+                padding: '0',
+                overflow: 'hidden',
+                cursor: 'pointer',
+                animationDelay: `${index * 0.1}s`,
+                transform: hoveredProject === project.id ? 'translateY(-8px)' : 'translateY(0)',
+                boxShadow: hoveredProject === project.id ? 'var(--shadow-xl)' : 'var(--shadow-md)'
+              }}
+              onMouseEnter={() => setHoveredProject(project.id)}
+              onMouseLeave={() => setHoveredProject(null)}
+              onClick={() => openModal(project)}
+            >
+              {/* Project Image/Preview */}
+              <div style={{
+                height: '200px',
+                background: project.image 
+                  ? `url(${project.image})` 
+                  : 'var(--gradient-primary)',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                position: 'relative',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                {!project.image && (
+                  <div style={{
+                    fontSize: '3rem',
+                    color: 'white',
+                    opacity: 0.8
+                  }}>
+                    {project.icon || '🚀'}
                   </div>
-                  <div>
-                    <h2 className="neon-text font-cyber text-xl">{selectedProject.title}</h2>
-                    <div className="project-badge">{selectedProject.category}</div>
-                  </div>
-                </div>
-                <button
-                  onClick={() => setShowModal(false)}
-                  className="w-8 h-8 flex items-center justify-center text-neon-green hover:text-neon-red transition-colors duration-300"
-                >
-                  <Cancel className="w-6 h-6" />
-                </button>
-              </div>
-
-              {/* Modal Content */}
-              <div className="p-6 space-y-8">
-                {/* Project Description */}
-                <div>
-                  <h3 className="neon-text-blue font-cyber text-lg mb-4">PROJECT_OVERVIEW</h3>
-                  <p className="text-gray-300 leading-relaxed font-mono text-sm">
-                    {selectedProject.description}
-                  </p>
-                </div>
-
-                {/* Technologies Used */}
-                <div>
-                  <h3 className="neon-text-blue font-cyber text-lg mb-4">TECHNOLOGIES_USED</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {selectedProject.technologies.map((tech, index) => (
-                      <span
-                        key={index}
-                        className="font-mono text-xs text-white px-3 py-2 rounded border border-neon-green hover:border-neon-blue hover:text-neon-blue transition-colors duration-300"
-                        style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
+                )}
+                
+                {/* Overlay on hover */}
+                <div style={{
+                  position: 'absolute',
+                  inset: 0,
+                  background: 'rgba(0, 0, 0, 0.7)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  opacity: hoveredProject === project.id ? 1 : 0,
+                  transition: 'opacity 0.3s ease'
+                }}>
+                  <div style={{
+                    display: 'flex',
+                    gap: '1rem',
+                    alignItems: 'center'
+                  }}>
+                    {project.github && (
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        style={{
+                          padding: '0.75rem',
+                          background: 'white',
+                          borderRadius: '50%',
+                          color: 'var(--text-primary)',
+                          textDecoration: 'none',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center'
+                        }}
                       >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Key Achievements */}
-                <div>
-                  <h3 className="neon-text-blue font-cyber text-lg mb-4">KEY_ACHIEVEMENTS</h3>
-                  <ul className="space-y-3">
-                    {selectedProject.achievements.map((achievement, index) => (
-                      <li key={index} className="flex items-start gap-3 text-sm text-gray-300 font-mono">
-                        <span className="text-neon-green mt-1 text-base flex-shrink-0">✓</span>
-                        <span className="leading-relaxed">{achievement}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Project Stats */}
-                <div>
-                  <h3 className="neon-text-blue font-cyber text-lg mb-4">PROJECT_METRICS</h3>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div className="text-center p-4 bg-black/50 rounded border border-neon-green/30">
-                      <div className="font-mono text-2xl font-bold text-neon-green mb-1">
-                        {selectedProject.id === 1 ? '100%' : 
-                         selectedProject.id === 2 ? '99.9%' :
-                         selectedProject.id === 3 ? '90%' : '60%'}
-                      </div>
-                      <div className="font-mono text-xs text-gray-400">
-                        {selectedProject.id === 1 ? 'Resources Migrated' : 
-                         selectedProject.id === 2 ? 'Uptime Achieved' :
-                         selectedProject.id === 3 ? 'Time Saved' : 'MTTR Reduction'}
-                      </div>
-                    </div>
-                    <div className="text-center p-4 bg-black/50 rounded border border-neon-blue/30">
-                      <div className="font-mono text-2xl font-bold text-neon-blue mb-1">
-                        {selectedProject.technologies.length}
-                      </div>
-                      <div className="font-mono text-xs text-gray-400">Technologies Used</div>
-                    </div>
-                    <div className="text-center p-4 bg-black/50 rounded border border-neon-purple/30">
-                      <div className="font-mono text-2xl font-bold text-neon-purple mb-1">
-                        {selectedProject.achievements.length}
-                      </div>
-                      <div className="font-mono text-xs text-gray-400">Key Achievements</div>
-                    </div>
-                    <div className="text-center p-4 bg-black/50 rounded border border-neon-pink/30">
-                      <div className="font-mono text-2xl font-bold text-neon-pink mb-1">100%</div>
-                      <div className="font-mono text-xs text-gray-400">Success Rate</div>
-                    </div>
+                        <Code size={20} />
+                      </a>
+                    )}
+                    {project.live && (
+                      <a
+                        href={project.live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        style={{
+                          padding: '0.75rem',
+                          background: 'white',
+                          borderRadius: '50%',
+                          color: 'var(--text-primary)',
+                          textDecoration: 'none',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center'
+                        }}
+                      >
+                        <Link size={20} />
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>
 
-              {/* Modal Footer */}
-              <div className="sticky bottom-0 bg-black border-t-2 border-neon-green p-6 flex justify-between items-center">
-                <div className="font-mono text-sm text-gray-400">
-                  PROJECT_ID: <span className="text-neon-green">{selectedProject.id.toString().padStart(3, '0')}</span>
+              {/* Project Content */}
+              <div style={{ padding: '1.5rem' }}>
+                {/* Category Badge */}
+                <div className="badge badge-primary" style={{ marginBottom: '1rem' }}>
+                  {project.category}
                 </div>
+
+                {/* Project Title */}
+                <h3 style={{
+                  fontWeight: '600',
+                  color: 'var(--text-primary)',
+                  marginBottom: '0.75rem',
+                  fontSize: '1.25rem'
+                }}>
+                  {project.title}
+                </h3>
+
+                {/* Project Description */}
+                <p style={{
+                  color: 'var(--text-secondary)',
+                  lineHeight: '1.6',
+                  marginBottom: '1.5rem',
+                  fontSize: '0.875rem'
+                }}>
+                  {project.description}
+                </p>
+
+                {/* Technologies */}
+                <div style={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: '0.5rem',
+                  marginBottom: '1.5rem'
+                }}>
+                  {project.technologies?.slice(0, 4).map((tech, techIndex) => (
+                    <span
+                      key={techIndex}
+                      style={{
+                        padding: '0.25rem 0.75rem',
+                        background: 'var(--bg-tertiary)',
+                        color: 'var(--text-tertiary)',
+                        borderRadius: 'var(--border-radius-sm)',
+                        fontSize: '0.75rem',
+                        fontWeight: '500'
+                      }}
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                  {project.technologies?.length > 4 && (
+                    <span style={{
+                      padding: '0.25rem 0.75rem',
+                      background: 'var(--primary-blue)',
+                      color: 'white',
+                      borderRadius: 'var(--border-radius-sm)',
+                      fontSize: '0.75rem',
+                      fontWeight: '500'
+                    }}>
+                      +{project.technologies.length - 4}
+                    </span>
+                  )}
+                </div>
+
+                {/* View Details Button */}
                 <button
-                  onClick={() => setShowModal(false)}
-                  className="cyber-button-secondary"
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    color: 'var(--primary-blue)',
+                    background: 'none',
+                    border: 'none',
+                    fontWeight: '500',
+                    fontSize: '0.875rem',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.gap = '0.75rem';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.gap = '0.5rem';
+                  }}
                 >
-                  CLOSE_DETAILS.sh
+                  View Details
+                  <ArrowRightLong size={16} />
                 </button>
               </div>
             </div>
+          ))}
+        </div>
+
+        {/* Call to Action */}
+        <div style={{
+          textAlign: 'center',
+          marginTop: '4rem',
+          padding: '3rem 2rem',
+          background: 'var(--card-bg)',
+          borderRadius: 'var(--border-radius-xl)',
+          border: '1px solid var(--border-color)'
+        }}>
+          <h3 className="heading-md" style={{ marginBottom: '1rem' }}>
+            Have a Project in Mind?
+          </h3>
+          <p style={{
+            fontSize: '1.125rem',
+            color: 'var(--text-secondary)',
+            marginBottom: '2rem',
+            maxWidth: '600px',
+            margin: '0 auto 2rem'
+          }}>
+            Let's collaborate to build scalable, reliable infrastructure that powers 
+            your next innovative solution.
+          </p>
+          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <a
+              href="#contact"
+              className="btn btn-primary"
+              style={{ textDecoration: 'none' }}
+            >
+              Start a Project
+            </a>
+            <a
+              href="https://github.com/vaibhav21soni"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-outline"
+              style={{ textDecoration: 'none' }}
+            >
+              View GitHub
+            </a>
           </div>
-        )}
+        </div>
       </div>
+
+      {/* Project Modal */}
+      {showModal && selectedProject && (
+        <div style={{
+          position: 'fixed',
+          inset: 0,
+          background: 'rgba(0, 0, 0, 0.8)',
+          zIndex: 1000,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '1rem',
+          backdropFilter: 'blur(8px)'
+        }} onClick={closeModal}>
+          <div
+            style={{
+              background: 'var(--card-bg)',
+              borderRadius: 'var(--border-radius-xl)',
+              maxWidth: '800px',
+              width: '100%',
+              maxHeight: '90vh',
+              overflow: 'auto',
+              position: 'relative',
+              boxShadow: 'var(--shadow-xl)'
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div style={{
+              padding: '2rem 2rem 1rem',
+              borderBottom: '1px solid var(--border-color)'
+            }}>
+              <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'flex-start',
+                marginBottom: '1rem'
+              }}>
+                <div>
+                  <div className="badge badge-primary" style={{ marginBottom: '0.5rem' }}>
+                    {selectedProject.category}
+                  </div>
+                  <h3 className="heading-md" style={{ marginBottom: '0.5rem' }}>
+                    {selectedProject.title}
+                  </h3>
+                </div>
+                <button
+                  onClick={closeModal}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    color: 'var(--text-tertiary)',
+                    cursor: 'pointer',
+                    padding: '0.5rem',
+                    borderRadius: '50%',
+                    transition: 'all 0.3s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.background = 'var(--bg-tertiary)';
+                    e.target.style.color = 'var(--text-primary)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.background = 'none';
+                    e.target.style.color = 'var(--text-tertiary)';
+                  }}
+                >
+                  <Cancel size={24} />
+                </button>
+              </div>
+            </div>
+
+            {/* Modal Content */}
+            <div style={{ padding: '2rem' }}>
+              <p style={{
+                color: 'var(--text-secondary)',
+                lineHeight: '1.7',
+                marginBottom: '2rem',
+                fontSize: '1rem'
+              }}>
+                {selectedProject.longDescription || selectedProject.description}
+              </p>
+
+              {/* Technologies */}
+              <div style={{ marginBottom: '2rem' }}>
+                <h4 style={{
+                  fontWeight: '600',
+                  color: 'var(--text-primary)',
+                  marginBottom: '1rem'
+                }}>
+                  Technologies Used
+                </h4>
+                <div style={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: '0.5rem'
+                }}>
+                  {selectedProject.technologies?.map((tech, index) => (
+                    <span
+                      key={index}
+                      style={{
+                        padding: '0.5rem 1rem',
+                        background: 'var(--bg-tertiary)',
+                        color: 'var(--text-primary)',
+                        borderRadius: 'var(--border-radius-md)',
+                        fontSize: '0.875rem',
+                        fontWeight: '500'
+                      }}
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Links */}
+              <div style={{
+                display: 'flex',
+                gap: '1rem',
+                flexWrap: 'wrap'
+              }}>
+                {selectedProject.github && (
+                  <a
+                    href={selectedProject.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-outline"
+                    style={{ textDecoration: 'none' }}
+                  >
+                    <Code size={16} />
+                    View Code
+                  </a>
+                )}
+                {selectedProject.live && (
+                  <a
+                    href={selectedProject.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-primary"
+                    style={{ textDecoration: 'none' }}
+                  >
+                    <Link size={16} />
+                    Live Demo
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
 
 export default Projects;
+            
