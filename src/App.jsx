@@ -1,41 +1,84 @@
-import React, { useContext } from "react";
+import React, { useContext, lazy, Suspense } from "react";
 import { ThemeContext } from "./utils/ThemeContext";
 import Navbar from "./components/Navbar";
+import Home from "./components/Home";
+import LoadingSpinner from "./components/ui/LoadingSpinner";
+import SkipLink from "./components/ui/SkipLink";
+import ErrorBoundary from "./components/ui/ErrorBoundary";
+
+// Lazy load non-critical components
+const About = lazy(() => import("./components/About"));
+const Skills = lazy(() => import("./components/Skills"));
+const Projects = lazy(() => import("./components/Projects"));
+const Contact = lazy(() => import("./components/Contact"));
+const Footer = lazy(() => import("./components/Footer"));
+const BackToTopButton = lazy(() => import("./components/BackToTopButton"));
 
 const App = () => {
   const { theme } = useContext(ThemeContext);
   
   return (
-    <div style={{
-      background: 'var(--bg-primary)',
-      color: 'var(--text-primary)',
-      minHeight: '100vh'
-    }}>
-      <Navbar />
-      
-      <main style={{ paddingTop: '5rem' }}>
-        <div style={{
-          padding: '2rem',
-          textAlign: 'center'
-        }}>
-          <h1 className="heading-xl" style={{ marginBottom: '1rem' }}>
-            Vaibhav Soni - DevOps Engineer
-          </h1>
-          <p style={{ fontSize: '1.125rem', marginBottom: '2rem', color: 'var(--text-secondary)' }}>
-            Navbar is now loaded! Testing component by component...
-          </p>
+    <div className={`transition-all duration-300 ${theme}`}>
+      <SkipLink />
+      <div style={{
+        background: 'var(--bg-primary)',
+        color: 'var(--text-primary)',
+        minHeight: '100vh'
+      }}>
+        <ErrorBoundary>
+          <Navbar />
+        </ErrorBoundary>
+        
+        <main id="main-content" role="main" className="relative">
+          <ErrorBoundary>
+            <Home />
+          </ErrorBoundary>
+          
+          <Suspense fallback={
+            <div className="section" style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: 'var(--bg-primary)',
+              minHeight: '50vh'
+            }}>
+              <LoadingSpinner text="Loading content..." />
+            </div>
+          }>
+            <ErrorBoundary>
+              <About />
+            </ErrorBoundary>
+            <ErrorBoundary>
+              <Skills />
+            </ErrorBoundary>
+            <ErrorBoundary>
+              <Projects />
+            </ErrorBoundary>
+            <ErrorBoundary>
+              <Contact />
+            </ErrorBoundary>
+          </Suspense>
+        </main>
+        
+        <Suspense fallback={
           <div style={{
-            padding: '2rem',
-            background: 'var(--card-bg)',
-            borderRadius: 'var(--border-radius-lg)',
-            border: '1px solid var(--border-color)',
-            marginBottom: '2rem'
+            height: '8rem',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            background: 'var(--bg-primary)'
           }}>
-            <h2>Current Theme: {theme}</h2>
-            <p>CSS Variables are working correctly.</p>
+            <LoadingSpinner />
           </div>
-        </div>
-      </main>
+        }>
+          <ErrorBoundary>
+            <Footer />
+          </ErrorBoundary>
+          <ErrorBoundary>
+            <BackToTopButton />
+          </ErrorBoundary>
+        </Suspense>
+      </div>
     </div>
   );
 };
