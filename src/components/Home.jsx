@@ -46,7 +46,7 @@ const Home = () => {
     },
     { 
       label: "PROJECTS", 
-      value: "06+", 
+      value: "04+", 
       icon: "🚀", 
       description: "Deployed Successfully"
     },
@@ -100,7 +100,7 @@ const Home = () => {
             
             {/* Left Column - Terminal Interface */}
             <div className="space-y-8 order-2 lg:order-1">
-              <AnimatedWrapper animation="fade-in" delay={0.2}>
+              <AnimatedWrapper animateFrom="right" delay={0.2}>
                 {/* Terminal Header */}
                 <div className="terminal-window">
                   <div className="terminal-header">
@@ -170,7 +170,7 @@ const Home = () => {
               </AnimatedWrapper>
 
               {/* Action Buttons */}
-              <AnimatedWrapper animation="slide-up" delay={0.6}>
+              <AnimatedWrapper animateFrom="right" delay={0.6}>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link
                     to="Projects"
@@ -195,7 +195,7 @@ const Home = () => {
               </AnimatedWrapper>
 
               {/* Tech Stack Status */}
-              <AnimatedWrapper animation="slide-up" delay={0.8}>
+              <AnimatedWrapper animateFrom="right" delay={0.8}>
                 <div className="cyber-card p-6">
                   <div className="neon-text-blue font-mono text-sm mb-4 uppercase tracking-wider">
                     // SYSTEM STATUS
