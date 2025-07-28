@@ -262,7 +262,7 @@ function Cancel({ color }) {
 
 
 export default LinkedIn;
-export { GMail, GitHub, Telegram, Person, Discord, Twitter, Resume, Portfolio, Map, CopyRight, Code, Link, Chat, Submit, ArrowRightLong, ArrowDown, ArrowUp, Download, Hamburger, Menu, Cancel, Award, MapPin, Calendar, Mail, Phone, Send, CheckCircle, AlertCircle, Heart };
+export { GMail, GitHub, Telegram, Person, Discord, Twitter, Resume, Portfolio, Map, CopyRight, Code, Link, Chat, Submit, ArrowRightLong, ArrowDown, ArrowUp, Download, Hamburger, Menu, Cancel, Award, MapPin, Calendar, Mail, Phone, Send, CheckCircle, AlertCircle, Heart, Sun, Moon, Loader };
 
 // Mail Icon
 function Mail({ className = "w-6 h-6", color = "currentColor" }) {
@@ -305,6 +305,64 @@ function AlertCircle({ className = "w-6 h-6", color = "currentColor" }) {
   return (
     <svg className={className} fill="none" stroke={color} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+  );
+}
+
+// Loader Icon
+function Loader({ size = 24, color = "currentColor", className = "" }) {
+  return (
+    <svg 
+      width={size} 
+      height={size} 
+      viewBox="0 0 24 24" 
+      fill="none" 
+      stroke={color} 
+      strokeWidth="2" 
+      strokeLinecap="round" 
+      strokeLinejoin="round"
+      className={className}
+    >
+      <path d="M21 12a9 9 0 11-6.219-8.56"/>
+    </svg>
+  );
+}
+
+// Sun Icon
+function Sun({ size = 24, color = "currentColor", className = "" }) {
+  return (
+    <svg 
+      width={size} 
+      height={size} 
+      viewBox="0 0 24 24" 
+      fill="none" 
+      stroke={color} 
+      strokeWidth="2" 
+      strokeLinecap="round" 
+      strokeLinejoin="round"
+      className={className}
+    >
+      <circle cx="12" cy="12" r="5"/>
+      <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+    </svg>
+  );
+}
+
+// Moon Icon
+function Moon({ size = 24, color = "currentColor", className = "" }) {
+  return (
+    <svg 
+      width={size} 
+      height={size} 
+      viewBox="0 0 24 24" 
+      fill="none" 
+      stroke={color} 
+      strokeWidth="2" 
+      strokeLinecap="round" 
+      strokeLinejoin="round"
+      className={className}
+    >
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
     </svg>
   );
 }
