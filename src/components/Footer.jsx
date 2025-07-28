@@ -67,13 +67,14 @@ const Footer = () => {
                     VAIBHAV.SONI
                   </h3>
                 </div>
-                <p className="text-gray-300 leading-relaxed font-mono text-sm mb-4">
+                <p className="text-gray-300 leading-relaxed font-mono text-sm mb-6">
                   DevOps Engineer specializing in cloud infrastructure, automation, 
-                  and scalable solutions that empower development teams.
+                  and scalable solutions that empower development teams to deliver faster and more reliably.
                 </p>
                 
                 {/* System Status */}
-                <div className="space-y-2">
+                <div className="space-y-3 mb-6">
+                  <div className="font-mono text-xs text-neon-blue mb-2">SYSTEM_STATUS:</div>
                   {systemInfo.map((info, index) => (
                     <div key={index} className="flex items-center justify-between text-xs">
                       <span className="font-mono text-gray-400">{info.label}:</span>
@@ -89,30 +90,51 @@ const Footer = () => {
                     </div>
                   ))}
                 </div>
-              </div>
-              
-              {/* Social Links */}
-              <div className="flex gap-3">
-                {contactInfo.slice(0, 4).map(({ id, link, name, icon }) => (
-                  <a
-                    key={id}
-                    href={link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="social-icon group"
-                    aria-label={name}
-                  >
-                    <span className="text-neon-green group-hover:text-neon-blue transition-colors duration-300">
-                      {icon}
-                    </span>
-                  </a>
-                ))}
+
+                {/* Social Links */}
+                <div className="border-t border-neon-green/30 pt-4">
+                  <div className="font-mono text-xs text-neon-blue mb-3">SOCIAL_LINKS:</div>
+                  <div className="flex gap-3">
+                    {contactInfo.filter(item => item.name !== 'Resume').slice(0, 3).map(({ id, link, name, icon }) => (
+                      <a
+                        key={id}
+                        href={link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="social-icon group"
+                        aria-label={name}
+                        title={name}
+                      >
+                        <span className="text-neon-green group-hover:text-neon-blue transition-colors duration-300">
+                          {icon}
+                        </span>
+                      </a>
+                    ))}
+                    {/* Resume Download Link */}
+                    <a
+                      href={contactInfo.find(item => item.name === 'Resume')?.link}
+                      download="Vaibhav_Soni_DevOps_Resume.pdf"
+                      className="social-icon group"
+                      aria-label="Download Resume"
+                      title="Download Resume"
+                    >
+                      <span className="text-neon-green group-hover:text-neon-purple transition-colors duration-300">
+                        📄
+                      </span>
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
 
             {/* Quick Links */}
             <div className="cyber-card p-6">
-              <h4 className="neon-text-blue font-cyber text-lg mb-6">NAVIGATION</h4>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-8 h-8 border-2 border-neon-green rounded bg-black flex items-center justify-center">
+                  <span className="text-neon-green font-mono text-sm"></span>
+                </div>
+                <h4 className="neon-text-blue font-cyber text-lg">NAVIGATION</h4>
+              </div>
               <div className="space-y-3">
                 {quickLinks.map((link) => (
                   <Link
@@ -122,7 +144,7 @@ const Footer = () => {
                     duration={500}
                     className="block text-gray-300 hover:text-neon-green transition-colors duration-300 cursor-pointer group"
                   >
-                    <div className="flex items-center gap-2 font-mono text-sm">
+                    <div className="flex items-center gap-2 font-mono text-sm p-2 rounded hover:bg-neon-green/10 transition-colors duration-300">
                       <span className="text-neon-blue">$</span>
                       <span className="group-hover:text-neon-green transition-colors duration-300">
                         {link.command}
@@ -135,12 +157,17 @@ const Footer = () => {
 
             {/* Services */}
             <div className="cyber-card p-6">
-              <h4 className="neon-text-blue font-cyber text-lg mb-6">SERVICES</h4>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-8 h-8 border-2 border-neon-green rounded bg-black flex items-center justify-center">
+                  <span className="text-neon-green font-mono text-sm">⚙</span>
+                </div>
+                <h4 className="neon-text-blue font-cyber text-lg">SERVICES</h4>
+              </div>
               <div className="space-y-3">
-                {services.map((service) => (
-                  <div key={service} className="flex items-center gap-2 text-gray-300 font-mono text-sm">
+                {services.map((service, index) => (
+                  <div key={service} className="flex items-center gap-3 text-gray-300 font-mono text-sm p-2 rounded hover:bg-neon-green/10 transition-colors duration-300">
                     <span className="w-2 h-2 bg-neon-green rounded-full"></span>
-                    {service}
+                    <span className="hover:text-neon-green transition-colors duration-300">{service}</span>
                   </div>
                 ))}
               </div>
@@ -148,13 +175,18 @@ const Footer = () => {
 
             {/* Contact Info */}
             <div className="cyber-card p-6">
-              <h4 className="neon-text-blue font-cyber text-lg mb-6">CONTACT_INFO</h4>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-8 h-8 border-2 border-neon-green rounded bg-black flex items-center justify-center">
+                  <span className="text-neon-green font-mono text-sm">@</span>
+                </div>
+                <h4 className="neon-text-blue font-cyber text-lg">CONTACT_INFO</h4>
+              </div>
               <div className="space-y-4">
                 <div className="space-y-2">
                   <div className="font-mono text-xs text-neon-blue">EMAIL_PROTOCOL:</div>
                   <a 
                     href="mailto:vaibhavsoni5567@gmail.com"
-                    className="font-mono text-sm text-gray-300 hover:text-neon-green transition-colors duration-300 block"
+                    className="font-mono text-sm text-gray-300 hover:text-neon-green transition-colors duration-300 block p-2 rounded hover:bg-neon-green/10"
                   >
                     vaibhavsoni5567@gmail.com
                   </a>
@@ -163,14 +195,18 @@ const Footer = () => {
                   <div className="font-mono text-xs text-neon-blue">VOICE_CHANNEL:</div>
                   <a 
                     href="tel:+918890944027"
-                    className="font-mono text-sm text-gray-300 hover:text-neon-green transition-colors duration-300 block"
+                    className="font-mono text-sm text-gray-300 hover:text-neon-green transition-colors duration-300 block p-2 rounded hover:bg-neon-green/10"
                   >
                     +91 8890944027
                   </a>
                 </div>
                 <div className="space-y-2">
                   <div className="font-mono text-xs text-neon-blue">LOCATION_DATA:</div>
-                  <span className="font-mono text-sm text-gray-300 block">Ahmedabad, Gujarat, India</span>
+                  <span className="font-mono text-sm text-gray-300 block p-2">Ahmedabad, Gujarat, India</span>
+                </div>
+                <div className="space-y-2">
+                  <div className="font-mono text-xs text-neon-blue">TIMEZONE:</div>
+                  <span className="font-mono text-sm text-gray-300 block p-2">UTC +5:30 (IST)</span>
                 </div>
               </div>
             </div>

@@ -15,6 +15,18 @@
   --cyber-dark: #0d1117;
 }
 
+/* Light Theme Variables */
+:root.light {
+  --neon-green: #16a34a;
+  --neon-blue: #0ea5e9;
+  --neon-purple: #a855f7;
+  --neon-pink: #ec4899;
+  --terminal-bg: #f8fafc;
+  --terminal-green: #16a34a;
+  --matrix-green: #15803d;
+  --cyber-dark: #f1f5f9;
+}
+
 /* Base Styles */
 * {
   margin: 0;
@@ -34,6 +46,7 @@ body {
   color: var(--neon-green);
   overflow-x: hidden;
   position: relative;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Matrix Background Effect */
@@ -50,6 +63,16 @@ body::before {
   background-size: 50px 50px;
   pointer-events: none;
   z-index: -1;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+/* Light theme matrix background */
+.light body::before {
+  background-image: 
+    linear-gradient(rgba(22, 163, 74, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(22, 163, 74, 0.05) 1px, transparent 1px);
+  opacity: 0.5;
 }
 
 /* Cyberpunk Animations */
@@ -160,7 +183,7 @@ h3 { font-size: clamp(1.5rem, 4vw, 3rem); }
 }
 
 .terminal-window {
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+  background: linear-gradient(135deg, var(--terminal-bg) 0%, var(--cyber-dark) 100%);
   border: 2px solid var(--neon-green);
   border-radius: 8px;
   box-shadow: 
@@ -168,6 +191,14 @@ h3 { font-size: clamp(1.5rem, 4vw, 3rem); }
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
   position: relative;
   overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.light .terminal-window {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  box-shadow: 
+    0 0 20px rgba(22, 163, 74, 0.2),
+    inset 0 1px 0 rgba(0, 0, 0, 0.05);
 }
 
 .terminal-window::before {
@@ -188,6 +219,11 @@ h3 { font-size: clamp(1.5rem, 4vw, 3rem); }
   align-items: center;
   padding: 0 10px;
   border-bottom: 1px solid var(--neon-green);
+  transition: all 0.3s ease;
+}
+
+.light .terminal-header {
+  background: #e2e8f0;
 }
 
 .terminal-content {
@@ -195,6 +231,12 @@ h3 { font-size: clamp(1.5rem, 4vw, 3rem); }
   font-family: 'JetBrains Mono', monospace;
   color: var(--neon-green);
   min-height: 200px;
+  background: var(--terminal-bg);
+  transition: all 0.3s ease;
+}
+
+.light .terminal-content {
+  background: #ffffff;
 }
 
 .cyber-card {
@@ -208,6 +250,13 @@ h3 { font-size: clamp(1.5rem, 4vw, 3rem); }
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+}
+
+.light .cyber-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 250, 252, 0.9) 100%);
+  box-shadow: 
+    0 0 20px rgba(22, 163, 74, 0.15),
+    inset 0 1px 0 rgba(22, 163, 74, 0.05);
 }
 
 .cyber-card::before {
@@ -227,6 +276,12 @@ h3 { font-size: clamp(1.5rem, 4vw, 3rem); }
     0 0 30px rgba(0, 212, 255, 0.4),
     inset 0 1px 0 rgba(0, 212, 255, 0.2);
   transform: translateY(-5px);
+}
+
+.light .cyber-card:hover {
+  box-shadow: 
+    0 0 30px rgba(14, 165, 233, 0.3),
+    inset 0 1px 0 rgba(14, 165, 233, 0.1);
 }
 
 .cyber-button {

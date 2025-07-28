@@ -29,8 +29,12 @@ const Navbar = () => {
             <nav 
                 className={`cyber-nav fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
                     scrolled 
-                        ? 'bg-black/95 border-neon-green shadow-neon' 
-                        : 'bg-black/80 border-neon-green/50'
+                        ? theme === 'dark' 
+                            ? 'bg-black/95 border-neon-green shadow-neon' 
+                            : 'bg-white/95 border-green-600 shadow-lg'
+                        : theme === 'dark'
+                            ? 'bg-black/80 border-neon-green/50'
+                            : 'bg-white/80 border-green-600/50'
                 }`}
                 role="navigation"
                 aria-label="Main navigation"

@@ -194,7 +194,7 @@ const Projects = () => {
               animation="scale-in" 
               delay={0.1 * (index % 3)}
             >
-              <div className="project-card group" onClick={() => {
+              <div className="project-card group min-h-[500px] flex flex-col" onClick={() => {
                 setSelectedProject(project);
                 setShowModal(true);
               }}>
@@ -204,8 +204,8 @@ const Projects = () => {
                     <div className={`w-16 h-16 rounded-lg bg-gradient-to-br ${project.gradient} flex items-center justify-center text-2xl shadow-neon group-hover:scale-110 transition-transform duration-300`}>
                       {project.icon}
                     </div>
-                    <div>
-                      <h3 className="text-white font-mono text-lg font-bold mb-2 group-hover:text-neon-green transition-colors duration-300">
+                    <div className="flex-1">
+                      <h3 className="text-white font-mono text-lg font-bold mb-2 group-hover:text-neon-green transition-colors duration-300 leading-tight">
                         {project.title}
                       </h3>
                       <div className="project-badge">
@@ -224,7 +224,7 @@ const Projects = () => {
                 </div>
 
                 {/* Project Description */}
-                <p className="text-gray-300 mb-6 leading-relaxed font-mono text-sm">
+                <p className="text-gray-300 mb-6 leading-relaxed font-mono text-sm flex-grow">
                   {project.description}
                 </p>
 
@@ -247,7 +247,7 @@ const Projects = () => {
                 </div>
 
                 {/* Key Achievements Preview */}
-                <div className="mb-6">
+                <div className="mb-6 flex-grow">
                   <h4 className="font-mono text-sm text-neon-green mb-3 flex items-center gap-2">
                     <span className="w-2 h-2 bg-neon-green rounded-full"></span>
                     KEY_ACHIEVEMENTS
@@ -255,15 +255,21 @@ const Projects = () => {
                   <ul className="space-y-2">
                     {project.achievements.slice(0, 3).map((achievement, achIndex) => (
                       <li key={achIndex} className="flex items-start gap-3 text-sm text-gray-300 font-mono">
-                        <span className="text-neon-green mt-1 text-base">✓</span>
+                        <span className="text-neon-green mt-1 text-base flex-shrink-0">✓</span>
                         <span className="leading-relaxed">{achievement}</span>
                       </li>
                     ))}
+                    {project.achievements.length > 3 && (
+                      <li className="flex items-start gap-3 text-sm text-gray-400 font-mono">
+                        <span className="text-neon-purple mt-1 text-base flex-shrink-0">+</span>
+                        <span className="leading-relaxed">{project.achievements.length - 3} more achievements...</span>
+                      </li>
+                    )}
                   </ul>
                 </div>
 
                 {/* Impact & View Details */}
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between mt-auto pt-4 border-t border-neon-green/30">
                   <div className="flex items-center gap-2">
                     <span className="w-2 h-2 bg-neon-purple rounded-full animate-pulse"></span>
                     <span className="font-mono text-xs text-neon-purple font-bold">{project.impact}</span>
@@ -348,7 +354,7 @@ const Projects = () => {
         {/* Project Details Modal */}
         {showModal && selectedProject && (
           <div className="modal-overlay">
-            <div className="modal-content">
+            <div className="modal-content max-w-6xl">
               {/* Modal Header */}
               <div className="sticky top-0 bg-black border-b-2 border-neon-green p-6 flex items-center justify-between z-10">
                 <div className="flex items-center gap-4">
@@ -373,25 +379,56 @@ const Projects = () => {
               </div>
 
               {/* Modal Content */}
-              <div className="p-6 space-y-8">
+              <div className="p-6 space-y-8 max-h-[70vh] overflow-y-auto">
                 {/* Project Overview */}
                 <div className="cyber-card p-6">
                   <h3 className="neon-text-blue font-cyber text-lg mb-4">PROJECT_OVERVIEW</h3>
-                  <p className="text-gray-300 leading-relaxed font-mono text-sm">
+                  <p className="text-gray-300 leading-relaxed font-mono text-sm mb-4">
                     {selectedProject.description}
                   </p>
+                  <div className="grid md:grid-cols-3 gap-4 mt-6">
+                    <div className="text-center p-4 bg-black/50 rounded border border-neon-green/30">
+                      <div className="font-mono text-xs text-neon-blue mb-1">STATUS</div>
+                      <div className={`font-mono text-sm font-bold ${
+                        selectedProject.status === 'DEPLOYED' ? 'text-neon-green' :
+                        selectedProject.status === 'ACTIVE' ? 'text-neon-blue' :
+                        selectedProject.status === 'OPTIMIZING' ? 'text-neon-purple' :
+                        'text-neon-pink'
+                      }`}>
+                        {selectedProject.status}
+                      </div>
+                    </div>
+                    <div className="text-center p-4 bg-black/50 rounded border border-neon-purple/30">
+                      <div className="font-mono text-xs text-neon-blue mb-1">IMPACT</div>
+                      <div className="font-mono text-sm font-bold text-neon-purple">
+                        {selectedProject.impact}
+                      </div>
+                    </div>
+                    <div className="text-center p-4 bg-black/50 rounded border border-neon-blue/30">
+                      <div className="font-mono text-xs text-neon-blue mb-1">TECH_COUNT</div>
+                      <div className="font-mono text-sm font-bold text-neon-blue">
+                        {selectedProject.technologies.length} Technologies
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
                 {/* Challenge & Solution */}
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="cyber-card p-6 border border-neon-pink/50">
-                    <h4 className="neon-text-pink font-mono text-sm font-bold mb-3">CHALLENGE</h4>
+                    <h4 className="neon-text-pink font-mono text-sm font-bold mb-3 flex items-center gap-2">
+                      <span className="w-2 h-2 bg-neon-pink rounded-full"></span>
+                      CHALLENGE
+                    </h4>
                     <p className="text-gray-300 text-sm font-mono leading-relaxed">
                       {selectedProject.challenge}
                     </p>
                   </div>
                   <div className="cyber-card p-6 border border-neon-green/50">
-                    <h4 className="neon-text-green font-mono text-sm font-bold mb-3">SOLUTION</h4>
+                    <h4 className="neon-text-green font-mono text-sm font-bold mb-3 flex items-center gap-2">
+                      <span className="w-2 h-2 bg-neon-green rounded-full"></span>
+                      SOLUTION
+                    </h4>
                     <p className="text-gray-300 text-sm font-mono leading-relaxed">
                       {selectedProject.solution}
                     </p>
@@ -401,34 +438,100 @@ const Projects = () => {
                 {/* Technologies Used */}
                 <div className="cyber-card p-6">
                   <h3 className="neon-text-blue font-cyber text-lg mb-4">TECHNOLOGIES_USED</h3>
-                  <div className="flex flex-wrap gap-3">
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
                     {selectedProject.technologies.map((tech, index) => (
-                      <span
+                      <div
                         key={index}
-                        className="font-mono text-sm text-white bg-black px-4 py-2 rounded border border-neon-green hover:border-neon-blue hover:text-neon-blue transition-colors duration-300"
+                        className="font-mono text-sm text-white bg-black px-4 py-3 rounded border border-neon-green hover:border-neon-blue hover:text-neon-blue transition-colors duration-300 text-center"
                       >
                         {tech}
-                      </span>
+                      </div>
                     ))}
                   </div>
                 </div>
 
-                {/* Key Achievements */}
+                {/* Complete Achievements List */}
                 <div className="cyber-card p-6">
-                  <h3 className="neon-text-blue font-cyber text-lg mb-4">KEY_ACHIEVEMENTS</h3>
+                  <h3 className="neon-text-blue font-cyber text-lg mb-4">COMPLETE_ACHIEVEMENTS</h3>
                   <div className="grid md:grid-cols-2 gap-4">
                     {selectedProject.achievements.map((achievement, index) => (
-                      <div key={index} className="flex items-start gap-3 p-3 bg-black/50 rounded border border-neon-green/30">
-                        <span className="text-neon-green mt-1 text-lg">✓</span>
-                        <span className="text-gray-300 font-mono text-sm">{achievement}</span>
+                      <div key={index} className="flex items-start gap-3 p-4 bg-black/50 rounded border border-neon-green/30 hover:border-neon-green/60 transition-colors duration-300">
+                        <span className="text-neon-green mt-1 text-lg flex-shrink-0">✓</span>
+                        <span className="text-gray-300 font-mono text-sm leading-relaxed">{achievement}</span>
                       </div>
                     ))}
+                  </div>
+                </div>
+
+                {/* Project Timeline */}
+                <div className="cyber-card p-6">
+                  <h3 className="neon-text-blue font-cyber text-lg mb-4">PROJECT_TIMELINE</h3>
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-4 p-3 bg-black/50 rounded border border-neon-blue/30">
+                      <div className="w-3 h-3 bg-neon-blue rounded-full"></div>
+                      <div>
+                        <div className="font-mono text-sm text-white font-bold">PLANNING & ANALYSIS</div>
+                        <div className="font-mono text-xs text-gray-400">Requirements gathering and architecture design</div>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-4 p-3 bg-black/50 rounded border border-neon-purple/30">
+                      <div className="w-3 h-3 bg-neon-purple rounded-full"></div>
+                      <div>
+                        <div className="font-mono text-sm text-white font-bold">IMPLEMENTATION</div>
+                        <div className="font-mono text-xs text-gray-400">Development and configuration of infrastructure</div>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-4 p-3 bg-black/50 rounded border border-neon-green/30">
+                      <div className="w-3 h-3 bg-neon-green rounded-full animate-pulse"></div>
+                      <div>
+                        <div className="font-mono text-sm text-white font-bold">DEPLOYMENT & MONITORING</div>
+                        <div className="font-mono text-xs text-gray-400">Production deployment with continuous monitoring</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Project Metrics */}
+                <div className="cyber-card p-6">
+                  <h3 className="neon-text-blue font-cyber text-lg mb-4">PROJECT_METRICS</h3>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div className="text-center p-4 bg-black/50 rounded border border-neon-green/30">
+                      <div className="font-mono text-2xl font-bold text-neon-green mb-1">
+                        {selectedProject.id === 1 ? '240+' : 
+                         selectedProject.id === 2 ? '99.9%' :
+                         selectedProject.id === 3 ? '90%' : '60%'}
+                      </div>
+                      <div className="font-mono text-xs text-gray-400">
+                        {selectedProject.id === 1 ? 'Resources Migrated' : 
+                         selectedProject.id === 2 ? 'Uptime Achieved' :
+                         selectedProject.id === 3 ? 'Time Saved' : 'MTTR Reduction'}
+                      </div>
+                    </div>
+                    <div className="text-center p-4 bg-black/50 rounded border border-neon-blue/30">
+                      <div className="font-mono text-2xl font-bold text-neon-blue mb-1">
+                        {selectedProject.technologies.length}
+                      </div>
+                      <div className="font-mono text-xs text-gray-400">Technologies Used</div>
+                    </div>
+                    <div className="text-center p-4 bg-black/50 rounded border border-neon-purple/30">
+                      <div className="font-mono text-2xl font-bold text-neon-purple mb-1">
+                        {selectedProject.achievements.length}
+                      </div>
+                      <div className="font-mono text-xs text-gray-400">Key Achievements</div>
+                    </div>
+                    <div className="text-center p-4 bg-black/50 rounded border border-neon-pink/30">
+                      <div className="font-mono text-2xl font-bold text-neon-pink mb-1">100%</div>
+                      <div className="font-mono text-xs text-gray-400">Success Rate</div>
+                    </div>
                   </div>
                 </div>
               </div>
 
               {/* Modal Footer */}
-              <div className="sticky bottom-0 bg-black border-t-2 border-neon-green p-6 flex justify-end">
+              <div className="sticky bottom-0 bg-black border-t-2 border-neon-green p-6 flex justify-between items-center">
+                <div className="font-mono text-sm text-gray-400">
+                  PROJECT_ID: <span className="text-neon-green">{selectedProject.id.toString().padStart(3, '0')}</span>
+                </div>
                 <button
                   onClick={() => setShowModal(false)}
                   className="cyber-button-secondary"

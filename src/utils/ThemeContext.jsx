@@ -3,20 +3,15 @@ import React, { createContext, useState, useEffect } from 'react';
 export const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-  // Check if user has a theme preference in localStorage or prefers dark mode
+  // For cyberpunk theme, default to dark mode
   const getInitialTheme = () => {
     if (typeof window !== 'undefined' && window.localStorage) {
       const storedPrefs = window.localStorage.getItem('color-theme');
       if (typeof storedPrefs === 'string') {
         return storedPrefs;
       }
-
-      const userMedia = window.matchMedia('(prefers-color-scheme: dark)');
-      if (userMedia.matches) {
-        return 'dark';
-      }
     }
-    return 'light'; // Default theme
+    return 'dark'; // Default to dark for cyberpunk theme
   };
 
   const [theme, setTheme] = useState(getInitialTheme);
@@ -31,11 +26,20 @@ export const ThemeProvider = ({ children }) => {
     
     // Save theme to localStorage
     localStorage.setItem('color-theme', theme);
+    
+    // Update body background for cyberpunk theme
+    if (theme === 'dark') {
+      document.body.style.backgroundColor = '#0a0a0a';
+      document.body.style.color = '#00ff41';
+    } else {
+      document.body.style.backgroundColor = '#ffffff';
+      document.body.style.color = '#000000';
+    }
   }, [theme]);
 
   // Toggle between light and dark themes
   const toggleTheme = () => {
-    setTheme(theme === 'dark' ? 'light' : 'dark');
+    setTheme(prevTheme => prevTheme === 'dark' ? 'light' : 'dark');
   };
 
   return (

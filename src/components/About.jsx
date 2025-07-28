@@ -286,20 +286,85 @@ const About = () => {
                   <h3 className="neon-text-blue font-cyber text-xl">TECH_STACK</h3>
                 </div>
 
-                <div className="space-y-4">
+                <div className="space-y-6">
                   <div className="font-mono text-sm text-neon-blue mb-4">$ ls -la /usr/local/skills/</div>
-                  <div className="grid grid-cols-2 gap-2">
-                    {techStack.slice(0, 8).map((tech, index) => (
-                      <div
-                        key={index}
-                        className="font-mono text-xs text-white bg-black/50 px-3 py-2 rounded border border-neon-green/30 hover:border-neon-green hover:text-neon-green transition-colors duration-300"
-                      >
-                        {tech.name}
+                  
+                  {/* Primary Technologies */}
+                  <div className="space-y-4">
+                    <div>
+                      <div className="font-mono text-xs text-neon-purple mb-2">CLOUD_PLATFORMS/</div>
+                      <div className="grid grid-cols-3 gap-2">
+                        {['AWS', 'Azure', 'DigitalOcean'].map((tech, index) => (
+                          <div
+                            key={index}
+                            className="font-mono text-xs text-white bg-black/50 px-3 py-2 rounded border border-neon-green/30 hover:border-neon-green hover:text-neon-green transition-colors duration-300 text-center"
+                          >
+                            {tech}
+                          </div>
+                        ))}
                       </div>
-                    ))}
+                    </div>
+
+                    <div>
+                      <div className="font-mono text-xs text-neon-purple mb-2">DEVOPS_TOOLS/</div>
+                      <div className="grid grid-cols-2 gap-2">
+                        {['Terraform', 'Kubernetes', 'Docker', 'Jenkins'].map((tech, index) => (
+                          <div
+                            key={index}
+                            className="font-mono text-xs text-white bg-black/50 px-3 py-2 rounded border border-neon-green/30 hover:border-neon-green hover:text-neon-green transition-colors duration-300 text-center"
+                          >
+                            {tech}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div>
+                      <div className="font-mono text-xs text-neon-purple mb-2">MONITORING/</div>
+                      <div className="grid grid-cols-2 gap-2">
+                        {['Prometheus', 'Grafana', 'ELK Stack', 'CloudWatch'].map((tech, index) => (
+                          <div
+                            key={index}
+                            className="font-mono text-xs text-white bg-black/50 px-3 py-2 rounded border border-neon-green/30 hover:border-neon-green hover:text-neon-green transition-colors duration-300 text-center"
+                          >
+                            {tech}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div>
+                      <div className="font-mono text-xs text-neon-purple mb-2">PROGRAMMING/</div>
+                      <div className="grid grid-cols-3 gap-2">
+                        {['Python', 'Bash', 'JavaScript', 'TypeScript', 'YAML', 'JSON'].map((tech, index) => (
+                          <div
+                            key={index}
+                            className="font-mono text-xs text-white bg-black/50 px-3 py-2 rounded border border-neon-green/30 hover:border-neon-green hover:text-neon-green transition-colors duration-300 text-center"
+                          >
+                            {tech}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
                   </div>
-                  <div className="font-mono text-xs text-gray-400 mt-4">
-                    Total: {techStack.length} technologies loaded
+
+                  {/* Summary */}
+                  <div className="border-t border-neon-green/30 pt-4">
+                    <div className="font-mono text-xs text-gray-400 space-y-1">
+                      <div>Total: <span className="text-neon-green">20+</span> technologies loaded</div>
+                      <div>Status: <span className="text-neon-blue">PRODUCTION_READY</span></div>
+                      <div>Last Updated: <span className="text-neon-purple">2024-CURRENT</span></div>
+                    </div>
+                  </div>
+
+                  {/* Quick Actions */}
+                  <div className="flex gap-2">
+                    <button className="cyber-button-secondary text-xs px-3 py-1 flex-1">
+                      VIEW_ALL.sh
+                    </button>
+                    <button className="cyber-button-secondary text-xs px-3 py-1 flex-1">
+                      SKILLS.json
+                    </button>
                   </div>
                 </div>
               </div>

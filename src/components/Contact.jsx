@@ -177,21 +177,54 @@ const Contact = () => {
                   <h3 className="neon-text-blue font-cyber text-xl">SOCIAL_NETWORKS</h3>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-4 mb-6">
                   {contactInfo.slice(0, 4).map(({ id, link, name, icon }) => (
                     <a
                       key={id}
                       href={link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="social-icon group hover:border-neon-blue hover:shadow-neon"
+                      className="cyber-card p-4 hover:border-neon-blue transition-colors duration-300 group flex items-center gap-3"
                       aria-label={name}
                     >
-                      <span className="text-neon-green group-hover:text-neon-blue transition-colors duration-300">
+                      <div className="w-10 h-10 bg-gradient-to-br from-neon-green/20 to-neon-blue/20 rounded-lg flex items-center justify-center text-neon-green group-hover:text-neon-blue transition-colors duration-300 border border-neon-green group-hover:border-neon-blue">
                         {icon}
-                      </span>
+                      </div>
+                      <div>
+                        <div className="font-mono text-sm font-bold text-white group-hover:text-neon-blue transition-colors duration-300">
+                          {name.toUpperCase()}
+                        </div>
+                        <div className="font-mono text-xs text-gray-400">
+                          {name === 'LinkedIn' ? 'PROFESSIONAL' : 
+                           name === 'GitHub' ? 'REPOSITORIES' : 
+                           name === 'Mail' ? 'DIRECT_CONTACT' : 'DOCUMENT'}
+                        </div>
+                      </div>
                     </a>
                   ))}
+                </div>
+
+                {/* Quick Connect */}
+                <div className="border-t border-neon-green/30 pt-4">
+                  <div className="font-mono text-xs text-neon-blue mb-2">QUICK_CONNECT:</div>
+                  <div className="flex gap-2">
+                    <a
+                      href="https://linkedin.com/in/vaibhavsonii21"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="cyber-button-secondary text-xs px-3 py-1"
+                    >
+                      LINKEDIN.connect
+                    </a>
+                    <a
+                      href="https://github.com/vaibhav21soni"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="cyber-button-secondary text-xs px-3 py-1"
+                    >
+                      GITHUB.follow
+                    </a>
+                  </div>
                 </div>
               </div>
             </AnimatedWrapper>
