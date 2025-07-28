@@ -459,24 +459,26 @@ const About = () => {
           {tabContent[activeTab]}
         </div>
 
-        {/* Call to Action */}
+        {/* Call to Action - Made 30% smaller */}
         <div style={{
           textAlign: 'center',
           marginTop: '4rem',
-          padding: '3rem 2rem',
+          padding: '2rem 1.5rem',
           background: 'var(--card-bg)',
           borderRadius: 'var(--border-radius-xl)',
-          border: '1px solid var(--border-color)'
+          border: '1px solid var(--border-color)',
+          maxWidth: '70%',
+          margin: '4rem auto 0'
         }}>
-          <h3 className="heading-md" style={{ marginBottom: '1rem' }}>
+          <h3 className="heading-sm" style={{ marginBottom: '1rem' }}>
             Ready to Collaborate?
           </h3>
           <p style={{
-            fontSize: '1.125rem',
+            fontSize: '1rem',
             color: 'var(--text-secondary)',
-            marginBottom: '2rem',
-            maxWidth: '600px',
-            margin: '0 auto 2rem'
+            marginBottom: '1.5rem',
+            maxWidth: '500px',
+            margin: '0 auto 1.5rem'
           }}>
             Let's discuss how we can work together to build amazing infrastructure 
             solutions that scale and perform.
@@ -500,6 +502,10 @@ const About = () => {
               href="#contact"
               className="btn btn-outline"
               style={{ textDecoration: 'none' }}
+              onClick={(e) => {
+                e.preventDefault();
+                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+              }}
             >
               Get In Touch
             </a>

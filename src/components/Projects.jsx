@@ -335,6 +335,10 @@ const Projects = () => {
 
                 {/* View Details Button */}
                 <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    openModal(project);
+                  }}
                   style={{
                     display: 'flex',
                     alignItems: 'center',
@@ -345,13 +349,16 @@ const Projects = () => {
                     fontWeight: '500',
                     fontSize: '0.875rem',
                     cursor: 'pointer',
-                    transition: 'all 0.3s ease'
+                    transition: 'all 0.3s ease',
+                    padding: '0.5rem 0'
                   }}
                   onMouseEnter={(e) => {
                     e.target.style.gap = '0.75rem';
+                    e.target.style.color = 'var(--primary-purple)';
                   }}
                   onMouseLeave={(e) => {
                     e.target.style.gap = '0.5rem';
+                    e.target.style.color = 'var(--primary-blue)';
                   }}
                 >
                   View Details
@@ -385,13 +392,19 @@ const Projects = () => {
             your next innovative solution.
           </p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <a
-              href="#contact"
+            <button
+              onClick={() => {
+                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+              }}
               className="btn btn-primary"
-              style={{ textDecoration: 'none' }}
+              style={{ 
+                textDecoration: 'none',
+                border: 'none',
+                cursor: 'pointer'
+              }}
             >
               Start a Project
-            </a>
+            </button>
             <a
               href="https://github.com/vaibhav21soni"
               target="_blank"

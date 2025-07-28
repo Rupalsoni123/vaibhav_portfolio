@@ -139,7 +139,9 @@ const Skills = () => {
               style={{
                 padding: '0.75rem 1.5rem',
                 borderRadius: 'var(--border-radius-md)',
-                border: 'none',
+                border: activeCategory === category 
+                  ? 'none' 
+                  : '1px solid var(--border-color)',
                 background: activeCategory === category 
                   ? 'var(--gradient-primary)' 
                   : 'var(--card-bg)',
@@ -152,10 +154,7 @@ const Skills = () => {
                 transition: 'all 0.3s ease',
                 boxShadow: activeCategory === category 
                   ? 'var(--shadow-md)' 
-                  : 'none',
-                border: activeCategory === category 
-                  ? 'none' 
-                  : '1px solid var(--border-color)'
+                  : 'none'
               }}
               onMouseEnter={(e) => {
                 if (activeCategory !== category) {
@@ -191,7 +190,8 @@ const Skills = () => {
                 position: 'relative',
                 overflow: 'hidden',
                 transform: hoveredSkill === skill.name ? 'translateY(-8px)' : 'translateY(0)',
-                boxShadow: hoveredSkill === skill.name ? 'var(--shadow-xl)' : 'var(--shadow-md)'
+                boxShadow: hoveredSkill === skill.name ? 'var(--shadow-xl)' : 'var(--shadow-md)',
+                transition: 'all 0.3s ease'
               }}
               onMouseEnter={() => setHoveredSkill(skill.name)}
               onMouseLeave={() => setHoveredSkill(null)}
@@ -225,52 +225,6 @@ const Skills = () => {
                 {skill.name}
               </h3>
 
-              {/* Skill Level */}
-              <div style={{ marginBottom: '1rem' }}>
-                <div style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  marginBottom: '0.5rem'
-                }}>
-                  <span style={{
-                    fontSize: '0.75rem',
-                    color: 'var(--text-tertiary)',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.05em'
-                  }}>
-                    Proficiency
-                  </span>
-                  <span style={{
-                    fontSize: '0.75rem',
-                    fontWeight: '600',
-                    color: 'var(--primary-blue)'
-                  }}>
-                    {skill.level || '90%'}
-                  </span>
-                </div>
-                
-                {/* Progress Bar */}
-                <div style={{
-                  width: '100%',
-                  height: '4px',
-                  background: 'var(--bg-tertiary)',
-                  borderRadius: '2px',
-                  overflow: 'hidden'
-                }}>
-                  <div style={{
-                    width: skill.level || '90%',
-                    height: '100%',
-                    background: hoveredSkill === skill.name 
-                      ? 'var(--gradient-primary)' 
-                      : 'var(--primary-blue)',
-                    borderRadius: '2px',
-                    transition: 'all 0.3s ease',
-                    animation: hoveredSkill === skill.name ? 'pulse 1s ease-in-out infinite' : 'none'
-                  }} />
-                </div>
-              </div>
-
               {/* Category Badge */}
               <div className={`badge ${
                 skill.category === 'Cloud Platforms' ? 'badge-primary' :
@@ -297,24 +251,26 @@ const Skills = () => {
           ))}
         </div>
 
-        {/* Call to Action */}
+        {/* Call to Action - Made 30% smaller */}
         <div style={{
           textAlign: 'center',
           marginTop: '4rem',
-          padding: '3rem 2rem',
+          padding: '2rem 1.5rem',
           background: 'var(--gradient-primary)',
           borderRadius: 'var(--border-radius-xl)',
-          color: 'white'
+          color: 'white',
+          maxWidth: '70%',
+          margin: '4rem auto 0'
         }}>
-          <h3 className="heading-md" style={{ marginBottom: '1rem', color: 'white' }}>
+          <h3 className="heading-sm" style={{ marginBottom: '1rem', color: 'white' }}>
             Ready to Build Something Amazing?
           </h3>
           <p style={{
-            fontSize: '1.125rem',
-            marginBottom: '2rem',
+            fontSize: '1rem',
+            marginBottom: '1.5rem',
             opacity: 0.9,
-            maxWidth: '600px',
-            margin: '0 auto 2rem'
+            maxWidth: '500px',
+            margin: '0 auto 1.5rem'
           }}>
             Let's leverage these technologies to create scalable, reliable infrastructure 
             that powers your next big project.
@@ -329,6 +285,10 @@ const Skills = () => {
                 textDecoration: 'none',
                 fontWeight: '600'
               }}
+              onClick={(e) => {
+                e.preventDefault();
+                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+              }}
             >
               Start a Project
             </a>
@@ -340,6 +300,10 @@ const Skills = () => {
                 color: 'white',
                 border: '2px solid white',
                 textDecoration: 'none'
+              }}
+              onClick={(e) => {
+                e.preventDefault();
+                document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
               }}
             >
               View My Work
