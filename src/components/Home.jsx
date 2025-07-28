@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { TypeAnimation } from "react-type-animation";
-import { Link } from "react-scroll";
 import { ArrowDown } from "./Icons";
 import Avatar from "../assets/Avatars/Avatars/93f50dd8-9dec-4f20-ad88-d40acc26dec5.jpg";
 import contactInfo from "../data/contactInfo";
+import { buttonHandlers } from "../utils/buttonUtils";
 
 const Home = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -170,56 +170,34 @@ const Home = () => {
             </div>
 
             {/* CTA Buttons */}
-            <div style={{
+            <div className="btn-group" style={{
               display: 'flex',
               gap: '1rem',
               marginBottom: '3rem',
-              flexWrap: 'wrap'
+              flexWrap: 'wrap',
+              justifyContent: 'center'
             }}>
               <button
-                onClick={() => {
-                  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-                }}
+                onClick={buttonHandlers.scrollToContact}
                 className="btn btn-primary"
-                style={{ 
-                  textDecoration: 'none',
-                  border: 'none',
-                  cursor: 'pointer'
-                }}
+                aria-label="Navigate to contact section"
               >
                 Get In Touch
               </button>
               <button
-                onClick={() => {
-                  document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
-                }}
+                onClick={buttonHandlers.scrollToProjects}
                 className="btn btn-outline"
-                style={{ 
-                  textDecoration: 'none',
-                  border: '2px solid var(--primary-blue)',
-                  background: 'transparent',
-                  cursor: 'pointer'
-                }}
+                aria-label="Navigate to projects section"
               >
                 View Projects
               </button>
-              <a
-                href="/resume.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={() => buttonHandlers.downloadResume(contactInfo.links?.find(link => link.name === 'Resume')?.link)}
                 className="btn btn-secondary"
-                style={{ textDecoration: 'none' }}
-                onClick={(e) => {
-                  // If resume.pdf doesn't exist, try the assets path
-                  e.preventDefault();
-                  const link = document.createElement('a');
-                  link.href = '/src/assets/resume.pdf';
-                  link.download = 'Vaibhav_Soni_Resume.pdf';
-                  link.click();
-                }}
+                aria-label="Download resume PDF"
               >
                 Download CV
-              </a>
+              </button>
             </div>
 
             {/* Social Links */}
@@ -359,17 +337,18 @@ const Home = () => {
             Scroll to explore
           </span>
           <button
-            onClick={() => {
-              document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
-            }}
+            onClick={buttonHandlers.scrollToAbout}
+            className="btn"
             style={{
               color: 'var(--primary-blue)',
               cursor: 'pointer',
               animation: 'float 2s ease-in-out infinite',
               background: 'none',
               border: 'none',
-              padding: '0.5rem'
+              padding: '0.5rem',
+              borderRadius: '50%'
             }}
+            aria-label="Scroll to about section"
           >
             <ArrowDown size={24} />
           </button>
