@@ -158,18 +158,6 @@ const skills = [
         }
     },
     {
-        id: 14,
-        icon: <Python />,
-        name: "Python",
-        category: "Programming",
-        level: 85,
-        style: {
-            shadow: "shadow-[#3776AB]",
-            cover: "from-black to-[#3776AB] rounded-b-md",
-            opacity: "opacity-80"
-        }
-    },
-    {
         id: 15,
         icon: <Bash />,
         name: "Bash",
@@ -180,31 +168,7 @@ const skills = [
             cover: "from-black to-[#4EAA25] rounded-b-md",
             opacity: "opacity-80"
         }
-    },
-    {
-        id: 16,
-        icon: <JS />,
-        name: "JavaScript",
-        category: "Programming",
-        level: 80,
-        style: {
-            shadow: "shadow-[#F7DF1E]",
-            cover: "from-black to-[#F7DF1E] rounded-b-md",
-            opacity: "opacity-80"
-        }
-    },
-    {
-        id: 17,
-        icon: <TS />,
-        name: "TypeScript",
-        category: "Programming",
-        level: 75,
-        style: {
-            shadow: "shadow-[#3178C6]",
-            cover: "from-black to-[#3178C6] rounded-b-md",
-            opacity: "opacity-80"
-        }
-    },
+    }, 
     {
         id: 18,
         icon: <MySQL />,

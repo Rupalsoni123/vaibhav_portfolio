@@ -236,17 +236,17 @@ const Projects = () => {
               animation="scale-in" 
               delay={0.1 * (index % 3)}
             >
-              <div className="project-card group min-h-[500px] flex flex-col" onClick={() => {
+              <div className="project-card group h-full flex flex-col" onClick={() => {
                 setSelectedProject(project);
                 setShowModal(true);
               }}>
                 {/* Project Header */}
                 <div className="flex items-start justify-between mb-6">
-                  <div className="flex items-center gap-4">
-                    <div className={`w-16 h-16 rounded-lg bg-gradient-to-br ${project.gradient} flex items-center justify-center text-2xl shadow-neon group-hover:scale-110 transition-transform duration-300`}>
+                  <div className="flex items-center gap-4 flex-1">
+                    <div className={`w-16 h-16 rounded-lg bg-gradient-to-br ${project.gradient} flex items-center justify-center text-2xl shadow-neon group-hover:scale-110 transition-transform duration-300 flex-shrink-0`}>
                       {project.icon}
                     </div>
-                    <div className="flex-1">
+                    <div className="flex-1 min-w-0">
                       <h3 className="text-white font-mono text-lg font-bold mb-2 group-hover:text-neon-green transition-colors duration-300 leading-tight">
                         {project.title}
                       </h3>
@@ -255,7 +255,7 @@ const Projects = () => {
                       </div>
                     </div>
                   </div>
-                  <div className={`font-mono text-xs px-2 py-1 rounded ${
+                  <div className={`font-mono text-xs px-2 py-1 rounded flex-shrink-0 ml-2 ${
                     project.status === 'DEPLOYED' ? 'bg-neon-green/20 text-neon-green' :
                     project.status === 'ACTIVE' ? 'bg-neon-blue/20 text-neon-blue' :
                     project.status === 'OPTIMIZING' ? 'bg-neon-purple/20 text-neon-purple' :
@@ -266,59 +266,61 @@ const Projects = () => {
                 </div>
 
                 {/* Project Description */}
-                <p className="text-gray-300 mb-6 leading-relaxed font-mono text-sm flex-grow">
-                  {project.description}
-                </p>
+                <div className="flex-1 flex flex-col">
+                  <p className="text-gray-300 mb-6 leading-relaxed font-mono text-sm">
+                    {project.description}
+                  </p>
 
-                {/* Technologies */}
-                <div className="mb-6">
-                  <h4 className="font-mono text-sm text-neon-blue mb-3 flex items-center gap-2">
-                    <span className="w-2 h-2 bg-neon-blue rounded-full"></span>
-                    TECH_STACK
-                  </h4>
-                  <div className="flex flex-wrap gap-2">
-                    {project.technologies.map((tech, techIndex) => (
-                      <span
-                        key={techIndex}
-                        className="font-mono text-xs text-white bg-black/50 px-3 py-1 rounded border border-neon-green/30 hover:border-neon-green hover:text-neon-green transition-colors duration-300"
-                      >
-                        {tech}
-                      </span>
-                    ))}
+                  {/* Technologies */}
+                  <div className="mb-6">
+                    <h4 className="font-mono text-sm text-neon-blue mb-3 flex items-center gap-2">
+                      <span className="w-2 h-2 bg-neon-blue rounded-full"></span>
+                      TECH_STACK
+                    </h4>
+                    <div className="flex flex-wrap gap-2">
+                      {project.technologies.map((tech, techIndex) => (
+                        <span
+                          key={techIndex}
+                          className="font-mono text-xs text-white bg-black/50 px-3 py-1 rounded border border-neon-green/30 hover:border-neon-green hover:text-neon-green transition-colors duration-300"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                </div>
 
-                {/* Key Achievements Preview */}
-                <div className="mb-6 flex-grow">
-                  <h4 className="font-mono text-sm text-neon-green mb-3 flex items-center gap-2">
-                    <span className="w-2 h-2 bg-neon-green rounded-full"></span>
-                    KEY_ACHIEVEMENTS
-                  </h4>
-                  <ul className="space-y-2">
-                    {project.achievements.slice(0, 3).map((achievement, achIndex) => (
-                      <li key={achIndex} className="flex items-start gap-3 text-sm text-gray-300 font-mono">
-                        <span className="text-neon-green mt-1 text-base flex-shrink-0">✓</span>
-                        <span className="leading-relaxed">{achievement}</span>
-                      </li>
-                    ))}
-                    {project.achievements.length > 3 && (
-                      <li className="flex items-start gap-3 text-sm text-gray-400 font-mono">
-                        <span className="text-neon-purple mt-1 text-base flex-shrink-0">+</span>
-                        <span className="leading-relaxed">{project.achievements.length - 3} more achievements...</span>
-                      </li>
-                    )}
-                  </ul>
-                </div>
-
-                {/* Impact & View Details */}
-                <div className="flex items-center justify-between mt-auto pt-4 border-t border-neon-green/30">
-                  <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 bg-neon-purple rounded-full animate-pulse"></span>
-                    <span className="font-mono text-xs text-neon-purple font-bold">{project.impact}</span>
+                  {/* Key Achievements Preview */}
+                  <div className="mb-6 flex-1">
+                    <h4 className="font-mono text-sm text-neon-green mb-3 flex items-center gap-2">
+                      <span className="w-2 h-2 bg-neon-green rounded-full"></span>
+                      KEY_ACHIEVEMENTS
+                    </h4>
+                    <ul className="space-y-2">
+                      {project.achievements.slice(0, 3).map((achievement, achIndex) => (
+                        <li key={achIndex} className="flex items-start gap-3 text-sm text-gray-300 font-mono">
+                          <span className="text-neon-green mt-1 text-base flex-shrink-0">✓</span>
+                          <span className="leading-relaxed">{achievement}</span>
+                        </li>
+                      ))}
+                      {project.achievements.length > 3 && (
+                        <li className="flex items-start gap-3 text-sm text-gray-400 font-mono">
+                          <span className="text-neon-purple mt-1 text-base flex-shrink-0">+</span>
+                          <span className="leading-relaxed">{project.achievements.length - 3} more achievements...</span>
+                        </li>
+                      )}
+                    </ul>
                   </div>
-                  <div className="flex items-center gap-2 text-neon-blue font-mono text-sm group-hover:gap-3 transition-all duration-300">
-                    <span>VIEW_DETAILS</span>
-                    <ArrowRightLong className="w-4 h-4" />
+
+                  {/* Impact & View Details */}
+                  <div className="flex items-center justify-between pt-4 border-t border-neon-green/30 mt-auto">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 bg-neon-purple rounded-full animate-pulse"></span>
+                      <span className="font-mono text-xs text-neon-purple font-bold">{project.impact}</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-neon-blue font-mono text-sm group-hover:gap-3 transition-all duration-300">
+                      <span>VIEW_DETAILS</span>
+                      <ArrowRightLong className="w-4 h-4" />
+                    </div>
                   </div>
                 </div>
               </div>
