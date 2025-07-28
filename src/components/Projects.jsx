@@ -233,8 +233,8 @@ const Projects = () => {
           {filteredProjects.map((project, index) => (
             <AnimatedWrapper 
               key={project.id} 
-              animation="scale-in" 
-              delay={0.1 * (index % 3)}
+              animateFrom={index % 2 === 0 ? "left" : "right"}
+              delay={0.1 * (index % 4)}
             >
               <div className="project-card group flex flex-col h-full" onClick={() => {
                 setSelectedProject(project);

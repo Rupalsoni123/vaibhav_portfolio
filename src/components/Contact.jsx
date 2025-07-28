@@ -118,11 +118,11 @@ const Contact = () => {
           </div>
         </AnimatedWrapper>
 
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16">
           {/* Left Column - Contact Information */}
           <div className="space-y-8">
             {/* Contact Methods */}
-            <AnimatedWrapper animation="slide-right" delay={0.4}>
+            <AnimatedWrapper animateFrom="right" delay={0.4}>
               <div className="cyber-card p-6">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-8 h-8 border-2 border-neon-green rounded bg-black flex items-center justify-center">
@@ -138,9 +138,9 @@ const Contact = () => {
                       href={method.link}
                       className="block group"
                     >
-                      <div className="cyber-card p-4 hover:border-neon-blue transition-all duration-300 hover:transform hover:scale-105">
+                      <div className="cyber-card p-4 hover:border-neon-blue transition-all duration-300">
                         <div className="flex items-center gap-4">
-                          <div className="w-12 h-12 bg-gradient-to-br from-neon-green/20 to-neon-blue/20 rounded-lg flex items-center justify-center text-neon-green group-hover:text-neon-blue transition-colors duration-300 border border-neon-green group-hover:border-neon-blue flex-shrink-0">
+                          <div className="w-12 h-12 rounded-lg flex items-center justify-center text-neon-green group-hover:text-neon-blue transition-colors duration-300 border border-neon-green group-hover:border-neon-blue flex-shrink-0" style={{ background: 'linear-gradient(135deg, rgba(0, 255, 65, 0.2), rgba(0, 212, 255, 0.2))' }}>
                             {method.icon}
                           </div>
                           <div className="flex-1 min-w-0">
@@ -149,10 +149,14 @@ const Contact = () => {
                                 {method.title}
                               </h4>
                               <span className={`font-mono text-xs px-2 py-1 rounded ${
-                                method.status === 'ACTIVE' ? 'bg-neon-green/20 text-neon-green' :
-                                method.status === 'AVAILABLE' ? 'bg-neon-blue/20 text-neon-blue' :
-                                'bg-neon-purple/20 text-neon-purple'
-                              }`}>
+                                method.status === 'ACTIVE' ? 'text-neon-green' :
+                                method.status === 'AVAILABLE' ? 'text-neon-blue' :
+                                'text-neon-purple'
+                              }`} style={{ 
+                                backgroundColor: method.status === 'ACTIVE' ? 'rgba(0, 255, 65, 0.2)' :
+                                method.status === 'AVAILABLE' ? 'rgba(0, 212, 255, 0.2)' :
+                                'rgba(191, 0, 255, 0.2)'
+                              }}>
                                 [{method.status}]
                               </span>
                             </div>
@@ -173,7 +177,7 @@ const Contact = () => {
             </AnimatedWrapper>
 
             {/* Social Networks */}
-            <AnimatedWrapper animation="slide-right" delay={0.6}>
+            <AnimatedWrapper animateFrom="right" delay={0.6}>
               <div className="cyber-card p-6">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-8 h-8 border-2 border-neon-green rounded bg-black flex items-center justify-center">
@@ -189,10 +193,10 @@ const Contact = () => {
                       href={link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-4 p-4 cyber-card hover:border-neon-blue transition-all duration-300 hover:transform hover:scale-105 group"
+                      className="flex items-center gap-4 p-4 cyber-card hover:border-neon-blue transition-all duration-300 group"
                       aria-label={name}
                     >
-                      <div className="w-12 h-12 bg-gradient-to-br from-neon-green/20 to-neon-blue/20 rounded-lg flex items-center justify-center text-neon-green group-hover:text-neon-blue transition-colors duration-300 border border-neon-green group-hover:border-neon-blue text-xl flex-shrink-0">
+                      <div className="w-12 h-12 rounded-lg flex items-center justify-center text-neon-green group-hover:text-neon-blue transition-colors duration-300 border border-neon-green group-hover:border-neon-blue text-xl flex-shrink-0" style={{ background: 'linear-gradient(135deg, rgba(0, 255, 65, 0.2), rgba(0, 212, 255, 0.2))' }}>
                         {icon}
                       </div>
                       <div className="flex-1 min-w-0">
@@ -215,10 +219,10 @@ const Contact = () => {
                   <a
                     href={contactInfo.find(item => item.name === 'Resume')?.link}
                     download="Vaibhav_Soni_DevOps_Resume.pdf"
-                    className="flex items-center gap-4 p-4 cyber-card hover:border-neon-purple transition-all duration-300 hover:transform hover:scale-105 group"
+                    className="flex items-center gap-4 p-4 cyber-card hover:border-neon-purple transition-all duration-300 group"
                     aria-label="Download Resume"
                   >
-                    <div className="w-12 h-12 bg-gradient-to-br from-neon-purple/20 to-neon-pink/20 rounded-lg flex items-center justify-center text-neon-purple group-hover:text-neon-pink transition-colors duration-300 border border-neon-purple group-hover:border-neon-pink text-xl flex-shrink-0">
+                    <div className="w-12 h-12 rounded-lg flex items-center justify-center text-neon-purple group-hover:text-neon-pink transition-colors duration-300 border border-neon-purple group-hover:border-neon-pink text-xl flex-shrink-0" style={{ background: 'linear-gradient(135deg, rgba(191, 0, 255, 0.2), rgba(255, 0, 128, 0.2))' }}>
                       📄
                     </div>
                     <div className="flex-1 min-w-0">
@@ -241,7 +245,7 @@ const Contact = () => {
           {/* Right Column - Contact Form */}
           <div className="space-y-8">
             {/* Contact Form */}
-            <AnimatedWrapper animation="slide-left" delay={0.4}>
+            <AnimatedWrapper animateFrom="left" delay={0.4}>
               <div className="cyber-card p-6">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-8 h-8 border-2 border-neon-green rounded bg-black flex items-center justify-center">
@@ -349,7 +353,7 @@ const Contact = () => {
             </AnimatedWrapper>
 
             {/* Collaboration Protocol */}
-            <AnimatedWrapper animation="slide-left" delay={0.6}>
+            <AnimatedWrapper animateFrom="left" delay={0.6}>
               <div className="cyber-card p-6 border-2 border-neon-blue">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-8 h-8 border-2 border-neon-blue rounded bg-black flex items-center justify-center">
@@ -388,7 +392,7 @@ const Contact = () => {
                     </div>
                   </div>
 
-                  <div className="border-t border-neon-blue/30 pt-4 mt-6">
+                  <div className="border-t pt-4 mt-6" style={{ borderColor: 'rgba(0, 212, 255, 0.3)' }}>
                     <p className="text-gray-300 font-mono text-sm leading-relaxed mb-4">
                       Ready to start your next DevOps project? Let's build something amazing together that scales, performs, and delivers real business value.
                     </p>
@@ -406,36 +410,38 @@ const Contact = () => {
           </div>
         </div>
 
-        {/* Additional CTA */}
-        <AnimatedWrapper animation="fade-in" delay={1.0}>
-          <div className="mt-16 text-center">
-            <div className="cyber-card p-8 max-w-4xl mx-auto border-2 border-neon-purple">
-              <h3 className="neon-text-purple font-cyber text-2xl mb-6">
-                READY_TO_COLLABORATE
-              </h3>
-              <p className="text-gray-300 leading-relaxed mb-8 font-mono text-sm max-w-2xl mx-auto">
-                Whether you need infrastructure automation, cloud migration, CI/CD pipelines, or DevOps consulting, 
-                I'm here to help transform your ideas into scalable, reliable solutions.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a
-                  href="mailto:vaibhavsoni5567@gmail.com"
-                  className="cyber-button inline-flex items-center gap-2"
-                >
-                  <Mail className="w-5 h-5" />
-                  <span>START_PROJECT.exe</span>
-                </a>
-                <a
-                  href="tel:+918890944027"
-                  className="cyber-button-secondary inline-flex items-center gap-2"
-                >
-                  <Phone className="w-5 h-5" />
-                  <span>SCHEDULE_CALL.sh</span>
-                </a>
+        {/* Separate CTA Section with proper spacing */}
+        <div className="mt-16">
+          <AnimatedWrapper animateFrom="bottom" delay={1.0}>
+            <div className="text-center">
+              <div className="cyber-card p-8 max-w-4xl mx-auto border-2 border-neon-purple">
+                <h3 className="neon-text-purple font-cyber text-2xl mb-6">
+                  READY_TO_COLLABORATE
+                </h3>
+                <p className="text-gray-300 leading-relaxed mb-8 font-mono text-sm max-w-2xl mx-auto">
+                  Whether you need infrastructure automation, cloud migration, CI/CD pipelines, or DevOps consulting, 
+                  I'm here to help transform your ideas into scalable, reliable solutions.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <a
+                    href="mailto:vaibhavsoni5567@gmail.com"
+                    className="cyber-button inline-flex items-center gap-2"
+                  >
+                    <Mail className="w-5 h-5" />
+                    <span>START_PROJECT.exe</span>
+                  </a>
+                  <a
+                    href="tel:+918890944027"
+                    className="cyber-button-secondary inline-flex items-center gap-2"
+                  >
+                    <Phone className="w-5 h-5" />
+                    <span>SCHEDULE_CALL.sh</span>
+                  </a>
+                </div>
               </div>
             </div>
-          </div>
-        </AnimatedWrapper>
+          </AnimatedWrapper>
+        </div>
       </div>
     </section>
   );

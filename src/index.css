@@ -819,8 +819,43 @@ footer {
   }
 }
 
-/* Better responsive spacing */
-@media (max-width: 768px) {
+/* Background color utilities with proper opacity */
+.bg-neon-green-20 {
+  background-color: rgba(0, 255, 65, 0.2);
+}
+
+.bg-neon-blue-20 {
+  background-color: rgba(0, 212, 255, 0.2);
+}
+
+.bg-neon-purple-20 {
+  background-color: rgba(191, 0, 255, 0.2);
+}
+
+.bg-neon-pink-20 {
+  background-color: rgba(255, 0, 128, 0.2);
+}
+
+/* Gradient background utilities */
+.from-neon-green-20 {
+  --tw-gradient-from: rgba(0, 255, 65, 0.2);
+  --tw-gradient-to: rgba(0, 255, 65, 0);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+.to-neon-blue-20 {
+  --tw-gradient-to: rgba(0, 212, 255, 0.2);
+}
+
+.from-neon-purple-20 {
+  --tw-gradient-from: rgba(191, 0, 255, 0.2);
+  --tw-gradient-to: rgba(191, 0, 255, 0);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+.to-neon-pink-20 {
+  --tw-gradient-to: rgba(255, 0, 128, 0.2);
+}
   .project-card {
     min-height: 500px;
     padding: 1rem;
@@ -838,7 +873,7 @@ footer {
   .section-cyber {
     padding: 3rem 0;
   }
-}
+
 
 /* Content start utility for flex wrap */
 .content-start {
