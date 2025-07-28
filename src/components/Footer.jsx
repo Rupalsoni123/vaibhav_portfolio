@@ -376,36 +376,6 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Back to Top */}
-          <button
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              padding: '0.75rem 1rem',
-              background: 'var(--card-bg)',
-              border: '1px solid var(--border-color)',
-              borderRadius: 'var(--border-radius-md)',
-              color: 'var(--text-secondary)',
-              fontSize: '0.875rem',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease'
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.borderColor = 'var(--primary-blue)';
-              e.target.style.color = 'var(--primary-blue)';
-              e.target.style.transform = 'translateY(-2px)';
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.borderColor = 'var(--border-color)';
-              e.target.style.color = 'var(--text-secondary)';
-              e.target.style.transform = 'translateY(0)';
-            }}
-          >
-            <ArrowUp size={16} />
-            Back to Top
-          </button>
         </div>
       </div>
     </footer>
