@@ -46,8 +46,8 @@ const Skills = () => {
         <AnimatedWrapper animation="slide-up" delay={0.4}>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
             {skillStats.map((stat, index) => (
-              <div key={index} className="stat-card">
-                <div className={`stat-icon bg-gradient-to-br ${stat.color} text-white`}>
+              <div key={index} className="stat-card group">
+                <div className={`stat-icon bg-gradient-to-br ${stat.color} text-white group-hover:shadow-xl`}>
                   {stat.icon}
                 </div>
                 <div className="text-3xl font-bold text-secondary-800 dark:text-secondary-200 mb-2">
@@ -91,9 +91,9 @@ const Skills = () => {
               animation="scale-in" 
               delay={0.1 * (index % 8)}
             >
-              <div className="skill-card">
+              <div className="skill-card group">
                 {/* Skill Icon */}
-                <div className="skill-icon bg-gradient-to-br from-primary-100 to-accent-100 dark:from-primary-900/30 dark:to-accent-900/30 text-primary-600 dark:text-primary-400">
+                <div className="skill-icon bg-gradient-to-br from-primary-100 to-accent-100 dark:from-primary-900/30 dark:to-accent-900/30 text-primary-600 dark:text-primary-400 group-hover:scale-110">
                   {skill.icon}
                 </div>
                 

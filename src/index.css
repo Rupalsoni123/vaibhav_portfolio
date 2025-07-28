@@ -489,16 +489,16 @@ code, pre, .font-mono {
 
 /* Enhanced Skill Cards */
 .skill-card {
-  @apply card-modern p-6 text-center group hover:scale-105 transition-all duration-300 cursor-default;
+  @apply card-modern p-6 text-center hover:scale-105 transition-all duration-300 cursor-default;
 }
 
 .skill-icon {
-  @apply w-16 h-16 mx-auto mb-4 rounded-2xl flex items-center justify-center text-2xl transition-all duration-300 group-hover:scale-110;
+  @apply w-16 h-16 mx-auto mb-4 rounded-2xl flex items-center justify-center text-2xl transition-all duration-300;
 }
 
 /* Enhanced Project Cards */
 .project-card {
-  @apply card-modern p-6 group hover:scale-105 transition-all duration-300 cursor-pointer;
+  @apply card-modern p-6 hover:scale-105 transition-all duration-300 cursor-pointer;
 }
 
 .project-badge {
@@ -507,11 +507,11 @@ code, pre, .font-mono {
 
 /* Enhanced Stats Cards */
 .stat-card {
-  @apply card-modern p-6 text-center group hover:scale-105 transition-all duration-300;
+  @apply card-modern p-6 text-center hover:scale-105 transition-all duration-300;
 }
 
 .stat-icon {
-  @apply w-16 h-16 mx-auto mb-4 rounded-2xl flex items-center justify-center text-2xl shadow-lg group-hover:shadow-xl transition-all duration-300;
+  @apply w-16 h-16 mx-auto mb-4 rounded-2xl flex items-center justify-center text-2xl shadow-lg transition-all duration-300;
 }
 
 /* High Contrast Mode */

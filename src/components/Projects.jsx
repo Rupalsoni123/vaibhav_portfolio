@@ -159,7 +159,7 @@ const Projects = () => {
                 animation="scale-in" 
                 delay={0.1 * (index % 3)}
               >
-                <div className="project-card" onClick={() => {
+                <div className="project-card group" onClick={() => {
                   setSelectedProject(project);
                   setShowModal(true);
                 }}>
