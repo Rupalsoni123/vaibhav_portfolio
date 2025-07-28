@@ -156,7 +156,56 @@ h1 { font-size: clamp(2.5rem, 6vw, 5rem); }
 h2 { font-size: clamp(2rem, 5vw, 4rem); }
 h3 { font-size: clamp(1.5rem, 4vw, 3rem); }
 
-/* Cyberpunk Utility Classes */
+/* Neon color utilities */
+.text-neon-green {
+  color: var(--neon-green);
+}
+
+.text-neon-blue {
+  color: var(--neon-blue);
+}
+
+.text-neon-purple {
+  color: var(--neon-purple);
+}
+
+.text-neon-pink {
+  color: var(--neon-pink);
+}
+
+.bg-neon-green {
+  background-color: var(--neon-green);
+}
+
+.bg-neon-blue {
+  background-color: var(--neon-blue);
+}
+
+.bg-neon-purple {
+  background-color: var(--neon-purple);
+}
+
+.bg-neon-pink {
+  background-color: var(--neon-pink);
+}
+
+.border-neon-green {
+  border-color: var(--neon-green);
+}
+
+.border-neon-blue {
+  border-color: var(--neon-blue);
+}
+
+.border-neon-purple {
+  border-color: var(--neon-purple);
+}
+
+.border-neon-pink {
+  border-color: var(--neon-pink);
+}
+
+/* Enhanced neon text effects */
 .neon-text {
   color: var(--neon-green);
   text-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor;
@@ -176,6 +225,60 @@ h3 { font-size: clamp(1.5rem, 4vw, 3rem); }
 .neon-text-pink {
   color: var(--neon-pink);
   text-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor;
+}
+
+/* Font families */
+.font-cyber {
+  font-family: 'Orbitron', 'JetBrains Mono', monospace;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+/* Ensure visibility of sections */
+.cyber-card {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(26, 26, 26, 0.8) 100%);
+  border: 1px solid var(--neon-green);
+  border-radius: 8px;
+  box-shadow: 
+    0 0 20px rgba(0, 255, 65, 0.2),
+    inset 0 1px 0 rgba(0, 255, 65, 0.1);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  display: block;
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Fix for space-y utilities */
+.space-y-1 > * + * {
+  margin-top: 0.25rem;
+}
+
+.space-y-2 > * + * {
+  margin-top: 0.5rem;
+}
+
+.space-y-3 > * + * {
+  margin-top: 0.75rem;
+}
+
+.space-y-4 > * + * {
+  margin-top: 1rem;
+}
+
+.space-y-6 > * + * {
+  margin-top: 1.5rem;
+}
+
+.space-y-8 > * + * {
+  margin-top: 2rem;
 }
 
 .glitch-text {
@@ -495,20 +598,314 @@ h3 { font-size: clamp(1.5rem, 4vw, 3rem); }
 
 /* Section spacing improvements */
 .section-cyber {
-  padding: 4rem 0;
+  padding: 5rem 0;
   position: relative;
 }
 
 @media (min-width: 768px) {
   .section-cyber {
-    padding: 5rem 0;
+    padding: 6rem 0;
   }
 }
 
 @media (min-width: 1024px) {
   .section-cyber {
-    padding: 6rem 0;
+    padding: 7rem 0;
   }
+}
+
+/* Improved navbar height */
+nav {
+  height: 80px;
+}
+
+nav .cyber-container {
+  height: 100%;
+}
+
+nav .cyber-container > div {
+  height: 100%;
+}
+
+/* Better footer spacing */
+footer {
+  margin-top: auto;
+}
+
+/* Enhanced social icons */
+.social-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  background: rgba(0, 255, 65, 0.1);
+  border: 1px solid var(--neon-green);
+  color: var(--neon-green);
+  text-decoration: none;
+}
+
+.social-icon:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+}
+
+/* Grid layout fixes */
+.grid {
+  display: grid;
+  gap: 2rem;
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+  }
+}
+
+/* Enhanced project card styling for equal heights */
+.project-card {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(26, 26, 26, 0.8) 100%);
+  border: 1px solid var(--neon-green);
+  border-radius: 8px;
+  box-shadow: 
+    0 0 20px rgba(0, 255, 65, 0.2),
+    inset 0 1px 0 rgba(0, 255, 65, 0.1);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  padding: 1.5rem;
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-card:hover {
+  border-color: var(--neon-blue);
+  box-shadow: 
+    0 0 30px rgba(0, 212, 255, 0.4),
+    inset 0 1px 0 rgba(0, 212, 255, 0.2);
+  transform: translateY(-5px);
+}
+
+/* Line clamp utilities for consistent text heights */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Enhanced social icons */
+.social-icon {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  background: rgba(0, 255, 65, 0.1);
+  border: 1px solid var(--neon-green);
+  color: var(--neon-green);
+  text-decoration: none;
+}
+
+.social-icon:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+}
+
+/* Better form styling */
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: rgba(0, 0, 0, 0.8);
+  border: 2px solid var(--matrix-green);
+  color: var(--neon-green);
+  font-family: 'JetBrains Mono', monospace;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  border-color: var(--neon-green);
+  box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+  text-shadow: 0 0 5px currentColor;
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: rgba(0, 255, 65, 0.5);
+}
+
+.form-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--neon-green);
+  margin-bottom: 0.5rem;
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Loading spinner */
+.cyber-loading {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--matrix-green);
+  border-radius: 50%;
+  border-top-color: var(--neon-green);
+  animation: spin 1s ease-in-out infinite;
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Status message improvements */
+.status-success {
+  background: rgba(0, 0, 0, 0.8);
+  border: 2px solid var(--neon-green);
+  color: var(--neon-green);
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: 'JetBrains Mono', monospace;
+  box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
+}
+
+.status-error {
+  background: rgba(0, 0, 0, 0.8);
+  border: 2px solid #ff0040;
+  color: #ff6b6b;
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: 'JetBrains Mono', monospace;
+  box-shadow: 0 0 15px rgba(255, 0, 64, 0.3);
+}
+
+/* Grid improvements for consistent spacing */
+.grid {
+  display: grid;
+  gap: 2rem;
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+}
+
+/* Better responsive spacing */
+@media (max-width: 768px) {
+  .project-card {
+    min-height: 500px;
+    padding: 1rem;
+  }
+  
+  .social-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+  
+  .cyber-container {
+    padding: 0 1rem;
+  }
+  
+  .section-cyber {
+    padding: 3rem 0;
+  }
+}
+
+/* Content start utility for flex wrap */
+.content-start {
+  align-content: flex-start;
+}
+
+/* Min height utilities */
+.min-h-60 {
+  min-height: 60px;
+}
+
+.min-h-80 {
+  min-height: 80px;
+}
+
+/* Better button alignment */
+.cyber-button,
+.cyber-button-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  white-space: nowrap;
+  min-height: 44px;
+}
+
+/* Improved form styling */
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: rgba(0, 0, 0, 0.8);
+  border: 2px solid var(--matrix-green);
+  color: var(--neon-green);
+  font-family: 'JetBrains Mono', monospace;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  border-color: var(--neon-green);
+  box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+  text-shadow: 0 0 5px currentColor;
+}
+
+/* Better spacing utilities */
+.space-y-6 > * + * {
+  margin-top: 1.5rem;
+}
+
+.space-y-8 > * + * {
+  margin-top: 2rem;
+}
+
+/* Improved text alignment */
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
 }
 
 /* Avatar container fixes */
@@ -1270,35 +1667,74 @@ h3 { font-size: clamp(1.5rem, 4vw, 3rem); }
   to { opacity: 1; transform: scale(1); }
 }
 
-/* Mobile-first responsive improvements */
+/* Mobile responsive improvements */
 @media (max-width: 768px) {
+  .cyber-container {
+    padding: 0 1rem;
+  }
+  
+  .section-cyber {
+    padding: 3rem 0;
+  }
+  
   .grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
   
-  .space-y-8 > * + * {
-    margin-top: 1.5rem;
+  .terminal-content {
+    padding: 1rem;
+    min-height: 150px;
   }
   
-  .terminal-window {
-    margin-bottom: 1rem;
+  .stat-card,
+  .skill-card,
+  .project-card {
+    padding: 1rem;
   }
   
-  .cyber-card {
-    margin-bottom: 1rem;
+  .stat-icon,
+  .skill-icon {
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .cyber-button,
+  .cyber-button-secondary {
+    min-width: 100%;
+    padding: 0.75rem 1rem;
+    justify-content: center;
+  }
+  
+  .social-icon {
+    width: 2rem;
+    height: 2rem;
+  }
+  
+  .neon-text {
+    font-size: 1.5rem;
+  }
+  
+  .font-cyber {
+    font-size: 1.25rem;
   }
 }
 
 /* Tablet improvements */
 @media (min-width: 768px) and (max-width: 1023px) {
+  .cyber-container {
+    padding: 0 1.5rem;
+  }
+  
+  .section-cyber {
+    padding: 4rem 0;
+  }
+  
   .grid {
     grid-template-columns: 1fr;
     gap: 2rem;
-  }
-  
-  .cyber-container {
-    padding: 0 2rem;
   }
 }
 
@@ -1310,33 +1746,42 @@ h3 { font-size: clamp(1.5rem, 4vw, 3rem); }
   }
   
   .section-cyber {
-    padding: 7rem 0;
+    padding: 8rem 0;
   }
 }
 
-/* Ultra-wide screen support */
-@media (min-width: 1920px) {
-  .cyber-container {
-    max-width: 1600px;
-    padding: 0 4rem;
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  .animate-pulse,
+  .animate-matrix-rain,
+  .animate-float-slow,
+  .animate-pulse-neon {
+    animation: none !important;
+  }
+  
+  .transition-all,
+  .transition-colors,
+  .transition-transform {
+    transition: none !important;
   }
 }
 
-/* High DPI display adjustments */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  .neon-text {
-    text-shadow: 
-      0 0 2px currentColor,
-      0 0 4px currentColor,
-      0 0 6px currentColor;
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .text-gray-300 {
+    color: #e5e5e5;
+  }
+  
+  .text-gray-400 {
+    color: #d1d1d1;
+  }
+  
+  .border-neon-green-30 {
+    border-color: rgba(0, 255, 65, 0.6);
   }
   
   .cyber-card {
-    border-width: 1px;
-  }
-  
-  .terminal-window {
-    border-width: 1px;
+    border-width: 2px;
   }
 }
 
@@ -1362,56 +1807,50 @@ h3 { font-size: clamp(1.5rem, 4vw, 3rem); }
     color: black !important;
     text-shadow: none !important;
   }
-}
-
-/* Accessibility improvements */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
   
-  .animate-pulse,
-  .animate-matrix-rain,
-  .animate-float-slow,
-  .animate-pulse-neon {
-    animation: none !important;
+  .bg-black {
+    background: white !important;
   }
 }
 
 /* Focus improvements for accessibility */
 .cyber-button:focus,
-.cyber-button-secondary:focus {
+.cyber-button-secondary:focus,
+.form-input:focus,
+.form-textarea:focus {
   outline: 2px solid var(--neon-blue);
   outline-offset: 2px;
 }
 
-/* Better contrast for accessibility */
-@media (prefers-contrast: high) {
-  .text-gray-300 {
-    color: #e5e5e5;
-  }
-  
-  .text-gray-400 {
-    color: #d1d1d1;
-  }
-  
-  .border-neon-green-30 {
-    border-color: rgba(0, 255, 65, 0.6);
-  }
+/* Better link styles */
+a {
+  text-decoration: none;
 }
 
-/* Dark mode support (if needed) */
-@media (prefers-color-scheme: light) {
-  /* Keep dark theme regardless of system preference */
-  body {
-    background: var(--terminal-bg);
-    color: var(--neon-green);
-  }
+a:focus {
+  outline: 2px solid var(--neon-blue);
+  outline-offset: 2px;
+}
+
+/* Improved scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+  border: 1px solid var(--matrix-green);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--neon-green), var(--matrix-green));
+  border-radius: 4px;
+  border: 1px solid var(--neon-green);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--neon-blue), var(--neon-green));
+  box-shadow: 0 0 10px var(--neon-green);
 }
 
 /* Neon glow text effect */

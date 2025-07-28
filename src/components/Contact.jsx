@@ -118,7 +118,7 @@ const Contact = () => {
           </div>
         </AnimatedWrapper>
 
-        <div className="grid lg:grid-cols-2 gap-16">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
           {/* Left Column - Contact Information */}
           <div className="space-y-8">
             {/* Contact Methods */}
@@ -138,13 +138,13 @@ const Contact = () => {
                       href={method.link}
                       className="block group"
                     >
-                      <div className="cyber-card p-4 hover:border-neon-blue transition-colors duration-300">
+                      <div className="cyber-card p-4 hover:border-neon-blue transition-all duration-300 hover:transform hover:scale-105">
                         <div className="flex items-center gap-4">
-                          <div className="w-12 h-12 bg-gradient-to-br from-neon-green/20 to-neon-blue/20 rounded-lg flex items-center justify-center text-neon-green group-hover:text-neon-blue transition-colors duration-300 border border-neon-green group-hover:border-neon-blue">
+                          <div className="w-12 h-12 bg-gradient-to-br from-neon-green/20 to-neon-blue/20 rounded-lg flex items-center justify-center text-neon-green group-hover:text-neon-blue transition-colors duration-300 border border-neon-green group-hover:border-neon-blue flex-shrink-0">
                             {method.icon}
                           </div>
-                          <div className="flex-1">
-                            <div className="flex items-center justify-between mb-1">
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center justify-between mb-2">
                               <h4 className="font-mono text-sm font-bold text-white group-hover:text-neon-blue transition-colors duration-300">
                                 {method.title}
                               </h4>
@@ -156,8 +156,13 @@ const Contact = () => {
                                 [{method.status}]
                               </span>
                             </div>
-                            <p className="text-gray-300 font-mono text-sm mb-1">{method.value}</p>
-                            <p className="text-gray-500 font-mono text-xs">Response: {method.response}</p>
+                            <p className="text-gray-300 font-mono text-sm mb-2 break-all">
+                              {method.value}
+                            </p>
+                            <div className="flex items-center justify-between">
+                              <span className="font-mono text-xs text-gray-400">Response time:</span>
+                              <span className="font-mono text-xs text-neon-green">{method.response}</span>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -167,7 +172,7 @@ const Contact = () => {
               </div>
             </AnimatedWrapper>
 
-            {/* Social Links */}
+            {/* Social Networks */}
             <AnimatedWrapper animation="slide-right" delay={0.6}>
               <div className="cyber-card p-6">
                 <div className="flex items-center gap-3 mb-6">
@@ -184,14 +189,14 @@ const Contact = () => {
                       href={link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-4 p-4 cyber-card hover:border-neon-blue transition-colors duration-300 group"
+                      className="flex items-center gap-4 p-4 cyber-card hover:border-neon-blue transition-all duration-300 hover:transform hover:scale-105 group"
                       aria-label={name}
                     >
-                      <div className="w-12 h-12 bg-gradient-to-br from-neon-green/20 to-neon-blue/20 rounded-lg flex items-center justify-center text-neon-green group-hover:text-neon-blue transition-colors duration-300 border border-neon-green group-hover:border-neon-blue text-xl">
+                      <div className="w-12 h-12 bg-gradient-to-br from-neon-green/20 to-neon-blue/20 rounded-lg flex items-center justify-center text-neon-green group-hover:text-neon-blue transition-colors duration-300 border border-neon-green group-hover:border-neon-blue text-xl flex-shrink-0">
                         {icon}
                       </div>
-                      <div className="flex-1">
-                        <div className="font-mono text-sm font-bold text-white group-hover:text-neon-blue transition-colors duration-300">
+                      <div className="flex-1 min-w-0">
+                        <div className="font-mono text-sm font-bold text-white group-hover:text-neon-blue transition-colors duration-300 mb-1">
                           {name.toUpperCase()}
                         </div>
                         <div className="font-mono text-xs text-gray-400">
@@ -200,7 +205,7 @@ const Contact = () => {
                            'Direct Communication'}
                         </div>
                       </div>
-                      <div className="text-neon-green group-hover:text-neon-blue transition-colors duration-300">
+                      <div className="text-neon-green group-hover:text-neon-blue transition-colors duration-300 text-lg flex-shrink-0">
                         →
                       </div>
                     </a>
@@ -210,156 +215,122 @@ const Contact = () => {
                   <a
                     href={contactInfo.find(item => item.name === 'Resume')?.link}
                     download="Vaibhav_Soni_DevOps_Resume.pdf"
-                    className="flex items-center gap-4 p-4 cyber-card hover:border-neon-purple transition-colors duration-300 group"
+                    className="flex items-center gap-4 p-4 cyber-card hover:border-neon-purple transition-all duration-300 hover:transform hover:scale-105 group"
                     aria-label="Download Resume"
                   >
-                    <div className="w-12 h-12 bg-gradient-to-br from-neon-purple/20 to-neon-pink/20 rounded-lg flex items-center justify-center text-neon-purple group-hover:text-neon-pink transition-colors duration-300 border border-neon-purple group-hover:border-neon-pink text-xl">
+                    <div className="w-12 h-12 bg-gradient-to-br from-neon-purple/20 to-neon-pink/20 rounded-lg flex items-center justify-center text-neon-purple group-hover:text-neon-pink transition-colors duration-300 border border-neon-purple group-hover:border-neon-pink text-xl flex-shrink-0">
                       📄
                     </div>
-                    <div className="flex-1">
-                      <div className="font-mono text-sm font-bold text-white group-hover:text-neon-purple transition-colors duration-300">
+                    <div className="flex-1 min-w-0">
+                      <div className="font-mono text-sm font-bold text-white group-hover:text-neon-purple transition-colors duration-300 mb-1">
                         RESUME.PDF
                       </div>
                       <div className="font-mono text-xs text-gray-400">
                         Download CV Document
                       </div>
                     </div>
-                    <div className="text-neon-purple group-hover:text-neon-pink transition-colors duration-300">
+                    <div className="text-neon-purple group-hover:text-neon-pink transition-colors duration-300 text-lg flex-shrink-0">
                       ↓
                     </div>
                   </a>
                 </div>
               </div>
             </AnimatedWrapper>
-
-            {/* Status Information */}
-            <AnimatedWrapper animation="slide-right" delay={0.8}>
-              <div className="cyber-card p-6 border-2 border-neon-green">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-8 h-8 border-2 border-neon-green rounded bg-black flex items-center justify-center">
-                    <span className="text-neon-green font-mono text-sm">i</span>
-                  </div>
-                  <h3 className="neon-text-green font-cyber text-xl">SYSTEM_STATUS</h3>
-                </div>
-                
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="font-mono text-sm text-white">Availability:</span>
-                    <div className="flex items-center gap-2">
-                      <div className="w-2 h-2 bg-neon-green rounded-full animate-pulse"></div>
-                      <span className="font-mono text-sm text-neon-green">ONLINE</span>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="font-mono text-sm text-white">Response Time:</span>
-                    <span className="font-mono text-sm text-neon-blue"> 24 hours</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="font-mono text-sm text-white">Project Status:</span>
-                    <span className="font-mono text-sm text-neon-purple">ACCEPTING</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="font-mono text-sm text-white">Location:</span>
-                    <span className="font-mono text-sm text-neon-pink">GMT+5:30</span>
-                  </div>
-                </div>
-              </div>
-            </AnimatedWrapper>
           </div>
 
           {/* Right Column - Contact Form */}
-          <div>
+          <div className="space-y-8">
+            {/* Contact Form */}
             <AnimatedWrapper animation="slide-left" delay={0.4}>
               <div className="cyber-card p-6">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-8 h-8 border-2 border-neon-green rounded bg-black flex items-center justify-center">
-                    <span className="text-neon-green font-mono text-sm"></span>
+                    <span className="text-neon-green font-mono text-sm">✉</span>
                   </div>
                   <h3 className="neon-text-blue font-cyber text-xl">SEND_MESSAGE</h3>
                 </div>
 
-                {/* Status Message */}
-                {status.message && (
-                  <div className={status.type === 'success' ? 'status-success' : 'status-error'}>
-                    {status.type === 'success' ? (
-                      <CheckCircle className="w-5 h-5 flex-shrink-0" />
-                    ) : (
-                      <AlertCircle className="w-5 h-5 flex-shrink-0" />
-                    )}
-                    <span className="font-mono text-sm">{status.message}</span>
-                  </div>
-                )}
-
                 <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid sm:grid-cols-2 gap-6">
+                  <div className="grid md:grid-cols-2 gap-6">
                     <div>
-                      <label htmlFor="name" className="form-label">
-                        USER_NAME *
+                      <label className="form-label">
+                        NAME_INPUT
                       </label>
                       <input
                         type="text"
-                        id="name"
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
-                        required
                         className="form-input"
                         placeholder="Enter your name..."
+                        required
                       />
                     </div>
                     <div>
-                      <label htmlFor="email" className="form-label">
-                        EMAIL_ADDRESS *
+                      <label className="form-label">
+                        EMAIL_ADDRESS
                       </label>
                       <input
                         type="email"
-                        id="email"
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        required
                         className="form-input"
-                        placeholder="user@domain.com"
+                        placeholder="your.email@domain.com"
+                        required
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label htmlFor="subject" className="form-label">
-                      MESSAGE_SUBJECT *
+                    <label className="form-label">
+                      MESSAGE_SUBJECT
                     </label>
                     <input
                       type="text"
-                      id="subject"
                       name="subject"
                       value={formData.subject}
                       onChange={handleChange}
-                      required
                       className="form-input"
-                      placeholder="Project discussion, collaboration, etc."
+                      placeholder="Brief subject line..."
+                      required
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="message" className="form-label">
-                      MESSAGE_BODY *
+                    <label className="form-label">
+                      MESSAGE_CONTENT
                     </label>
                     <textarea
-                      id="message"
                       name="message"
                       value={formData.message}
                       onChange={handleChange}
-                      required
                       className="form-textarea"
-                      placeholder="Tell me about your project or how we can work together..."
-                      rows={6}
+                      placeholder="Type your message here..."
+                      rows="6"
+                      required
                     />
                   </div>
 
+                  {/* Status Message */}
+                  {status.message && (
+                    <div className={`${
+                      status.type === 'success' ? 'status-success' : 'status-error'
+                    }`}>
+                      {status.type === 'success' ? (
+                        <CheckCircle className="w-5 h-5" />
+                      ) : (
+                        <AlertCircle className="w-5 h-5" />
+                      )}
+                      <span className="font-mono text-sm">{status.message}</span>
+                    </div>
+                  )}
+
+                  {/* Submit Button */}
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="cyber-button w-full inline-flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="cyber-button w-full inline-flex items-center justify-center gap-3 group"
                   >
                     {isSubmitting ? (
                       <>
@@ -368,12 +339,68 @@ const Contact = () => {
                       </>
                     ) : (
                       <>
-                        <Send className="w-5 h-5" />
-                        <span>SEND_MESSAGE.sh</span>
+                        <Send className="w-5 h-5 group-hover:animate-pulse" />
+                        <span>SEND_MESSAGE.exe</span>
                       </>
                     )}
                   </button>
                 </form>
+              </div>
+            </AnimatedWrapper>
+
+            {/* Collaboration Protocol */}
+            <AnimatedWrapper animation="slide-left" delay={0.6}>
+              <div className="cyber-card p-6 border-2 border-neon-blue">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-8 h-8 border-2 border-neon-blue rounded bg-black flex items-center justify-center">
+                    <span className="text-neon-blue font-mono text-sm">🤝</span>
+                  </div>
+                  <h3 className="neon-text-blue font-cyber text-xl">COLLABORATION_PROTOCOL</h3>
+                </div>
+
+                <div className="space-y-4">
+                  <div className="font-mono text-sm text-neon-blue mb-4">$ cat collaboration_guidelines.txt</div>
+                  
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-3">
+                      <span className="text-neon-green mt-1 text-base flex-shrink-0">✓</span>
+                      <span className="text-gray-300 font-mono text-sm leading-relaxed">
+                        <strong className="text-white">Project Discussion:</strong> Initial consultation to understand requirements and scope
+                      </span>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <span className="text-neon-green mt-1 text-base flex-shrink-0">✓</span>
+                      <span className="text-gray-300 font-mono text-sm leading-relaxed">
+                        <strong className="text-white">Technical Planning:</strong> Architecture design and technology stack selection
+                      </span>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <span className="text-neon-green mt-1 text-base flex-shrink-0">✓</span>
+                      <span className="text-gray-300 font-mono text-sm leading-relaxed">
+                        <strong className="text-white">Implementation:</strong> Agile development with regular progress updates
+                      </span>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <span className="text-neon-green mt-1 text-base flex-shrink-0">✓</span>
+                      <span className="text-gray-300 font-mono text-sm leading-relaxed">
+                        <strong className="text-white">Deployment & Support:</strong> Production deployment with ongoing maintenance
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="border-t border-neon-blue/30 pt-4 mt-6">
+                    <p className="text-gray-300 font-mono text-sm leading-relaxed mb-4">
+                      Ready to start your next DevOps project? Let's build something amazing together that scales, performs, and delivers real business value.
+                    </p>
+                    <a
+                      href="mailto:vaibhavsoni5567@gmail.com"
+                      className="cyber-button-secondary w-full inline-flex items-center justify-center gap-2"
+                    >
+                      <span>INITIATE_PROJECT.sh</span>
+                      <span className="text-lg">🚀</span>
+                    </a>
+                  </div>
+                </div>
               </div>
             </AnimatedWrapper>
           </div>
@@ -384,7 +411,7 @@ const Contact = () => {
           <div className="mt-16 text-center">
             <div className="cyber-card p-8 max-w-4xl mx-auto border-2 border-neon-purple">
               <h3 className="neon-text-purple font-cyber text-2xl mb-6">
-                COLLABORATION_PROTOCOL
+                READY_TO_COLLABORATE
               </h3>
               <p className="text-gray-300 leading-relaxed mb-8 font-mono text-sm max-w-2xl mx-auto">
                 Whether you need infrastructure automation, cloud migration, CI/CD pipelines, or DevOps consulting, 
@@ -415,4 +442,3 @@ const Contact = () => {
 };
 
 export default Contact;
-

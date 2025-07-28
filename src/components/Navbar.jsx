@@ -39,12 +39,12 @@ const Navbar = () => {
                         {/* Logo */}
                         <div className="flex items-center space-x-4">
                             <div className="text-2xl font-bold group cursor-pointer">
-                                <div className="flex items-center space-x-2">
-                                    <div className="w-8 h-8 border-2 border-neon-green rounded bg-black flex items-center justify-center">
-                                        <span className="text-neon-green font-mono text-sm font-bold">V</span>
+                                <div className="flex items-center space-x-3">
+                                    <div className="w-10 h-10 border-2 border-neon-green rounded bg-black flex items-center justify-center">
+                                        <span className="text-neon-green font-mono text-lg font-bold">V</span>
                                     </div>
                                     <div>
-                                        <h1 className="font-cyber text-lg neon-text hover:neon-text-blue transition-colors duration-300">
+                                        <h1 className="font-cyber text-xl neon-text hover:neon-text-blue transition-colors duration-300">
                                             VAIBHAV.SONI
                                         </h1>
                                         <div className="text-xs font-mono text-gray-400 -mt-1">
@@ -56,11 +56,11 @@ const Navbar = () => {
                         </div>
 
                         {/* Desktop Navigation */}
-                        <div className="hidden lg:flex items-center space-x-8">
+                        <div className="hidden lg:flex items-center space-x-6">
                             <Navigation />
                             <div className="flex items-center space-x-4">
                                 {/* Status Indicator */}
-                                <div className="flex items-center space-x-2 px-3 py-1 border border-neon-green rounded bg-black/50">
+                                <div className="flex items-center space-x-2 px-3 py-2 border border-neon-green rounded bg-black/50">
                                     <div className="w-2 h-2 bg-neon-green rounded-full animate-pulse"></div>
                                     <span className="font-mono text-xs text-neon-green">ONLINE</span>
                                 </div>
