@@ -58,8 +58,8 @@ const About = () => {
     {
       year: "2022",
       title: "journey into DevOps",
-      company: "non-CS background",
-      description: "Completed DevOps trainind from HighSkyIT Solutions, focusing on practical skills in cloud and container technologies."
+      company: "Non-CS background",
+      description: "Completed DevOps training from HighSkyIT Solutions, focusing on practical skills in cloud and container technologies. completed Red Hat certification."
     }
   ];
 
