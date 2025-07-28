@@ -1,5 +1,5 @@
 import React from 'react';
-import navLinks from '../data/navLinks';
+import navLinks from '../data/navlinks';
 
 const Navigation = ({ mobile = false, onLinkClick }) => {
   const handleLinkClick = (e, link) => {
