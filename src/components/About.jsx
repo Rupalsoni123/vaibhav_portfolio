@@ -5,65 +5,41 @@ import resume from "../assets/resume.pdf";
 const About = () => {
   const [activeTab, setActiveTab] = useState("overview");
 
-  const systemInfo = [
-    {
-      icon: "🏆",
-      label: "Certifications",
-      value: "3",
-      description: "Industry Validated",
-      color: "var(--primary-blue)"
-    },
-    {
-      icon: "📍",
-      label: "Location",
-      value: "Ahmedabad",
-      description: "Gujarat, India",
-      color: "var(--primary-purple)"
-    },
-    {
-      icon: "⚡",
-      label: "Experience",
-      value: "1+ Year",
-      description: "Professional DevOps",
-      color: "var(--primary-teal)"
-    },
-    {
-      icon: "🏢",
-      label: "Company",
-      value: "Inexture",
-      description: "Solutions Pvt Ltd",
-      color: "var(--accent-pink)"
-    }
-  ];
+  const handleTabClick = (tabKey, e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log('Tab clicked:', tabKey);
+    setActiveTab(tabKey);
+  };
 
-  const certifications = [
-    {
-      id: "CERT_001",
-      name: "HashiCorp Terraform Associate (003)",
-      year: "2024",
-      status: "Active",
-      level: "Associate",
-      description: "Infrastructure as Code expertise",
-      icon: "🏗️"
-    },
-    {
-      id: "CERT_002", 
-      name: "AWS Certified Cloud Practitioner",
-      year: "2023",
-      status: "Active",
-      level: "Foundational",
-      description: "AWS cloud fundamentals",
-      icon: "☁️"
-    },
-    {
-      id: "CERT_003",
-      name: "Red Hat Certified System Administrator",
-      year: "2022",
-      status: "Active", 
-      level: "Professional",
-      description: "Linux system administration",
-      icon: "🐧"
+  const handleDownloadResume = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log('Download resume clicked');
+    const link = document.createElement('a');
+    link.href = resume;
+    link.download = 'Vaibhav_Soni_Resume.pdf';
+    link.style.display = 'none';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const handleGetInTouch = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log('Get In Touch clicked');
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
     }
+  };
+
+  const systemInfo = [
+    { label: "OS", value: "Linux (Ubuntu 22.04)" },
+    { label: "Editor", value: "VS Code" },
+    { label: "Terminal", value: "Zsh + Oh My Zsh" },
+    { label: "Cloud", value: "AWS, Azure, DigitalOcean" }
   ];
 
   const journey = [
@@ -71,22 +47,40 @@ const About = () => {
       year: "2024",
       title: "DevOps Engineer",
       company: "Inexture Solutions",
-      description: "Leading infrastructure automation and cloud deployments",
-      achievements: ["Automated CI/CD pipelines", "Reduced deployment time by 60%", "Managed multi-cloud infrastructure"]
+      description: "Working on cloud infrastructure, CI/CD pipelines, and container orchestration."
     },
     {
       year: "2023",
-      title: "Cloud Practitioner Certification",
-      company: "AWS",
-      description: "Gained foundational knowledge of AWS cloud services",
-      achievements: ["Learned cloud fundamentals", "Understood AWS services", "Prepared for advanced certifications"]
+      title: "Cloud Practitioner",
+      company: "AWS Certification",
+      description: "Achieved AWS Cloud Practitioner certification, focusing on cloud fundamentals."
     },
     {
       year: "2022",
       title: "System Administrator",
-      company: "Red Hat Certified",
-      description: "Mastered Linux system administration and server management",
-      achievements: ["Linux server management", "Shell scripting automation", "System monitoring and troubleshooting"]
+      company: "RHCSA Certification",
+      description: "Completed Red Hat Certified System Administrator certification."
+    }
+  ];
+
+  const certifications = [
+    {
+      name: "HashiCorp Certified: Terraform Associate (003)",
+      issuer: "HashiCorp",
+      year: "2024",
+      badge: "🏆"
+    },
+    {
+      name: "AWS Certified Cloud Practitioner",
+      issuer: "Amazon Web Services",
+      year: "2023",
+      badge: "☁️"
+    },
+    {
+      name: "Red Hat Certified System Administrator (RHCSA)",
+      issuer: "Red Hat",
+      year: "2022",
+      badge: "🐧"
     }
   ];
 
@@ -94,55 +88,34 @@ const About = () => {
     overview: (
       <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
         <div>
-          <h3 className="heading-sm" style={{ marginBottom: '1rem' }}>
+          <h3 style={{ fontWeight: '600', marginBottom: '1rem', color: 'var(--text-primary)' }}>
             Professional Summary
           </h3>
-          <p style={{
-            color: 'var(--text-secondary)',
-            lineHeight: '1.7',
-            fontSize: '1rem'
-          }}>
-            Results-driven DevOps Engineer with a passion for automating infrastructure, 
-            scaling cloud-native applications, and optimizing CI/CD workflows. With hands-on 
-            experience across AWS, Azure, Kubernetes, Docker, and Terraform, I bridge the gap 
-            between development and operations to deliver reliable, scalable solutions.
+          <p style={{ color: 'var(--text-secondary)', lineHeight: '1.7' }}>
+            Results-driven DevOps Engineer with a passion for automating infrastructure, scaling cloud-native applications, 
+            and optimizing CI/CD workflows. With hands-on experience across AWS, Azure, Kubernetes, Docker, and Terraform, 
+            I bridge the gap between development and operations to deliver faster, more reliable software deployments.
           </p>
         </div>
         
         <div>
-          <h3 className="heading-sm" style={{ marginBottom: '1rem' }}>
-            Core Expertise
+          <h3 style={{ fontWeight: '600', marginBottom: '1rem', color: 'var(--text-primary)' }}>
+            Development Environment
           </h3>
-          <div className="grid-2" style={{ gap: '1rem' }}>
-            {[
-              "Cloud Infrastructure (AWS, Azure)",
-              "Container Orchestration (Kubernetes, Docker)",
-              "Infrastructure as Code (Terraform, CDK)",
-              "CI/CD Automation (GitHub Actions, GitLab)",
-              "Monitoring & Observability (Prometheus, Grafana)",
-              "Security & Compliance (IAM, Secret Management)"
-            ].map((skill, index) => (
-              <div
-                key={index}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.75rem',
-                  padding: '0.75rem',
-                  background: 'var(--bg-tertiary)',
-                  borderRadius: 'var(--border-radius-md)',
-                  color: 'var(--text-primary)'
-                }}
-              >
-                <div style={{
-                  width: '8px',
-                  height: '8px',
-                  background: 'var(--primary-blue)',
-                  borderRadius: '50%'
-                }} />
-                <span style={{ fontSize: '0.875rem', fontWeight: '500' }}>
-                  {skill}
-                </span>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
+            {systemInfo.map((info, index) => (
+              <div key={index} style={{
+                padding: '1rem',
+                background: 'var(--card-bg)',
+                border: '1px solid var(--border-color)',
+                borderRadius: '0.5rem'
+              }}>
+                <div style={{ fontWeight: '500', color: 'var(--text-primary)', marginBottom: '0.5rem' }}>
+                  {info.label}
+                </div>
+                <div style={{ color: 'var(--text-secondary)', fontSize: '0.875rem' }}>
+                  {info.value}
+                </div>
               </div>
             ))}
           </div>
@@ -153,165 +126,67 @@ const About = () => {
     journey: (
       <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
         {journey.map((item, index) => (
-          <div
-            key={index}
-            className="card"
-            style={{
-              padding: '2rem',
-              position: 'relative',
-              borderLeft: '4px solid var(--primary-blue)'
-            }}
-          >
-            <div style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'flex-start',
-              marginBottom: '1rem',
-              flexWrap: 'wrap',
-              gap: '1rem'
-            }}>
-              <div>
-                <div className="badge badge-primary" style={{ marginBottom: '0.5rem' }}>
-                  {item.year}
-                </div>
-                <h3 style={{
-                  fontWeight: '600',
-                  color: 'var(--text-primary)',
-                  marginBottom: '0.25rem'
-                }}>
-                  {item.title}
-                </h3>
-                <p style={{
-                  color: 'var(--primary-blue)',
-                  fontWeight: '500',
-                  fontSize: '0.875rem'
-                }}>
-                  {item.company}
-                </p>
-              </div>
+          <div key={index} style={{
+            padding: '1.5rem',
+            background: 'var(--card-bg)',
+            border: '1px solid var(--border-color)',
+            borderRadius: '0.5rem',
+            borderLeft: '4px solid #2563eb'
+          }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
+              <h3 style={{ fontWeight: '600', color: 'var(--text-primary)' }}>{item.title}</h3>
+              <span style={{ 
+                background: '#2563eb', 
+                color: 'white', 
+                padding: '0.25rem 0.75rem', 
+                borderRadius: '1rem', 
+                fontSize: '0.75rem',
+                fontWeight: '500'
+              }}>
+                {item.year}
+              </span>
             </div>
-            
-            <p style={{
-              color: 'var(--text-secondary)',
-              lineHeight: '1.6',
-              marginBottom: '1.5rem'
-            }}>
+            <div style={{ color: '#2563eb', fontWeight: '500', marginBottom: '0.5rem' }}>
+              {item.company}
+            </div>
+            <p style={{ color: 'var(--text-secondary)', lineHeight: '1.6' }}>
               {item.description}
             </p>
-            
-            <div>
-              <h4 style={{
-                fontWeight: '600',
-                color: 'var(--text-primary)',
-                marginBottom: '0.75rem',
-                fontSize: '0.875rem'
-              }}>
-                Key Achievements:
-              </h4>
-              <ul style={{
-                listStyle: 'none',
-                padding: 0,
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '0.5rem'
-              }}>
-                {item.achievements.map((achievement, achIndex) => (
-                  <li
-                    key={achIndex}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '0.75rem',
-                      color: 'var(--text-secondary)',
-                      fontSize: '0.875rem'
-                    }}
-                  >
-                    <div style={{
-                      width: '6px',
-                      height: '6px',
-                      background: 'var(--primary-teal)',
-                      borderRadius: '50%'
-                    }} />
-                    {achievement}
-                  </li>
-                ))}
-              </ul>
-            </div>
           </div>
         ))}
       </div>
     ),
     
     certifications: (
-      <div className="grid-responsive" style={{ gap: '1.5rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
         {certifications.map((cert, index) => (
-          <div
-            key={cert.id}
-            className="card animate-scale-in"
-            style={{
-              padding: '2rem',
-              textAlign: 'center',
-              animationDelay: `${index * 0.1}s`,
-              position: 'relative',
-              overflow: 'hidden'
-            }}
+          <div key={index} style={{
+            padding: '1.5rem',
+            background: 'var(--card-bg)',
+            border: '1px solid var(--border-color)',
+            borderRadius: '0.5rem',
+            textAlign: 'center',
+            transition: 'all 0.3s ease',
+            transform: 'translateY(0)'
+          }}
+          onMouseEnter={(e) => {
+            e.target.style.transform = 'translateY(-4px)';
+            e.target.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.1)';
+          }}
+          onMouseLeave={(e) => {
+            e.target.style.transform = 'translateY(0)';
+            e.target.style.boxShadow = 'none';
+          }}
           >
-            {/* Background decoration */}
-            <div style={{
-              position: 'absolute',
-              top: '-50%',
-              right: '-50%',
-              width: '100%',
-              height: '100%',
-              background: 'var(--gradient-primary)',
-              opacity: 0.05,
-              borderRadius: '50%'
-            }} />
-            
-            <div style={{
-              fontSize: '3rem',
-              marginBottom: '1rem'
-            }}>
-              {cert.icon}
-            </div>
-            
-            <div className="badge badge-secondary" style={{ marginBottom: '1rem' }}>
-              {cert.level}
-            </div>
-            
-            <h3 style={{
-              fontWeight: '600',
-              color: 'var(--text-primary)',
-              marginBottom: '0.5rem',
-              fontSize: '1.125rem'
-            }}>
+            <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>{cert.badge}</div>
+            <h3 style={{ fontWeight: '600', color: 'var(--text-primary)', marginBottom: '0.5rem' }}>
               {cert.name}
             </h3>
-            
-            <p style={{
-              color: 'var(--text-secondary)',
-              marginBottom: '1rem',
-              fontSize: '0.875rem'
-            }}>
-              {cert.description}
-            </p>
-            
-            <div style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              paddingTop: '1rem',
-              borderTop: '1px solid var(--border-color)'
-            }}>
-              <span style={{
-                color: 'var(--text-tertiary)',
-                fontSize: '0.875rem'
-              }}>
-                {cert.year}
-              </span>
-              <div className="badge badge-accent">
-                {cert.status}
-              </div>
+            <div style={{ color: '#2563eb', fontWeight: '500', marginBottom: '0.5rem' }}>
+              {cert.issuer}
+            </div>
+            <div style={{ color: 'var(--text-tertiary)', fontSize: '0.875rem' }}>
+              {cert.year}
             </div>
           </div>
         ))}
@@ -320,77 +195,24 @@ const About = () => {
   };
 
   return (
-    <section id="about" className="section" style={{ background: 'var(--bg-secondary)' }}>
+    <section id="about" className="section" style={{
+      background: 'var(--bg-secondary)',
+      padding: '5rem 0'
+    }}>
       <div className="container">
         {/* Section Header */}
         <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-          <div className="badge badge-accent" style={{ marginBottom: '1rem' }}>
-            👨‍💻 Get to Know Me
-          </div>
           <h2 className="heading-lg" style={{ marginBottom: '1rem' }}>
-            About <span className="text-gradient-accent">Vaibhav Soni</span>
+            About <span className="text-gradient">Me</span>
           </h2>
-          <p style={{
+          <p style={{ 
+            color: 'var(--text-secondary)', 
             fontSize: '1.125rem',
-            color: 'var(--text-secondary)',
             maxWidth: '600px',
-            margin: '0 auto',
-            lineHeight: '1.7'
+            margin: '0 auto'
           }}>
-            Passionate DevOps Engineer transforming ideas into scalable, 
-            reliable infrastructure solutions.
+            Get to know more about my background, journey, and certifications in DevOps and cloud technologies.
           </p>
-        </div>
-
-        {/* Stats Grid */}
-        <div className="grid-responsive" style={{ marginBottom: '4rem' }}>
-          {systemInfo.map((info, index) => (
-            <div
-              key={index}
-              className="card animate-fade-in-up"
-              style={{
-                textAlign: 'center',
-                padding: '2rem 1.5rem',
-                animationDelay: `${index * 0.1}s`,
-                position: 'relative',
-                overflow: 'hidden'
-              }}
-            >
-              {/* Top accent line */}
-              <div style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                height: '4px',
-                background: info.color,
-                opacity: 0.8
-              }} />
-              
-              <div style={{
-                fontSize: '2rem',
-                marginBottom: '1rem'
-              }}>
-                {info.icon}
-              </div>
-              <div className="heading-sm text-gradient" style={{ marginBottom: '0.5rem' }}>
-                {info.value}
-              </div>
-              <div style={{
-                fontWeight: '600',
-                color: 'var(--text-primary)',
-                marginBottom: '0.5rem'
-              }}>
-                {info.label}
-              </div>
-              <div style={{
-                fontSize: '0.875rem',
-                color: 'var(--text-tertiary)'
-              }}>
-                {info.description}
-              </div>
-            </div>
-          ))}
         </div>
 
         {/* Tab Navigation */}
@@ -408,21 +230,19 @@ const About = () => {
           ].map((tab) => (
             <button
               key={tab.key}
-              onClick={() => {
-                console.log('Tab clicked:', tab.key);
-                setActiveTab(tab.key);
-              }}
+              type="button"
+              onClick={(e) => handleTabClick(tab.key, e)}
               style={{
                 display: 'flex',
                 alignItems: 'center',
                 gap: '0.5rem',
                 padding: '0.75rem 1.5rem',
-                borderRadius: 'var(--border-radius-md)',
+                borderRadius: '0.5rem',
                 border: activeTab === tab.key 
                   ? 'none' 
                   : '1px solid var(--border-color)',
                 background: activeTab === tab.key 
-                  ? 'var(--gradient-accent)' 
+                  ? 'linear-gradient(135deg, #f59e0b, #f97316)' 
                   : 'var(--card-bg)',
                 color: activeTab === tab.key 
                   ? 'white' 
@@ -432,14 +252,16 @@ const About = () => {
                 cursor: 'pointer',
                 transition: 'all 0.3s ease',
                 boxShadow: activeTab === tab.key 
-                  ? 'var(--shadow-md)' 
-                  : 'none'
+                  ? '0 4px 12px rgba(245, 158, 11, 0.3)' 
+                  : 'none',
+                transform: 'translateY(0)'
               }}
               onMouseEnter={(e) => {
                 if (activeTab !== tab.key) {
-                  e.target.style.borderColor = 'var(--accent-pink)';
-                  e.target.style.color = 'var(--accent-pink)';
+                  e.target.style.borderColor = '#f59e0b';
+                  e.target.style.color = '#f59e0b';
                   e.target.style.transform = 'translateY(-2px)';
+                  e.target.style.boxShadow = '0 4px 12px rgba(245, 158, 11, 0.2)';
                 }
               }}
               onMouseLeave={(e) => {
@@ -447,8 +269,10 @@ const About = () => {
                   e.target.style.borderColor = 'var(--border-color)';
                   e.target.style.color = 'var(--text-secondary)';
                   e.target.style.transform = 'translateY(0)';
+                  e.target.style.boxShadow = 'none';
                 }
               }}
+              aria-label={`Switch to ${tab.label} tab`}
             >
               <span>{tab.icon}</span>
               {tab.label}
@@ -457,64 +281,84 @@ const About = () => {
         </div>
 
         {/* Tab Content */}
-        <div className="animate-fade-in-up" style={{ minHeight: '400px' }}>
-          {tabContent[activeTab] || (
-            <div style={{ textAlign: 'center', padding: '2rem' }}>
-              <p>Content for {activeTab} tab is loading...</p>
-            </div>
-          )}
+        <div style={{ minHeight: '400px', marginBottom: '4rem' }}>
+          {tabContent[activeTab]}
         </div>
 
-        {/* Call to Action - Made 30% smaller */}
+        {/* Call to Action */}
         <div style={{
           textAlign: 'center',
-          marginTop: '4rem',
-          padding: '2rem 1.5rem',
+          padding: '2rem',
           background: 'var(--card-bg)',
-          borderRadius: 'var(--border-radius-xl)',
+          borderRadius: '1rem',
           border: '1px solid var(--border-color)',
-          maxWidth: '70%',
-          margin: '4rem auto 0'
+          maxWidth: '600px',
+          margin: '0 auto'
         }}>
-          <h3 className="heading-sm" style={{ marginBottom: '1rem' }}>
-            Ready to Collaborate?
+          <h3 style={{ fontWeight: '600', marginBottom: '1rem', color: 'var(--text-primary)' }}>
+            Let's Work Together
           </h3>
-          <p style={{
-            fontSize: '1rem',
-            color: 'var(--text-secondary)',
-            marginBottom: '1.5rem',
-            maxWidth: '500px',
-            margin: '0 auto 1.5rem'
-          }}>
-            Let's discuss how we can work together to build amazing infrastructure 
-            solutions that scale and perform.
+          <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem' }}>
+            Ready to discuss your next DevOps project or need help with cloud infrastructure?
           </p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <a
-              href={resume}
-              download="Vaibhav_Soni_Resume.pdf"
-              className="btn btn-primary"
+            <button
+              type="button"
+              onClick={handleDownloadResume}
               style={{
-                textDecoration: 'none',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '0.5rem'
+                gap: '0.5rem',
+                padding: '0.75rem 1.5rem',
+                background: 'linear-gradient(135deg, #2563eb, #3b82f6)',
+                color: 'white',
+                border: 'none',
+                borderRadius: '0.5rem',
+                fontWeight: '600',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                transform: 'translateY(0)'
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.transform = 'translateY(-2px)';
+                e.target.style.boxShadow = '0 10px 25px rgba(37, 99, 235, 0.3)';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.transform = 'translateY(0)';
+                e.target.style.boxShadow = 'none';
               }}
             >
               <Download size={16} />
               Download Resume
-            </a>
-            <a
-              href="#contact"
-              className="btn btn-outline"
-              style={{ textDecoration: 'none' }}
-              onClick={(e) => {
-                e.preventDefault();
-                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+            </button>
+            
+            <button
+              type="button"
+              onClick={handleGetInTouch}
+              style={{
+                padding: '0.75rem 1.5rem',
+                background: 'transparent',
+                color: '#2563eb',
+                border: '2px solid #2563eb',
+                borderRadius: '0.5rem',
+                fontWeight: '600',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                transform: 'translateY(0)'
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.background = '#2563eb';
+                e.target.style.color = 'white';
+                e.target.style.transform = 'translateY(-2px)';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.background = 'transparent';
+                e.target.style.color = '#2563eb';
+                e.target.style.transform = 'translateY(0)';
               }}
             >
               Get In Touch
-            </a>
+            </button>
           </div>
         </div>
       </div>
@@ -523,4 +367,3 @@ const About = () => {
 };
 
 export default About;
-     

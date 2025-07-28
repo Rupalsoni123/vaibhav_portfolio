@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Mail, Phone, MapPin, Send, CheckCircle, AlertCircle } from "./Icons";
-import contactInfo from "../data/contactInfo";
+import { Mail, Phone, MapPin, Send, Loader } from "./Icons";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -9,8 +8,8 @@ const Contact = () => {
     subject: "",
     message: ""
   });
-  const [status, setStatus] = useState({ type: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [status, setStatus] = useState({ type: "", message: "" });
   const [focusedField, setFocusedField] = useState(null);
 
   const handleChange = (e) => {
@@ -20,9 +19,13 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
+    e.stopPropagation();
+    console.log('Form submitted:', formData);
+    
     setIsSubmitting(true);
+    setStatus({ type: "", message: "" });
     
     // Basic validation
     if (!formData.name || !formData.email || !formData.message) {
@@ -44,8 +47,37 @@ const Contact = () => {
       setIsSubmitting(false);
       
       // Clear status after 5 seconds
-      setTimeout(() => setStatus({ type: "", message: "" }), 5000);
+      setTimeout(() => {
+        setStatus({ type: "", message: "" });
+      }, 5000);
     }, 2000);
+  };
+
+  const handleQuickTopic = (topic, e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log('Quick topic selected:', topic);
+    setFormData({ ...formData, subject: topic });
+  };
+
+  const handleContactMethod = (method, value, e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log('Contact method clicked:', method, value);
+    
+    switch (method) {
+      case 'email':
+        window.location.href = `mailto:${value}`;
+        break;
+      case 'phone':
+        window.location.href = `tel:${value}`;
+        break;
+      case 'location':
+        window.open(`https://maps.google.com/?q=${encodeURIComponent(value)}`, '_blank');
+        break;
+      default:
+        console.warn(`Unknown contact method: ${method}`);
+    }
   };
 
   const contactMethods = [
@@ -53,129 +85,138 @@ const Contact = () => {
       icon: <Mail size={24} />,
       title: "Email",
       value: "vaibhavsoni5567@gmail.com",
-      link: "mailto:vaibhavsoni5567@gmail.com",
+      method: "email",
       description: "Drop me a line anytime",
-      color: "var(--primary-blue)"
+      color: "#2563eb"
     },
     {
       icon: <Phone size={24} />,
       title: "Phone",
       value: "+91 8890944027",
-      link: "tel:+918890944027",
+      method: "phone",
       description: "Let's have a conversation",
-      color: "var(--primary-purple)"
+      color: "#7c3aed"
     },
     {
       icon: <MapPin size={24} />,
       title: "Location",
       value: "Ahmedabad, India",
-      link: "https://maps.google.com/?q=Ahmedabad,India",
+      method: "location",
       description: "Gujarat, India",
-      color: "var(--primary-teal)"
+      color: "#059669"
     }
   ];
 
   const quickTopics = [
     "DevOps Consultation",
     "Infrastructure Setup",
-    "CI/CD Implementation",
+    "CI/CD Pipeline",
     "Cloud Migration",
-    "Automation Solutions",
+    "Monitoring Setup",
     "General Inquiry"
   ];
 
+  const socialLinks = [
+    {
+      platform: "LinkedIn",
+      url: "https://linkedin.com/in/vaibhavsonii21",
+      icon: "💼"
+    },
+    {
+      platform: "GitHub",
+      url: "https://github.com/vaibhav21soni",
+      icon: "🐙"
+    },
+    {
+      platform: "Twitter",
+      url: "https://twitter.com/vaibhavsonii21",
+      icon: "🐦"
+    }
+  ];
+
   return (
-    <section id="contact" className="section" style={{ background: 'var(--bg-primary)' }}>
+    <section id="contact" className="section" style={{
+      background: 'var(--bg-primary)',
+      padding: '5rem 0'
+    }}>
       <div className="container">
         {/* Section Header */}
         <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-          <div className="badge badge-accent" style={{ marginBottom: '1rem' }}>
-            📬 Let's Connect
-          </div>
           <h2 className="heading-lg" style={{ marginBottom: '1rem' }}>
-            Get In <span className="text-gradient-accent">Touch</span>
+            Get In <span className="text-gradient">Touch</span>
           </h2>
-          <p style={{
+          <p style={{ 
+            color: 'var(--text-secondary)', 
             fontSize: '1.125rem',
-            color: 'var(--text-secondary)',
             maxWidth: '600px',
-            margin: '0 auto',
-            lineHeight: '1.7'
+            margin: '0 auto'
           }}>
-            Ready to discuss your next project? I'm here to help you build 
-            scalable, reliable infrastructure solutions.
+            Ready to discuss your next DevOps project? Let's connect and build something amazing together.
           </p>
         </div>
 
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
-          gap: '3rem',
+          gridTemplateColumns: '1fr 1fr',
+          gap: '4rem',
           alignItems: 'start'
         }}>
           {/* Contact Information */}
           <div className="animate-slide-in-left">
-            <h3 className="heading-md" style={{ marginBottom: '2rem' }}>
-              Let's Start a Conversation
-            </h3>
-            
-            <p style={{
-              color: 'var(--text-secondary)',
-              lineHeight: '1.7',
-              marginBottom: '2rem'
+            <h3 style={{ 
+              fontWeight: '600', 
+              marginBottom: '2rem',
+              color: 'var(--text-primary)',
+              fontSize: '1.25rem'
             }}>
-              Whether you need help with cloud infrastructure, DevOps automation, 
-              or just want to discuss technology, I'm always excited to connect 
-              with fellow professionals and potential collaborators.
-            </p>
+              Let's Connect
+            </h3>
 
             {/* Contact Methods */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginBottom: '2rem' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginBottom: '3rem' }}>
               {contactMethods.map((method, index) => (
-                <a
+                <button
                   key={index}
-                  href={method.link}
-                  target={method.link.startsWith('http') ? '_blank' : '_self'}
-                  rel={method.link.startsWith('http') ? 'noopener noreferrer' : ''}
-                  className="card"
+                  type="button"
+                  onClick={(e) => handleContactMethod(method.method, method.value, e)}
                   style={{
-                    padding: '1.5rem',
-                    textDecoration: 'none',
-                    color: 'inherit',
                     display: 'flex',
                     alignItems: 'center',
                     gap: '1rem',
-                    transition: 'all 0.3s ease',
+                    padding: '1.5rem',
+                    background: 'var(--card-bg)',
+                    border: '1px solid var(--border-color)',
+                    borderRadius: '1rem',
                     cursor: 'pointer',
-                    position: 'relative',
-                    overflow: 'hidden'
+                    transition: 'all 0.3s ease',
+                    transform: 'translateY(0)',
+                    textAlign: 'left',
+                    width: '100%'
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.transform = 'translateY(-4px)';
                     e.currentTarget.style.borderColor = method.color;
+                    e.currentTarget.style.boxShadow = `0 10px 25px ${method.color}20`;
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.transform = 'translateY(0)';
                     e.currentTarget.style.borderColor = 'var(--border-color)';
+                    e.currentTarget.style.boxShadow = 'none';
                   }}
                 >
-                  {/* Icon */}
                   <div style={{
                     width: '3rem',
                     height: '3rem',
-                    borderRadius: 'var(--border-radius-lg)',
-                    background: `linear-gradient(135deg, ${method.color}, ${method.color}20)`,
+                    borderRadius: '50%',
+                    background: `${method.color}20`,
+                    color: method.color,
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'center',
-                    color: 'white',
-                    flexShrink: 0
+                    justifyContent: 'center'
                   }}>
                     {method.icon}
                   </div>
-                  
-                  {/* Content */}
-                  <div style={{ flex: 1 }}>
+                  <div>
                     <h4 style={{
                       fontWeight: '600',
                       color: 'var(--text-primary)',
@@ -184,7 +225,7 @@ const Contact = () => {
                       {method.title}
                     </h4>
                     <p style={{
-                      color: 'var(--primary-blue)',
+                      color: method.color,
                       fontWeight: '500',
                       marginBottom: '0.25rem'
                     }}>
@@ -197,7 +238,7 @@ const Contact = () => {
                       {method.description}
                     </p>
                   </div>
-                </a>
+                </button>
               ))}
             </div>
 
@@ -208,25 +249,42 @@ const Contact = () => {
                 color: 'var(--text-primary)',
                 marginBottom: '1rem'
               }}>
-                Connect on Social Media
+                Follow Me
               </h4>
-              <div style={{
-                display: 'flex',
-                gap: '1rem',
-                flexWrap: 'wrap'
-              }}>
-                {contactInfo.socialLinks.map((link, index) => (
+              <div style={{ display: 'flex', gap: '1rem' }}>
+                {socialLinks.map((link, index) => (
                   <a
                     key={index}
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="social-icon"
                     title={link.platform}
                     style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
                       width: '3rem',
                       height: '3rem',
-                      fontSize: '1.25rem'
+                      borderRadius: '50%',
+                      background: 'var(--card-bg)',
+                      border: '1px solid var(--border-color)',
+                      color: 'var(--text-secondary)',
+                      fontSize: '1.25rem',
+                      transition: 'all 0.3s ease',
+                      textDecoration: 'none',
+                      transform: 'scale(1)'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.borderColor = '#2563eb';
+                      e.target.style.color = '#2563eb';
+                      e.target.style.transform = 'scale(1.1)';
+                      e.target.style.boxShadow = '0 4px 12px rgba(37, 99, 235, 0.3)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.borderColor = 'var(--border-color)';
+                      e.target.style.color = 'var(--text-secondary)';
+                      e.target.style.transform = 'scale(1)';
+                      e.target.style.boxShadow = 'none';
                     }}
                   >
                     {link.icon}
@@ -238,14 +296,30 @@ const Contact = () => {
 
           {/* Contact Form */}
           <div className="animate-slide-in-right">
-            <div className="card" style={{ padding: '2rem' }}>
-              <h3 className="heading-md" style={{ marginBottom: '1.5rem' }}>
-                Send a Message
+            <div style={{
+              padding: '2rem',
+              background: 'var(--card-bg)',
+              border: '1px solid var(--border-color)',
+              borderRadius: '1rem'
+            }}>
+              <h3 style={{
+                fontWeight: '600',
+                marginBottom: '1.5rem',
+                color: 'var(--text-primary)',
+                fontSize: '1.25rem'
+              }}>
+                Send Message
               </h3>
 
               {/* Quick Topic Selection */}
               <div style={{ marginBottom: '2rem' }}>
-                <label className="form-label">
+                <label style={{
+                  display: 'block',
+                  fontWeight: '500',
+                  color: 'var(--text-primary)',
+                  marginBottom: '0.75rem',
+                  fontSize: '0.875rem'
+                }}>
                   Quick Topics (Optional)
                 </label>
                 <div style={{
@@ -257,31 +331,34 @@ const Contact = () => {
                     <button
                       key={index}
                       type="button"
-                      onClick={() => setFormData({ ...formData, subject: topic })}
+                      onClick={(e) => handleQuickTopic(topic, e)}
                       style={{
                         padding: '0.5rem 1rem',
-                        borderRadius: 'var(--border-radius-md)',
+                        borderRadius: '0.5rem',
                         border: '1px solid var(--border-color)',
                         background: formData.subject === topic 
-                          ? 'var(--primary-blue)' 
+                          ? '#2563eb' 
                           : 'var(--card-bg)',
                         color: formData.subject === topic 
                           ? 'white' 
                           : 'var(--text-secondary)',
-                        fontSize: '0.75rem',
+                        fontSize: '0.875rem',
                         cursor: 'pointer',
-                        transition: 'all 0.3s ease'
+                        transition: 'all 0.3s ease',
+                        transform: 'translateY(0)'
                       }}
                       onMouseEnter={(e) => {
                         if (formData.subject !== topic) {
-                          e.target.style.borderColor = 'var(--primary-blue)';
-                          e.target.style.color = 'var(--primary-blue)';
+                          e.target.style.borderColor = '#2563eb';
+                          e.target.style.color = '#2563eb';
+                          e.target.style.transform = 'translateY(-1px)';
                         }
                       }}
                       onMouseLeave={(e) => {
                         if (formData.subject !== topic) {
                           e.target.style.borderColor = 'var(--border-color)';
                           e.target.style.color = 'var(--text-secondary)';
+                          e.target.style.transform = 'translateY(0)';
                         }
                       }}
                     >
@@ -294,7 +371,13 @@ const Contact = () => {
               <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                 {/* Name Field */}
                 <div>
-                  <label htmlFor="name" className="form-label">
+                  <label htmlFor="name" style={{
+                    display: 'block',
+                    fontWeight: '500',
+                    color: 'var(--text-primary)',
+                    marginBottom: '0.5rem',
+                    fontSize: '0.875rem'
+                  }}>
                     Name *
                   </label>
                   <input
@@ -305,19 +388,31 @@ const Contact = () => {
                     onChange={handleChange}
                     onFocus={() => setFocusedField('name')}
                     onBlur={() => setFocusedField(null)}
-                    className="form-input"
                     placeholder="Your full name"
                     required
                     style={{
-                      borderColor: focusedField === 'name' ? 'var(--primary-blue)' : 'var(--border-color)',
-                      boxShadow: focusedField === 'name' ? '0 0 0 3px rgba(37, 99, 235, 0.1)' : 'none'
+                      width: '100%',
+                      padding: '0.75rem',
+                      border: `2px solid ${focusedField === 'name' ? '#2563eb' : 'var(--border-color)'}`,
+                      borderRadius: '0.5rem',
+                      background: 'var(--bg-primary)',
+                      color: 'var(--text-primary)',
+                      fontSize: '1rem',
+                      transition: 'border-color 0.3s ease',
+                      outline: 'none'
                     }}
                   />
                 </div>
 
                 {/* Email Field */}
                 <div>
-                  <label htmlFor="email" className="form-label">
+                  <label htmlFor="email" style={{
+                    display: 'block',
+                    fontWeight: '500',
+                    color: 'var(--text-primary)',
+                    marginBottom: '0.5rem',
+                    fontSize: '0.875rem'
+                  }}>
                     Email *
                   </label>
                   <input
@@ -328,19 +423,31 @@ const Contact = () => {
                     onChange={handleChange}
                     onFocus={() => setFocusedField('email')}
                     onBlur={() => setFocusedField(null)}
-                    className="form-input"
                     placeholder="your.email@example.com"
                     required
                     style={{
-                      borderColor: focusedField === 'email' ? 'var(--primary-blue)' : 'var(--border-color)',
-                      boxShadow: focusedField === 'email' ? '0 0 0 3px rgba(37, 99, 235, 0.1)' : 'none'
+                      width: '100%',
+                      padding: '0.75rem',
+                      border: `2px solid ${focusedField === 'email' ? '#2563eb' : 'var(--border-color)'}`,
+                      borderRadius: '0.5rem',
+                      background: 'var(--bg-primary)',
+                      color: 'var(--text-primary)',
+                      fontSize: '1rem',
+                      transition: 'border-color 0.3s ease',
+                      outline: 'none'
                     }}
                   />
                 </div>
 
                 {/* Subject Field */}
                 <div>
-                  <label htmlFor="subject" className="form-label">
+                  <label htmlFor="subject" style={{
+                    display: 'block',
+                    fontWeight: '500',
+                    color: 'var(--text-primary)',
+                    marginBottom: '0.5rem',
+                    fontSize: '0.875rem'
+                  }}>
                     Subject
                   </label>
                   <input
@@ -351,18 +458,30 @@ const Contact = () => {
                     onChange={handleChange}
                     onFocus={() => setFocusedField('subject')}
                     onBlur={() => setFocusedField(null)}
-                    className="form-input"
                     placeholder="What's this about?"
                     style={{
-                      borderColor: focusedField === 'subject' ? 'var(--primary-blue)' : 'var(--border-color)',
-                      boxShadow: focusedField === 'subject' ? '0 0 0 3px rgba(37, 99, 235, 0.1)' : 'none'
+                      width: '100%',
+                      padding: '0.75rem',
+                      border: `2px solid ${focusedField === 'subject' ? '#2563eb' : 'var(--border-color)'}`,
+                      borderRadius: '0.5rem',
+                      background: 'var(--bg-primary)',
+                      color: 'var(--text-primary)',
+                      fontSize: '1rem',
+                      transition: 'border-color 0.3s ease',
+                      outline: 'none'
                     }}
                   />
                 </div>
 
                 {/* Message Field */}
                 <div>
-                  <label htmlFor="message" className="form-label">
+                  <label htmlFor="message" style={{
+                    display: 'block',
+                    fontWeight: '500',
+                    color: 'var(--text-primary)',
+                    marginBottom: '0.5rem',
+                    fontSize: '0.875rem'
+                  }}>
                     Message *
                   </label>
                   <textarea
@@ -372,29 +491,36 @@ const Contact = () => {
                     onChange={handleChange}
                     onFocus={() => setFocusedField('message')}
                     onBlur={() => setFocusedField(null)}
-                    className="form-textarea"
                     rows="5"
                     placeholder="Tell me about your project or inquiry..."
                     required
                     style={{
-                      borderColor: focusedField === 'message' ? 'var(--primary-blue)' : 'var(--border-color)',
-                      boxShadow: focusedField === 'message' ? '0 0 0 3px rgba(37, 99, 235, 0.1)' : 'none',
-                      resize: 'vertical'
+                      width: '100%',
+                      padding: '0.75rem',
+                      border: `2px solid ${focusedField === 'message' ? '#2563eb' : 'var(--border-color)'}`,
+                      borderRadius: '0.5rem',
+                      background: 'var(--bg-primary)',
+                      color: 'var(--text-primary)',
+                      fontSize: '1rem',
+                      transition: 'border-color 0.3s ease',
+                      outline: 'none',
+                      resize: 'vertical',
+                      minHeight: '120px'
                     }}
                   />
                 </div>
 
                 {/* Status Message */}
                 {status.message && (
-                  <div className={status.type === 'success' ? 'status-success' : 'status-error'}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                      {status.type === 'success' ? (
-                        <CheckCircle size={16} />
-                      ) : (
-                        <AlertCircle size={16} />
-                      )}
-                      {status.message}
-                    </div>
+                  <div style={{
+                    padding: '0.75rem',
+                    borderRadius: '0.5rem',
+                    background: status.type === 'success' ? '#10b98120' : '#ef444420',
+                    border: `1px solid ${status.type === 'success' ? '#10b981' : '#ef4444'}`,
+                    color: status.type === 'success' ? '#10b981' : '#ef4444',
+                    fontSize: '0.875rem'
+                  }}>
+                    {status.message}
                   </div>
                 )}
 
@@ -402,26 +528,40 @@ const Contact = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="btn btn-primary"
                   style={{
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     gap: '0.5rem',
-                    opacity: isSubmitting ? 0.7 : 1,
-                    cursor: isSubmitting ? 'not-allowed' : 'pointer'
+                    padding: '0.75rem 1.5rem',
+                    background: isSubmitting 
+                      ? 'var(--bg-tertiary)' 
+                      : 'linear-gradient(135deg, #2563eb, #3b82f6)',
+                    color: isSubmitting ? 'var(--text-tertiary)' : 'white',
+                    border: 'none',
+                    borderRadius: '0.5rem',
+                    fontWeight: '600',
+                    cursor: isSubmitting ? 'not-allowed' : 'pointer',
+                    transition: 'all 0.3s ease',
+                    transform: 'translateY(0)',
+                    fontSize: '1rem'
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isSubmitting) {
+                      e.target.style.transform = 'translateY(-2px)';
+                      e.target.style.boxShadow = '0 10px 25px rgba(37, 99, 235, 0.3)';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isSubmitting) {
+                      e.target.style.transform = 'translateY(0)';
+                      e.target.style.boxShadow = 'none';
+                    }
                   }}
                 >
                   {isSubmitting ? (
                     <>
-                      <div style={{
-                        width: '16px',
-                        height: '16px',
-                        border: '2px solid transparent',
-                        borderTop: '2px solid white',
-                        borderRadius: '50%',
-                        animation: 'spin 1s linear infinite'
-                      }} />
+                      <Loader size={16} style={{ animation: 'spin 1s linear infinite' }} />
                       Sending...
                     </>
                   ) : (
@@ -435,64 +575,19 @@ const Contact = () => {
             </div>
           </div>
         </div>
-
-        {/* Additional Info */}
-        <div style={{
-          textAlign: 'center',
-          marginTop: '4rem',
-          padding: '2rem',
-          background: 'var(--bg-secondary)',
-          borderRadius: 'var(--border-radius-xl)'
-        }}>
-          <h3 className="heading-sm" style={{ marginBottom: '1rem' }}>
-            Response Time
-          </h3>
-          <p style={{
-            color: 'var(--text-secondary)',
-            marginBottom: '1rem'
-          }}>
-            I typically respond to all inquiries within 24 hours. For urgent matters, 
-            feel free to reach out via phone or LinkedIn.
-          </p>
-          <div style={{
-            display: 'flex',
-            justifyContent: 'center',
-            gap: '2rem',
-            flexWrap: 'wrap'
-          }}>
-            <div style={{ textAlign: 'center' }}>
-              <div className="heading-sm text-gradient">
-                &lt; 24h
-              </div>
-              <div style={{ fontSize: '0.875rem', color: 'var(--text-tertiary)' }}>
-                Email Response
-              </div>
-            </div>
-            <div style={{ textAlign: 'center' }}>
-              <div className="heading-sm text-gradient">
-                &lt; 2h
-              </div>
-              <div style={{ fontSize: '0.875rem', color: 'var(--text-tertiary)' }}>
-                Urgent Inquiries
-              </div>
-            </div>
-            <div style={{ textAlign: 'center' }}>
-              <div className="heading-sm text-gradient">
-                100%
-              </div>
-              <div style={{ fontSize: '0.875rem', color: 'var(--text-tertiary)' }}>
-                Response Rate
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
 
-      {/* Add spin animation for loading spinner */}
       <style jsx>{`
         @keyframes spin {
           0% { transform: rotate(0deg); }
           100% { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 768px) {
+          .container > div {
+            grid-template-columns: 1fr !important;
+            gap: 2rem !important;
+          }
         }
       `}</style>
     </section>
@@ -500,4 +595,3 @@ const Contact = () => {
 };
 
 export default Contact;
-     
