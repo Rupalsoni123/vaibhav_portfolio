@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import HamBurgerMenu from './HamBurgerMenu';
 import Navigation from './Navigation';
-import ThemeToggle from './ThemeToggle';
 import { ThemeContext } from '../utils/ThemeContext';
 
 const Navbar = () => {
@@ -27,14 +26,10 @@ const Navbar = () => {
     return (
         <>
             <nav 
-                className={`cyber-nav fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-black border-b-2 border-neon-green backdrop-blur-md ${
                     scrolled 
-                        ? theme === 'dark' 
-                            ? 'bg-black/95 border-neon-green shadow-neon' 
-                            : 'bg-white/95 border-green-600 shadow-lg'
-                        : theme === 'dark'
-                            ? 'bg-black/80 border-neon-green/50'
-                            : 'bg-white/80 border-green-600/50'
+                        ? 'bg-black/95 shadow-neon' 
+                        : 'bg-black/80'
                 }`}
                 role="navigation"
                 aria-label="Main navigation"
@@ -64,8 +59,6 @@ const Navbar = () => {
                         <div className="hidden lg:flex items-center space-x-8">
                             <Navigation />
                             <div className="flex items-center space-x-4">
-                                <ThemeToggle />
-                                
                                 {/* Status Indicator */}
                                 <div className="flex items-center space-x-2 px-3 py-1 border border-neon-green rounded bg-black/50">
                                     <div className="w-2 h-2 bg-neon-green rounded-full animate-pulse"></div>
@@ -84,8 +77,7 @@ const Navbar = () => {
                         </div>
 
                         {/* Mobile Menu Button */}
-                        <div className="lg:hidden flex items-center space-x-4">
-                            <ThemeToggle />
+                        <div className="lg:hidden flex items-center">
                             <HamBurgerMenu 
                                 navOpen={navOpen} 
                                 handleClick={handleClick}
