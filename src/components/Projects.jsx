@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Code, Link, ArrowRightLong, Cancel } from "./Icons";
+import { Code, Link, ArrowRightLong, Cancel, Rocket, Cloud, Server } from "./Icons";
 import projectsData from "../data/projects";
 
 const Projects = () => {
@@ -7,6 +7,16 @@ const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [hoveredProject, setHoveredProject] = useState(null);
+
+  // Icon mapping function
+  const getProjectIcon = (iconName) => {
+    const iconMap = {
+      rocket: <Rocket size={24} color="#2563eb" />,
+      cloud: <Cloud size={24} color="#2563eb" />,
+      server: <Server size={24} color="#2563eb" />
+    };
+    return iconMap[iconName] || <Rocket size={24} color="#2563eb" />;
+  };
 
   // Get unique categories
   const categories = ["All", ...new Set(projectsData.map(project => project.category))];
@@ -186,7 +196,7 @@ const Projects = () => {
                   }}>
                     {project.category}
                   </div>
-                  <div style={{ fontSize: '1.5rem' }}>{project.icon}</div>
+                  <div style={{ fontSize: '1.5rem' }}>{getProjectIcon(project.icon)}</div>
                 </div>
 
                 <h3 style={{

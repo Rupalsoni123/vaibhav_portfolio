@@ -1,6 +1,3 @@
-import React from "react";
-import { Rocket } from "../components/Icons";
-
 const projectsData = [
   {
     id: 1,
@@ -11,7 +8,7 @@ const projectsData = [
     technologies: ["Terraform", "Azure", "App Services", "API Management", "Logic Apps", "Service Bus", "Storage Accounts", "Key Vaults"],
     live: null,
     image: null,
-    icon: "☁️",
+    icon: "cloud",
     status: "Completed",
     featured: true
   },
@@ -24,7 +21,7 @@ const projectsData = [
     technologies: ["Kubernetes", "DigitalOcean", "Apache Kafka", "ZooKeeper", "YAML", "Persistent Volumes"],
     live: null,
     image: null,
-    icon: <Rocket size={24} color="#2563eb" />,
+    icon: "rocket",
     status: "Completed",
     featured: true
   },
@@ -37,7 +34,7 @@ const projectsData = [
     technologies: ["Docker", "FreePBX", "Asterisk-9", "Private Registry", "Kubernetes"],
     live: null,
     image: null,
-    icon: "🐳",
+    icon: "server",
     status: "Completed",
     featured: true
   },
@@ -50,7 +47,7 @@ const projectsData = [
     technologies: ["AWS", "Terragrunt", "AWS Organizations", "AWS SSO", "EC2", "Systems Manager", "Bitbucket CI/CD", "Service Control Policies"],
     live: null,
     image: null,
-    icon: "🏗️",
+    icon: "cloud",
     status: "Completed",
     featured: true
   },
@@ -63,7 +60,7 @@ const projectsData = [
     technologies: ["Kubernetes", "Cloud-native Solutions", "DevOps", "Enterprise Architecture", "Deployment Optimization"],
     live: null,
     image: null,
-    icon: "⚙️",
+    icon: "server",
     status: "In Progress",
     featured: false
   }
