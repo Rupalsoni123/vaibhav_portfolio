@@ -29,222 +29,194 @@ const Home = () => {
   ];
 
   const stats = [
-    { label: "Years Experience", value: "1", icon: "⚡" },
-    { label: "Projects Deployed", value: "4+", icon: "🚀" },
-    { label: "Technologies", value: "20+", icon: "⚙️" },
-    { label: "Certifications", value: "3", icon: "🏆" }
+    { label: "Years Experience", value: "1+", icon: "⚡", color: "from-primary-500 to-primary-600" },
+    { label: "Projects Deployed", value: "4+", icon: "🚀", color: "from-accent-500 to-accent-600" },
+    { label: "Technologies", value: "20+", icon: "⚙️", color: "from-warning-500 to-warning-600" },
+    { label: "Certifications", value: "3", icon: "🏆", color: "from-purple-500 to-purple-600" }
   ];
 
   const techHighlights = [
-    { name: "AWS", color: "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300" },
-    { name: "Terraform", color: "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300" },
-    { name: "Kubernetes", color: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300" },
-    { name: "Docker", color: "bg-cyan-100 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-300" }
+    { name: "AWS", color: "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300", icon: "☁️" },
+    { name: "Terraform", color: "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300", icon: "🏗️" },
+    { name: "Kubernetes", color: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300", icon: "⚓" },
+    { name: "Docker", color: "bg-cyan-100 text-cyan-700 dark:bg-cyan-900/30 dark:text-cyan-300", icon: "🐳" }
   ];
 
   return (
-    <div
+    <section
       name="Home"
-      className="hero-gradient bg-pattern min-h-screen w-full flex items-center"
+      className="hero-gradient min-h-screen w-full flex items-center relative overflow-hidden"
     >
+      {/* Background Elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-primary-500/10 rounded-full blur-3xl animate-float"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent-500/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-128 h-128 bg-purple-500/5 rounded-full blur-3xl animate-pulse-slow"></div>
+      </div>
+
       {/* Main Content Container */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 w-full">
+      <div className="container-custom relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           
-          {/* Content Section */}
-          <div className="order-2 lg:order-1">
-            
-            <AnimatedWrapper delay={0.2}>
-              <div className="space-y-6">
-                <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-full text-sm font-medium">
-                  <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                  Available for DevOps Opportunities
+          {/* Left Content */}
+          <div className="space-y-8">
+            <AnimatedWrapper animation="fade-in" delay={0.2}>
+              <div className="space-y-4">
+                <div className="inline-flex items-center px-4 py-2 bg-primary-50 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 rounded-full text-sm font-medium border border-primary-200 dark:border-primary-800">
+                  <span className="w-2 h-2 bg-accent-500 rounded-full mr-2 animate-pulse"></span>
+                  Available for DevOps opportunities
                 </div>
                 
-                <div>
-                  <h1 className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold leading-tight text-gray-900 dark:text-white mb-4">
-                    <span className="block mb-2">I'm</span>
-                    <span className="block neon-text animatedHeading bg-clip-text text-transparent font-black">
-                      Vaibhav Soni
-                    </span>
-                  </h1>
-                  
-                  {/* Tech Highlights */}
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {techHighlights.map((tech, index) => (
-                      <span
-                        key={index}
-                        className={`px-3 py-1 rounded-full text-sm font-medium ${tech.color}`}
-                      >
-                        {tech.name}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </AnimatedWrapper>
-
-            <AnimatedWrapper delay={0.35}>
-              <div className="space-y-6">
-                <p className="text-xl sm:text-2xl font-semibold text-gray-700 dark:text-gray-300">
-                  Specializing in
-                </p>
-                <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-cyan-600 dark:text-cyan-400 min-h-[3rem] neon-text">
+                <h1 className="text-5xl lg:text-7xl font-bold leading-tight">
+                  Hi, I'm{" "}
+                  <span className="gradient-text font-signature text-6xl lg:text-8xl">
+                    Vaibhav Soni
+                  </span>
+                </h1>
+                
+                <div className="text-xl lg:text-2xl text-secondary-600 dark:text-secondary-300 font-medium">
+                  <span>Passionate about </span>
                   <TypeAnimation
                     sequence={interest}
-                    speed={50}
                     wrapper="span"
-                    cursor={true}
+                    speed={50}
+                    className="gradient-text font-semibold"
                     repeat={Infinity}
-                    className="font-mono"
                   />
                 </div>
-                <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl leading-relaxed">
-                  Building <span className="font-semibold text-cyan-600 dark:text-cyan-400 neon-text">scalable infrastructure</span> and automating workflows to empower development teams. 
-                  Currently contributing to DevOps projects at <span className="font-semibold text-purple-600 dark:text-purple-400 neon-text">Inexture Solutions</span>.
-                </p>
               </div>
             </AnimatedWrapper>
 
-            {/* Stats Section */}
-            <AnimatedWrapper delay={0.4}>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 my-8">
-                {stats.map((stat, index) => (
-                  <div key={index} className="text-center p-4 glass-card hover:shadow-md transition-shadow duration-300 pulse-glow">
-                    <div className="text-2xl mb-2">{stat.icon}</div>
-                    <div className="text-2xl font-bold text-cyan-600 dark:text-cyan-400 neon-text">{stat.value}</div>
-                    <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">{stat.label}</div>
+            <AnimatedWrapper animation="slide-up" delay={0.4}>
+              <p className="text-lg text-secondary-600 dark:text-secondary-300 leading-relaxed max-w-2xl">
+                DevOps Engineer based in Ahmedabad, India, specializing in cloud-native technologies, 
+                infrastructure automation, and building scalable, resilient systems that empower 
+                development teams to deliver faster and more reliably.
+              </p>
+            </AnimatedWrapper>
+
+            {/* Tech Highlights */}
+            <AnimatedWrapper animation="slide-up" delay={0.6}>
+              <div className="flex flex-wrap gap-3">
+                {techHighlights.map((tech, index) => (
+                  <div
+                    key={tech.name}
+                    className={`px-4 py-2 rounded-xl ${tech.color} font-medium text-sm flex items-center gap-2 hover:scale-105 transition-transform duration-300`}
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                  >
+                    <span>{tech.icon}</span>
+                    {tech.name}
                   </div>
                 ))}
               </div>
             </AnimatedWrapper>
 
-            {/* Social Links */}
-            <AnimatedWrapper delay={0.45}>
-              <div className="flex items-center gap-6 mb-8">
-                <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Connect:</p>
-                <ul className="flex items-center gap-4">
-                  {contactInfo.map(({ id, link, name, icon, download }) => {
-                    return (
-                      <li key={id} className="group relative">
-                        <a
-                          href={link}
-                          download={download}
-                          target="_blank"
-                          rel="noferrer"
-                          aria-label={name}
-                          className="social-icon pulse-glow"
-                        >
-                          <span className="text-gray-600 dark:text-gray-400 group-hover:text-cyan-400 transition-colors duration-300">
-                            {icon}
-                          </span>
-                        </a>
-                        <div className="absolute -bottom-12 left-1/2 transform -translate-x-1/2 scale-0 group-hover:scale-100 transition-all duration-300 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 text-xs px-2 py-1 rounded whitespace-nowrap">
-                          {name}
-                        </div>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-            </AnimatedWrapper>
-
-            {/* CTA Buttons */}
-            <AnimatedWrapper delay={0.55}>
+            {/* Action Buttons */}
+            <AnimatedWrapper animation="slide-up" delay={0.8}>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link
-                  to="About"
-                  smooth
-                  duration={500}
-                  className="btn-primary cursor-pointer inline-flex items-center justify-center gap-3"
-                >
-                  <span>Explore My Journey</span>
-                  <ArrowDown className="w-4 h-4 group-hover:translate-y-1 transition-transform duration-300" />
-                </Link>
-                
                 <Link
                   to="Projects"
                   smooth
                   duration={500}
-                  className="btn-secondary cursor-pointer inline-flex items-center justify-center gap-3"
+                  className="btn-primary inline-flex items-center justify-center gap-2 cursor-pointer group"
                 >
-                  <span>View Projects</span>
-                  <span className="text-lg">⚡</span>
+                  <span>View My Work</span>
+                  <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
                 </Link>
+                
+                <a
+                  href={contactInfo.resume}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-outline inline-flex items-center justify-center gap-2 group"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  <span>Download Resume</span>
+                </a>
               </div>
             </AnimatedWrapper>
 
-            {/* Achievement Banner */}
-            <AnimatedWrapper delay={0.65}>
-              <div className="mt-8 p-4 glass-card border border-cyan-500/20">
-                <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-gray-700 dark:text-gray-300">
-                  <span className="flex items-center gap-2">
-                    <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                    <strong className="text-cyan-600 dark:text-cyan-400 neon-text">240+</strong> Azure Resources Migrated
-                  </span>
-                  <span className="hidden sm:block text-gray-400">•</span>
-                  <span className="flex items-center gap-2">
-                    <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
-                    <strong className="text-purple-600 dark:text-purple-400 neon-text">70%</strong> Code Reduction
-                  </span>
-                  <span className="hidden sm:block text-gray-400">•</span>
-                  <span className="flex items-center gap-2">
-                    <span className="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></span>
-                    <strong className="text-green-600 dark:text-green-400 neon-text">6</strong> AWS Accounts Managed
-                  </span>
-                </div>
+            {/* Stats */}
+            <AnimatedWrapper animation="slide-up" delay={1.0}>
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 pt-8">
+                {stats.map((stat, index) => (
+                  <div
+                    key={stat.label}
+                    className="text-center group hover:scale-105 transition-transform duration-300"
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                  >
+                    <div className={`w-16 h-16 mx-auto mb-3 rounded-2xl bg-gradient-to-br ${stat.color} flex items-center justify-center text-2xl shadow-lg group-hover:shadow-xl transition-shadow duration-300`}>
+                      {stat.icon}
+                    </div>
+                    <div className="text-2xl font-bold text-secondary-800 dark:text-secondary-200">
+                      {stat.value}
+                    </div>
+                    <div className="text-sm text-secondary-600 dark:text-secondary-400 font-medium">
+                      {stat.label}
+                    </div>
+                  </div>
+                ))}
               </div>
             </AnimatedWrapper>
           </div>
 
-          {/* Profile Image Section */}
-          <div className="order-1 lg:order-2 flex justify-center">
-            <AnimatedWrapper delay={0.8} animateFrom="right">
-              <div className="relative float-animation">
-                {/* Neon glow */}
-                <div className="absolute -inset-4 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 rounded-full blur-2xl pulse-glow"></div>
+          {/* Right Content - Avatar */}
+          <div className="flex justify-center lg:justify-end">
+            <AnimatedWrapper animation="scale-in" delay={0.6}>
+              <div className="relative">
+                {/* Decorative Elements */}
+                <div className="absolute -inset-4 bg-gradient-to-r from-primary-500 via-accent-500 to-purple-500 rounded-full blur-2xl opacity-20 animate-pulse-slow"></div>
+                <div className="absolute -inset-2 bg-gradient-to-r from-primary-600 to-accent-600 rounded-full opacity-30 animate-spin-slow"></div>
                 
-                {/* Avatar container */}
-                <div className="relative w-80 h-80 rounded-full overflow-hidden border-4 border-cyan-400/50 shadow-2xl shadow-cyan-500/50 pulse-glow">
-                  <img
-                    src={Avatar}
-                    alt="Vaibhav Soni - DevOps Engineer"
-                    loading="eager"
-                    title="Vaibhav Soni - DevOps Engineer"
-                    className="w-full h-full object-cover object-center hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-                
-                {/* Neon floating badges */}
-                <div className="absolute -top-4 -right-4 bg-cyan-600 text-white px-3 py-1 rounded-full text-sm font-semibold shadow-lg neon-text pulse-glow">
-                  DevOps
-                </div>
-                <div className="absolute -bottom-4 -left-4 bg-purple-600 text-white px-3 py-1 rounded-full text-sm font-semibold shadow-lg neon-text pulse-glow">
-                  AWS
-                </div>
-                <div className="absolute top-1/2 -right-6 bg-orange-600 text-white px-2 py-1 rounded-full text-xs font-semibold shadow-lg neon-text pulse-glow">
-                  K8s
+                {/* Avatar Container */}
+                <div className="relative w-80 h-80 lg:w-96 lg:h-96">
+                  <div className="w-full h-full rounded-full overflow-hidden border-4 border-white dark:border-secondary-800 shadow-2xl hover:scale-105 transition-transform duration-500">
+                    <img
+                      src={Avatar}
+                      alt="Vaibhav Soni - DevOps Engineer"
+                      className="w-full h-full object-cover object-center"
+                      loading="eager"
+                    />
+                  </div>
+                  
+                  {/* Floating Elements */}
+                  <div className="absolute -top-4 -right-4 w-12 h-12 bg-accent-500 rounded-full flex items-center justify-center text-white text-xl shadow-lg animate-bounce-slow">
+                    ☁️
+                  </div>
+                  <div className="absolute -bottom-4 -left-4 w-12 h-12 bg-primary-500 rounded-full flex items-center justify-center text-white text-xl shadow-lg animate-bounce-slow" style={{ animationDelay: '1s' }}>
+                    ⚙️
+                  </div>
                 </div>
               </div>
             </AnimatedWrapper>
           </div>
         </div>
-      </div>
 
-      {/* Scroll Down Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <Link
-          to="About"
-          smooth
-          duration={500}
-          className="cursor-pointer flex flex-col items-center text-cyan-400 hover:text-cyan-300 transition-colors duration-300"
-        >
-          <span className="text-sm mb-2 neon-text">Scroll Down</span>
-          <ArrowDown className="w-6 h-6 pulse-glow" />
-        </Link>
+        {/* Scroll Indicator */}
+        <AnimatedWrapper animation="fade-in" delay={1.2}>
+          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+            <Link
+              to="About"
+              smooth
+              duration={500}
+              className="flex flex-col items-center gap-2 text-secondary-600 dark:text-secondary-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-300 cursor-pointer group"
+            >
+              <span className="text-sm font-medium">Scroll to explore</span>
+              <div className="w-6 h-10 border-2 border-current rounded-full flex justify-center">
+                <div className="w-1 h-3 bg-current rounded-full mt-2 animate-bounce"></div>
+              </div>
+              <ArrowDown className="w-5 h-5 group-hover:translate-y-1 transition-transform duration-300" />
+            </Link>
+          </div>
+        </AnimatedWrapper>
       </div>
-    </div>
+    </section>
   );
 };
 
 export default Home;
+        

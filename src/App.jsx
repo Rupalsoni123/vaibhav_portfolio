@@ -17,14 +17,14 @@ const App = () => {
   const { theme } = useContext(ThemeContext);
   
   return (
-    <div className={`${theme} transition-colors duration-300`}>
+    <div className={`${theme} transition-all duration-300`}>
       <SkipLink />
-      <div className="bg-slate-200 dark:bg-gray-900 text-gray-900 dark:text-white">
+      <div className="bg-secondary-100 dark:bg-secondary-900 text-text-light dark:text-text-dark min-h-screen">
         <Navbar />
-        <main id="main-content" role="main">
+        <main id="main-content" role="main" className="relative">
           <Home />
           <Suspense fallback={
-            <div className="h-screen flex items-center justify-center bg-slate-200 dark:bg-gray-900">
+            <div className="h-screen flex items-center justify-center bg-secondary-100 dark:bg-secondary-900">
               <LoadingSpinner />
             </div>
           }>
@@ -35,7 +35,7 @@ const App = () => {
           </Suspense>
         </main>
         <Suspense fallback={
-          <div className="h-32 flex items-center justify-center bg-slate-200 dark:bg-gray-900">
+          <div className="h-32 flex items-center justify-center bg-secondary-100 dark:bg-secondary-900">
             <LoadingSpinner />
           </div>
         }>
