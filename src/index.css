@@ -447,7 +447,7 @@ code, pre, .font-mono {
 }
 
 .form-textarea {
-  @apply form-input resize-none min-h-[120px];
+  @apply form-input resize-y min-h-[120px];
 }
 
 .form-label {
