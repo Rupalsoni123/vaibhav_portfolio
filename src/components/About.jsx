@@ -43,18 +43,23 @@ const About = () => {
       title: "DevOps Engineer",
       company: "Inexture Solutions",
       description: "Working on cloud infrastructure, CI/CD pipelines, and container orchestration."
-    },
+    },{
+    year: "2024",
+      title: "career break",
+      company: "family's health issues",
+      description: "focused on family responsibilities and personal development. also completed HashiCorp Certified: Terraform Associate (003) certification."
+  },
     {
       year: "2023",
-      title: "Cloud Practitioner",
-      company: "AWS Certification",
-      description: "Achieved AWS Cloud Practitioner certification, focusing on cloud fundamentals."
+      title: "DevOps Engineer",
+      company: "HighSkyIT Solutions",
+      description: "Migrated 240+ Azure resources to Terraform, reducing code duplication by 70% with reusable dynamic modules. Implemented CI/CD pipelines using GitLab and Bitbucket for automated deployments."
     },
     {
       year: "2022",
-      title: "System Administrator",
-      company: "RHCSA Certification",
-      description: "Completed Red Hat Certified System Administrator certification."
+      title: "journey into DevOps",
+      company: "non-CS background",
+      description: "Completed DevOps trainind from HighSkyIT Solutions, focusing on practical skills in cloud and container technologies."
     }
   ];
 
