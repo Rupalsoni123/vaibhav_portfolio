@@ -408,14 +408,19 @@ const About = () => {
           ].map((tab) => (
             <button
               key={tab.key}
-              onClick={() => setActiveTab(tab.key)}
+              onClick={() => {
+                console.log('Tab clicked:', tab.key);
+                setActiveTab(tab.key);
+              }}
               style={{
                 display: 'flex',
                 alignItems: 'center',
                 gap: '0.5rem',
                 padding: '0.75rem 1.5rem',
                 borderRadius: 'var(--border-radius-md)',
-                border: 'none',
+                border: activeTab === tab.key 
+                  ? 'none' 
+                  : '1px solid var(--border-color)',
                 background: activeTab === tab.key 
                   ? 'var(--gradient-accent)' 
                   : 'var(--card-bg)',
@@ -428,10 +433,7 @@ const About = () => {
                 transition: 'all 0.3s ease',
                 boxShadow: activeTab === tab.key 
                   ? 'var(--shadow-md)' 
-                  : 'none',
-                border: activeTab === tab.key 
-                  ? 'none' 
-                  : '1px solid var(--border-color)'
+                  : 'none'
               }}
               onMouseEnter={(e) => {
                 if (activeTab !== tab.key) {
@@ -456,7 +458,11 @@ const About = () => {
 
         {/* Tab Content */}
         <div className="animate-fade-in-up" style={{ minHeight: '400px' }}>
-          {tabContent[activeTab]}
+          {tabContent[activeTab] || (
+            <div style={{ textAlign: 'center', padding: '2rem' }}>
+              <p>Content for {activeTab} tab is loading...</p>
+            </div>
+          )}
         </div>
 
         {/* Call to Action - Made 30% smaller */}

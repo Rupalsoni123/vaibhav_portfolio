@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import skillsData from "../data/skills";
+import skills from "../data/skills";
 
 const Skills = () => {
   const [activeCategory, setActiveCategory] = useState("All");
@@ -7,16 +7,16 @@ const Skills = () => {
 
   // Get unique categories from skills data
   const categories = useMemo(() => {
-    const uniqueCategories = [...new Set(skillsData.map(skill => skill.category))];
+    const uniqueCategories = [...new Set(skills.map(skill => skill.category))];
     return ["All", ...uniqueCategories];
   }, []);
 
   // Filter skills based on active category
   const filteredSkills = useMemo(() => {
     if (activeCategory === "All") {
-      return skillsData;
+      return skills;
     }
-    return skillsData.filter(skill => skill.category === activeCategory);
+    return skills.filter(skill => skill.category === activeCategory);
   }, [activeCategory]);
 
   const skillStats = [

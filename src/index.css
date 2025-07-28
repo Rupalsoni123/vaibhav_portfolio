@@ -38,17 +38,17 @@
   --border-radius-xl: 1rem;
 }
 
-/* Light Theme Variables */
+/* Light Theme Variables - Made dimmer */
 :root.light {
-  --bg-primary: var(--neutral-50);
-  --bg-secondary: var(--neutral-100);
-  --bg-tertiary: var(--neutral-200);
-  --text-primary: var(--neutral-900);
-  --text-secondary: var(--neutral-700);
-  --text-tertiary: var(--neutral-500);
-  --border-color: var(--neutral-200);
-  --card-bg: #ffffff;
-  --card-border: var(--neutral-200);
+  --bg-primary: #f1f5f9;
+  --bg-secondary: #e2e8f0;
+  --bg-tertiary: #cbd5e1;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-tertiary: #475569;
+  --border-color: #94a3b8;
+  --card-bg: #f8fafc;
+  --card-border: #cbd5e1;
 }
 
 /* Dark Theme Variables */
@@ -3150,5 +3150,100 @@ a:focus {
   
   .section {
     padding: 2rem 0;
+  }
+}
+/* Responsive Button Improvements */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--border-radius-md);
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  min-height: 44px; /* Touch target size */
+  min-width: 44px;
+}
+
+.btn:focus {
+  outline: 2px solid var(--primary-blue);
+  outline-offset: 2px;
+}
+
+.btn-primary {
+  background: var(--gradient-primary);
+  color: white;
+  box-shadow: var(--shadow-md);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn-secondary {
+  background: var(--gradient-secondary);
+  color: white;
+  box-shadow: var(--shadow-md);
+}
+
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--primary-blue);
+  border: 2px solid var(--primary-blue);
+}
+
+.btn-outline:hover {
+  background: var(--primary-blue);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.btn-accent {
+  background: var(--gradient-accent);
+  color: white;
+  box-shadow: var(--shadow-md);
+}
+
+.btn-accent:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Mobile responsive buttons */
+@media (max-width: 768px) {
+  .btn {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.8125rem;
+    min-height: 48px; /* Larger touch target on mobile */
+  }
+  
+  .btn-group {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .btn-group .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .btn {
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
   }
 }
