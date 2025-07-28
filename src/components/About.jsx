@@ -11,28 +11,32 @@ const About = () => {
       title: "Certified Professional",
       description: "HashiCorp Terraform Associate, AWS Cloud Practitioner, RHCSA",
       gradient: "from-yellow-400 to-orange-500",
-      stats: "3 Certifications"
+      stats: "3 Certifications",
+      bgColor: "bg-yellow-50 dark:bg-yellow-900/20"
     },
     {
       icon: <MapPin className="w-6 h-6" />,
       title: "Based in Ahmedabad",
       description: "Contributing to DevOps projects at Inexture Solutions",
       gradient: "from-green-400 to-emerald-500",
-      stats: "India"
+      stats: "India",
+      bgColor: "bg-green-50 dark:bg-green-900/20"
     },
     {
       icon: <Calendar className="w-6 h-6" />,
       title: "1+ Years Experience",
       description: "Hands-on experience with cloud-native technologies",
       gradient: "from-blue-400 to-cyan-500",
-      stats: "Professional"
+      stats: "Professional",
+      bgColor: "bg-blue-50 dark:bg-blue-900/20"
     },
     {
       icon: <Code className="w-6 h-6" />,
       title: "Full-Stack DevOps",
       description: "From infrastructure to deployment automation",
       gradient: "from-purple-400 to-pink-500",
-      stats: "End-to-End"
+      stats: "End-to-End",
+      bgColor: "bg-purple-50 dark:bg-purple-900/20"
     }
   ];
 
@@ -41,244 +45,227 @@ const About = () => {
       icon: "🏆",
       title: "HashiCorp Certified Terraform Associate (003)",
       year: "2024",
-      description: "Infrastructure as Code expertise"
+      description: "Infrastructure as Code expertise",
+      color: "text-purple-600 dark:text-purple-400"
     },
     {
       icon: "☁️",
       title: "AWS Certified Cloud Practitioner",
       year: "2023",
-      description: "Cloud fundamentals and services"
+      description: "Cloud fundamentals and services",
+      color: "text-orange-600 dark:text-orange-400"
     },
     {
       icon: "🐧",
       title: "Red Hat Certified System Administrator (RHCSA)",
       year: "2022",
-      description: "Linux system administration"
-    },
-    {
-      icon: "🚀",
-      title: "4+ Successful Project Deployments",
-      year: "2024",
-      description: "Production infrastructure projects"
-    },
-    {
-      icon: "⚡",
-      title: "70% Deployment Time Reduction",
-      year: "2024",
-      description: "Through automation and optimization"
-    },
-    {
-      icon: "🔧",
-      title: "Multi-Cloud Environment Expertise",
-      year: "2024",
-      description: "AWS, Azure, DigitalOcean experience"
+      description: "Linux system administration",
+      color: "text-red-600 dark:text-red-400"
     }
   ];
 
-  const skills = [
-    { category: "Cloud Platforms", items: ["AWS", "Azure", "DigitalOcean"] },
-    { category: "Infrastructure as Code", items: ["Terraform", "Terragrunt", "AWS CDK"] },
-    { category: "Container Orchestration", items: ["Kubernetes", "Docker", "Helm"] },
-    { category: "CI/CD & Automation", items: ["GitHub Actions", "GitLab CI/CD", "Jenkins"] },
-    { category: "Monitoring", items: ["Prometheus", "Grafana", "ELK Stack"] },
-    { category: "Programming", items: ["Python", "Bash", "TypeScript"] }
+  const journey = [
+    {
+      phase: "Foundation",
+      period: "2022",
+      description: "Started with Linux system administration and earned RHCSA certification",
+      icon: "🚀"
+    },
+    {
+      phase: "Cloud Journey",
+      period: "2023",
+      description: "Transitioned to cloud technologies, earned AWS Cloud Practitioner",
+      icon: "☁️"
+    },
+    {
+      phase: "Infrastructure as Code",
+      period: "2024",
+      description: "Specialized in Terraform and infrastructure automation",
+      icon: "🏗️"
+    },
+    {
+      phase: "DevOps Professional",
+      period: "Present",
+      description: "Contributing to enterprise DevOps projects at Inexture Solutions",
+      icon: "⚡"
+    }
   ];
 
   return (
-    <div
-      name="About"
-      className="relative min-h-screen hero-bg flex items-center overflow-hidden"
-    >
-      {/* Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 right-10 w-72 h-72 bg-gradient-to-br from-purple-400/10 to-pink-400/10 rounded-full blur-3xl animate-float"></div>
-        <div className="absolute bottom-20 left-10 w-96 h-96 bg-gradient-to-br from-blue-400/10 to-cyan-400/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }}></div>
-      </div>
-
-      <div className="relative z-10 w-full">
-        <div className="container-custom section-padding">
-          
-          {/* Section Header */}
-          <div className="text-center mb-20">
-            <AnimatedWrapper>
-              <div className="inline-flex items-center gap-3 px-6 py-3 glass rounded-full shadow-lg mb-8">
-                <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></div>
-                <span className="font-semibold text-sm text-purple-700 dark:text-purple-300">About Me</span>
-              </div>
-              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-shadow mb-8">
-                DevOps Engineer &{" "}
-                <span className="text-gradient">Cloud Architect</span>
-              </h2>
-              <p className="text-xl text-secondary-600 dark:text-secondary-400 max-w-4xl mx-auto leading-relaxed">
-                Passionate about building scalable infrastructure and automating workflows to empower development teams with cutting-edge DevOps solutions
-              </p>
-            </AnimatedWrapper>
+    <section name="About" className="section-padding bg-white dark:bg-secondary-900">
+      <div className="container-custom">
+        {/* Section Header */}
+        <AnimatedWrapper animation="fade-in" delay={0.2}>
+          <div className="text-center mb-16">
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+              About <span className="gradient-text">Me</span>
+            </h2>
+            <p className="text-xl text-secondary-600 dark:text-secondary-300 max-w-3xl mx-auto leading-relaxed">
+              Passionate DevOps Engineer with a unique journey from non-CS background to 
+              cloud-native expertise, driven by continuous learning and real-world project experience.
+            </p>
           </div>
+        </AnimatedWrapper>
 
-          <div className="grid lg:grid-cols-2 gap-20 items-start">
-            
-            {/* Left Column - Story & Highlights */}
-            <div className="space-y-12">
-              
-              {/* My Story */}
-              <AnimatedWrapper delay={0.2}>
-                <div className="card-gradient p-8 rounded-3xl">
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center">
-                      <Code className="w-6 h-6 text-white" />
-                    </div>
-                    <h3 className="text-2xl font-bold text-gray-800 dark:text-white">My Journey</h3>
-                  </div>
-                  
-                  <div className="space-y-6 text-gray-700 dark:text-gray-300 leading-relaxed">
-                    <p>
-                      Aspiring DevOps Engineer based in Ahmedabad, India, currently contributing to DevOps related projects at{" "}
-                      <span className="font-bold text-gradient">Inexture Solutions</span>. 
-                      I'm passionate about streamlining workflows, embracing cloud-native technologies, and building resilient, 
-                      scalable infrastructure that empowers development teams to deliver faster and more reliably.
-                    </p>
-                    
-                    <p>
-                      Despite coming from a non-CS academic background, I have gained extensive experience through real-world projects, 
-                      industry certifications, and continuous learning. I believe in always learning, thinking creatively, and working 
-                      together to solve complex infrastructure challenges.
-                    </p>
-
-                    <p>
-                      My expertise spans across cloud platforms, containerization, infrastructure as code, and CI/CD automation, 
-                      with a strong focus on creating efficient, secure, and maintainable systems that scale with business needs.
-                    </p>
-                  </div>
+        <div className="grid lg:grid-cols-2 gap-16 items-start">
+          {/* Left Column - Story */}
+          <div className="space-y-8">
+            <AnimatedWrapper animation="slide-right" delay={0.4}>
+              <div className="card-modern p-8">
+                <h3 className="text-2xl font-bold mb-6 text-secondary-800 dark:text-secondary-200">
+                  My Journey
+                </h3>
+                <div className="space-y-6">
+                  <p className="text-secondary-600 dark:text-secondary-300 leading-relaxed">
+                    Despite coming from a non-Computer Science academic background, I've built my 
+                    expertise through hands-on experience, real-world projects, and continuous learning. 
+                    My journey into DevOps began with a fascination for automation and scalable systems.
+                  </p>
+                  <p className="text-secondary-600 dark:text-secondary-300 leading-relaxed">
+                    Currently contributing to DevOps projects at <span className="font-semibold text-primary-600 dark:text-primary-400">Inexture Solutions</span>, 
+                    I specialize in streamlining workflows, embracing cloud-native technologies, and 
+                    building resilient infrastructure that empowers development teams.
+                  </p>
+                  <p className="text-secondary-600 dark:text-secondary-300 leading-relaxed">
+                    My approach combines technical expertise with a deep understanding of business needs, 
+                    ensuring that every solution I implement drives real value and efficiency.
+                  </p>
                 </div>
-              </AnimatedWrapper>
 
-              {/* Highlights Grid */}
-              <AnimatedWrapper delay={0.3}>
-                <div className="grid sm:grid-cols-2 gap-6">
-                  {highlights.map((highlight, index) => (
-                    <div key={index} className="group relative">
-                      <div className="absolute inset-0 bg-gradient-to-r from-primary-600/5 to-purple-600/5 rounded-2xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                      <div className="relative card-gradient p-6 rounded-2xl hover:scale-105 transform transition-all duration-300">
-                        <div className={`w-14 h-14 bg-gradient-to-r ${highlight.gradient} rounded-2xl flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                          {highlight.icon}
-                        </div>
-                        <h4 className="text-lg font-bold text-gray-800 dark:text-white mb-2">{highlight.title}</h4>
-                        <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 leading-relaxed">{highlight.description}</p>
-                        <div className="text-xs font-semibold text-gradient">{highlight.stats}</div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </AnimatedWrapper>
-
-              {/* Download Resume */}
-              <AnimatedWrapper delay={0.4}>
-                <div className="text-center lg:text-left">
+                {/* CTA Button */}
+                <div className="mt-8">
                   <a
                     href={resume}
-                    download="Vaibhav_Soni_Resume.pdf"
-                    className="btn-primary inline-flex items-center gap-3"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-primary inline-flex items-center gap-3 group"
                   >
                     <Download className="w-5 h-5 group-hover:animate-bounce" />
                     <span>Download Resume</span>
                   </a>
                 </div>
-              </AnimatedWrapper>
-            </div>
+              </div>
+            </AnimatedWrapper>
 
-            {/* Right Column - Achievements & Skills */}
-            <div className="space-y-12">
-              
-              {/* Achievements Timeline */}
-              <AnimatedWrapper delay={0.5}>
-                <div className="card-gradient p-8 rounded-3xl">
-                  <div className="flex items-center gap-4 mb-8">
-                    <div className="w-12 h-12 bg-gradient-to-r from-yellow-500 to-orange-600 rounded-2xl flex items-center justify-center">
-                      <Award className="w-6 h-6 text-white" />
-                    </div>
-                    <h3 className="text-2xl font-bold text-secondary-800 dark:text-white">Key Achievements</h3>
-                  </div>
-                  
-                  <div className="space-y-6">
-                    {achievements.map((achievement, index) => (
-                      <div key={index} className="group flex items-start gap-4 p-4 rounded-2xl hover:bg-secondary-50 dark:hover:bg-secondary-800/50 transition-all duration-300">
-                        <div className="w-12 h-12 bg-gradient-to-r from-primary-100 to-purple-100 dark:from-primary-900/30 dark:to-purple-900/30 rounded-xl flex items-center justify-center text-2xl group-hover:scale-110 transition-transform duration-300">
-                          {achievement.icon}
-                        </div>
-                        <div className="flex-1">
-                          <div className="flex items-center justify-between mb-2">
-                            <h4 className="font-bold text-secondary-800 dark:text-white group-hover:text-gradient transition-colors duration-300">
-                              {achievement.title}
-                            </h4>
-                            <span className="text-xs font-semibold text-gradient px-2 py-1 bg-primary-50 dark:bg-primary-900/30 rounded-full">
-                              {achievement.year}
-                            </span>
-                          </div>
-                          <p className="text-sm text-secondary-600 dark:text-secondary-400 leading-relaxed">
-                            {achievement.description}
-                          </p>
-                        </div>
+            {/* Journey Timeline */}
+            <AnimatedWrapper animation="slide-right" delay={0.6}>
+              <div className="card-modern p-8">
+                <h3 className="text-2xl font-bold mb-6 text-secondary-800 dark:text-secondary-200">
+                  Professional Journey
+                </h3>
+                <div className="space-y-6">
+                  {journey.map((item, index) => (
+                    <div key={index} className="flex gap-4 group">
+                      <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-primary-500 to-accent-500 rounded-xl flex items-center justify-center text-white text-xl shadow-lg group-hover:scale-110 transition-transform duration-300">
+                        {item.icon}
                       </div>
-                    ))}
-                  </div>
-                </div>
-              </AnimatedWrapper>
-
-              {/* Skills Categories */}
-              <AnimatedWrapper delay={0.6}>
-                <div className="card-gradient p-8 rounded-3xl">
-                  <div className="flex items-center gap-4 mb-8">
-                    <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-cyan-600 rounded-2xl flex items-center justify-center">
-                      <Code className="w-6 h-6 text-white" />
-                    </div>
-                    <h3 className="text-2xl font-bold text-secondary-800 dark:text-white">Technical Skills</h3>
-                  </div>
-                  
-                  <div className="space-y-6">
-                    {skills.map((skillGroup, index) => (
-                      <div key={index} className="group">
-                        <h4 className="font-bold text-secondary-800 dark:text-white mb-3 group-hover:text-gradient transition-colors duration-300">
-                          {skillGroup.category}
-                        </h4>
-                        <div className="flex flex-wrap gap-2">
-                          {skillGroup.items.map((skill, skillIndex) => (
-                            <span
-                              key={skillIndex}
-                              className="px-3 py-1 bg-gradient-to-r from-primary-50 to-purple-50 dark:from-primary-900/20 dark:to-purple-900/20 border border-primary-200 dark:border-primary-700 rounded-lg text-sm font-medium text-secondary-700 dark:text-secondary-300 hover:scale-105 transform transition-all duration-300 cursor-default"
-                            >
-                              {skill}
-                            </span>
-                          ))}
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-2">
+                          <h4 className="font-semibold text-secondary-800 dark:text-secondary-200">
+                            {item.phase}
+                          </h4>
+                          <span className="text-sm px-3 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 rounded-full font-medium">
+                            {item.period}
+                          </span>
                         </div>
+                        <p className="text-secondary-600 dark:text-secondary-300 text-sm leading-relaxed">
+                          {item.description}
+                        </p>
                       </div>
-                    ))}
-                  </div>
+                    </div>
+                  ))}
                 </div>
-              </AnimatedWrapper>
+              </div>
+            </AnimatedWrapper>
+          </div>
 
-              {/* Contact CTA */}
-              <AnimatedWrapper delay={0.7}>
-                <div className="card-gradient p-8 rounded-3xl text-center border-2 border-primary-200 dark:border-primary-800">
-                  <h4 className="text-2xl font-bold text-gradient mb-4">
-                    Let's Work Together
-                  </h4>
-                  <p className="text-secondary-600 dark:text-secondary-400 mb-6 leading-relaxed">
-                    Ready to discuss your next DevOps project? I'm always excited to collaborate on innovative solutions that drive business growth.
-                  </p>
-                  <a
-                    href="mailto:vaibhavsoni5567@gmail.com"
-                    className="btn-secondary inline-flex items-center gap-2"
+          {/* Right Column - Highlights & Achievements */}
+          <div className="space-y-8">
+            {/* Highlights Grid */}
+            <AnimatedWrapper animation="slide-left" delay={0.4}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {highlights.map((highlight, index) => (
+                  <div
+                    key={index}
+                    className={`card-modern p-6 ${highlight.bgColor} hover:scale-105 transition-all duration-300 group`}
+                    style={{ animationDelay: `${index * 0.1}s` }}
                   >
-                    <span>Get In Touch</span>
-                    <span className="text-lg">💬</span>
-                  </a>
+                    <div className={`w-12 h-12 bg-gradient-to-br ${highlight.gradient} rounded-xl flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                      {highlight.icon}
+                    </div>
+                    <h4 className="font-semibold text-secondary-800 dark:text-secondary-200 mb-2">
+                      {highlight.title}
+                    </h4>
+                    <p className="text-sm text-secondary-600 dark:text-secondary-300 mb-3 leading-relaxed">
+                      {highlight.description}
+                    </p>
+                    <div className="text-xs font-medium text-primary-600 dark:text-primary-400 uppercase tracking-wide">
+                      {highlight.stats}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </AnimatedWrapper>
+
+            {/* Certifications */}
+            <AnimatedWrapper animation="slide-left" delay={0.6}>
+              <div className="card-modern p-8">
+                <h3 className="text-2xl font-bold mb-6 text-secondary-800 dark:text-secondary-200">
+                  Certifications
+                </h3>
+                <div className="space-y-4">
+                  {achievements.map((achievement, index) => (
+                    <div
+                      key={index}
+                      className="flex items-start gap-4 p-4 rounded-xl bg-secondary-50 dark:bg-secondary-800/50 hover:bg-secondary-100 dark:hover:bg-secondary-800 transition-colors duration-300 group"
+                    >
+                      <div className="text-2xl group-hover:scale-110 transition-transform duration-300">
+                        {achievement.icon}
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-1">
+                          <h4 className="font-semibold text-secondary-800 dark:text-secondary-200 text-sm">
+                            {achievement.title}
+                          </h4>
+                          <span className={`text-xs px-2 py-1 rounded-full font-medium ${achievement.color} bg-current bg-opacity-10`}>
+                            {achievement.year}
+                          </span>
+                        </div>
+                        <p className="text-xs text-secondary-600 dark:text-secondary-300">
+                          {achievement.description}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              </AnimatedWrapper>
-            </div>
+              </div>
+            </AnimatedWrapper>
+
+            {/* Tech Stack Preview */}
+            <AnimatedWrapper animation="slide-left" delay={0.8}>
+              <div className="card-modern p-8">
+                <h3 className="text-2xl font-bold mb-6 text-secondary-800 dark:text-secondary-200">
+                  Core Technologies
+                </h3>
+                <div className="flex flex-wrap gap-3">
+                  {techStack.slice(0, 8).map((tech, index) => (
+                    <div
+                      key={index}
+                      className="px-4 py-2 bg-gradient-to-r from-primary-50 to-accent-50 dark:from-primary-900/20 dark:to-accent-900/20 text-primary-700 dark:text-primary-300 rounded-xl text-sm font-medium border border-primary-200 dark:border-primary-800 hover:scale-105 transition-transform duration-300 cursor-default"
+                    >
+                      {tech.name}
+                    </div>
+                  ))}
+                  <div className="px-4 py-2 bg-secondary-100 dark:bg-secondary-800 text-secondary-600 dark:text-secondary-400 rounded-xl text-sm font-medium border border-secondary-200 dark:border-secondary-700">
+                    +12 more
+                  </div>
+                </div>
+              </div>
+            </AnimatedWrapper>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

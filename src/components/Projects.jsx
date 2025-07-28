@@ -107,9 +107,9 @@ const Projects = () => {
     : projects.filter(project => project.category === activeCategory);
 
   return (
-    <div
+    <section
       name="Projects"
-      className="relative min-h-screen hero-bg flex items-center overflow-hidden"
+      className="section-padding bg-secondary-50 dark:bg-secondary-900 relative overflow-hidden"
     >
       {/* Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -121,30 +121,25 @@ const Projects = () => {
         <div className="container-custom section-padding">
           
           {/* Section Header */}
-          <div className="text-center mb-20">
-            <AnimatedWrapper>
-              <div className="inline-flex items-center gap-3 px-6 py-3 glass rounded-full shadow-lg mb-8">
-                <div className="w-2 h-2 bg-cyan-500 rounded-full animate-pulse"></div>
-                <span className="font-semibold text-sm text-cyan-700 dark:text-cyan-300">Featured Projects</span>
-              </div>
-              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-shadow mb-8">
-                Real-world{" "}
-                <span className="text-gradient">DevOps Projects</span>
+          <AnimatedWrapper animation="fade-in" delay={0.2}>
+            <div className="text-center mb-16">
+              <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+                Featured <span className="gradient-text">Projects</span>
               </h2>
-              <p className="text-xl text-secondary-600 dark:text-secondary-400 max-w-4xl mx-auto leading-relaxed">
-                Showcasing infrastructure automation and cloud expertise through hands-on professional projects
+              <p className="text-xl text-secondary-600 dark:text-secondary-300 max-w-3xl mx-auto leading-relaxed">
+                Real-world DevOps projects showcasing infrastructure automation, cloud expertise, and scalable solutions
               </p>
-            </AnimatedWrapper>
-          </div>
+            </div>
+          </AnimatedWrapper>
 
-          {/* Enhanced Category Filter */}
-          <AnimatedWrapper delay={0.2}>
-            <div className="flex flex-wrap gap-3 justify-center mb-20">
+          {/* Category Filter */}
+          <AnimatedWrapper animation="slide-up" delay={0.4}>
+            <div className="flex flex-wrap gap-3 justify-center mb-12">
               {categories.map((category) => (
                 <button
                   key={category}
                   onClick={() => setActiveCategory(category)}
-                  className={`px-6 py-3 rounded-2xl font-semibold transition-all duration-300 transform hover:scale-105 ${
+                  className={`px-6 py-3 rounded-xl font-medium transition-all duration-300 hover:scale-105 ${
                     activeCategory === category 
                       ? 'btn-primary' 
                       : 'btn-secondary'
@@ -157,159 +152,93 @@ const Projects = () => {
           </AnimatedWrapper>
 
           {/* Projects Grid */}
-          <div className="grid lg:grid-cols-2 gap-8 mb-20">
+          <div className="projects-grid">
             {filteredProjects.map((project, index) => (
-              <AnimatedWrapper key={project.id} delay={0.1 * index} animateFrom="bottom">
-                <div className="project-card group card-gradient p-8 rounded-3xl hover:scale-[1.02] hover:-translate-y-2 transform transition-all duration-500 h-full flex flex-col">
-                  
+              <AnimatedWrapper 
+                key={project.id} 
+                animation="scale-in" 
+                delay={0.1 * (index % 3)}
+              >
+                <div className="project-card" onClick={() => {
+                  setSelectedProject(project);
+                  setShowModal(true);
+                }}>
                   {/* Project Header */}
-                  <div className="flex items-start justify-between mb-6">
-                    <div className="flex items-center gap-4">
-                      <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${project.gradient} flex items-center justify-center text-2xl shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-                        {project.icon}
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-bold text-secondary-800 dark:text-white mb-2 group-hover:text-gradient transition-colors duration-300">
-                          {project.title}
-                        </h3>
-                        <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-primary-50 to-purple-50 dark:from-primary-900/30 dark:to-purple-900/30 text-primary-800 dark:text-primary-200 border border-primary-200 dark:border-primary-700">
-                          {project.category}
-                        </span>
-                      </div>
+                  <div className="flex items-start justify-between mb-4">
+                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${project.gradient} flex items-center justify-center text-white text-xl shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                      {project.icon}
+                    </div>
+                    <div className="project-badge">
+                      {project.category}
                     </div>
                   </div>
 
-                  {/* Project Description */}
-                  <p className="text-secondary-600 dark:text-secondary-400 mb-6 leading-relaxed flex-grow text-base">
+                  {/* Project Content */}
+                  <h3 className="text-xl font-bold text-secondary-800 dark:text-secondary-200 mb-3 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-300">
+                    {project.title}
+                  </h3>
+                  
+                  <p className="text-secondary-600 dark:text-secondary-300 text-sm leading-relaxed mb-4">
                     {project.description}
                   </p>
 
                   {/* Technologies */}
-                  <div className="mb-6">
-                    <h4 className="text-sm font-bold text-secondary-800 dark:text-white mb-3 flex items-center gap-2">
-                      <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
-                      Technologies Used
-                    </h4>
-                    <div className="flex flex-wrap gap-2">
-                      {project.technologies.map((tech, techIndex) => (
-                        <span
-                          key={techIndex}
-                          className="px-3 py-1 bg-gradient-to-r from-secondary-100 to-secondary-200 dark:from-secondary-700 dark:to-secondary-600 border border-secondary-300 dark:border-secondary-600 rounded-lg text-secondary-800 dark:text-secondary-200 text-sm font-medium hover:from-primary-100 hover:to-purple-100 dark:hover:from-primary-900/30 dark:hover:to-purple-900/30 hover:border-primary-300 dark:hover:border-primary-600 transition-all duration-300"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Key Achievements */}
-                  <div className="mb-8">
-                    <h4 className="text-sm font-bold text-secondary-800 dark:text-white mb-3 flex items-center gap-2">
-                      <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-                      Key Achievements
-                    </h4>
-                    <ul className="space-y-2">
-                      {project.achievements.slice(0, 3).map((achievement, achIndex) => (
-                        <li key={achIndex} className="flex items-start gap-3 text-sm text-secondary-600 dark:text-secondary-400">
-                          <span className="text-green-500 mt-1 text-base">✓</span>
-                          <span className="leading-relaxed">{achievement}</span>
-                        </li>
-                      ))}
-                    </ul>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.technologies.slice(0, 3).map((tech, techIndex) => (
+                      <span
+                        key={techIndex}
+                        className="px-3 py-1 bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300 rounded-lg text-xs font-medium"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                    {project.technologies.length > 3 && (
+                      <span className="px-3 py-1 bg-secondary-100 dark:bg-secondary-700 text-secondary-600 dark:text-secondary-400 rounded-lg text-xs font-medium">
+                        +{project.technologies.length - 3} more
+                      </span>
+                    )}
                   </div>
 
                   {/* View Details Button */}
-                  <button
-                    onClick={() => {
-                      setSelectedProject(project);
-                      setShowModal(true);
-                    }}
-                    className="mt-auto btn-primary inline-flex items-center gap-3 w-full justify-center"
-                  >
-                    <span>View Details</span>
-                    <ArrowRightLong className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
-                  </button>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2 text-sm text-secondary-500 dark:text-secondary-400">
+                      <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                      <span>{project.achievements.length} achievements</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-primary-600 dark:text-primary-400 font-medium text-sm group-hover:gap-3 transition-all duration-300">
+                      <span>View Details</span>
+                      <ArrowRightLong className="w-4 h-4" />
+                    </div>
+                  </div>
                 </div>
               </AnimatedWrapper>
             ))}
           </div>
 
-          {/* Enhanced Project Stats */}
-          <AnimatedWrapper delay={0.5}>
-            <div className="grid md:grid-cols-4 gap-6 mb-20">
-              <div className="card-gradient p-8 rounded-2xl text-center hover:scale-105 transform transition-all duration-300">
-                <div className="text-4xl font-bold text-gradient mb-3">4+</div>
-                <div className="text-secondary-700 dark:text-secondary-300 font-semibold">Projects Completed</div>
-              </div>
-              <div className="card-gradient p-8 rounded-2xl text-center hover:scale-105 transform transition-all duration-300">
-                <div className="text-4xl font-bold text-gradient-blue mb-3">20+</div>
-                <div className="text-secondary-700 dark:text-secondary-300 font-semibold">Technologies Used</div>
-              </div>
-              <div className="card-gradient p-8 rounded-2xl text-center hover:scale-105 transform transition-all duration-300">
-                <div className="text-4xl font-bold text-gradient-purple mb-3">70%</div>
-                <div className="text-secondary-700 dark:text-secondary-300 font-semibold">Efficiency Improvement</div>
-              </div>
-              <div className="card-gradient p-8 rounded-2xl text-center hover:scale-105 transform transition-all duration-300">
-                <div className="text-4xl font-bold text-gradient mb-3">100%</div>
-                <div className="text-secondary-700 dark:text-secondary-300 font-semibold">Project Success Rate</div>
-              </div>
-            </div>
-          </AnimatedWrapper>
-
-          {/* Enhanced Call to Action */}
-          <AnimatedWrapper delay={0.6}>
-            <div className="card-gradient p-12 rounded-3xl text-center border-2 border-primary-200 dark:border-primary-800">
-              <h3 className="text-3xl font-bold text-gradient mb-6">
-                Let's Build Something Amazing Together
-              </h3>
-              <p className="text-lg text-secondary-600 dark:text-secondary-400 mb-8 max-w-2xl mx-auto leading-relaxed">
-                I'm always excited to discuss new projects and opportunities. 
-                Let's connect and explore how I can help with your DevOps initiatives.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a
-                  href="mailto:vaibhavsoni5567@gmail.com"
-                  className="btn-primary inline-flex items-center gap-2"
-                >
-                  <span>Get In Touch</span>
-                </a>
-                <a
-                  href="https://github.com/vaibhav21soni"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-secondary inline-flex items-center gap-3"
-                >
-                  <span>View GitHub</span>
-                  <Code className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
-                </a>
-              </div>
-            </div>
-          </AnimatedWrapper>
-
           {/* Project Details Modal */}
           {showModal && selectedProject && (
-            <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-              <div className="card-gradient max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl rounded-3xl">
+            <div className="modal-overlay">
+              <div className="modal-content">
                 {/* Modal Header */}
-                <div className="sticky top-0 glass border-b border-secondary-200 dark:border-secondary-700 p-6 flex items-center justify-between z-10 rounded-t-3xl">
+                <div className="sticky top-0 bg-white dark:bg-secondary-800 border-b border-secondary-200 dark:border-secondary-700 p-6 flex items-center justify-between z-10 rounded-t-2xl">
                   <div className="flex items-center gap-4">
                     <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${selectedProject.gradient} flex items-center justify-center text-2xl shadow-lg`}>
                       {selectedProject.icon}
                     </div>
                     <div>
-                      <h2 className="text-2xl font-bold text-secondary-800 dark:text-white">
+                      <h2 className="text-2xl font-bold text-secondary-800 dark:text-secondary-200">
                         {selectedProject.title}
                       </h2>
-                      <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold bg-gradient-to-r from-primary-50 to-purple-50 dark:from-primary-900/30 dark:to-purple-900/30 text-primary-800 dark:text-primary-200 border border-primary-200 dark:border-primary-700">
+                      <div className="project-badge">
                         {selectedProject.category}
-                      </span>
+                      </div>
                     </div>
                   </div>
                   <button
                     onClick={() => setShowModal(false)}
                     className="p-2 hover:bg-secondary-100 dark:hover:bg-secondary-700 rounded-lg transition-colors duration-200 text-secondary-600 dark:text-secondary-400"
                   >
-                    <Cancel color="currentColor" />
+                    <Cancel className="w-6 h-6" />
                   </button>
                 </div>
 
@@ -317,20 +246,20 @@ const Projects = () => {
                 <div className="p-6 space-y-8">
                   {/* Project Overview */}
                   <div>
-                    <h3 className="text-xl font-bold text-secondary-800 dark:text-white mb-4">Project Overview</h3>
-                    <p className="text-secondary-600 dark:text-secondary-400 leading-relaxed text-lg">
+                    <h3 className="text-xl font-bold text-secondary-800 dark:text-secondary-200 mb-4">Project Overview</h3>
+                    <p className="text-secondary-600 dark:text-secondary-300 leading-relaxed">
                       {selectedProject.description}
                     </p>
                   </div>
 
                   {/* Technologies Used */}
                   <div>
-                    <h3 className="text-xl font-bold text-secondary-800 dark:text-white mb-4">Technologies Used</h3>
+                    <h3 className="text-xl font-bold text-secondary-800 dark:text-secondary-200 mb-4">Technologies Used</h3>
                     <div className="flex flex-wrap gap-3">
                       {selectedProject.technologies.map((tech, index) => (
                         <span
                           key={index}
-                          className="px-4 py-2 bg-gradient-to-r from-primary-50 to-purple-50 dark:from-primary-900/30 dark:to-purple-900/30 border border-primary-200 dark:border-primary-700 rounded-lg text-primary-800 dark:text-primary-200 font-medium"
+                          className="px-4 py-2 bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300 border border-primary-200 dark:border-primary-700 rounded-lg font-medium"
                         >
                           {tech}
                         </span>
@@ -340,10 +269,10 @@ const Projects = () => {
 
                   {/* Key Achievements */}
                   <div>
-                    <h3 className="text-xl font-bold text-secondary-800 dark:text-white mb-4">Key Achievements</h3>
+                    <h3 className="text-xl font-bold text-secondary-800 dark:text-secondary-200 mb-4">Key Achievements</h3>
                     <div className="grid md:grid-cols-2 gap-4">
                       {selectedProject.achievements.map((achievement, index) => (
-                        <div key={index} className="flex items-start gap-3 p-4 bg-secondary-50 dark:bg-secondary-700/50 rounded-lg">
+                        <div key={index} className="flex items-start gap-3 p-4 bg-secondary-50 dark:bg-secondary-800/50 rounded-lg">
                           <span className="text-green-500 mt-1 text-lg">✓</span>
                           <span className="text-secondary-700 dark:text-secondary-300">{achievement}</span>
                         </div>
@@ -353,50 +282,19 @@ const Projects = () => {
 
                   {/* Technical Details */}
                   <div>
-                    <h3 className="text-xl font-bold text-secondary-800 dark:text-white mb-4">Technical Implementation</h3>
-                    <div className="bg-secondary-50 dark:bg-secondary-700/50 rounded-lg p-6">
+                    <h3 className="text-xl font-bold text-secondary-800 dark:text-secondary-200 mb-4">Technical Implementation</h3>
+                    <div className="bg-secondary-50 dark:bg-secondary-800/50 rounded-lg p-6">
                       <div className="grid md:grid-cols-2 gap-6">
                         <div>
-                          <h4 className="font-semibold text-secondary-800 dark:text-white mb-2">Challenge</h4>
-                          <p className="text-secondary-600 dark:text-secondary-400 text-sm">
+                          <h4 className="font-semibold text-secondary-800 dark:text-secondary-200 mb-2">Challenge</h4>
+                          <p className="text-secondary-600 dark:text-secondary-300 text-sm">
                             {selectedProject.challenge}
                           </p>
                         </div>
                         <div>
-                          <h4 className="font-semibold text-secondary-800 dark:text-white mb-2">Solution</h4>
-                          <p className="text-secondary-600 dark:text-secondary-400 text-sm">
+                          <h4 className="font-semibold text-secondary-800 dark:text-secondary-200 mb-2">Solution</h4>
+                          <p className="text-secondary-600 dark:text-secondary-300 text-sm">
                             {selectedProject.solution}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Project Context */}
-                  <div>
-                    <h3 className="text-xl font-bold text-secondary-800 dark:text-white mb-4">Project Context</h3>
-                    <div className="card-gradient p-6 rounded-2xl border border-primary-200 dark:border-primary-800">
-                      <div className="grid md:grid-cols-2 gap-6">
-                        <div>
-                          <h4 className="font-semibold text-secondary-800 dark:text-white mb-2 flex items-center gap-2">
-                            <span className="text-orange-500">🏢</span>
-                            Work Environment
-                          </h4>
-                          <p className="text-secondary-600 dark:text-secondary-400 text-sm">
-                            {selectedProject.category === "Current Project" 
-                              ? "Currently working on this project at Inexture Solutions as part of enterprise infrastructure initiatives."
-                              : "Completed as part of professional DevOps work, focusing on real-world infrastructure challenges and solutions."
-                            }
-                          </p>
-                        </div>
-                        <div>
-                          <h4 className="font-semibold text-secondary-800 dark:text-white mb-2 flex items-center gap-2">
-                            <span className="text-blue-500">🎯</span>
-                            Impact & Results
-                          </h4>
-                          <p className="text-secondary-600 dark:text-secondary-400 text-sm">
-                            This project demonstrates hands-on experience with enterprise-level infrastructure, 
-                            showcasing practical DevOps skills and real-world problem-solving capabilities.
                           </p>
                         </div>
                       </div>
@@ -405,7 +303,7 @@ const Projects = () => {
                 </div>
 
                 {/* Modal Footer */}
-                <div className="sticky bottom-0 glass border-t border-secondary-200 dark:border-secondary-700 p-6 flex justify-end rounded-b-3xl">
+                <div className="sticky bottom-0 bg-white dark:bg-secondary-800 border-t border-secondary-200 dark:border-secondary-700 p-6 flex justify-end rounded-b-2xl">
                   <button
                     onClick={() => setShowModal(false)}
                     className="btn-secondary"
@@ -418,7 +316,7 @@ const Projects = () => {
           )}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
