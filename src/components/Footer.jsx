@@ -1,4 +1,5 @@
 import React from 'react';
+import LinkedIn, { GitHub, GMail, MapPin } from './Icons';
 
 const Footer = () => {
   const handleNavClick = (sectionId, e) => {
@@ -56,22 +57,17 @@ const Footer = () => {
     {
       name: 'LinkedIn',
       url: 'https://linkedin.com/in/vaibhavsonii21',
-      icon: '💼'
+      icon: <LinkedIn style={{ width: '20px', height: '20px' }} />
     },
     {
       name: 'GitHub',
       url: 'https://github.com/vaibhav21soni',
-      icon: '🐙'
-    },
-    {
-      name: 'Twitter',
-      url: 'https://twitter.com/vaibhavsonii21',
-      icon: '🐦'
+      icon: <GitHub style={{ width: '20px', height: '20px' }} />
     },
     {
       name: 'Email',
       url: 'mailto:vaibhavsoni5567@gmail.com',
-      icon: '📧'
+      icon: <GMail style={{ width: '20px', height: '20px' }} />
     }
   ];
 
@@ -85,37 +81,39 @@ const Footer = () => {
         {/* Main Footer Content */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-          gap: '2rem',
-          marginBottom: '2rem'
+          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+          gap: '3rem',
+          marginBottom: '3rem'
         }}>
           {/* Brand Section */}
-          <div>
+          <div style={{ maxWidth: '350px' }}>
             <div style={{
-              fontSize: '1.5rem',
+              fontSize: '1.75rem',
               fontWeight: '700',
-              marginBottom: '1rem'
+              marginBottom: '1rem',
+              letterSpacing: '-0.025em'
             }}>
               <span style={{ color: '#3b82f6' }}>Vaibhav</span>
-              <span style={{ color: 'white' }}>Soni</span>
+              <span style={{ color: 'white', marginLeft: '0.25rem' }}>Soni</span>
             </div>
             <p style={{
               color: 'rgba(255, 255, 255, 0.8)',
-              lineHeight: '1.6',
-              marginBottom: '1.5rem'
+              lineHeight: '1.7',
+              marginBottom: '1.5rem',
+              fontSize: '0.95rem'
             }}>
               DevOps Engineer passionate about building scalable cloud infrastructure, 
-              automating workflows, and empowering development teams.
+              automating workflows, and empowering development teams to deliver faster and more reliably.
             </p>
             <div style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '0.5rem',
+              gap: '0.75rem',
               color: 'rgba(255, 255, 255, 0.7)',
-              fontSize: '0.875rem'
+              fontSize: '0.9rem'
             }}>
-              <span>📍</span>
-              Ahmedabad, India
+              <MapPin size={18} />
+              <span>Ahmedabad, India</span>
             </div>
           </div>
 
@@ -310,7 +308,9 @@ const Footer = () => {
                     e.target.style.boxShadow = 'none';
                   }}
                 >
-                  {social.icon}
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    {social.icon}
+                  </div>
                 </button>
               ))}
             </div>
@@ -389,6 +389,31 @@ const Footer = () => {
           </p>
         </div>
       </div>
+
+      {/* Mobile Responsive Styles */}
+      <style jsx>{`
+        @media (max-width: 768px) {
+          .container > div:first-child {
+            grid-template-columns: 1fr !important;
+            gap: 2rem !important;
+            text-align: center;
+          }
+          
+          .container > div:first-child > div:first-child {
+            max-width: 100% !important;
+          }
+          
+          .container > div:last-child {
+            flex-direction: column !important;
+            gap: 1rem !important;
+            text-align: center;
+          }
+          
+          .container > div:last-child > div:last-child {
+            justify-content: center !important;
+          }
+        }
+      `}</style>
     </footer>
   );
 };

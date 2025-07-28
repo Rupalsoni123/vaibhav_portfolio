@@ -47,9 +47,9 @@ const Skills = () => {
   };
 
   const stats = [
-    { number: "50+", label: "Technologies", description: "Mastered across cloud, containers, and automation" },
-    { number: "3+", label: "Certifications", description: "AWS, Terraform, and Red Hat validated expertise" },
-    { number: "100+", label: "Projects", description: "Successfully deployed and maintained" },
+    { number: "25+", label: "Technologies", description: "Mastered across cloud, containers, and automation" },
+    { number: "3", label: "Certifications", description: "AWS, Terraform, and Red Hat validated expertise" },
+    { number: "04+", label: "Projects", description: "Successfully deployed and maintained" },
     { number: "24/7", label: "Monitoring", description: "Always ensuring system reliability" }
   ];
 
@@ -260,34 +260,6 @@ const Skills = () => {
               }}>
                 {skill.category}
               </div>
-
-              {/* Skill Level */}
-              {skill.level && (
-                <div style={{ marginTop: '1rem' }}>
-                  <div style={{
-                    width: '100%',
-                    height: '4px',
-                    background: 'var(--bg-tertiary)',
-                    borderRadius: '2px',
-                    overflow: 'hidden'
-                  }}>
-                    <div style={{
-                      width: `${skill.level}%`,
-                      height: '100%',
-                      background: 'linear-gradient(135deg, #2563eb, #3b82f6)',
-                      borderRadius: '2px',
-                      transition: 'width 0.3s ease'
-                    }} />
-                  </div>
-                  <div style={{
-                    fontSize: '0.75rem',
-                    color: 'var(--text-tertiary)',
-                    marginTop: '0.25rem'
-                  }}>
-                    {skill.level}%
-                  </div>
-                </div>
-              )}
             </div>
           ))}
         </div>

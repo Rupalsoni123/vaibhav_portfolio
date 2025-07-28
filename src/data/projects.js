@@ -1,3 +1,6 @@
+import React from "react";
+import { Rocket } from "../components/Icons";
+
 const projectsData = [
   {
     id: 1,
@@ -21,7 +24,7 @@ const projectsData = [
     technologies: ["Kubernetes", "DigitalOcean", "Apache Kafka", "ZooKeeper", "YAML", "Persistent Volumes"],
     live: null,
     image: null,
-    icon: "🚀",
+    icon: <Rocket size={24} color="#2563eb" />,
     status: "Completed",
     featured: true
   },
