@@ -3,7 +3,6 @@ import { TypeAnimation } from "react-type-animation";
 import { ArrowDown } from "./Icons";
 import Avatar from "../assets/Avatars/Avatars/93f50dd8-9dec-4f20-ad88-d40acc26dec5.jpg";
 import contactInfo from "../data/contactInfo";
-import { buttonHandlers } from "../utils/buttonUtils";
 
 const Home = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -178,21 +177,49 @@ const Home = () => {
               justifyContent: 'center'
             }}>
               <button
-                onClick={buttonHandlers.scrollToContact}
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  const contactSection = document.getElementById('contact');
+                  if (contactSection) {
+                    contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }
+                }}
                 className="btn btn-primary"
                 aria-label="Navigate to contact section"
               >
                 Get In Touch
               </button>
               <button
-                onClick={buttonHandlers.scrollToProjects}
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  const projectsSection = document.getElementById('projects');
+                  if (projectsSection) {
+                    projectsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }
+                }}
                 className="btn btn-outline"
                 aria-label="Navigate to projects section"
               >
                 View Projects
               </button>
               <button
-                onClick={() => buttonHandlers.downloadResume(contactInfo.links?.find(link => link.name === 'Resume')?.link)}
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  // Create download link
+                  const link = document.createElement('a');
+                  link.href = '/src/assets/resume.pdf';
+                  link.download = 'Vaibhav_Soni_Resume.pdf';
+                  link.style.display = 'none';
+                  document.body.appendChild(link);
+                  link.click();
+                  document.body.removeChild(link);
+                }}
                 className="btn btn-secondary"
                 aria-label="Download resume PDF"
               >
@@ -337,7 +364,15 @@ const Home = () => {
             Scroll to explore
           </span>
           <button
-            onClick={buttonHandlers.scrollToAbout}
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              const aboutSection = document.getElementById('about');
+              if (aboutSection) {
+                aboutSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }
+            }}
             className="btn"
             style={{
               color: 'var(--primary-blue)',

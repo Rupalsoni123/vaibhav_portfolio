@@ -135,7 +135,12 @@ const Skills = () => {
           {categories.map((category) => (
             <button
               key={category}
-              onClick={() => setActiveCategory(category)}
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setActiveCategory(category);
+              }}
               style={{
                 padding: '0.75rem 1.5rem',
                 borderRadius: 'var(--border-radius-md)',
@@ -276,38 +281,49 @@ const Skills = () => {
             that powers your next big project.
           </p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <a
-              href="#contact"
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const contactSection = document.getElementById('contact');
+                if (contactSection) {
+                  contactSection.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
               className="btn"
               style={{
                 background: 'white',
                 color: 'var(--primary-blue)',
                 textDecoration: 'none',
-                fontWeight: '600'
-              }}
-              onClick={(e) => {
-                e.preventDefault();
-                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                fontWeight: '600',
+                border: 'none',
+                cursor: 'pointer'
               }}
             >
               Start a Project
-            </a>
-            <a
-              href="#projects"
+            </button>
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const projectsSection = document.getElementById('projects');
+                if (projectsSection) {
+                  projectsSection.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
               className="btn"
               style={{
                 background: 'transparent',
                 color: 'white',
                 border: '2px solid white',
-                textDecoration: 'none'
-              }}
-              onClick={(e) => {
-                e.preventDefault();
-                document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+                textDecoration: 'none',
+                cursor: 'pointer'
               }}
             >
               View My Work
-            </a>
+            </button>
           </div>
         </div>
       </div>
