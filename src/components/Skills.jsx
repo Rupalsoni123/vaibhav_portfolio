@@ -19,95 +19,97 @@ const Skills = () => {
     return skills.filter(skill => skill.category === activeCategory);
   }, [activeCategory]);
 
-  const skillStats = [
-    {
-      icon: "⚡",
-      value: "25+",
-      label: "Technologies",
-      description: "Tools & Frameworks",
-      color: "var(--primary-blue)"
-    },
-    {
-      icon: "🚀",
-      value: "4+",
-      label: "Categories",
-      description: "Skill Domains",
-      color: "var(--primary-purple)"
-    },
-    {
-      icon: "📈",
-      value: "90%",
-      label: "Proficiency",
-      description: "Average Level",
-      color: "var(--primary-teal)"
-    },
-    {
-      icon: "🎯",
-      value: "3+",
-      label: "Certifications",
-      description: "Industry Validated",
-      color: "var(--accent-pink)"
+  const handleCategoryClick = (category, e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log('Category clicked:', category);
+    setActiveCategory(category);
+  };
+
+  const handleStartProject = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log('Start Project clicked');
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
     }
+  };
+
+  const handleViewWork = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log('View Work clicked');
+    const projectsSection = document.getElementById('projects');
+    if (projectsSection) {
+      projectsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const stats = [
+    { number: "50+", label: "Technologies", description: "Mastered across cloud, containers, and automation" },
+    { number: "3+", label: "Certifications", description: "AWS, Terraform, and Red Hat validated expertise" },
+    { number: "100+", label: "Projects", description: "Successfully deployed and maintained" },
+    { number: "24/7", label: "Monitoring", description: "Always ensuring system reliability" }
   ];
 
   return (
-    <section id="skills" className="section" style={{ background: 'var(--bg-secondary)' }}>
+    <section id="skills" className="section" style={{
+      background: 'var(--bg-primary)',
+      padding: '5rem 0'
+    }}>
       <div className="container">
         {/* Section Header */}
         <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-          <div className="badge badge-primary" style={{ marginBottom: '1rem' }}>
-            💻 Technical Expertise
-          </div>
           <h2 className="heading-lg" style={{ marginBottom: '1rem' }}>
-            Skills & <span className="text-gradient">Technologies</span>
+            Technical <span className="text-gradient">Skills</span>
           </h2>
-          <p style={{
+          <p style={{ 
+            color: 'var(--text-secondary)', 
             fontSize: '1.125rem',
-            color: 'var(--text-secondary)',
             maxWidth: '600px',
-            margin: '0 auto',
-            lineHeight: '1.7'
+            margin: '0 auto'
           }}>
-            A comprehensive toolkit of modern technologies and frameworks that power 
-            scalable, reliable infrastructure and seamless development workflows.
+            A comprehensive toolkit of technologies I use to build, deploy, and maintain scalable infrastructure.
           </p>
         </div>
 
         {/* Stats Grid */}
-        <div className="grid-responsive" style={{ marginBottom: '4rem' }}>
-          {skillStats.map((stat, index) => (
-            <div
-              key={index}
-              className="card animate-scale-in"
-              style={{
-                textAlign: 'center',
-                padding: '2rem 1.5rem',
-                animationDelay: `${index * 0.1}s`,
-                position: 'relative',
-                overflow: 'hidden'
-              }}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+          gap: '2rem',
+          marginBottom: '4rem'
+        }}>
+          {stats.map((stat, index) => (
+            <div key={index} style={{
+              textAlign: 'center',
+              padding: '2rem 1rem',
+              background: 'var(--card-bg)',
+              border: '1px solid var(--border-color)',
+              borderRadius: '1rem',
+              transition: 'all 0.3s ease',
+              transform: 'translateY(0)'
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.transform = 'translateY(-4px)';
+              e.target.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.1)';
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.transform = 'translateY(0)';
+              e.target.style.boxShadow = 'none';
+            }}
             >
-              {/* Background gradient */}
               <div style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                height: '4px',
-                background: `linear-gradient(90deg, ${stat.color}, transparent)`,
-                opacity: 0.8
-              }} />
-              
-              <div style={{
-                fontSize: '2rem',
-                marginBottom: '1rem'
+                fontSize: '2.5rem',
+                fontWeight: '700',
+                color: '#2563eb',
+                marginBottom: '0.5rem'
               }}>
-                {stat.icon}
-              </div>
-              <div className="heading-md text-gradient" style={{ marginBottom: '0.5rem' }}>
-                {stat.value}
+                {stat.number}
               </div>
               <div style={{
+                fontSize: '1.125rem',
                 fontWeight: '600',
                 color: 'var(--text-primary)',
                 marginBottom: '0.5rem'
@@ -116,7 +118,7 @@ const Skills = () => {
               </div>
               <div style={{
                 fontSize: '0.875rem',
-                color: 'var(--text-tertiary)'
+                color: 'var(--text-secondary)'
               }}>
                 {stat.description}
               </div>
@@ -136,19 +138,15 @@ const Skills = () => {
             <button
               key={category}
               type="button"
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                setActiveCategory(category);
-              }}
+              onClick={(e) => handleCategoryClick(category, e)}
               style={{
                 padding: '0.75rem 1.5rem',
-                borderRadius: 'var(--border-radius-md)',
+                borderRadius: '0.5rem',
                 border: activeCategory === category 
                   ? 'none' 
                   : '1px solid var(--border-color)',
                 background: activeCategory === category 
-                  ? 'var(--gradient-primary)' 
+                  ? 'linear-gradient(135deg, #2563eb, #3b82f6)' 
                   : 'var(--card-bg)',
                 color: activeCategory === category 
                   ? 'white' 
@@ -158,14 +156,16 @@ const Skills = () => {
                 cursor: 'pointer',
                 transition: 'all 0.3s ease',
                 boxShadow: activeCategory === category 
-                  ? 'var(--shadow-md)' 
-                  : 'none'
+                  ? '0 4px 12px rgba(37, 99, 235, 0.3)' 
+                  : 'none',
+                transform: 'translateY(0)'
               }}
               onMouseEnter={(e) => {
                 if (activeCategory !== category) {
-                  e.target.style.borderColor = 'var(--primary-blue)';
-                  e.target.style.color = 'var(--primary-blue)';
+                  e.target.style.borderColor = '#2563eb';
+                  e.target.style.color = '#2563eb';
                   e.target.style.transform = 'translateY(-2px)';
+                  e.target.style.boxShadow = '0 4px 12px rgba(37, 99, 235, 0.2)';
                 }
               }}
               onMouseLeave={(e) => {
@@ -173,6 +173,7 @@ const Skills = () => {
                   e.target.style.borderColor = 'var(--border-color)';
                   e.target.style.color = 'var(--text-secondary)';
                   e.target.style.transform = 'translateY(0)';
+                  e.target.style.boxShadow = 'none';
                 }
               }}
             >
@@ -182,26 +183,39 @@ const Skills = () => {
         </div>
 
         {/* Skills Grid */}
-        <div className="grid-3" style={{ gap: '1.5rem' }}>
-          {filteredSkills.map((skill, index) => (
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
+          gap: '1.5rem',
+          marginBottom: '4rem'
+        }}>
+          {filteredSkills.map((skill) => (
             <div
-              key={skill.id || index}
-              className="card animate-fade-in-up"
+              key={skill.id}
               style={{
-                padding: '1.5rem',
+                padding: '2rem 1rem',
+                background: 'var(--card-bg)',
+                border: '1px solid var(--border-color)',
+                borderRadius: '1rem',
                 textAlign: 'center',
                 cursor: 'pointer',
-                animationDelay: `${index * 0.05}s`,
-                position: 'relative',
-                overflow: 'hidden',
-                transform: hoveredSkill === skill.name ? 'translateY(-8px)' : 'translateY(0)',
-                boxShadow: hoveredSkill === skill.name ? 'var(--shadow-xl)' : 'var(--shadow-md)',
-                transition: 'all 0.3s ease'
+                transition: 'all 0.3s ease',
+                transform: 'translateY(0)'
               }}
               onMouseEnter={() => setHoveredSkill(skill.name)}
               onMouseLeave={() => setHoveredSkill(null)}
+              onMouseOver={(e) => {
+                e.target.style.transform = 'translateY(-4px)';
+                e.target.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.1)';
+                e.target.style.borderColor = '#2563eb';
+              }}
+              onMouseOut={(e) => {
+                e.target.style.transform = 'translateY(0)';
+                e.target.style.boxShadow = 'none';
+                e.target.style.borderColor = 'var(--border-color)';
+              }}
             >
-              {/* Skill Icon/Logo */}
+              {/* Skill Icon */}
               <div style={{
                 width: '4rem',
                 height: '4rem',
@@ -209,9 +223,9 @@ const Skills = () => {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                borderRadius: 'var(--border-radius-lg)',
+                borderRadius: '1rem',
                 background: hoveredSkill === skill.name 
-                  ? 'var(--gradient-primary)' 
+                  ? 'linear-gradient(135deg, #2563eb, #3b82f6)' 
                   : 'var(--bg-tertiary)',
                 color: hoveredSkill === skill.name ? 'white' : 'var(--text-primary)',
                 fontSize: '1.5rem',
@@ -231,95 +245,117 @@ const Skills = () => {
               </h3>
 
               {/* Category Badge */}
-              <div className={`badge ${
-                skill.category === 'Cloud Platforms' ? 'badge-primary' :
-                skill.category === 'Containers' ? 'badge-secondary' :
-                skill.category === 'CI/CD' ? 'badge-accent' : 'badge-primary'
-              }`} style={{ fontSize: '0.6875rem' }}>
+              <div style={{
+                display: 'inline-block',
+                padding: '0.25rem 0.75rem',
+                background: skill.category === 'Cloud Platforms' ? '#2563eb' :
+                           skill.category === 'Containers' ? '#059669' :
+                           skill.category === 'CI/CD' ? '#dc2626' :
+                           skill.category === 'Monitoring' ? '#7c3aed' :
+                           '#f59e0b',
+                color: 'white',
+                borderRadius: '1rem',
+                fontSize: '0.75rem',
+                fontWeight: '500'
+              }}>
                 {skill.category}
               </div>
 
-              {/* Hover Effect Overlay */}
-              {hoveredSkill === skill.name && (
-                <div style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  background: 'linear-gradient(135deg, rgba(37, 99, 235, 0.05), rgba(124, 58, 237, 0.05))',
-                  pointerEvents: 'none',
-                  borderRadius: 'var(--border-radius-lg)'
-                }} />
+              {/* Skill Level */}
+              {skill.level && (
+                <div style={{ marginTop: '1rem' }}>
+                  <div style={{
+                    width: '100%',
+                    height: '4px',
+                    background: 'var(--bg-tertiary)',
+                    borderRadius: '2px',
+                    overflow: 'hidden'
+                  }}>
+                    <div style={{
+                      width: `${skill.level}%`,
+                      height: '100%',
+                      background: 'linear-gradient(135deg, #2563eb, #3b82f6)',
+                      borderRadius: '2px',
+                      transition: 'width 0.3s ease'
+                    }} />
+                  </div>
+                  <div style={{
+                    fontSize: '0.75rem',
+                    color: 'var(--text-tertiary)',
+                    marginTop: '0.25rem'
+                  }}>
+                    {skill.level}%
+                  </div>
+                </div>
               )}
             </div>
           ))}
         </div>
 
-        {/* Call to Action - Made 30% smaller */}
+        {/* Call to Action */}
         <div style={{
           textAlign: 'center',
-          marginTop: '4rem',
-          padding: '2rem 1.5rem',
-          background: 'var(--gradient-primary)',
-          borderRadius: 'var(--border-radius-xl)',
-          color: 'white',
-          maxWidth: '70%',
-          margin: '4rem auto 0'
+          padding: '3rem 2rem',
+          background: 'linear-gradient(135deg, #1e293b, #334155)',
+          borderRadius: '1rem',
+          color: 'white'
         }}>
-          <h3 className="heading-sm" style={{ marginBottom: '1rem', color: 'white' }}>
+          <h3 style={{ fontWeight: '600', marginBottom: '1rem', fontSize: '1.5rem' }}>
             Ready to Build Something Amazing?
           </h3>
-          <p style={{
-            fontSize: '1rem',
-            marginBottom: '1.5rem',
-            opacity: 0.9,
-            maxWidth: '500px',
-            margin: '0 auto 1.5rem'
-          }}>
-            Let's leverage these technologies to create scalable, reliable infrastructure 
-            that powers your next big project.
+          <p style={{ marginBottom: '2rem', opacity: 0.9 }}>
+            Let's leverage these technologies to create scalable, reliable infrastructure for your next project.
           </p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
             <button
               type="button"
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                const contactSection = document.getElementById('contact');
-                if (contactSection) {
-                  contactSection.scrollIntoView({ behavior: 'smooth' });
-                }
-              }}
-              className="btn"
+              onClick={handleStartProject}
               style={{
+                padding: '0.75rem 1.5rem',
                 background: 'white',
-                color: 'var(--primary-blue)',
-                textDecoration: 'none',
-                fontWeight: '600',
+                color: '#1e293b',
                 border: 'none',
-                cursor: 'pointer'
+                borderRadius: '0.5rem',
+                fontWeight: '600',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                transform: 'translateY(0)'
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.transform = 'translateY(-2px)';
+                e.target.style.boxShadow = '0 10px 25px rgba(255, 255, 255, 0.3)';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.transform = 'translateY(0)';
+                e.target.style.boxShadow = 'none';
               }}
             >
               Start a Project
             </button>
+            
             <button
               type="button"
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                const projectsSection = document.getElementById('projects');
-                if (projectsSection) {
-                  projectsSection.scrollIntoView({ behavior: 'smooth' });
-                }
-              }}
-              className="btn"
+              onClick={handleViewWork}
               style={{
+                padding: '0.75rem 1.5rem',
                 background: 'transparent',
                 color: 'white',
                 border: '2px solid white',
-                textDecoration: 'none',
-                cursor: 'pointer'
+                borderRadius: '0.5rem',
+                fontWeight: '600',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                transform: 'translateY(0)'
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.background = 'white';
+                e.target.style.color = '#1e293b';
+                e.target.style.transform = 'translateY(-2px)';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.background = 'transparent';
+                e.target.style.color = 'white';
+                e.target.style.transform = 'translateY(0)';
               }}
             >
               View My Work
@@ -332,4 +368,3 @@ const Skills = () => {
 };
 
 export default Skills;
- 

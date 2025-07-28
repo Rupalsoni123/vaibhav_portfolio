@@ -1,12 +1,27 @@
-import React, { useState } from 'react';
-import { Link } from 'react-scroll';
-import navLinks from '../data/navlinks';
+import React from 'react';
+import navLinks from '../data/navLinks';
 
-const Navigation = ({ mobile = false, onItemClick }) => {
-  const [activeSection, setActiveSection] = useState('home');
-
-  const handleSetActive = (to) => {
-    setActiveSection(to);
+const Navigation = ({ mobile = false, onLinkClick }) => {
+  const handleLinkClick = (e, link) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    console.log('Navigation link clicked:', link);
+    
+    if (link.href) {
+      // External link
+      window.open(link.href, '_blank', 'noopener,noreferrer');
+    } else {
+      // Internal scroll link
+      const element = document.getElementById(link.link);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+    
+    if (onLinkClick) {
+      onLinkClick();
+    }
   };
 
   if (mobile) {
@@ -20,83 +35,71 @@ const Navigation = ({ mobile = false, onItemClick }) => {
         {navLinks.map(({ id, link, href }) => {
           if (href) {
             return (
-              <a
+              <button
                 key={id}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={onItemClick}
+                type="button"
+                onClick={(e) => handleLinkClick(e, { href })}
                 style={{
-                  display: 'block',
-                  padding: '1rem 1.5rem',
-                  borderRadius: 'var(--border-radius-md)',
-                  color: 'var(--text-secondary)',
-                  background: 'transparent',
-                  textDecoration: 'none',
-                  fontWeight: '500',
+                  background: 'none',
+                  border: 'none',
+                  color: 'var(--text-primary)',
                   fontSize: '1.125rem',
-                  transition: 'all 0.3s ease',
+                  fontWeight: '500',
+                  padding: '0.75rem 1rem',
+                  textAlign: 'left',
                   cursor: 'pointer',
-                  border: '1px solid transparent'
+                  borderRadius: 'var(--border-radius-md)',
+                  transition: 'all 0.3s ease'
                 }}
                 onMouseEnter={(e) => {
+                  e.target.style.background = 'var(--bg-tertiary)';
                   e.target.style.color = 'var(--primary-blue)';
-                  e.target.style.background = 'rgba(37, 99, 235, 0.05)';
                 }}
                 onMouseLeave={(e) => {
-                  e.target.style.color = 'var(--text-secondary)';
-                  e.target.style.background = 'transparent';
+                  e.target.style.background = 'none';
+                  e.target.style.color = 'var(--text-primary)';
                 }}
               >
                 {link}
-              </a>
+              </button>
             );
           }
 
           return (
-            <Link
+            <button
               key={id}
-              to={link}
-              smooth={true}
-              duration={500}
-              spy={true}
-              offset={-80}
-              onSetActive={handleSetActive}
-              onClick={onItemClick}
+              type="button"
+              onClick={(e) => handleLinkClick(e, { link })}
               style={{
-                display: 'block',
-                padding: '1rem 1.5rem',
-                borderRadius: 'var(--border-radius-md)',
-                color: activeSection === link ? 'var(--primary-blue)' : 'var(--text-secondary)',
-                background: activeSection === link ? 'rgba(37, 99, 235, 0.1)' : 'transparent',
-                textDecoration: 'none',
-                fontWeight: '500',
+                background: 'none',
+                border: 'none',
+                color: 'var(--text-primary)',
                 fontSize: '1.125rem',
-                transition: 'all 0.3s ease',
+                fontWeight: '500',
+                padding: '0.75rem 1rem',
+                textAlign: 'left',
                 cursor: 'pointer',
-                border: activeSection === link ? '1px solid rgba(37, 99, 235, 0.2)' : '1px solid transparent'
+                borderRadius: 'var(--border-radius-md)',
+                transition: 'all 0.3s ease'
               }}
               onMouseEnter={(e) => {
-                if (activeSection !== link) {
-                  e.target.style.color = 'var(--primary-blue)';
-                  e.target.style.background = 'rgba(37, 99, 235, 0.05)';
-                }
+                e.target.style.background = 'var(--bg-tertiary)';
+                e.target.style.color = 'var(--primary-blue)';
               }}
               onMouseLeave={(e) => {
-                if (activeSection !== link) {
-                  e.target.style.color = 'var(--text-secondary)';
-                  e.target.style.background = 'transparent';
-                }
+                e.target.style.background = 'none';
+                e.target.style.color = 'var(--text-primary)';
               }}
             >
               {link}
-            </Link>
+            </button>
           );
         })}
       </div>
     );
   }
 
+  // Desktop navigation
   return (
     <div style={{
       display: 'flex',
@@ -106,35 +109,62 @@ const Navigation = ({ mobile = false, onItemClick }) => {
       {navLinks.map(({ id, link, href }) => {
         if (href) {
           return (
-            <a
+            <button
               key={id}
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="nav-link"
+              type="button"
+              onClick={(e) => handleLinkClick(e, { href })}
+              style={{
+                background: 'none',
+                border: 'none',
+                color: 'var(--text-secondary)',
+                fontSize: '0.875rem',
+                fontWeight: '500',
+                padding: '0.75rem 1rem',
+                cursor: 'pointer',
+                borderRadius: 'var(--border-radius-md)',
+                transition: 'all 0.3s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.color = 'var(--primary-blue)';
+                e.target.style.background = 'var(--bg-tertiary)';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.color = 'var(--text-secondary)';
+                e.target.style.background = 'none';
+              }}
             >
               {link}
-            </a>
+            </button>
           );
         }
 
         return (
-          <Link
+          <button
             key={id}
-            to={link}
-            smooth={true}
-            duration={500}
-            spy={true}
-            offset={-80}
-            onSetActive={handleSetActive}
-            className="nav-link"
+            type="button"
+            onClick={(e) => handleLinkClick(e, { link })}
             style={{
-              color: activeSection === link ? 'var(--primary-blue)' : 'var(--text-secondary)',
-              background: activeSection === link ? 'rgba(37, 99, 235, 0.1)' : 'transparent'
+              background: 'none',
+              border: 'none',
+              color: 'var(--text-secondary)',
+              fontSize: '0.875rem',
+              fontWeight: '500',
+              padding: '0.75rem 1rem',
+              cursor: 'pointer',
+              borderRadius: 'var(--border-radius-md)',
+              transition: 'all 0.3s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.color = 'var(--primary-blue)';
+              e.target.style.background = 'var(--bg-tertiary)';
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.color = 'var(--text-secondary)';
+              e.target.style.background = 'none';
             }}
           >
             {link}
-          </Link>
+          </button>
         );
       })}
     </div>
