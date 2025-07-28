@@ -31,7 +31,7 @@ const projectsData = [
     category: "Containerization",
     description: "Designed and built a custom Docker image for FreePBX with an embedded Asterisk-9 server, customized for specific client requirements.",
     longDescription: "Designed and built a custom Docker image for FreePBX with an embedded Asterisk-9 server, customized for specific client requirements. Customized Asterisk configurations to support advanced client needs, including SIP trunking and call routing. Pushed the customized Docker image to a private registry for reuse in Kubernetes deployments, enabling consistent rollouts across environments based on client-specific requirements and streamlining deployment process for specialized communication infrastructure.",
-    technologies: ["Docker", "FreePBX", "Asterisk-9", "Private Registry", "SIP Trunking", "Kubernetes"],
+    technologies: ["Docker", "FreePBX", "Asterisk-9", "Private Registry", "Kubernetes"],
     live: null,
     image: null,
     icon: "🐳",
