@@ -45,19 +45,19 @@ const About = () => {
       description: "Working on cloud infrastructure, CI/CD pipelines, and container orchestration."
     },{
     year: "2024",
-      title: "career break",
-      company: "family's health issues",
+      title: "Career break",
+      company: "Family's health issues",
       description: "Focused on family responsibilities and personal development. Also completed HashiCorp Certified: Terraform Associate (003) certification."
   },
     {
       year: "2023",
       title: "DevOps Engineer",
       company: "HighSkyIT Solutions",
-      description: "sucessfully delivered multiple projects, including migrating Azure resources to Terraform, building Kubernetes clusters, and automating AWS infrastructure with Terragrunt."
+      description: "Sucessfully delivered multiple projects, including migrating Azure resources to Terraform, building Kubernetes clusters, and automating AWS infrastructure with Terragrunt."
     },
     {
       year: "2022",
-      title: "journey into DevOps",
+      title: "Journey into DevOps",
       company: "Non-CS background",
       description: "Completed DevOps training from HighSkyIT Solutions, focusing on practical skills in cloud and container technologies. completed Red Hat certification."
     }
