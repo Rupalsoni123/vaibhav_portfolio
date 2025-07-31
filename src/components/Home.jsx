@@ -4,7 +4,7 @@ import { ArrowDown } from "./Icons";
 import AvatarImage from "../assets/Avatars/Avatars/93f50dd8-9dec-4f20-ad88-d40acc26dec5.jpg";
 // import FallbackAvatar from "../assets/profile.jpg";
 import contactInfo from "../data/contactInfo";
-import  Resume  from "../assets/resume.pdf ";
+import resume from "../assets/resume.pdf";
 
 const Home = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -49,7 +49,7 @@ const Home = () => {
     console.log('Download CV clicked');
     // Create download link
     const link = document.createElement('a');
-    link.href = Resume;
+    link.href = resume;
     link.download = 'Vaibhav_Soni_Resume.pdf';
     link.style.display = 'none';
     document.body.appendChild(link);
