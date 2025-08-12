@@ -414,32 +414,6 @@ const Home = () => {
           alignItems: 'center',
           gap: '0.5rem'
         }}>
-
-          {/* <button
-            type="button"
-            onClick={handleScrollToAbout}
-            style={{
-              color: '#2563eb',
-              cursor: 'pointer',
-              animation: 'float 2s ease-in-out infinite',
-              background: 'none',
-              border: 'none',
-              padding: '0.5rem',
-              borderRadius: '50%',
-              transition: 'all 0.3s ease'
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.color = '#1d4ed8';
-              e.target.style.transform = 'translateX(-50%) scale(1.1)';
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.color = '#2563eb';
-              e.target.style.transform = 'translateX(-50%) scale(1)';
-            }}
-            aria-label="Scroll to about section"
-          >
-            <ArrowDown size={24} />
-          </button> */}
         </div>
       </div>
     </section>
