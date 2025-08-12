@@ -5,6 +5,7 @@ import Home from "./components/Home";
 import LoadingSpinner from "./components/ui/LoadingSpinner";
 import SkipLink from "./components/ui/SkipLink";
 import ErrorBoundary from "./components/ui/ErrorBoundary";
+import Chatbot from "./components/Chatbot";
 
 // Lazy load non-critical components
 const About = lazy(() => import("./components/About"));
@@ -78,6 +79,11 @@ const App = () => {
             <BackToTopButton />
           </ErrorBoundary>
         </Suspense>
+        
+        {/* Chatbot */}
+        <ErrorBoundary>
+          <Chatbot />
+        </ErrorBoundary>
       </div>
     </div>
   );

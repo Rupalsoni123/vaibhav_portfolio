@@ -414,12 +414,7 @@ const Home = () => {
           alignItems: 'center',
           gap: '0.5rem'
         }}>
-          <span style={{
-            fontSize: '0.875rem',
-            color: 'var(--text-tertiary)'
-          }}>
-            Scroll to explore
-          </span>
+
           <button
             type="button"
             onClick={handleScrollToAbout}
