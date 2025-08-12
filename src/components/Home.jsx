@@ -415,7 +415,7 @@ const Home = () => {
           gap: '0.5rem'
         }}>
 
-          <button
+          {/* <button
             type="button"
             onClick={handleScrollToAbout}
             style={{
@@ -439,7 +439,7 @@ const Home = () => {
             aria-label="Scroll to about section"
           >
             <ArrowDown size={24} />
-          </button>
+          </button> */}
         </div>
       </div>
     </section>
