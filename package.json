@@ -19,7 +19,15 @@
     "portfolio": "vite",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "test": "vitest",
-    "analyze": "npm run build && npx vite-bundle-analyzer"
+    "analyze": "npm run build && npx vite-bundle-analyzer",
+    "docker:build": "docker build -t portfolio-app .",
+    "docker:build:prod": "docker build -f Dockerfile.prod -t portfolio-app:prod .",
+    "docker:run": "docker run -p 3000:3000 portfolio-app",
+    "docker:run:prod": "docker run -p 3000:3000 portfolio-app:prod",
+    "docker:compose:up": "docker-compose up --build",
+    "docker:compose:up:prod": "docker-compose --profile production up --build",
+    "docker:compose:down": "docker-compose down",
+    "start": "vite preview --host 0.0.0.0 --port 3000"
   },
   "dependencies": {
     "@sendgrid/mail": "^8.0.0",
@@ -35,7 +43,7 @@
     "@tailwindcss/typography": "^0.5.10",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
-    "@vitejs/plugin-react": "^4.0.4",
+    "@vitejs/plugin-react": "^4.3.0",
     "autoprefixer": "^10.4.15",
     "eslint": "^8.45.0",
     "eslint-plugin-react": "^7.32.2",

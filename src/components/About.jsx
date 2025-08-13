@@ -110,30 +110,62 @@ const About = () => {
     journey: (
       <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
         {journey.map((item, index) => (
-          <div key={index} style={{
+          <div key={index} className="card-elevated" style={{
             padding: '1.5rem',
-            background: 'var(--card-bg)',
-            border: '1px solid var(--border-color)',
-            borderRadius: '0.5rem',
-            borderLeft: '4px solid #2563eb'
+            borderLeft: '4px solid var(--accent-primary)',
+            position: 'relative',
+            overflow: 'hidden'
           }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
-              <h3 style={{ fontWeight: '600', color: 'var(--text-primary)' }}>{item.title}</h3>
-              <span style={{ 
-                background: '#2563eb', 
-                color: 'white', 
-                padding: '0.25rem 0.75rem', 
-                borderRadius: '1rem', 
-                fontSize: '0.75rem',
-                fontWeight: '500'
+            {/* Background Pattern */}
+            <div style={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              width: '100px',
+              height: '100px',
+              background: 'var(--gradient-primary)',
+              opacity: 0.05,
+              borderRadius: '50%',
+              transform: 'translate(30px, -30px)'
+            }} />
+            
+            <div style={{ 
+              display: 'flex', 
+              justifyContent: 'space-between', 
+              alignItems: 'flex-start', 
+              marginBottom: '0.5rem',
+              position: 'relative',
+              zIndex: 1
+            }}>
+              <h3 style={{ 
+                fontWeight: '600', 
+                color: 'var(--text-primary)',
+                fontSize: '1.25rem'
+              }}>
+                {item.title}
+              </h3>
+              <span className="tech-tag" style={{
+                background: 'var(--accent-primary)',
+                color: 'white',
+                border: 'none'
               }}>
                 {item.year}
               </span>
             </div>
-            <div style={{ color: '#2563eb', fontWeight: '500', marginBottom: '0.5rem' }}>
+            <div style={{ 
+              color: 'var(--accent-primary)', 
+              fontWeight: '600', 
+              marginBottom: '0.75rem',
+              fontSize: '1rem'
+            }}>
               {item.company}
             </div>
-            <p style={{ color: 'var(--text-secondary)', lineHeight: '1.6' }}>
+            <p style={{ 
+              color: 'var(--text-secondary)', 
+              lineHeight: '1.6',
+              position: 'relative',
+              zIndex: 1
+            }}>
               {item.description}
             </p>
           </div>

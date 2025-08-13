@@ -82,45 +82,36 @@ const Skills = () => {
           marginBottom: '4rem'
         }}>
           {stats.map((stat, index) => (
-            <div key={index} style={{
-              textAlign: 'center',
-              padding: '2rem 1rem',
-              background: 'var(--card-bg)',
-              border: '1px solid var(--border-color)',
-              borderRadius: '1rem',
-              transition: 'all 0.3s ease',
-              transform: 'translateY(0)'
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.transform = 'translateY(-4px)';
-              e.target.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.1)';
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.transform = 'translateY(0)';
-              e.target.style.boxShadow = 'none';
-            }}
-            >
-              <div style={{
-                fontSize: '2.5rem',
-                fontWeight: '700',
-                color: '#2563eb',
-                marginBottom: '0.5rem'
+            <div key={index} className="gradient-box">
+              <div className="gradient-box-inner" style={{
+                textAlign: 'center',
+                padding: '2rem 1rem'
               }}>
-                {stat.number}
-              </div>
-              <div style={{
-                fontSize: '1.125rem',
-                fontWeight: '600',
-                color: 'var(--text-primary)',
-                marginBottom: '0.5rem'
-              }}>
-                {stat.label}
-              </div>
-              <div style={{
-                fontSize: '0.875rem',
-                color: 'var(--text-secondary)'
-              }}>
-                {stat.description}
+                <div style={{
+                  fontSize: '2.5rem',
+                  fontWeight: '700',
+                  background: 'var(--gradient-primary)',
+                  backgroundClip: 'text',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  marginBottom: '0.5rem'
+                }}>
+                  {stat.number}
+                </div>
+                <div style={{
+                  fontSize: '1.125rem',
+                  fontWeight: '600',
+                  color: 'var(--text-primary)',
+                  marginBottom: '0.5rem'
+                }}>
+                  {stat.label}
+                </div>
+                <div style={{
+                  fontSize: '0.875rem',
+                  color: 'var(--text-secondary)'
+                }}>
+                  {stat.description}
+                </div>
               </div>
             </div>
           ))}

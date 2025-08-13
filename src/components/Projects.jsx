@@ -155,48 +155,55 @@ const Projects = () => {
           {filteredProjects.map((project) => (
             <div
               key={project.id}
+              className="card-elevated"
               style={{
-                background: 'var(--card-bg)',
-                border: '1px solid var(--border-color)',
-                borderRadius: '1rem',
-                overflow: 'hidden',
                 cursor: 'pointer',
-                transition: 'all 0.3s ease',
-                transform: 'translateY(0)',
-                position: 'relative'
+                position: 'relative',
+                overflow: 'hidden'
               }}
               onMouseEnter={() => setHoveredProject(project.id)}
               onMouseLeave={() => setHoveredProject(null)}
               onClick={(e) => openModal(project, e)}
-              onMouseOver={(e) => {
-                e.currentTarget.style.transform = 'translateY(-4px)';
-                e.currentTarget.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.1)';
-                e.currentTarget.style.borderColor = '#7c3aed';
-              }}
-              onMouseOut={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = 'none';
-                e.currentTarget.style.borderColor = 'var(--border-color)';
-              }}
             >
+              {/* Gradient Border Effect */}
+              <div style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                height: '3px',
+                background: project.category === 'Infrastructure as Code' ? 'var(--gradient-primary)' :
+                           project.category === 'Container Orchestration' ? 'var(--gradient-success)' :
+                           project.category === 'CI/CD Pipeline' ? 'var(--gradient-secondary)' :
+                           project.category === 'Monitoring' ? 'var(--gradient-tertiary)' :
+                           'var(--gradient-primary)'
+              }} />
+              
               {/* Project Header */}
               <div style={{ padding: '1.5rem' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
-                  <div style={{
-                    padding: '0.25rem 0.75rem',
-                    background: project.category === 'Infrastructure as Code' ? '#2563eb' :
-                               project.category === 'Container Orchestration' ? '#059669' :
-                               project.category === 'CI/CD Pipeline' ? '#dc2626' :
-                               project.category === 'Monitoring' ? '#7c3aed' :
-                               '#f59e0b',
+                  <div className="tech-tag" style={{
+                    background: project.category === 'Infrastructure as Code' ? 'var(--accent-primary)' :
+                               project.category === 'Container Orchestration' ? 'var(--accent-success)' :
+                               project.category === 'CI/CD Pipeline' ? 'var(--accent-error)' :
+                               project.category === 'Monitoring' ? 'var(--accent-secondary)' :
+                               'var(--accent-warning)',
                     color: 'white',
-                    borderRadius: '1rem',
-                    fontSize: '0.75rem',
-                    fontWeight: '500'
+                    border: 'none'
                   }}>
                     {project.category}
                   </div>
-                  <div style={{ fontSize: '1.5rem' }}>{getProjectIcon(project.icon)}</div>
+                  <div style={{ 
+                    fontSize: '1.5rem',
+                    background: 'var(--bg-tertiary)',
+                    padding: '0.5rem',
+                    borderRadius: '0.5rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}>
+                    {getProjectIcon(project.icon)}
+                  </div>
                 </div>
 
                 <h3 style={{
@@ -226,25 +233,15 @@ const Projects = () => {
                   {project.technologies.slice(0, 4).map((tech, index) => (
                     <span
                       key={index}
-                      style={{
-                        padding: '0.25rem 0.75rem',
-                        background: 'var(--bg-tertiary)',
-                        color: 'var(--text-primary)',
-                        borderRadius: '1rem',
-                        fontSize: '0.75rem',
-                        fontWeight: '500'
-                      }}
+                      className="tech-tag"
                     >
                       {tech}
                     </span>
                   ))}
                   {project.technologies.length > 4 && (
-                    <span style={{
-                      padding: '0.25rem 0.75rem',
+                    <span className="tech-tag" style={{
                       background: 'var(--bg-tertiary)',
-                      color: 'var(--text-secondary)',
-                      borderRadius: '1rem',
-                      fontSize: '0.75rem'
+                      color: 'var(--text-secondary)'
                     }}>
                       +{project.technologies.length - 4} more
                     </span>

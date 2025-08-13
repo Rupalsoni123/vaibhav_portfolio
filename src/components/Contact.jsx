@@ -227,27 +227,24 @@ const Contact = () => {
                   key={index}
                   type="button"
                   onClick={(e) => handleContactMethod(method.method, method.value, e)}
+                  className="card-elevated"
                   style={{
                     display: 'flex',
                     alignItems: 'center',
                     gap: '1rem',
                     padding: '1.5rem',
-                    background: 'var(--card-bg)',
-                    border: '1px solid var(--border-color)',
-                    borderRadius: '1rem',
                     cursor: 'pointer',
-                    transition: 'all 0.3s ease',
-                    transform: 'translateY(0)',
                     textAlign: 'left',
-                    width: '100%'
+                    width: '100%',
+                    border: 'none',
+                    position: 'relative',
+                    overflow: 'hidden'
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-4px)';
                     e.currentTarget.style.borderColor = method.color;
-                    e.currentTarget.style.boxShadow = `0 10px 25px ${method.color}20`;
+                    e.currentTarget.style.boxShadow = `var(--shadow-xl), 0 0 20px ${method.color}20`;
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0)';
                     e.currentTarget.style.borderColor = 'var(--border-color)';
                     e.currentTarget.style.boxShadow = 'none';
                   }}

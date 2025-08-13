@@ -69,29 +69,23 @@ const Home = () => {
   };
 
   return (
-    <section id="home" className="section" style={{
-      minHeight: '100vh',
-      display: 'flex',
-      alignItems: 'center',
-      background: 'var(--bg-primary)',
-      position: 'relative',
-      overflow: 'hidden'
-    }}>
-      <div className="container">
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr',
-          gap: '3rem',
-          alignItems: 'center',
-          minHeight: '80vh'
-        }}>
-          {/* Content Section */}
-          <div className="animate-fade-in-up" style={{
-            order: 1,
-            textAlign: 'center',
-            maxWidth: '800px',
-            margin: '0 auto'
+    <section id="home" className="section-container">
+      <div className="content-wrapper">
+        <div className="container">
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr',
+            gap: '3rem',
+            alignItems: 'center',
+            minHeight: '80vh'
           }}>
+            {/* Content Section */}
+            <div className="animate-fade-in-up" style={{
+              order: 1,
+              textAlign: 'center',
+              maxWidth: '800px',
+              margin: '0 auto'
+            }}>
             {/* Avatar */}
             <div style={{
               display: 'flex',
@@ -400,19 +394,9 @@ const Home = () => {
               ))}
             </div>
           </div>
-        </div>
+          </div>
 
-        {/* Scroll Indicator */}
-        <div style={{
-          position: 'absolute',
-          bottom: '2rem',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: '0.5rem'
-        }}>
+          {/* Scroll Indicator */}
         </div>
       </div>
     </section>
