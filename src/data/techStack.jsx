@@ -1,4 +1,4 @@
-import ReactJs, { AWS, Terraform, Jenkins, Git, Kubernetes, Nginx } from "../components/SkilIcons"
+import ReactJs, { AWS, Terraform, Jenkins, Git, Kubernetes, Nginx } from "../components/SkillIcons"
 
 
 const iconStyle = {

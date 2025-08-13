@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { TypeAnimation } from "react-type-animation";
 import { ArrowDown } from "./Icons";
-import AvatarImage from "../assets/Avatars/Avatars/93f50dd8-9dec-4f20-ad88-d40acc26dec5.jpg";
-// import FallbackAvatar from "../assets/profile.jpg";
+import AvatarImage from "../assets/Avatars/93f50dd8-9dec-4f20-ad88-d40acc26dec5.jpg";
 import contactInfo from "../data/contactInfo";
 import resume from "../assets/resume.pdf";
 

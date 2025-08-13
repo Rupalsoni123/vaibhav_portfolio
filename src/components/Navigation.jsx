@@ -12,10 +12,27 @@ const Navigation = ({ mobile = false, onLinkClick }) => {
       // External link
       window.open(link.href, '_blank', 'noopener,noreferrer');
     } else {
-      // Internal scroll link
-      const element = document.getElementById(link.link);
+      // Internal scroll link - convert to lowercase to match section IDs
+      const elementId = link.link.toLowerCase();
+      console.log('Looking for element with ID:', elementId);
+      
+      const element = document.getElementById(elementId);
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        console.log('Element found, scrolling to:', element);
+        
+        // Calculate offset for fixed navbar (approximately 80px)
+        const navbarHeight = 80;
+        const elementPosition = element.offsetTop - navbarHeight;
+        
+        window.scrollTo({
+          top: Math.max(0, elementPosition), // Ensure we don't scroll to negative position
+          behavior: 'smooth'
+        });
+      } else {
+        console.warn(`Element with ID "${elementId}" not found`);
+        // Fallback: try to find all elements with IDs for debugging
+        const allElementsWithIds = document.querySelectorAll('[id]');
+        console.log('Available elements with IDs:', Array.from(allElementsWithIds).map(el => el.id));
       }
     }
     

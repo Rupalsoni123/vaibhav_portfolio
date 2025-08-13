@@ -17,6 +17,10 @@ const navLinks = [
     },
     {
         id: 5,
+        link: "Blog"
+    },
+    {
+        id: 6,
         link: "Contact"
     }
 ];

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Hamburger, Menu, Cancel } from './Icons';
 
-const HamBurgerMenu = ({ handleClick, navOpen, ...props }) => {
+const HamburgerMenu = ({ handleClick, navOpen, ...props }) => {
     return (
         <button
             style={{
@@ -41,5 +41,5 @@ const HamBurgerMenu = ({ handleClick, navOpen, ...props }) => {
     )
 }
 
-export default HamBurgerMenu;
+export default HamburgerMenu;
 

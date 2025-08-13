@@ -1,30 +1,60 @@
 {
   "name": "my-portfolio",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "author": "Vaibhav Soni",
+  "description": "DevOps Engineer Portfolio with advanced AI chatbot and accessibility features",
+  "keywords": ["portfolio", "devops", "react", "ai-chatbot", "accessibility"],
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "portfolio": "vite"
+    "portfolio": "vite",
+    "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "test": "vitest",
+    "analyze": "npm run build && npx vite-bundle-analyzer"
   },
   "dependencies": {
+    "@sendgrid/mail": "^8.0.0",
     "framer-motion": "^11.3.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scroll": "^1.8.9",
-    "react-type-animation": "^3.1.0",
-    "@sendgrid/mail": "^8.0.0"
+    "react-type-animation": "^3.1.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
     "@vitejs/plugin-react": "^4.0.4",
+    "@tailwindcss/typography": "^0.5.10",
+    "@tailwindcss/forms": "^0.5.6",
+    "@tailwindcss/aspect-ratio": "^0.4.2",
     "autoprefixer": "^10.4.15",
     "postcss": "^8.4.31",
     "tailwindcss": "^3.3.3",
-    "vite": "^4.4.9"
+    "vite": "^4.4.9",
+    "vite-bundle-analyzer": "^0.7.0",
+    "vitest": "^0.34.6",
+    "eslint": "^8.45.0",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.3"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

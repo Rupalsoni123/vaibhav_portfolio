@@ -25,7 +25,7 @@ const BackToTopButton = () => {
             onClick={handleScroll}
             style={{
                 position: 'fixed',
-                bottom: '2rem',
+                bottom: '5.5rem', // Moved up to avoid chatbot button
                 right: '2rem',
                 width: '3rem',
                 height: '3rem',
@@ -39,7 +39,7 @@ const BackToTopButton = () => {
                 justifyContent: 'center',
                 boxShadow: 'var(--shadow-lg)',
                 transition: 'all 0.3s ease',
-                zIndex: 1000,
+                zIndex: 45, // Lower than chatbot (z-50) but still high
                 opacity: btnVisibility ? 1 : 0,
                 transform: btnVisibility ? 'translateY(0)' : 'translateY(20px)'
             }}

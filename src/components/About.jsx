@@ -389,7 +389,7 @@ const About = () => {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         @media (max-width: 768px) {
           .container > div:last-child {
             grid-template-columns: 1fr !important;

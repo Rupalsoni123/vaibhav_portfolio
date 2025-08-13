@@ -3,14 +3,15 @@ import { ThemeContext } from "./utils/ThemeContext";
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import LoadingSpinner from "./components/ui/LoadingSpinner";
-import SkipLink from "./components/ui/SkipLink";
 import ErrorBoundary from "./components/ui/ErrorBoundary";
-import Chatbot from "./components/Chatbot";
+import SEO from "./components/ui/SEO";
+import ImprovedChatbot from "./components/ImprovedChatbot";
 
 // Lazy load non-critical components
 const About = lazy(() => import("./components/About"));
 const Skills = lazy(() => import("./components/Skills"));
 const Projects = lazy(() => import("./components/Projects"));
+const Blog = lazy(() => import("./components/Blog"));
 const Contact = lazy(() => import("./components/Contact"));
 const Footer = lazy(() => import("./components/Footer"));
 const BackToTopButton = lazy(() => import("./components/BackToTopButton"));
@@ -20,21 +21,27 @@ const App = () => {
   
   return (
     <div className={`transition-all duration-300 ${theme}`}>
-      <SkipLink />
+      {/* SEO Optimization */}
+      <SEO />
+      
       <div style={{
         background: 'var(--bg-primary)',
         color: 'var(--text-primary)',
         minHeight: '100vh'
       }}>
+        {/* Navigation */}
         <ErrorBoundary>
           <Navbar />
         </ErrorBoundary>
         
+        {/* Main Content */}
         <main id="main-content" role="main" className="relative">
+          {/* Hero Section */}
           <ErrorBoundary>
             <Home />
           </ErrorBoundary>
           
+          {/* Lazy Loaded Sections */}
           <Suspense fallback={
             <div className="section" style={{
               display: 'flex',
@@ -56,11 +63,15 @@ const App = () => {
               <Projects />
             </ErrorBoundary>
             <ErrorBoundary>
+              <Blog />
+            </ErrorBoundary>
+            <ErrorBoundary>
               <Contact />
             </ErrorBoundary>
           </Suspense>
         </main>
         
+        {/* Footer and Utilities */}
         <Suspense fallback={
           <div style={{
             height: '8rem',
@@ -80,9 +91,9 @@ const App = () => {
           </ErrorBoundary>
         </Suspense>
         
-        {/* Chatbot */}
+        {/* AI Chatbot */}
         <ErrorBoundary>
-          <Chatbot />
+          <ImprovedChatbot />
         </ErrorBoundary>
       </div>
     </div>
@@ -90,6 +101,3 @@ const App = () => {
 };
 
 export default App;
-
-
-

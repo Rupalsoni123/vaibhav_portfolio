@@ -5,6 +5,8 @@ module.exports = {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
+    "./src/components/**/*.{js,jsx}",
+    "./src/data/**/*.{js,jsx}",
   ],
   darkMode: 'class',
   important: true,
@@ -70,6 +72,7 @@ module.exports = {
         mono: ['JetBrains Mono', 'Fira Code', 'Consolas', 'monospace'],
         cyber: ['Orbitron', 'system-ui', 'sans-serif'],
         matrix: ['Share Tech Mono', 'monospace'],
+        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
       },
       fontSize: {
         'xs': ['0.75rem', { lineHeight: '1rem' }],
@@ -98,6 +101,34 @@ module.exports = {
         'float-slow': 'float 6s ease-in-out infinite',
         'bounce-slow': 'bounce 3s infinite',
         'pulse-neon': 'pulseNeon 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'fade-in': 'fadeIn 0.5s ease-in-out',
+        'slide-up': 'slideUp 0.5s ease-out',
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        slideUp: {
+          '0%': { transform: 'translateY(20px)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+        matrixRain: {
+          '0%': { transform: 'translateY(-100%)' },
+          '100%': { transform: 'translateY(100vh)' },
+        },
+        neonPulse: {
+          '0%': { textShadow: '0 0 5px currentColor' },
+          '100%': { textShadow: '0 0 20px currentColor, 0 0 30px currentColor' },
+        },
+        glitch: {
+          '0%': { transform: 'translate(0)' },
+          '20%': { transform: 'translate(-2px, 2px)' },
+          '40%': { transform: 'translate(-2px, -2px)' },
+          '60%': { transform: 'translate(2px, 2px)' },
+          '80%': { transform: 'translate(2px, -2px)' },
+          '100%': { transform: 'translate(0)' },
+        },
       },
       boxShadow: {
         'neon-sm': '0 0 5px currentColor',
@@ -132,4 +163,32 @@ module.exports = {
     }
   },
   plugins: [],
+  // Updated safelist configuration for Tailwind CSS v3.0
+  safelist: [
+    'dark',
+    // Background classes
+    {
+      pattern: /bg-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900|950)/,
+    },
+    // Text classes
+    {
+      pattern: /text-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900|950)/,
+    },
+    // Border classes
+    {
+      pattern: /border-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900|950)/,
+    },
+    // Hover states
+    {
+      pattern: /hover:(bg|text|border)-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900|950)/,
+    },
+    // Focus states
+    {
+      pattern: /focus:(bg|text|border)-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900|950)/,
+    },
+    // Custom theme colors
+    {
+      pattern: /(bg|text|border)-(neon|cyber|matrix|terminal)-(green|blue|purple|pink|yellow|orange|bg|amber|red)/,
+    }
+  ]
 }

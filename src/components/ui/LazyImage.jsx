@@ -1,108 +1,158 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useLazyLoad } from '../../utils/useIntersectionObserver';
+import { motion } from 'framer-motion';
 
-const LazyImage = ({
-  src,
-  alt,
-  placeholder,
-  className = '',
-  style = {},
-  onLoad,
-  onError,
-  ...props
+const LazyImage = ({ 
+  src, 
+  alt, 
+  className = '', 
+  placeholder = null,
+  blurDataURL = null,
+  onLoad = () => {},
+  onError = () => {},
+  ...props 
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isInView, setIsInView] = useState(false);
   const [hasError, setHasError] = useState(false);
-  const [imageSrc, setImageSrc] = useState(placeholder || '');
-  const { ref, shouldLoad } = useLazyLoad();
   const imgRef = useRef(null);
+  const observerRef = useRef(null);
 
   useEffect(() => {
-    if (!shouldLoad || isLoaded || hasError) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+          observer.disconnect();
+        }
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '50px'
+      }
+    );
 
-    const img = new Image();
-    
-    img.onload = () => {
-      setImageSrc(src);
-      setIsLoaded(true);
-      if (onLoad) onLoad();
-    };
-    
-    img.onerror = () => {
-      setHasError(true);
-      if (onError) onError();
-    };
-    
-    img.src = src;
-  }, [shouldLoad, src, isLoaded, hasError, onLoad, onError]);
+    if (imgRef.current) {
+      observer.observe(imgRef.current);
+      observerRef.current = observer;
+    }
 
-  const imageStyle = {
-    transition: 'opacity 0.3s ease, filter 0.3s ease',
-    opacity: isLoaded ? 1 : 0.7,
-    filter: isLoaded ? 'none' : 'blur(4px)',
-    ...style
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
+    };
+  }, []);
+
+  const handleLoad = () => {
+    setIsLoaded(true);
+    onLoad();
   };
 
-  if (hasError) {
-    return (
-      <div
-        ref={ref}
-        className={`lazy-image-error ${className}`}
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          background: 'var(--bg-tertiary)',
-          color: 'var(--text-tertiary)',
-          minHeight: '200px',
-          borderRadius: 'var(--border-radius-md)',
-          ...style
-        }}
+  const handleError = () => {
+    setHasError(true);
+    onError();
+  };
+
+  const defaultPlaceholder = (
+    <div className="w-full h-full bg-gray-200 dark:bg-gray-700 animate-pulse flex items-center justify-center">
+      <svg 
+        className="w-8 h-8 text-gray-400" 
+        fill="none" 
+        stroke="currentColor" 
+        viewBox="0 0 24 24"
       >
-        <span>Failed to load image</span>
+        <path 
+          strokeLinecap="round" 
+          strokeLinejoin="round" 
+          strokeWidth={2} 
+          d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" 
+        />
+      </svg>
+    </div>
+  );
+
+  const errorPlaceholder = (
+    <div className="w-full h-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
+      <div className="text-center">
+        <svg 
+          className="w-8 h-8 text-gray-400 mx-auto mb-2" 
+          fill="none" 
+          stroke="currentColor" 
+          viewBox="0 0 24 24"
+        >
+          <path 
+            strokeLinecap="round" 
+            strokeLinejoin="round" 
+            strokeWidth={2} 
+            d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" 
+          />
+        </svg>
+        <p className="text-xs text-gray-500">Failed to load</p>
       </div>
-    );
-  }
+    </div>
+  );
 
   return (
-    <div ref={ref} className="lazy-image-container" style={{ position: 'relative' }}>
-      {!isLoaded && placeholder && (
-        <div
-          className="lazy-image-placeholder"
-          style={{
-            position: 'absolute',
-            inset: 0,
-            background: 'var(--bg-tertiary)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            borderRadius: 'var(--border-radius-md)'
-          }}
+    <div ref={imgRef} className={`relative overflow-hidden ${className}`} {...props}>
+      {/* Blur placeholder */}
+      {blurDataURL && !isLoaded && (
+        <motion.img
+          src={blurDataURL}
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover filter blur-sm scale-110"
+          initial={{ opacity: 1 }}
+          animate={{ opacity: isLoaded ? 0 : 1 }}
+          transition={{ duration: 0.3 }}
+        />
+      )}
+
+      {/* Loading placeholder */}
+      {!blurDataURL && !isLoaded && !hasError && (
+        <motion.div
+          className="absolute inset-0"
+          initial={{ opacity: 1 }}
+          animate={{ opacity: isLoaded ? 0 : 1 }}
+          transition={{ duration: 0.3 }}
         >
-          <div className="skeleton" style={{ width: '100%', height: '100%', borderRadius: 'inherit' }} />
+          {placeholder || defaultPlaceholder}
+        </motion.div>
+      )}
+
+      {/* Error placeholder */}
+      {hasError && (
+        <div className="absolute inset-0">
+          {errorPlaceholder}
         </div>
       )}
-      
-      <img
-        ref={imgRef}
-        src={imageSrc}
-        alt={alt}
-        className={`lazy-image ${className} ${isLoaded ? 'loaded' : ''}`}
-        style={imageStyle}
-        loading="lazy"
-        {...props}
-      />
-      
-      {!isLoaded && (
-        <div
-          style={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)'
+
+      {/* Actual image */}
+      {isInView && !hasError && (
+        <motion.img
+          src={src}
+          alt={alt}
+          className={`w-full h-full object-cover ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
+          onLoad={handleLoad}
+          onError={handleError}
+          initial={{ opacity: 0, scale: 1.1 }}
+          animate={{ 
+            opacity: isLoaded ? 1 : 0,
+            scale: isLoaded ? 1 : 1.1
           }}
-        >
-          <div className="spinner" style={{ width: '24px', height: '24px' }} />
+          transition={{ 
+            duration: 0.6,
+            ease: [0.25, 0.25, 0.25, 0.75]
+          }}
+        />
+      )}
+
+      {/* Loading indicator */}
+      {isInView && !isLoaded && !hasError && (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <motion.div
+            className="w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full"
+            animate={{ rotate: 360 }}
+            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+          />
         </div>
       )}
     </div>

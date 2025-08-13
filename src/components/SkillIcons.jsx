@@ -1181,7 +1181,7 @@ const AzureIcon = ({ width = 45, height = 45 }) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clip-path="url(#clip0_227_448)" transform="translate(6.5, 0) scale(1.7)">
+      <g clipPath="url(#clip0_227_448)" transform="translate(6.5, 0) scale(1.7)">
         <path
           d="M5.33492 1.37491C5.44717 1.04229 5.75909 0.818359 6.11014 0.818359H11.25L5.91513 16.6255C5.80287 16.9581 5.49095 17.182 5.13991 17.182H1.13968C0.579936 17.182 0.185466 16.6325 0.364461 16.1022L5.33492 1.37491Z"
           fill="url(#paint0_linear)"
@@ -1249,7 +1249,7 @@ const Ansible = ({ width = 35, height = 45 }) => {
         viewBox="-29.5 0 315 315"
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink"
+        xmlnsXlink="http://www.w3.org/1999/xlink"
         preserveAspectRatio="xMidYMid"
       >
         <g>
@@ -1362,7 +1362,7 @@ const Gitlab = ({ width = 35, height = 45 }) => {
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 128 128"
-        xml:space="preserve"
+        xmlSpace="preserve"
         width={width}
         height={height}
       >
@@ -1426,8 +1426,8 @@ const Grafana = ({ width = 35, height = 45 }) => {
           y2="8.802"
           gradientTransform="translate(-.23 28.462) scale(1.4011)"
         >
-          <stop offset="0" stop-color="#fcee1f" />
-          <stop offset="1" stop-color="#f15b2a" />
+          <stop offset="0" stopColor="#fcee1f" />
+          <stop offset="1" stopColor="#f15b2a" />
         </linearGradient>
         <path
           fill="url(#grafana-original-a)"
@@ -1456,8 +1456,8 @@ const Jira = ({ width = 35, height = 45 }) => {
             y2="14.842"
             gradientTransform="scale(4)"
           >
-            <stop offset=".176" stop-color="#0052cc" />
-            <stop offset="1" stop-color="#2684ff" />
+            <stop offset=".176" stopColor="#0052cc" />
+            <stop offset="1" stopColor="#2684ff" />
           </linearGradient>
           <linearGradient
             id="jira-original-b"
@@ -1468,8 +1468,8 @@ const Jira = ({ width = 35, height = 45 }) => {
             y2="21.094"
             gradientTransform="scale(4)"
           >
-            <stop offset=".176" stop-color="#0052cc" />
-            <stop offset="1" stop-color="#2684ff" />
+            <stop offset=".176" stopColor="#0052cc" />
+            <stop offset="1" stopColor="#2684ff" />
           </linearGradient>
         </defs>
         <path
@@ -1619,14 +1619,14 @@ const Bitbucket = ({ width = 40, height = 40 }) => {
         fill="none"
         viewBox="0 0 40 40"
       >
-        <g clip-path="url(#clip0_227_448)" transform="translate(6.5, 0) scale(1.6)">
+        <g clipPath="url(#clip0_227_448)" transform="translate(6.5, 0) scale(1.6)">
           <path d="M0.539029 4.64218C0.215579 4.64218 -0.0539631 4.92891 -5.47399e-05 5.24171L2.29105 18.6659C2.34496 19.0047 2.64145 19.2654 3.01881 19.2654H13.9892C14.2587 19.2654 14.4743 19.0829 14.5282 18.8223L16.8194 5.24171C16.8733 4.92891 16.6307 4.64218 16.2803 4.64218H0.539029ZM10.1886 14.3389H6.68458L5.74118 9.54265H11.0512L10.1886 14.3389Z" fill="#2684FF" />
           <path d="M16.0915 9.54265H11.0241L10.1886 14.3389H6.68451L2.53357 19.0829C2.53357 19.0829 2.72225 19.2654 3.01874 19.2654H13.9891C14.2586 19.2654 14.4743 19.0829 14.5282 18.8223L16.0915 9.54265Z" fill="url(#paint0_linear_227_448)" />
         </g>
         <defs>
           <linearGradient id="paint0_linear_227_448" x1="17.2536" y1="10.89" x2="9.10613" y2="17.4665" gradientUnits="userSpaceOnUse">
-            <stop offset="0.176" stop-color="#0052CC" />
-            <stop offset="1" stop-color="#2684FF" />
+            <stop offset="0.176" stopColor="#0052CC" />
+            <stop offset="1" stopColor="#2684FF" />
           </linearGradient>
           <clipPath id="clip0_227_448">
             <rect width="20" height="20" fill="none" />

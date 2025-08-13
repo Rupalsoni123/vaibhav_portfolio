@@ -20,7 +20,7 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     e.stopPropagation();
     console.log('Form submitted:', formData);
@@ -38,20 +38,72 @@ const Contact = () => {
       return;
     }
 
-    // Simulate form submission
-    setTimeout(() => {
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
       setStatus({
-        type: "success",
-        message: "Message sent successfully! I'll get back to you within 24 hours."
+        type: "error",
+        message: "Please enter a valid email address."
       });
-      setFormData({ name: "", email: "", subject: "", message: "" });
       setIsSubmitting(false);
+      return;
+    }
+
+    try {
+      // Get Getform endpoint from environment variables
+      const getformEndpoint = import.meta.env.VITE_GETFORM_ENDPOINT;
       
-      // Clear status after 5 seconds
-      setTimeout(() => {
-        setStatus({ type: "", message: "" });
-      }, 5000);
-    }, 2000);
+      if (!getformEndpoint || getformEndpoint === 'https://getform.io/f/YOUR_FORM_ID') {
+        throw new Error('Getform endpoint not configured');
+      }
+
+      // Submit to Getform
+      const response = await fetch(getformEndpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject || 'Contact Form Submission',
+          message: formData.message,
+          _gotcha: '', // Honeypot field for spam protection
+        }),
+      });
+
+      if (response.ok) {
+        setStatus({
+          type: "success",
+          message: "Message sent successfully! I'll get back to you within 24 hours."
+        });
+        setFormData({ name: "", email: "", subject: "", message: "" });
+        
+        // Clear status after 5 seconds
+        setTimeout(() => {
+          setStatus({ type: "", message: "" });
+        }, 5000);
+      } else {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      
+      // Fallback: Try alternative method or show error
+      if (error.message.includes('Getform endpoint not configured')) {
+        setStatus({
+          type: "error",
+          message: "Contact form is not configured. Please reach out via email or LinkedIn."
+        });
+      } else {
+        setStatus({
+          type: "error",
+          message: "Failed to send message. Please try again or contact me directly via email."
+        });
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleQuickTopic = (topic, e) => {
@@ -367,6 +419,15 @@ const Contact = () => {
               </div>
 
               <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                {/* Honeypot field for spam protection - hidden from users */}
+                <input
+                  type="text"
+                  name="_gotcha"
+                  style={{ display: 'none' }}
+                  tabIndex="-1"
+                  autoComplete="off"
+                />
+                
                 {/* Name Field */}
                 <div>
                   <label htmlFor="name" style={{

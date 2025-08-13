@@ -1,27 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+  
+  <!-- Homepage -->
   <url>
-    <loc>https://vaibhav-portfolio-cyan.vercel.app/</loc>
-    <lastmod>2025-07-24</lastmod>
-    <changefreq>monthly</changefreq>
+    <loc>https://vaibhavsoni.dev/</loc>
+    <lastmod>2024-08-13</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+  
+  <!-- About Page -->
   <url>
-    <loc>https://vaibhav-portfolio-cyan.vercel.app/#about</loc>
-    <lastmod>2025-07-24</lastmod>
+    <loc>https://vaibhavsoni.dev/#about</loc>
+    <lastmod>2024-08-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  
+  <!-- Skills Page -->
   <url>
-    <loc>https://vaibhav-portfolio-cyan.vercel.app/#skills</loc>
-    <lastmod>2025-07-24</lastmod>
+    <loc>https://vaibhavsoni.dev/#skills</loc>
+    <lastmod>2024-08-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  
+  <!-- Projects Page -->
   <url>
-    <loc>https://vaibhav-portfolio-cyan.vercel.app/#contact</loc>
-    <lastmod>2025-07-24</lastmod>
+    <loc>https://vaibhavsoni.dev/#projects</loc>
+    <lastmod>2024-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- Blog Page -->
+  <url>
+    <loc>https://vaibhavsoni.dev/#blog</loc>
+    <lastmod>2024-08-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Contact Page -->
+  <url>
+    <loc>https://vaibhavsoni.dev/#contact</loc>
+    <lastmod>2024-08-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Resume -->
+  <url>
+    <loc>https://vaibhavsoni.dev/resume/Vaibhav_Soni_Resume.pdf</loc>
+    <lastmod>2024-08-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+  
 </urlset>

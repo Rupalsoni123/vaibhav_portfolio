@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import HamBurgerMenu from './HamBurgerMenu';
+import HamburgerMenu from './HamburgerMenu';
 import Navigation from './Navigation';
 import { ThemeContext } from '../utils/ThemeContext';
 import { Sun, Moon } from './Icons';
@@ -19,9 +19,12 @@ const Navbar = () => {
     const handleThemeToggle = (e) => {
         e.preventDefault();
         e.stopPropagation();
-        console.log('Theme toggle clicked');
+        console.log('Theme toggle clicked, current theme:', theme);
         if (toggleTheme) {
             toggleTheme();
+            console.log('Theme toggle function called');
+        } else {
+            console.error('toggleTheme function not available');
         }
     };
 
@@ -80,7 +83,7 @@ const Navbar = () => {
                         alignItems: 'center',
                         gap: '2rem'
                     }}>
-                        <div style={{ display: 'none' }} className="md:block">
+                        <div className="hidden md:block">
                             <Navigation />
                         </div>
 
@@ -115,21 +118,12 @@ const Navbar = () => {
                         </button>
 
                         {/* Mobile Menu Button */}
-                        <button
-                            type="button"
-                            onClick={handleMenuClick}
-                            className="md:hidden"
-                            style={{
-                                background: 'none',
-                                border: 'none',
-                                color: 'var(--text-primary)',
-                                cursor: 'pointer',
-                                padding: '0.5rem'
-                            }}
-                            aria-label="Toggle mobile menu"
-                        >
-                            <HamBurgerMenu />
-                        </button>
+                        <div className="block md:hidden">
+                            <HamburgerMenu 
+                                handleClick={handleMenuClick}
+                                navOpen={navOpen}
+                            />
+                        </div>
                     </div>
                 </div>
             </nav>
