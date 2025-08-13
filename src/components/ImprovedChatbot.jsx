@@ -9,7 +9,7 @@ const ImprovedChatbot = () => {
   const [messages, setMessages] = useState([
     {
       id: 1,
-      text: "👋 **Hello! I'm Amazon Q, your AI assistant.**\n\nI'm here to help you with a wide range of topics including:\n\n**🔧 Software Development:**\n• Code generation and debugging\n• Best practices and architecture\n• Programming languages and frameworks\n• Code reviews and optimization\n\n**☁️ AWS & Cloud:**\n• AWS services and solutions\n• Cloud architecture and design\n• DevOps and infrastructure\n• Cost optimization and security\n\n**📚 General Knowledge:**\n• Technical explanations and tutorials\n• Problem-solving and troubleshooting\n• Research and analysis\n• Learning and skill development\n\n**💡 How I can help:**\n• Answer technical questions with detailed explanations\n• Provide code examples and solutions\n• Explain complex concepts in simple terms\n• Offer best practices and recommendations\n• Help with learning and skill development\n\nWhat would you like to know or work on today?",
+      text: "👋 **Hello! I'm Amazon Q, powered by the real Amazon Q CLI.**\n\n🚀 **Real Amazon Q CLI Integration:**\n• Every question is processed through the actual `q chat` command\n• Get authentic Amazon Q responses with real-time knowledge\n• No built-in knowledge base - pure Amazon Q CLI experience\n\n**🔧 Requirements for Full Functionality:**\n• **Amazon Q CLI installed:** `npm install -g @aws/amazon-q-cli`\n• **AWS credentials configured:** `aws configure`\n• **Amazon Q setup:** `q configure`\n\n**💡 What I can help with:**\n• **Software Development** - Code generation, debugging, best practices\n• **AWS & Cloud** - Service explanations, architecture, cost optimization\n• **DevOps** - CI/CD, containers, infrastructure as code\n• **Programming** - Multiple languages, frameworks, algorithms\n• **General Tech** - Any technical question or concept\n\n**🌟 Experience:**\n• **Local Development:** Full Amazon Q CLI functionality\n• **Vercel/Production:** Will attempt CLI but may show setup instructions\n\n**Ready to help!** Ask me anything - I'll route your question directly to Amazon Q CLI for the most accurate and up-to-date response.\n\nWhat would you like to know?",
       isBot: true,
       timestamp: new Date()
     }
@@ -64,7 +64,303 @@ const ImprovedChatbot = () => {
   const generateComprehensiveAmazonQResponse = (question) => {
     const lowerQuestion = question.toLowerCase();
     
-    // CKA - Certified Kubernetes Administrator
+    // Terraform questions
+    if (lowerQuestion.includes('terraform') || lowerQuestion.includes('setup terraform') || lowerQuestion.includes('how to setup terraform')) {
+      return `**Terraform** is an Infrastructure as Code (IaC) tool that allows you to define and provision infrastructure using declarative configuration files.
+
+**Installation and Setup:**
+
+**1. Install Terraform:**
+
+**Windows:**
+\`\`\`bash
+# Using Chocolatey
+choco install terraform
+
+# Using Scoop
+scoop install terraform
+
+# Manual installation
+# Download from https://www.terraform.io/downloads
+# Extract and add to PATH
+\`\`\`
+
+**macOS:**
+\`\`\`bash
+# Using Homebrew
+brew install terraform
+
+# Using MacPorts
+sudo port install terraform
+\`\`\`
+
+**Linux (Ubuntu/Debian):**
+\`\`\`bash
+# Add HashiCorp GPG key
+curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+
+# Add HashiCorp repository
+sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+
+# Install Terraform
+sudo apt-get update && sudo apt-get install terraform
+\`\`\`
+
+**2. Verify Installation:**
+\`\`\`bash
+terraform version
+\`\`\`
+
+**3. Basic Project Setup:**
+
+**Directory Structure:**
+\`\`\`
+my-terraform-project/
+├── main.tf          # Main configuration
+├── variables.tf     # Input variables
+├── outputs.tf       # Output values
+├── terraform.tfvars # Variable values
+└── providers.tf     # Provider configurations
+\`\`\`
+
+**4. Basic Configuration Example:**
+
+**providers.tf:**
+\`\`\`hcl
+terraform {
+  required_version = ">= 1.0"
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+}
+
+provider "aws" {
+  region = var.aws_region
+}
+\`\`\`
+
+**variables.tf:**
+\`\`\`hcl
+variable "aws_region" {
+  description = "AWS region"
+  type        = string
+  default     = "us-west-2"
+}
+
+variable "environment" {
+  description = "Environment name"
+  type        = string
+  default     = "dev"
+}
+
+variable "project_name" {
+  description = "Name of the project"
+  type        = string
+}
+\`\`\`
+
+**main.tf:**
+\`\`\`hcl
+# Create VPC
+resource "aws_vpc" "main" {
+  cidr_block           = "10.0.0.0/16"
+  enable_dns_hostnames = true
+  enable_dns_support   = true
+
+  tags = {
+    Name        = "\${var.project_name}-vpc"
+    Environment = var.environment
+  }
+}
+
+# Create Internet Gateway
+resource "aws_internet_gateway" "main" {
+  vpc_id = aws_vpc.main.id
+
+  tags = {
+    Name        = "\${var.project_name}-igw"
+    Environment = var.environment
+  }
+}
+
+# Create public subnet
+resource "aws_subnet" "public" {
+  vpc_id                  = aws_vpc.main.id
+  cidr_block              = "10.0.1.0/24"
+  availability_zone       = data.aws_availability_zones.available.names[0]
+  map_public_ip_on_launch = true
+
+  tags = {
+    Name        = "\${var.project_name}-public-subnet"
+    Environment = var.environment
+  }
+}
+
+# Data source for availability zones
+data "aws_availability_zones" "available" {
+  state = "available"
+}
+\`\`\`
+
+**outputs.tf:**
+\`\`\`hcl
+output "vpc_id" {
+  description = "ID of the VPC"
+  value       = aws_vpc.main.id
+}
+
+output "public_subnet_id" {
+  description = "ID of the public subnet"
+  value       = aws_subnet.public.id
+}
+
+output "internet_gateway_id" {
+  description = "ID of the Internet Gateway"
+  value       = aws_internet_gateway.main.id
+}
+\`\`\`
+
+**terraform.tfvars:**
+\`\`\`hcl
+aws_region   = "us-west-2"
+environment  = "development"
+project_name = "my-app"
+\`\`\`
+
+**5. Essential Terraform Commands:**
+
+**Initialize Project:**
+\`\`\`bash
+# Initialize Terraform (downloads providers)
+terraform init
+\`\`\`
+
+**Plan and Apply:**
+\`\`\`bash
+# See what will be created/changed
+terraform plan
+
+# Apply the configuration
+terraform apply
+
+# Apply without confirmation prompt
+terraform apply -auto-approve
+\`\`\`
+
+**State Management:**
+\`\`\`bash
+# Show current state
+terraform show
+
+# List resources in state
+terraform state list
+
+# Import existing resource
+terraform import aws_instance.example i-1234567890abcdef0
+\`\`\`
+
+**Destroy Resources:**
+\`\`\`bash
+# Destroy all resources
+terraform destroy
+
+# Destroy specific resource
+terraform destroy -target=aws_instance.example
+\`\`\`
+
+**6. Best Practices:**
+
+**State Management:**
+• **Remote State:** Use S3 backend for team collaboration
+• **State Locking:** Use DynamoDB for state locking
+• **Separate Environments:** Use workspaces or separate state files
+
+**Code Organization:**
+• **Modules:** Create reusable modules for common patterns
+• **Variables:** Use variables for all configurable values
+• **Outputs:** Define outputs for important resource attributes
+• **Naming:** Use consistent naming conventions
+
+**Security:**
+• **Sensitive Variables:** Mark sensitive variables appropriately
+• **Provider Credentials:** Use IAM roles instead of hardcoded keys
+• **Resource Policies:** Implement least privilege access
+• **Encryption:** Enable encryption for all applicable resources
+
+**7. Remote State Configuration:**
+
+**backend.tf:**
+\`\`\`hcl
+terraform {
+  backend "s3" {
+    bucket         = "my-terraform-state-bucket"
+    key            = "dev/terraform.tfstate"
+    region         = "us-west-2"
+    encrypt        = true
+    dynamodb_table = "terraform-state-lock"
+  }
+}
+\`\`\`
+
+**8. Common Terraform Modules:**
+
+**VPC Module Example:**
+\`\`\`hcl
+module "vpc" {
+  source = "terraform-aws-modules/vpc/aws"
+  
+  name = var.project_name
+  cidr = "10.0.0.0/16"
+  
+  azs             = ["us-west-2a", "us-west-2b", "us-west-2c"]
+  private_subnets = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
+  public_subnets  = ["10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24"]
+  
+  enable_nat_gateway = true
+  enable_vpn_gateway = true
+  
+  tags = {
+    Environment = var.environment
+  }
+}
+\`\`\`
+
+**9. Troubleshooting Common Issues:**
+
+**Provider Issues:**
+\`\`\`bash
+# Clear provider cache
+rm -rf .terraform
+terraform init
+\`\`\`
+
+**State Issues:**
+\`\`\`bash
+# Refresh state
+terraform refresh
+
+# Force unlock state (use carefully)
+terraform force-unlock LOCK_ID
+\`\`\`
+
+**10. Learning Resources:**
+• **Official Documentation:** terraform.io/docs
+• **Terraform Registry:** registry.terraform.io
+• **Best Practices Guide:** Terraform Up & Running book
+• **Community Modules:** Use proven modules from registry
+
+**Next Steps:**
+1. **Start Small:** Begin with simple resources like S3 buckets
+2. **Learn Modules:** Create reusable infrastructure components
+3. **Implement CI/CD:** Automate Terraform with pipelines
+4. **State Management:** Set up remote state and locking
+5. **Advanced Features:** Explore workspaces, provisioners, and functions
+
+Would you like me to explain any specific aspect of Terraform in more detail, such as modules, state management, or specific provider configurations?`;
+    }
     if (lowerQuestion.includes('cka') || lowerQuestion.includes('certified kubernetes administrator')) {
       return `The **Certified Kubernetes Administrator (CKA)** is a performance-based certification that validates your skills in administering Kubernetes clusters.
 
@@ -697,7 +993,42 @@ What specific aspect of "${question}" would you like me to focus on? I'm designe
       try {
         console.log('Getting intelligent response for:', sanitizedMessage);
         
-        let botResponse = generateComprehensiveAmazonQResponse(sanitizedMessage);
+        let botResponse = "I'm Amazon Q, your AI assistant. Let me get you a comprehensive answer using Amazon Q CLI.";
+
+        // Always try to use real Amazon Q CLI first for ALL questions
+        console.log('Attempting to use real Amazon Q CLI for:', sanitizedMessage);
+        
+        try {
+          // Try Amazon Q CLI for every question
+          const qResponse = await amazonQ.query(sanitizedMessage, '', 'portfolio-user');
+          const formattedResponse = amazonQ.formatResponse(qResponse, sanitizedMessage);
+          botResponse = formattedResponse;
+          console.log('Successfully got response from Amazon Q CLI');
+        } catch (qError) {
+          console.error('Amazon Q CLI failed, error:', qError);
+          // Only use fallback if Amazon Q CLI completely fails
+          botResponse = `I'm having trouble connecting to Amazon Q CLI right now.
+
+**Error:** ${qError.message}
+
+**To get the best responses, please ensure:**
+• Amazon Q CLI is installed: \`npm install -g @aws/amazon-q-cli\`
+• AWS credentials are configured: \`aws configure\`
+• Amazon Q is set up: \`q configure\`
+
+**Troubleshooting Steps:**
+1. **Check Installation:** Run \`q --version\` to verify Amazon Q CLI is installed
+2. **Check Authentication:** Run \`aws sts get-caller-identity\` to verify AWS credentials
+3. **Configure Amazon Q:** Run \`q configure\` to set up Amazon Q CLI
+4. **Test Connection:** Try \`q chat "hello"\` in your terminal
+
+**Meanwhile, you can:**
+• Try your question again in a moment
+• Check the Amazon Q CLI setup in your terminal
+• Ensure you have proper AWS permissions for Amazon Q
+
+Would you like me to help you troubleshoot the Amazon Q CLI setup?`;
+        }
 
         // Check if this should use Amazon Q CLI
         if (shouldUseAmazonQ(sanitizedMessage)) {

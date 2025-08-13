@@ -70,21 +70,84 @@ export default async function handler(req, res) {
   }
 
   try {
-    const response = {
-      success: true,
-      response: generateIntelligentAWSResponse(sanitizedQuestion),
-      source: 'Built-in AWS Knowledge (Vercel)',
-      timestamp: new Date().toISOString(),
-      processingTime: Date.now() - startTime,
-      metadata: {
-        questionLength: sanitizedQuestion.length,
-        category: categorizeQuestion(sanitizedQuestion),
-        fallback: true,
-        environment: 'vercel'
+    // Try to use actual Amazon Q CLI first (even though it likely won't work on Vercel)
+    console.log(`Attempting Amazon Q CLI for: "${sanitizedQuestion}"`);
+    
+    try {
+      // This will likely fail on Vercel, but we try anyway
+      const { exec } = require('child_process');
+      const { promisify } = require('util');
+      const execAsync = promisify(exec);
+      
+      const qCommand = `q chat "${sanitizedQuestion}"`;
+      const { stdout } = await execAsync(qCommand, {
+        timeout: 15000,
+        env: {
+          ...process.env,
+          AWS_REGION: process.env.AWS_REGION || 'us-east-1',
+          NO_COLOR: '1',
+          TERM: 'dumb'
+        }
+      });
+      
+      // Clean the response
+      let qResponse = stdout
+        .replace(/\x1b\[[0-9;]*[mGKH]/g, '') // Remove ANSI codes
+        .replace(/[⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏]/g, '') // Remove spinner chars
+        .replace(/Thinking\.\.\./g, '')
+        .replace(/╭.*╮/g, '')
+        .replace(/│.*│/g, '')
+        .replace(/╰.*╯/g, '')
+        .replace(/━+/g, '')
+        .replace(/Did you know\?/g, '')
+        .replace(/You are chatting with.*$/gm, '')
+        .replace(/^\s*[\d]+[lhm]\s*/gm, '')
+        .trim();
+      
+      if (qResponse && qResponse.length > 20) {
+        console.log('Successfully got response from Amazon Q CLI');
+        const response = {
+          success: true,
+          response: qResponse,
+          source: 'Amazon Q CLI (Real)',
+          timestamp: new Date().toISOString(),
+          processingTime: Date.now() - startTime,
+          metadata: {
+            questionLength: sanitizedQuestion.length,
+            responseLength: qResponse.length,
+            category: categorizeQuestion(sanitizedQuestion),
+            realCLI: true,
+            environment: 'vercel'
+          }
+        };
+        
+        res.status(200).json(response);
+        return;
       }
+    } catch (cliError) {
+      console.log('Amazon Q CLI failed (expected on Vercel):', cliError.message);
+    }
+    
+    // Fallback: Inform user that Amazon Q CLI is not available
+    const response = {
+      success: false,
+      error: 'Amazon Q CLI Not Available',
+      message: 'Amazon Q CLI is not available in this serverless environment (Vercel).',
+      troubleshooting: {
+        message: 'To use real Amazon Q CLI responses, you need a persistent environment with Amazon Q CLI installed.',
+        steps: [
+          'Install Amazon Q CLI: npm install -g @aws/amazon-q-cli',
+          'Configure AWS credentials: aws configure',
+          'Set up Amazon Q: q configure',
+          'Run locally or on a server with persistent environment'
+        ],
+        localUsage: 'For local development, ensure Amazon Q CLI is properly configured and try again.'
+      },
+      timestamp: new Date().toISOString(),
+      processingTime: Date.now() - startTime
     };
 
-    res.status(200).json(response);
+    res.status(503).json(response);
   } catch (error) {
     console.error('Error generating response:', error);
     res.status(500).json({
@@ -92,6 +155,181 @@ export default async function handler(req, res) {
       message: 'Failed to generate response'
     });
   }
+}
+
+// Generate comprehensive Amazon Q style responses for any topic
+function generateComprehensiveAmazonQResponse(question) {
+  const lowerQuestion = question.toLowerCase();
+  
+  // Terraform questions
+  if (lowerQuestion.includes('terraform') || lowerQuestion.includes('setup terraform') || lowerQuestion.includes('how to setup terraform')) {
+    return `**Terraform** is an Infrastructure as Code (IaC) tool that allows you to define and provision infrastructure using declarative configuration files.
+
+**Installation and Setup:**
+
+**1. Install Terraform:**
+
+**Windows:**
+\`\`\`bash
+# Using Chocolatey
+choco install terraform
+
+# Using Scoop
+scoop install terraform
+\`\`\`
+
+**macOS:**
+\`\`\`bash
+# Using Homebrew
+brew install terraform
+\`\`\`
+
+**Linux (Ubuntu/Debian):**
+\`\`\`bash
+# Add HashiCorp repository
+curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+sudo apt-get update && sudo apt-get install terraform
+\`\`\`
+
+**2. Verify Installation:**
+\`\`\`bash
+terraform version
+\`\`\`
+
+**3. Basic Project Setup:**
+
+**Directory Structure:**
+\`\`\`
+my-terraform-project/
+├── main.tf          # Main configuration
+├── variables.tf     # Input variables
+├── outputs.tf       # Output values
+├── terraform.tfvars # Variable values
+└── providers.tf     # Provider configurations
+\`\`\`
+
+**4. Basic AWS Configuration Example:**
+
+**providers.tf:**
+\`\`\`hcl
+terraform {
+  required_version = ">= 1.0"
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+}
+
+provider "aws" {
+  region = var.aws_region
+}
+\`\`\`
+
+**variables.tf:**
+\`\`\`hcl
+variable "aws_region" {
+  description = "AWS region"
+  type        = string
+  default     = "us-west-2"
+}
+
+variable "environment" {
+  description = "Environment name"
+  type        = string
+  default     = "dev"
+}
+\`\`\`
+
+**main.tf:**
+\`\`\`hcl
+# Create VPC
+resource "aws_vpc" "main" {
+  cidr_block           = "10.0.0.0/16"
+  enable_dns_hostnames = true
+  enable_dns_support   = true
+
+  tags = {
+    Name        = "\${var.project_name}-vpc"
+    Environment = var.environment
+  }
+}
+
+# Create Internet Gateway
+resource "aws_internet_gateway" "main" {
+  vpc_id = aws_vpc.main.id
+
+  tags = {
+    Name        = "\${var.project_name}-igw"
+    Environment = var.environment
+  }
+}
+\`\`\`
+
+**5. Essential Commands:**
+\`\`\`bash
+# Initialize project
+terraform init
+
+# Plan changes
+terraform plan
+
+# Apply configuration
+terraform apply
+
+# Destroy resources
+terraform destroy
+\`\`\`
+
+**6. Best Practices:**
+• Use remote state with S3 backend
+• Implement state locking with DynamoDB
+• Create reusable modules
+• Use consistent naming conventions
+• Enable encryption for all resources
+
+Would you like me to explain any specific aspect of Terraform in more detail?`;
+  }
+  
+  // Use the existing AWS response function for AWS questions
+  if (lowerQuestion.includes('aws') || lowerQuestion.includes('ec2') || lowerQuestion.includes('s3') || lowerQuestion.includes('lambda') || lowerQuestion.includes('rds')) {
+    return generateIntelligentAWSResponse(question);
+  }
+  
+  // Default comprehensive response for any other topic
+  return `I'm Amazon Q, and I can provide comprehensive assistance on "${question}".
+
+**How I can help:**
+
+**🔧 Technical Topics:**
+• **Infrastructure as Code** - Terraform, CloudFormation, CDK
+• **Container Technologies** - Docker, Kubernetes, container orchestration
+• **Cloud Platforms** - AWS, Azure, GCP services and best practices
+• **Programming** - Multiple languages, frameworks, best practices
+• **DevOps** - CI/CD, automation, monitoring, security
+
+**📚 Detailed Guidance:**
+• **Step-by-step tutorials** and implementation guides
+• **Best practices** and industry standards
+• **Code examples** and configuration templates
+• **Troubleshooting** and problem-solving approaches
+• **Architecture patterns** and design principles
+
+**💡 Learning Support:**
+• **Concept explanations** with practical examples
+• **Career guidance** and skill development paths
+• **Certification preparation** and study resources
+• **Project ideas** and hands-on practice
+
+To provide the most helpful response about "${question}", could you be more specific about:
+• What aspect interests you most?
+• Your experience level with this topic?
+• What you're trying to achieve?
+• Any specific requirements or constraints?
+
+I'm designed to provide detailed, practical, and actionable information to help you succeed with your technical challenges and learning goals.`;
 }
 
 // Helper functions

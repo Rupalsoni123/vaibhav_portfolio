@@ -85,45 +85,10 @@ class AmazonQIntegration {
     }
   }
 
-  // Check if a question should be routed to Amazon Q
+  // Check if a question should be routed to Amazon Q (now always true)
   shouldUseAmazonQ(question) {
-    const lowerQuestion = question.toLowerCase();
-    
-    // AWS service keywords
-    const awsKeywords = [
-      'aws', 'amazon web services', 'ec2', 's3', 'lambda', 'rds', 'vpc',
-      'cloudformation', 'cloudwatch', 'iam', 'route53', 'elb', 'ecs', 'eks',
-      'dynamodb', 'sqs', 'sns', 'api gateway', 'cognito', 'amplify',
-      'elastic beanstalk', 'cloudfront', 'redshift', 'kinesis', 'glue',
-      'sagemaker', 'bedrock', 'q developer', 'codewhisperer'
-    ];
-
-    // AWS-related action keywords
-    const awsActions = [
-      'deploy', 'provision', 'configure', 'setup', 'create bucket',
-      'launch instance', 'cloudformation template', 'aws cli',
-      'terraform aws', 'cdk', 'sam', 'serverless'
-    ];
-
-    // Check for AWS keywords
-    const hasAwsKeyword = awsKeywords.some(keyword => 
-      lowerQuestion.includes(keyword)
-    );
-
-    // Check for AWS actions
-    const hasAwsAction = awsActions.some(action => 
-      lowerQuestion.includes(action)
-    );
-
-    // Check for specific patterns
-    const hasAwsPattern = 
-      lowerQuestion.includes('how to') && (hasAwsKeyword || hasAwsAction) ||
-      lowerQuestion.includes('best practice') && hasAwsKeyword ||
-      lowerQuestion.includes('cost') && hasAwsKeyword ||
-      lowerQuestion.includes('security') && hasAwsKeyword;
-
-    // On Vercel, always route AWS questions to built-in knowledge
-    return (hasAwsKeyword || hasAwsAction || hasAwsPattern) && this.isAvailable;
+    // Always try to use Amazon Q CLI for all questions
+    return true;
   }
 
   // Format Amazon Q response for display
