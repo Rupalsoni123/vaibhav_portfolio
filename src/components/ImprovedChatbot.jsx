@@ -60,121 +60,548 @@ const ImprovedChatbot = () => {
     return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
   };
 
-  // Generate Amazon Q style AWS responses
-  const generateAmazonQStyleAWSResponse = (question) => {
+  // Generate comprehensive Amazon Q style responses for any topic
+  const generateComprehensiveAmazonQResponse = (question) => {
     const lowerQuestion = question.toLowerCase();
     
-    if (lowerQuestion === 'aws' || lowerQuestion.includes('what is aws')) {
-      return `Amazon Web Services (AWS) is a comprehensive cloud computing platform that provides a wide range of services including computing power, storage, databases, networking, analytics, machine learning, and more.
+    // CKA - Certified Kubernetes Administrator
+    if (lowerQuestion.includes('cka') || lowerQuestion.includes('certified kubernetes administrator')) {
+      return `The **Certified Kubernetes Administrator (CKA)** is a performance-based certification that validates your skills in administering Kubernetes clusters.
 
-**Core AWS Services:**
+**Exam Overview:**
+• **Duration:** 2 hours
+• **Format:** Performance-based, hands-on tasks in a live Kubernetes environment
+• **Passing Score:** 66%
+• **Validity:** 3 years
+• **Cost:** $395 USD (includes one free retake)
 
-**Compute Services:**
-• **Amazon EC2** - Scalable virtual servers in the cloud
-• **AWS Lambda** - Serverless computing for running code without managing servers
-• **Amazon ECS/EKS** - Container orchestration services
-• **AWS Fargate** - Serverless compute for containers
+**Key Exam Domains:**
 
-**Storage Services:**
-• **Amazon S3** - Object storage with industry-leading scalability and durability
-• **Amazon EBS** - High-performance block storage for EC2
-• **Amazon EFS** - Fully managed file system for EC2
+**1. Cluster Architecture, Installation & Configuration (25%)**
+• Manage role-based access control (RBAC)
+• Use Kubeadm to install a basic cluster
+• Manage a highly-available Kubernetes cluster
+• Provision underlying infrastructure to deploy a Kubernetes cluster
+• Perform a version upgrade on a Kubernetes cluster using Kubeadm
+• Implement etcd backup and restore
 
-**Database Services:**
-• **Amazon RDS** - Managed relational database service
-• **Amazon DynamoDB** - Fast and flexible NoSQL database
-• **Amazon Redshift** - Fast, simple, cost-effective data warehousing
+**2. Workloads & Scheduling (15%)**
+• Understand deployments and how to perform rolling update and rollbacks
+• Use ConfigMaps and Secrets to configure applications
+• Know how to scale applications
+• Understand the primitives used to create robust, self-healing, application deployments
+• Understand how resource limits can affect Pod scheduling
+• Awareness of manifest management and common templating tools
 
-**Key Benefits:**
-• **Scalability** - Scale resources up or down based on demand
-• **Cost-effectiveness** - Pay only for what you use
-• **Reliability** - Built on proven infrastructure with high availability
-• **Security** - Comprehensive security capabilities and compliance certifications
-• **Global reach** - Available in multiple regions worldwide
+**3. Services & Networking (20%)**
+• Understand host networking configuration on the cluster nodes
+• Understand connectivity between Pods
+• Understand ClusterIP, NodePort, LoadBalancer service types and endpoints
+• Know how to use Ingress controllers and Ingress resources
+• Know how to configure and use CoreDNS
+• Choose an appropriate container network interface plugin
 
-AWS enables organizations to build and deploy applications faster, reduce costs, and improve operational efficiency. Would you like me to explain any specific AWS service or concept in more detail?`;
+**4. Storage (10%)**
+• Understand storage classes, persistent volumes
+• Understand volume mode, access modes and reclaim policies for volumes
+• Understand persistent volume claims primitive
+• Know how to configure applications with persistent storage
+
+**5. Troubleshooting (30%)**
+• Evaluate cluster and node logging
+• Understand how to monitor applications
+• Manage container stdout & stderr logs
+• Troubleshoot application failure
+• Troubleshoot cluster component failure
+• Troubleshoot networking
+
+**Preparation Strategy:**
+
+**Hands-on Practice:**
+• Set up your own Kubernetes cluster using kubeadm
+• Practice all exam objectives in a real environment
+• Use kubectl extensively - memorize common commands
+• Practice troubleshooting scenarios regularly
+
+**Recommended Study Resources:**
+• **Official Kubernetes Documentation** - Primary reference during exam
+• **Kubernetes the Hard Way** - Deep understanding of cluster setup
+• **Practice Labs:** KodeKloud, A Cloud Guru, Linux Academy
+• **Books:** "Kubernetes in Action" by Marko Lukša
+
+**Essential kubectl Commands to Master:**
+\`\`\`bash
+# Cluster management
+kubectl get nodes
+kubectl describe node <node-name>
+kubectl drain <node-name>
+kubectl uncordon <node-name>
+
+# Pod management
+kubectl get pods -A
+kubectl describe pod <pod-name>
+kubectl logs <pod-name>
+kubectl exec -it <pod-name> -- /bin/bash
+
+# Deployments and services
+kubectl create deployment <name> --image=<image>
+kubectl expose deployment <name> --port=80 --target-port=8080
+kubectl scale deployment <name> --replicas=3
+
+# Troubleshooting
+kubectl get events --sort-by=.metadata.creationTimestamp
+kubectl top nodes
+kubectl top pods
+\`\`\`
+
+**Exam Tips:**
+• **Time Management:** Practice completing tasks quickly
+• **Bookmarks:** Prepare bookmarks for Kubernetes documentation
+• **Imperative Commands:** Use kubectl run, create, expose for speed
+• **YAML Generation:** Use --dry-run=client -o yaml to generate manifests
+• **Troubleshooting:** Always check logs, events, and resource status
+
+**Career Benefits:**
+• Validates expertise in Kubernetes administration
+• High demand in DevOps and cloud engineering roles
+• Average salary increase of 15-25% post-certification
+• Recognition from CNCF (Cloud Native Computing Foundation)
+
+Would you like me to elaborate on any specific exam domain or provide practice scenarios for particular topics?`;
     }
     
-    if (lowerQuestion.includes('ec2')) {
-      return `Amazon EC2 (Elastic Compute Cloud) provides resizable compute capacity in the cloud, allowing you to launch virtual servers called instances.
+    // Kubernetes general questions
+    if (lowerQuestion.includes('kubernetes') || lowerQuestion.includes('k8s')) {
+      return `**Kubernetes** is an open-source container orchestration platform that automates the deployment, scaling, and management of containerized applications.
 
-**Key Features:**
-• **Instance Types** - Various configurations optimized for different use cases
-• **Auto Scaling** - Automatically adjust capacity to maintain performance
-• **Elastic Load Balancing** - Distribute incoming traffic across multiple instances
-• **Security Groups** - Virtual firewalls to control inbound and outbound traffic
+**Core Architecture:**
 
-**Common Instance Types:**
-• **General Purpose (t3, m5, m6i)** - Balanced compute, memory, and networking
-• **Compute Optimized (c5, c6i)** - High-performance processors for compute-intensive tasks
-• **Memory Optimized (r5, r6i)** - Fast performance for memory-intensive applications
-• **Storage Optimized (i3, d2)** - High sequential read/write access to large datasets
+**Master Components:**
+• **API Server (kube-apiserver)** - Central management entity, exposes Kubernetes API
+• **etcd** - Distributed key-value store for cluster data
+• **Controller Manager** - Runs controller processes (replication, endpoints, etc.)
+• **Scheduler** - Assigns pods to nodes based on resource requirements
 
-**Pricing Options:**
-• **On-Demand** - Pay by the hour or second with no long-term commitments
-• **Reserved Instances** - Significant discounts for 1 or 3-year terms
-• **Spot Instances** - Bid for unused capacity at reduced costs
+**Node Components:**
+• **kubelet** - Agent that communicates with master and manages pods
+• **kube-proxy** - Network proxy maintaining network rules
+• **Container Runtime** - Docker, containerd, or CRI-O
 
-**Best Practices:**
-• Use Auto Scaling Groups for high availability and fault tolerance
-• Implement proper security group rules following the principle of least privilege
-• Regular backups using EBS snapshots
-• Monitor performance and costs using CloudWatch
+**Key Objects and Resources:**
 
-What specific aspect of EC2 would you like to explore further?`;
-    }
-    
-    if (lowerQuestion.includes('s3')) {
-      return `Amazon S3 (Simple Storage Service) is an object storage service that offers industry-leading scalability, data availability, security, and performance.
+**Workload Resources:**
+• **Pods** - Smallest deployable units, contain one or more containers
+• **Deployments** - Manage replica sets and rolling updates
+• **StatefulSets** - For stateful applications requiring stable identities
+• **DaemonSets** - Ensure pods run on all (or selected) nodes
+• **Jobs/CronJobs** - Run batch workloads and scheduled tasks
 
-**Key Features:**
-• **Virtually unlimited storage** - Store and retrieve any amount of data
-• **99.999999999% (11 9's) durability** - Designed to sustain the loss of data in two facilities
-• **Multiple storage classes** - Optimize costs based on access patterns
-• **Strong consistency** - Read-after-write consistency for all operations
+**Service and Networking:**
+• **Services** - Stable network endpoints (ClusterIP, NodePort, LoadBalancer)
+• **Ingress** - HTTP/HTTPS routing and load balancing
+• **NetworkPolicies** - Control traffic flow between pods
+• **DNS** - Service discovery within the cluster
 
-**Storage Classes:**
-• **S3 Standard** - For frequently accessed data
-• **S3 Standard-IA** - For infrequently accessed data with rapid access when needed
-• **S3 One Zone-IA** - For infrequently accessed data that doesn't require multiple AZ resilience
-• **S3 Glacier** - For long-term archival with retrieval times from minutes to hours
-• **S3 Glacier Deep Archive** - Lowest cost storage for long-term retention
+**Configuration and Storage:**
+• **ConfigMaps** - Store non-confidential configuration data
+• **Secrets** - Store sensitive information (passwords, tokens, keys)
+• **Persistent Volumes (PV)** - Cluster-wide storage resources
+• **Persistent Volume Claims (PVC)** - User requests for storage
 
 **Common Use Cases:**
-• **Backup and restore** - Reliable and cost-effective data backup
-• **Data archiving** - Long-term retention with various retrieval options
-• **Static website hosting** - Host static websites directly from S3
-• **Content distribution** - Store and distribute content globally
-• **Data lakes** - Store structured and unstructured data for analytics
 
-**Security Features:**
-• **Encryption** - Server-side and client-side encryption options
-• **Access control** - Fine-grained access policies using IAM, bucket policies, and ACLs
-• **Versioning** - Keep multiple versions of objects
-• **MFA Delete** - Additional protection for object deletion
+**Microservices Architecture:**
+• Deploy and manage multiple interconnected services
+• Independent scaling and updates for each service
+• Service mesh integration (Istio, Linkerd)
 
-Would you like me to explain any specific S3 feature or use case in more detail?`;
+**CI/CD Integration:**
+• Automated deployment pipelines
+• Blue-green and canary deployments
+• GitOps workflows with ArgoCD or Flux
+
+**Auto-scaling and Load Management:**
+• Horizontal Pod Autoscaler (HPA) based on CPU/memory
+• Vertical Pod Autoscaler (VPA) for resource optimization
+• Cluster Autoscaler for node management
+
+**Best Practices:**
+
+**Resource Management:**
+• Set resource requests and limits for all containers
+• Use namespaces for logical separation
+• Implement proper RBAC (Role-Based Access Control)
+• Regular backup of etcd data
+
+**Security:**
+• Use non-root containers and read-only filesystems
+• Implement Pod Security Standards
+• Network segmentation with NetworkPolicies
+• Regular security scanning of container images
+
+**Monitoring and Observability:**
+• Deploy Prometheus and Grafana for metrics
+• Centralized logging with ELK or EFK stack
+• Distributed tracing with Jaeger or Zipkin
+• Health checks and readiness probes
+
+**Deployment Strategies:**
+\`\`\`yaml
+# Example Deployment with best practices
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web-app
+  template:
+    metadata:
+      labels:
+        app: web-app
+    spec:
+      containers:
+      - name: web-app
+        image: nginx:1.21
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 80
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 5
+\`\`\`
+
+**Learning Path:**
+1. **Fundamentals** - Containers, Docker basics
+2. **Core Concepts** - Pods, Services, Deployments
+3. **Networking** - Service types, Ingress, DNS
+4. **Storage** - Volumes, PV/PVC, Storage Classes
+5. **Security** - RBAC, Pod Security, Network Policies
+6. **Advanced** - Custom Resources, Operators, Service Mesh
+
+What specific aspect of Kubernetes would you like me to explain in more detail?`;
     }
     
-    return `I can help you with AWS-related questions and provide detailed explanations about various AWS services and concepts.
+    // Docker questions
+    if (lowerQuestion.includes('docker')) {
+      return `**Docker** is a containerization platform that packages applications and their dependencies into lightweight, portable containers.
 
-**Popular AWS Topics I can explain:**
-• **Compute** - EC2, Lambda, ECS, EKS, Fargate
-• **Storage** - S3, EBS, EFS, Glacier
-• **Database** - RDS, DynamoDB, ElastiCache, Redshift
-• **Networking** - VPC, CloudFront, Route 53, Load Balancers
-• **Security** - IAM, KMS, WAF, Shield
-• **DevOps** - CodePipeline, CodeBuild, CodeDeploy, CloudFormation
+**Core Concepts:**
 
-**I can help with:**
-• Service explanations and use cases
-• Architecture best practices
-• Cost optimization strategies
-• Security recommendations
-• Migration guidance
-• Troubleshooting common issues
+**Images and Containers:**
+• **Docker Image** - Read-only template containing application code, runtime, libraries, and dependencies
+• **Container** - Running instance of an image, isolated from the host system
+• **Dockerfile** - Text file with instructions to build an image
+• **Registry** - Storage and distribution system for Docker images (Docker Hub, ECR, etc.)
 
-What specific AWS service or concept would you like me to explain?`;
+**Docker Architecture:**
+• **Docker Daemon (dockerd)** - Background service managing containers
+• **Docker Client** - Command-line interface for interacting with daemon
+• **Docker Registry** - Stores and distributes Docker images
+• **Docker Objects** - Images, containers, networks, volumes, plugins
+
+**Essential Docker Commands:**
+
+**Image Management:**
+\`\`\`bash
+# Build image from Dockerfile
+docker build -t myapp:latest .
+
+# Pull image from registry
+docker pull nginx:latest
+
+# List local images
+docker images
+
+# Remove image
+docker rmi image_name:tag
+
+# Push image to registry
+docker push myapp:latest
+\`\`\`
+
+**Container Management:**
+\`\`\`bash
+# Run container
+docker run -d -p 8080:80 --name webserver nginx
+
+# List running containers
+docker ps
+
+# List all containers
+docker ps -a
+
+# Stop container
+docker stop container_name
+
+# Remove container
+docker rm container_name
+
+# Execute command in running container
+docker exec -it container_name /bin/bash
+
+# View container logs
+docker logs container_name
+\`\`\`
+
+**Dockerfile Best Practices:**
+
+**Multi-stage Builds:**
+\`\`\`dockerfile
+# Build stage
+FROM node:16-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --only=production
+
+# Production stage
+FROM node:16-alpine AS production
+WORKDIR /app
+COPY --from=builder /app/node_modules ./node_modules
+COPY . .
+EXPOSE 3000
+USER node
+CMD ["npm", "start"]
+\`\`\`
+
+**Optimization Techniques:**
+• **Use specific tags** instead of 'latest' for reproducible builds
+• **Minimize layers** by combining RUN commands
+• **Use .dockerignore** to exclude unnecessary files
+• **Run as non-root user** for security
+• **Use multi-stage builds** to reduce final image size
+• **Leverage build cache** by ordering instructions properly
+
+**Docker Compose for Multi-container Applications:**
+\`\`\`yaml
+version: '3.8'
+services:
+  web:
+    build: .
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgresql://user:pass@db:5432/mydb
+  
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: mydb
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
+\`\`\`
+
+**Networking:**
+• **Bridge Network** - Default network for containers on same host
+• **Host Network** - Container shares host's network stack
+• **Overlay Network** - Multi-host networking for Docker Swarm
+• **Custom Networks** - User-defined networks for container communication
+
+**Storage and Volumes:**
+• **Bind Mounts** - Mount host directory into container
+• **Named Volumes** - Docker-managed storage with lifecycle management
+• **tmpfs Mounts** - Temporary filesystem in memory
+• **Volume Drivers** - Third-party storage solutions
+
+**Security Best Practices:**
+
+**Image Security:**
+• Use official base images from trusted sources
+• Regularly update base images and dependencies
+• Scan images for vulnerabilities (docker scan, Trivy, Clair)
+• Use minimal base images (Alpine, distroless)
+
+**Runtime Security:**
+• Run containers as non-root user
+• Use read-only filesystems when possible
+• Limit container capabilities and system calls
+• Implement resource constraints (CPU, memory)
+• Use secrets management for sensitive data
+
+**Production Considerations:**
+
+**Logging and Monitoring:**
+• Configure logging drivers for centralized logging
+• Implement health checks for container monitoring
+• Use monitoring tools (Prometheus, Grafana, DataDog)
+• Set up alerting for container failures
+
+**Orchestration:**
+• Use Kubernetes for production container orchestration
+• Implement proper service discovery and load balancing
+• Configure auto-scaling based on metrics
+• Plan for disaster recovery and backup strategies
+
+**Common Use Cases:**
+• **Application Packaging** - Consistent deployment across environments
+• **Microservices** - Isolate and scale individual services
+• **CI/CD Pipelines** - Build, test, and deploy applications
+• **Development Environments** - Standardized development setups
+• **Legacy Application Modernization** - Containerize existing applications
+
+Would you like me to dive deeper into any specific Docker concept, such as networking, security, or optimization techniques?`;
+    }
+    
+    // Programming questions
+    if (lowerQuestion.includes('python') || lowerQuestion.includes('javascript') || lowerQuestion.includes('java') || lowerQuestion.includes('programming') || lowerQuestion.includes('code')) {
+      return `I can help you with programming and software development across multiple languages and technologies.
+
+**Programming Languages I can assist with:**
+
+**Python:**
+• **Web Development** - Django, Flask, FastAPI frameworks
+• **Data Science** - NumPy, Pandas, Matplotlib, Scikit-learn
+• **Machine Learning** - TensorFlow, PyTorch, Keras
+• **Automation** - Scripting, web scraping, task automation
+• **Best Practices** - PEP 8, virtual environments, testing with pytest
+
+**JavaScript/TypeScript:**
+• **Frontend** - React, Vue.js, Angular, vanilla JavaScript
+• **Backend** - Node.js, Express.js, NestJS
+• **Full-stack** - MEAN, MERN, JAMstack architectures
+• **Modern Features** - ES6+, async/await, modules, TypeScript types
+• **Testing** - Jest, Cypress, Testing Library
+
+**Java:**
+• **Enterprise Development** - Spring Boot, Spring Framework
+• **Microservices** - Spring Cloud, service mesh patterns
+• **Build Tools** - Maven, Gradle
+• **Testing** - JUnit, Mockito, integration testing
+• **Performance** - JVM tuning, profiling, optimization
+
+**Other Languages:**
+• **Go** - Concurrency, web services, CLI tools
+• **C#/.NET** - ASP.NET Core, Entity Framework, Azure integration
+• **Rust** - Systems programming, memory safety, performance
+• **PHP** - Laravel, Symfony, modern PHP practices
+
+**Software Development Concepts:**
+
+**Architecture Patterns:**
+• **MVC/MVP/MVVM** - Separation of concerns in applications
+• **Microservices** - Distributed system design and communication
+• **Event-Driven Architecture** - Asynchronous processing and messaging
+• **Clean Architecture** - Dependency inversion and testable code
+• **Domain-Driven Design** - Business logic organization
+
+**Best Practices:**
+• **SOLID Principles** - Object-oriented design principles
+• **Code Quality** - Linting, formatting, code reviews
+• **Testing** - Unit, integration, end-to-end testing strategies
+• **Documentation** - API documentation, code comments, README files
+• **Version Control** - Git workflows, branching strategies
+
+**Development Tools and Practices:**
+
+**IDEs and Editors:**
+• **VS Code** - Extensions, debugging, integrated terminal
+• **IntelliJ IDEA** - Java development, refactoring tools
+• **PyCharm** - Python development, scientific tools
+• **Vim/Neovim** - Efficient text editing and customization
+
+**DevOps Integration:**
+• **CI/CD Pipelines** - GitHub Actions, GitLab CI, Jenkins
+• **Containerization** - Docker, Kubernetes deployment
+• **Infrastructure as Code** - Terraform, CloudFormation
+• **Monitoring** - Application performance monitoring, logging
+
+**Database Integration:**
+• **Relational Databases** - PostgreSQL, MySQL, SQL optimization
+• **NoSQL Databases** - MongoDB, Redis, DynamoDB
+• **ORMs and Query Builders** - SQLAlchemy, Hibernate, Prisma
+• **Database Design** - Normalization, indexing, performance tuning
+
+**API Development:**
+• **REST APIs** - Design principles, HTTP methods, status codes
+• **GraphQL** - Schema design, resolvers, query optimization
+• **Authentication** - JWT, OAuth 2.0, session management
+• **API Documentation** - OpenAPI/Swagger, Postman collections
+
+**Example Code Assistance:**
+
+I can help you with:
+• **Code Review** - Identify issues and suggest improvements
+• **Debugging** - Troubleshoot errors and performance problems
+• **Algorithm Implementation** - Data structures, sorting, searching
+• **Design Patterns** - Singleton, Factory, Observer, Strategy patterns
+• **Code Optimization** - Performance improvements and refactoring
+
+**Learning Resources and Career Guidance:**
+• **Skill Development** - Learning paths for different technologies
+• **Project Ideas** - Portfolio projects and practical applications
+• **Interview Preparation** - Coding challenges, system design questions
+• **Industry Trends** - Emerging technologies and best practices
+
+What specific programming topic, language, or challenge would you like help with? I can provide code examples, explain concepts, or help troubleshoot specific issues you're facing.`;
+    }
+    
+    // Default comprehensive response for any topic
+    return `I'm Amazon Q, and I can provide comprehensive assistance on a wide range of topics. Based on your question about "${question}", let me help you with detailed information and guidance.
+
+**How I can assist you:**
+
+**🔧 Technical Topics:**
+• **Software Development** - Programming languages, frameworks, best practices
+• **Cloud Computing** - AWS services, architecture, migration strategies
+• **DevOps** - CI/CD, containerization, infrastructure automation
+• **Data & Analytics** - Databases, data processing, machine learning
+• **Security** - Best practices, compliance, threat mitigation
+
+**📚 Learning & Problem Solving:**
+• **Concept Explanations** - Break down complex topics into understandable parts
+• **Step-by-step Guidance** - Detailed tutorials and implementation guides
+• **Best Practices** - Industry standards and proven approaches
+• **Troubleshooting** - Identify issues and provide solutions
+• **Career Guidance** - Skill development and professional growth
+
+**💡 Approach to Your Question:**
+To provide the most helpful response about "${question}", I can:
+
+• **Explain the fundamentals** - Core concepts and principles
+• **Provide practical examples** - Real-world applications and use cases
+• **Share best practices** - Proven approaches and recommendations
+• **Offer implementation guidance** - Step-by-step instructions
+• **Suggest learning resources** - Further reading and skill development
+
+**Getting More Specific Help:**
+For the most tailored assistance, you could:
+• **Specify your context** - Are you learning, implementing, or troubleshooting?
+• **Share your experience level** - Beginner, intermediate, or advanced?
+• **Describe your goals** - What are you trying to achieve?
+• **Mention constraints** - Any specific requirements or limitations?
+
+**Popular Topics I Excel At:**
+• **AWS Services** - EC2, S3, Lambda, RDS, VPC, and 200+ other services
+• **Kubernetes** - Container orchestration, deployments, best practices
+• **Programming** - Python, JavaScript, Java, Go, and many other languages
+• **Architecture** - System design, microservices, scalability patterns
+• **Security** - Cloud security, application security, compliance
+
+What specific aspect of "${question}" would you like me to focus on? I'm designed to provide detailed, practical, and actionable information to help you succeed.`;
   };
 
   // Security function to validate and sanitize user input
@@ -270,7 +697,7 @@ What specific AWS service or concept would you like me to explain?`;
       try {
         console.log('Getting intelligent response for:', sanitizedMessage);
         
-        let botResponse = "I'm Amazon Q, your AI assistant. I can help you with a wide range of topics including software development, AWS and cloud services, DevOps practices, and general technical questions. What would you like to know about today?";
+        let botResponse = generateComprehensiveAmazonQResponse(sanitizedMessage);
 
         // Check if this should use Amazon Q CLI
         if (shouldUseAmazonQ(sanitizedMessage)) {
