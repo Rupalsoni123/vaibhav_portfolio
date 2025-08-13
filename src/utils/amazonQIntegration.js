@@ -1,24 +1,49 @@
-// Amazon Q CLI Frontend Integration
+// Amazon Q CLI Frontend Integration - Vercel Compatible
 // This utility handles communication with Amazon Q CLI backend
 
 class AmazonQIntegration {
   constructor(baseUrl = '') {
     this.baseUrl = baseUrl; // Empty string means same origin
     this.isAvailable = false;
+    this.isVercel = this.detectVercelEnvironment();
     this.checkAvailability();
+  }
+
+  // Detect if running on Vercel
+  detectVercelEnvironment() {
+    return window.location.hostname.includes('vercel.app') || 
+           window.location.hostname.includes('vercel.com') ||
+           process.env.NODE_ENV === 'production';
   }
 
   // Check if Amazon Q CLI is available
   async checkAvailability() {
     try {
-      const response = await fetch(`${this.baseUrl}/api/amazon-q/status`);
+      // Use simplified endpoint for Vercel compatibility
+      const endpoint = this.isVercel ? '/api/amazon-q-status' : '/api/amazon-q/status';
+      const response = await fetch(`${this.baseUrl}${endpoint}`);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+      
       const data = await response.json();
-      this.isAvailable = data.available;
+      this.isAvailable = data.available || data.fallbackMode;
+      
+      if (this.isVercel && data.fallbackMode) {
+        console.log('Using built-in AWS knowledge on Vercel');
+      }
+      
       return data;
     } catch (error) {
-      console.warn('Amazon Q CLI not available:', error);
-      this.isAvailable = false;
-      return { available: false, error: error.message };
+      console.warn('Amazon Q CLI status check failed:', error);
+      this.isAvailable = this.isVercel; // Enable built-in responses on Vercel
+      return { 
+        available: this.isAvailable, 
+        error: error.message, 
+        fallbackMode: true,
+        environment: this.isVercel ? 'vercel' : 'local'
+      };
     }
   }
 
@@ -32,7 +57,10 @@ class AmazonQIntegration {
     }
 
     try {
-      const response = await fetch(`${this.baseUrl}/api/amazon-q`, {
+      // Use simplified endpoint for Vercel compatibility
+      const endpoint = this.isVercel ? '/api/amazon-q-query' : '/api/amazon-q';
+      
+      const response = await fetch(`${this.baseUrl}${endpoint}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -94,7 +122,8 @@ class AmazonQIntegration {
       lowerQuestion.includes('cost') && hasAwsKeyword ||
       lowerQuestion.includes('security') && hasAwsKeyword;
 
-    return hasAwsKeyword || hasAwsAction || hasAwsPattern;
+    // On Vercel, always route AWS questions to built-in knowledge
+    return (hasAwsKeyword || hasAwsAction || hasAwsPattern) && this.isAvailable;
   }
 
   // Format Amazon Q response for display
