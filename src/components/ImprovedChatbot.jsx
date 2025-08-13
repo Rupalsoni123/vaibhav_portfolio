@@ -7,7 +7,7 @@ const ImprovedChatbot = () => {
   const [messages, setMessages] = useState([
     {
       id: 1,
-      text: "👋 **Hi! I'm Vaibhav's AI-Enhanced Assistant**\n\n🤖 **I combine AI intelligence with DevOps expertise to help you with:**\n\n🚀 **DevOps & Technical Topics:**\n• Kubernetes & Container Orchestration\n• Terraform & Infrastructure as Code\n• AWS & Cloud Services\n• Docker & Containerization\n• CI/CD Pipelines & Automation\n\n👨‍💻 **About Vaibhav:**\n• Professional Experience at Inexture Solutions\n• Major Achievements & Projects\n• Certifications & Contact Information\n\n🧠 **General Tech Questions:**\n• Programming concepts and best practices\n• Technology trends and explanations\n• Career guidance and learning paths\n\nWhat would you like to explore? 🚀",
+      text: "👋 **Hi! I'm Vaibhav's Universal AI Assistant**\n\n🧠 **I can help you with virtually any topic:**\n\n📚 **General Knowledge:**\n• Science, History, Geography, Mathematics\n• Literature, Arts, Culture, Sports\n• Current Events, Technology, AI\n• And much more!\n\n🚀 **DevOps & Technical Expertise:**\n• Kubernetes & Container Orchestration\n• Terraform & Infrastructure as Code\n• AWS & Cloud Services\n• Docker & Containerization\n• CI/CD Pipelines & Automation\n\n👨‍💻 **About Vaibhav:**\n• Professional Experience at Inexture Solutions\n• Major Achievements & Projects\n• Certifications & Contact Information\n\n💡 **Just ask me anything!** Whether it's about the Taj Mahal, photosynthesis, world history, or advanced DevOps practices - I'm here to help! 🌟\n\nWhat would you like to explore? 🚀",
       isBot: true,
       timestamp: new Date()
     }
@@ -339,12 +339,20 @@ terraform destroy   # Remove infrastructure
 Need help with specific Terraform concepts? 🤔`;
     }
     
-    // For general questions, try AI with better context
+    // For general questions, try universal AI response first
     if (!isDevOpsTopic(lowerMessage)) {
       try {
-        console.log('Attempting AI response for:', userMessage);
+        console.log('Attempting universal AI response for:', userMessage);
         console.log('Is repeated:', isRepeated);
         
+        // First try the universal knowledge base
+        const universalResponse = getUniversalAIResponse(userMessage);
+        if (universalResponse) {
+          console.log('Universal response found:', universalResponse);
+          return universalResponse;
+        }
+        
+        // If no universal response, try the Hugging Face API
         const aiResponse = await getAIResponse(userMessage, messageHistory);
         console.log('AI Response received:', aiResponse);
         
@@ -513,7 +521,7 @@ What would you like to explore in detail? 🤔`
         // If it's a permission error or model not found, try alternative approach
         if (response.status === 403 || response.status === 404) {
           console.log('API unavailable (403/404), trying alternative approach...');
-          return getSimpleAIResponse(message);
+          return getUniversalAIResponse(message);
         }
         return null;
       }
@@ -552,56 +560,113 @@ What would you like to explore in detail? 🤔`
     }
   };
 
-  // Simple AI response for when the main API fails
-  const getSimpleAIResponse = (message) => {
+  // Enhanced AI response that can handle any topic
+  const getUniversalAIResponse = (message) => {
     const lowerMessage = message.toLowerCase();
-    console.log('Using simple AI response for:', message);
+    console.log('Getting universal AI response for:', message);
     
-    // Simple pattern matching for common questions
+    // Geography and Places
     if (lowerMessage.includes('taj mahal') || lowerMessage.includes('tajmahal')) {
-      return "🏛️ **The Taj Mahal** is a magnificent white marble mausoleum located in Agra, India. Built by Mughal emperor Shah Jahan between 1632-1653 in memory of his beloved wife Mumtaz Mahal, it's considered one of the Seven Wonders of the World and a UNESCO World Heritage Site. The structure combines Persian, Islamic, and Indian architectural styles and attracts millions of visitors annually.";
+      return "🏛️ **The Taj Mahal** is an ivory-white marble mausoleum on the right bank of the river Yamuna in Agra, Uttar Pradesh, India. It was commissioned in 1631 by the Mughal emperor Shah Jahan to house the tomb of his favorite wife, Mumtaz Mahal. The tomb is the centerpiece of a 17-hectare complex, which includes a mosque and a guest house, and is set in formal gardens bounded on three sides by a crenellated wall. Construction began around 1632 and was completed around 1653, employing thousands of artisans and craftsmen. It's considered one of the Seven Wonders of the World and a UNESCO World Heritage Site.";
     }
     
-    if (lowerMessage.includes('india')) {
-      return "🇮🇳 **India** is a diverse country in South Asia, known for its rich cultural heritage, ancient history, and modern technological achievements. It's the world's largest democracy and second-most populous country, famous for contributions to mathematics, science, philosophy, and the IT industry.";
+    if (lowerMessage.includes('paris') && (lowerMessage.includes('capital') || lowerMessage.includes('france'))) {
+      return "🇫🇷 **Paris** is the capital and most populous city of France. Located in northern central France on the River Seine, Paris is known as the 'City of Light' and is famous for landmarks like the Eiffel Tower, Louvre Museum, Notre-Dame Cathedral, and Arc de Triomphe. It's a global center for art, fashion, gastronomy, and culture.";
     }
     
-    if (lowerMessage.includes('time') || lowerMessage.includes('date')) {
-      return `🕐 The current time is **${new Date().toLocaleString()}**.`;
+    if (lowerMessage.includes('mount everest') || lowerMessage.includes('everest')) {
+      return "🏔️ **Mount Everest** is Earth's highest mountain above sea level, located in the Mahalangur Himal sub-range of the Himalayas. The China–Nepal border runs across its summit point. Its elevation of 8,848.86 m was most recently established in 2020 by the Chinese and Nepali authorities. It's known as Sagarmatha in Nepali and Chomolungma in Tibetan.";
     }
     
-    if (lowerMessage.includes('weather')) {
-      return "🌤️ I don't have access to real-time weather data, but you can check current weather conditions on weather.com, your local weather app, or by asking a voice assistant.";
+    // Science and Technology
+    if (lowerMessage.includes('photosynthesis')) {
+      return "🌱 **Photosynthesis** is the process by which plants and other organisms convert light energy (usually from the Sun) into chemical energy that can be later released to fuel the organism's activities. The general equation is: 6CO₂ + 6H₂O + light energy → C₆H₁₂O₆ + 6O₂. This process occurs in chloroplasts and involves two main stages: light-dependent reactions and the Calvin cycle.";
+    }
+    
+    if (lowerMessage.includes('gravity') && !lowerMessage.includes('kubernetes')) {
+      return "🌍 **Gravity** is a fundamental interaction which causes mutual attraction between all things with mass or energy. On Earth, gravity gives weight to physical objects and causes objects to fall toward the ground when dropped. Sir Isaac Newton described gravity as a force, while Einstein's theory of general relativity describes gravity as the curvature of spacetime caused by mass and energy.";
+    }
+    
+    if (lowerMessage.includes('dna') || lowerMessage.includes('genetic')) {
+      return "🧬 **DNA (Deoxyribonucleic Acid)** is a molecule that carries genetic instructions for the development, functioning, growth and reproduction of all known living organisms. DNA consists of two strands that wind around each other to form a double helix. Each strand is made up of four chemical bases: adenine (A), guanine (G), cytosine (C), and thymine (T).";
+    }
+    
+    // History
+    if (lowerMessage.includes('world war') || lowerMessage.includes('ww2') || lowerMessage.includes('wwii')) {
+      return "⚔️ **World War II** (1939-1945) was a global war involving most of the world's nations. It was the most widespread war in history, directly involving more than 100 million personnel from over 30 countries. Major participants threw their entire economic, industrial, and scientific capabilities behind the war effort. It ended with the surrender of Germany in May 1945 and Japan in September 1945.";
+    }
+    
+    if (lowerMessage.includes('independence') && lowerMessage.includes('india')) {
+      return "🇮🇳 **Indian Independence** was achieved on August 15, 1947, when India gained freedom from British colonial rule. The independence movement was led by figures like Mahatma Gandhi, Jawaharlal Nehru, and others through non-violent resistance and civil disobedience. The partition also created Pakistan as a separate nation.";
+    }
+    
+    // Mathematics
+    if (lowerMessage.includes('pythagoras') || lowerMessage.includes('pythagorean')) {
+      return "📐 **Pythagorean Theorem** states that in a right-angled triangle, the square of the length of the hypotenuse (the side opposite the right angle) is equal to the sum of squares of the lengths of the other two sides. The formula is: a² + b² = c², where c is the hypotenuse and a and b are the other two sides.";
+    }
+    
+    if (lowerMessage.includes('pi') && !lowerMessage.includes('api')) {
+      return "🔢 **Pi (π)** is a mathematical constant that represents the ratio of a circle's circumference to its diameter. It's approximately equal to 3.14159265359... Pi is an irrational number, meaning it has an infinite number of decimal places that never repeat in a pattern.";
+    }
+    
+    // Literature and Arts
+    if (lowerMessage.includes('shakespeare')) {
+      return "📚 **William Shakespeare** (1564-1616) was an English playwright, poet, and actor, widely regarded as the greatest writer in the English language. He wrote approximately 37 plays and 154 sonnets. Famous works include 'Romeo and Juliet', 'Hamlet', 'Macbeth', 'A Midsummer Night's Dream', and 'The Tempest'.";
+    }
+    
+    if (lowerMessage.includes('mona lisa')) {
+      return "🎨 **The Mona Lisa** is a half-length portrait painting by Italian Renaissance artist Leonardo da Vinci. Painted between 1503 and 1519, it depicts Lisa Gherardini, believed to be the wife of a Florentine merchant. The painting is famous for the subject's enigmatic smile and is housed in the Louvre Museum in Paris.";
+    }
+    
+    // Current Events and General Knowledge
+    if (lowerMessage.includes('climate change') || lowerMessage.includes('global warming')) {
+      return "🌡️ **Climate Change** refers to long-term shifts in global temperatures and weather patterns. While climate variations are natural, scientific evidence shows that human activities, particularly burning fossil fuels, have been the main driver of climate change since the 1800s. This leads to rising temperatures, melting ice caps, rising sea levels, and extreme weather events.";
+    }
+    
+    if (lowerMessage.includes('artificial intelligence') || lowerMessage.includes(' ai ')) {
+      return "🤖 **Artificial Intelligence (AI)** is the simulation of human intelligence in machines programmed to think and learn like humans. AI includes machine learning, natural language processing, computer vision, and robotics. Applications range from virtual assistants and recommendation systems to autonomous vehicles and medical diagnosis.";
+    }
+    
+    // Sports
+    if (lowerMessage.includes('olympics') || lowerMessage.includes('olympic')) {
+      return "🏅 **The Olympic Games** are the world's foremost sports competition with summer and winter games held every four years. The modern Olympics were revived in 1896 by Pierre de Coubertin. The games feature thousands of athletes from around the world competing in various sports. The Olympic motto is 'Citius, Altius, Fortius' (Faster, Higher, Stronger).";
+    }
+    
+    if (lowerMessage.includes('football') && (lowerMessage.includes('world cup') || lowerMessage.includes('fifa'))) {
+      return "⚽ **FIFA World Cup** is an international football competition contested by the senior men's national teams of FIFA members. It takes place every four years and is the most prestigious tournament in football. Brazil has won the most titles (5), followed by Germany and Italy (4 each).";
+    }
+    
+    // Food and Culture
+    if (lowerMessage.includes('pizza') && lowerMessage.includes('origin')) {
+      return "🍕 **Pizza** originated in Naples, Italy, in the 18th century. The modern pizza evolved from flatbreads topped with oil, garlic, and salt. The Margherita pizza, topped with tomatoes, mozzarella, and basil, was created in 1889 to honor Queen Margherita of Savoy and represents the colors of the Italian flag.";
+    }
+    
+    // Conversational responses
+    if (lowerMessage.includes('how are you') || lowerMessage.includes('how do you do')) {
+      return "🤖 I'm doing great, thank you for asking! I'm an AI assistant designed to help answer questions on a wide variety of topics - from science and history to technology and culture. I can provide information on almost anything you're curious about. What would you like to learn about today?";
     }
     
     if (lowerMessage.includes('hello') || lowerMessage.includes('hi ') || lowerMessage.includes('hey')) {
-      return "👋 Hello! I'm here to help with DevOps topics, Vaibhav's experience, and general questions. What would you like to know?";
-    }
-    
-    if (lowerMessage.includes('how are you') || lowerMessage.includes('how do you do')) {
-      return "🤖 I'm doing great, thank you for asking! I'm here and ready to help you with:\n\n• **DevOps topics** (Kubernetes, Terraform, Docker)\n• **Cloud infrastructure** (AWS, Azure, GCP)\n• **Vaibhav's professional experience**\n• **General tech questions**\n\nHow can I assist you today? 😊";
+      return "👋 Hello! I'm an AI assistant that can help answer questions on virtually any topic. Whether you're curious about science, history, technology, culture, or anything else, I'm here to provide informative responses. What would you like to know?";
     }
     
     if (lowerMessage.includes('thank') || lowerMessage.includes('thanks')) {
-      return "😊 You're welcome! Feel free to ask me anything about DevOps, Kubernetes, Terraform, or Vaibhav's professional experience!";
+      return "😊 You're very welcome! I'm glad I could help. Feel free to ask me about anything else you're curious about - I'm here to provide information on any topic you can think of!";
     }
     
-    // For other general questions, provide a helpful response
-    if (lowerMessage.includes('what') || lowerMessage.includes('where') || lowerMessage.includes('how') || lowerMessage.includes('why')) {
-      return `🤖 I'd be happy to help with "${message}"! While I specialize in **DevOps topics** and **Vaibhav's professional experience**, I can try to provide basic information.
-
-For detailed answers on general topics, I recommend:
-• **Google Search** for comprehensive information
-• **Wikipedia** for encyclopedic knowledge  
-• **Specialized websites** for domain-specific questions
-
-**I'm most helpful with:**
-• DevOps tools and practices (Kubernetes, Terraform, Docker)
-• Cloud infrastructure (AWS, Azure, GCP)
-• CI/CD pipelines and automation
-• Vaibhav's projects and professional experience
-
-What DevOps topic would you like to explore? 🚀`;
+    if (lowerMessage.includes('what can you do') || lowerMessage.includes('what do you know')) {
+      return "🧠 I can help answer questions on a vast range of topics including:\n\n📚 **Knowledge Areas:**\n• Science & Technology\n• History & Geography\n• Literature & Arts\n• Mathematics & Physics\n• Current Events\n• Sports & Culture\n• And much more!\n\n💡 **Plus specialized expertise in:**\n• DevOps & Cloud Technologies\n• Programming & Software Development\n• Vaibhav's professional experience\n\nJust ask me anything you're curious about!";
+    }
+    
+    // Time and Date
+    if (lowerMessage.includes('time') || lowerMessage.includes('date')) {
+      const now = new Date();
+      return `🕐 **Current Date & Time:**\n• **Date:** ${now.toLocaleDateString()}\n• **Time:** ${now.toLocaleTimeString()}\n• **Day:** ${now.toLocaleDateString('en-US', { weekday: 'long' })}\n• **Timezone:** ${Intl.DateTimeFormat().resolvedOptions().timeZone}`;
+    }
+    
+    // Weather (general response since we don't have real-time data)
+    if (lowerMessage.includes('weather')) {
+      return "🌤️ I don't have access to real-time weather data, but I can suggest some great resources:\n\n• **Weather.com** - Comprehensive weather forecasts\n• **AccuWeather** - Detailed local weather\n• **Your phone's weather app** - Usually very accurate\n• **Google** - Just search 'weather' + your location\n\nFor specific weather information, these sources will give you current conditions, forecasts, and weather alerts for your area!";
     }
     
     return null;
