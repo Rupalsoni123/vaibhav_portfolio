@@ -5,7 +5,13 @@
   "type": "module",
   "author": "Vaibhav Soni",
   "description": "DevOps Engineer Portfolio with advanced AI chatbot and accessibility features",
-  "keywords": ["portfolio", "devops", "react", "ai-chatbot", "accessibility"],
+  "keywords": [
+    "portfolio",
+    "devops",
+    "react",
+    "ai-chatbot",
+    "accessibility"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -24,22 +30,22 @@
     "react-type-animation": "^3.1.0"
   },
   "devDependencies": {
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "@tailwindcss/forms": "^0.5.6",
+    "@tailwindcss/typography": "^0.5.10",
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
     "@vitejs/plugin-react": "^4.0.4",
-    "@tailwindcss/typography": "^0.5.10",
-    "@tailwindcss/forms": "^0.5.6",
-    "@tailwindcss/aspect-ratio": "^0.4.2",
     "autoprefixer": "^10.4.15",
-    "postcss": "^8.4.31",
-    "tailwindcss": "^3.3.3",
-    "vite": "^4.4.9",
-    "vite-bundle-analyzer": "^0.7.0",
-    "vitest": "^0.34.6",
     "eslint": "^8.45.0",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.3"
+    "eslint-plugin-react-refresh": "^0.4.3",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.3.3",
+    "vite": "^7.1.2",
+    "vite-bundle-analyzer": "^0.7.0",
+    "vitest": "^3.2.4"
   },
   "engines": {
     "node": ">=18.0.0",
