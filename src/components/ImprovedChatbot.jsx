@@ -9,7 +9,7 @@ const ImprovedChatbot = () => {
   const [messages, setMessages] = useState([
     {
       id: 1,
-      text: "👋 **Hi! I'm Vaibhav's AI Assistant - Secure & Educational!**\n\n🛡️ **Security Notice:**\n• **Read-Only Mode:** I can explain and teach, but cannot create or modify cloud services\n• **No MCP Servers:** I don't use external MCP servers for security\n• **Safe Learning:** Perfect for understanding concepts without affecting your infrastructure\n\n🧠 **What I Can Help With:**\n\n📚 **AWS & Cloud Knowledge:**\n• **Service Explanations:** How AWS services work and when to use them\n• **Architecture Guidance:** Best practices and design patterns\n• **Cost Optimization:** Strategies to reduce cloud costs\n• **Security Best Practices:** How to secure your AWS infrastructure\n• **Troubleshooting:** Common issues and solutions\n\n🔬 **Technical Topics:**\n• **DevOps:** Kubernetes, Docker, Terraform, CI/CD pipelines\n• **Programming:** Languages, frameworks, best practices\n• **Science & Math:** Physics, chemistry, biology, mathematics\n• **Technology:** AI, quantum computing, software development\n\n📖 **General Knowledge:**\n• **History & Culture:** World events, civilizations, literature\n• **Business & Economics:** Markets, finance, career guidance\n• **Current Information:** Date/time, weather guidance, news sources\n\n💡 **How to Ask Questions:**\n✅ **Good:** \"How does AWS Lambda work?\"\n✅ **Good:** \"What are S3 best practices?\"\n✅ **Good:** \"Explain Kubernetes architecture\"\n❌ **Blocked:** \"Create an S3 bucket\"\n❌ **Blocked:** \"Deploy this to AWS\"\n❌ **Blocked:** \"Run terraform apply\"\n\n🎯 **Perfect For:**\n• Learning AWS concepts and services\n• Understanding DevOps practices\n• Getting architecture recommendations\n• Troubleshooting guidance\n• Exam preparation and certification study\n\n👨‍💻 **About Vaibhav:**\n• Senior DevOps Engineer at Inexture Solutions\n• AWS and Kubernetes certified professional\n• Cloud infrastructure and automation expert\n\n**API Status:** `/api/health` - System health check available\n\nWhat would you like to learn about today? 🚀",
+      text: "👋 **Hello! I'm Amazon Q, your AI assistant.**\n\nI'm here to help you with a wide range of topics including:\n\n**🔧 Software Development:**\n• Code generation and debugging\n• Best practices and architecture\n• Programming languages and frameworks\n• Code reviews and optimization\n\n**☁️ AWS & Cloud:**\n• AWS services and solutions\n• Cloud architecture and design\n• DevOps and infrastructure\n• Cost optimization and security\n\n**📚 General Knowledge:**\n• Technical explanations and tutorials\n• Problem-solving and troubleshooting\n• Research and analysis\n• Learning and skill development\n\n**💡 How I can help:**\n• Answer technical questions with detailed explanations\n• Provide code examples and solutions\n• Explain complex concepts in simple terms\n• Offer best practices and recommendations\n• Help with learning and skill development\n\nWhat would you like to know or work on today?",
       isBot: true,
       timestamp: new Date()
     }
@@ -58,6 +58,123 @@ const ImprovedChatbot = () => {
   // Helper function to check if year is leap year
   const isLeapYear = (year) => {
     return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+  };
+
+  // Generate Amazon Q style AWS responses
+  const generateAmazonQStyleAWSResponse = (question) => {
+    const lowerQuestion = question.toLowerCase();
+    
+    if (lowerQuestion === 'aws' || lowerQuestion.includes('what is aws')) {
+      return `Amazon Web Services (AWS) is a comprehensive cloud computing platform that provides a wide range of services including computing power, storage, databases, networking, analytics, machine learning, and more.
+
+**Core AWS Services:**
+
+**Compute Services:**
+• **Amazon EC2** - Scalable virtual servers in the cloud
+• **AWS Lambda** - Serverless computing for running code without managing servers
+• **Amazon ECS/EKS** - Container orchestration services
+• **AWS Fargate** - Serverless compute for containers
+
+**Storage Services:**
+• **Amazon S3** - Object storage with industry-leading scalability and durability
+• **Amazon EBS** - High-performance block storage for EC2
+• **Amazon EFS** - Fully managed file system for EC2
+
+**Database Services:**
+• **Amazon RDS** - Managed relational database service
+• **Amazon DynamoDB** - Fast and flexible NoSQL database
+• **Amazon Redshift** - Fast, simple, cost-effective data warehousing
+
+**Key Benefits:**
+• **Scalability** - Scale resources up or down based on demand
+• **Cost-effectiveness** - Pay only for what you use
+• **Reliability** - Built on proven infrastructure with high availability
+• **Security** - Comprehensive security capabilities and compliance certifications
+• **Global reach** - Available in multiple regions worldwide
+
+AWS enables organizations to build and deploy applications faster, reduce costs, and improve operational efficiency. Would you like me to explain any specific AWS service or concept in more detail?`;
+    }
+    
+    if (lowerQuestion.includes('ec2')) {
+      return `Amazon EC2 (Elastic Compute Cloud) provides resizable compute capacity in the cloud, allowing you to launch virtual servers called instances.
+
+**Key Features:**
+• **Instance Types** - Various configurations optimized for different use cases
+• **Auto Scaling** - Automatically adjust capacity to maintain performance
+• **Elastic Load Balancing** - Distribute incoming traffic across multiple instances
+• **Security Groups** - Virtual firewalls to control inbound and outbound traffic
+
+**Common Instance Types:**
+• **General Purpose (t3, m5, m6i)** - Balanced compute, memory, and networking
+• **Compute Optimized (c5, c6i)** - High-performance processors for compute-intensive tasks
+• **Memory Optimized (r5, r6i)** - Fast performance for memory-intensive applications
+• **Storage Optimized (i3, d2)** - High sequential read/write access to large datasets
+
+**Pricing Options:**
+• **On-Demand** - Pay by the hour or second with no long-term commitments
+• **Reserved Instances** - Significant discounts for 1 or 3-year terms
+• **Spot Instances** - Bid for unused capacity at reduced costs
+
+**Best Practices:**
+• Use Auto Scaling Groups for high availability and fault tolerance
+• Implement proper security group rules following the principle of least privilege
+• Regular backups using EBS snapshots
+• Monitor performance and costs using CloudWatch
+
+What specific aspect of EC2 would you like to explore further?`;
+    }
+    
+    if (lowerQuestion.includes('s3')) {
+      return `Amazon S3 (Simple Storage Service) is an object storage service that offers industry-leading scalability, data availability, security, and performance.
+
+**Key Features:**
+• **Virtually unlimited storage** - Store and retrieve any amount of data
+• **99.999999999% (11 9's) durability** - Designed to sustain the loss of data in two facilities
+• **Multiple storage classes** - Optimize costs based on access patterns
+• **Strong consistency** - Read-after-write consistency for all operations
+
+**Storage Classes:**
+• **S3 Standard** - For frequently accessed data
+• **S3 Standard-IA** - For infrequently accessed data with rapid access when needed
+• **S3 One Zone-IA** - For infrequently accessed data that doesn't require multiple AZ resilience
+• **S3 Glacier** - For long-term archival with retrieval times from minutes to hours
+• **S3 Glacier Deep Archive** - Lowest cost storage for long-term retention
+
+**Common Use Cases:**
+• **Backup and restore** - Reliable and cost-effective data backup
+• **Data archiving** - Long-term retention with various retrieval options
+• **Static website hosting** - Host static websites directly from S3
+• **Content distribution** - Store and distribute content globally
+• **Data lakes** - Store structured and unstructured data for analytics
+
+**Security Features:**
+• **Encryption** - Server-side and client-side encryption options
+• **Access control** - Fine-grained access policies using IAM, bucket policies, and ACLs
+• **Versioning** - Keep multiple versions of objects
+• **MFA Delete** - Additional protection for object deletion
+
+Would you like me to explain any specific S3 feature or use case in more detail?`;
+    }
+    
+    return `I can help you with AWS-related questions and provide detailed explanations about various AWS services and concepts.
+
+**Popular AWS Topics I can explain:**
+• **Compute** - EC2, Lambda, ECS, EKS, Fargate
+• **Storage** - S3, EBS, EFS, Glacier
+• **Database** - RDS, DynamoDB, ElastiCache, Redshift
+• **Networking** - VPC, CloudFront, Route 53, Load Balancers
+• **Security** - IAM, KMS, WAF, Shield
+• **DevOps** - CodePipeline, CodeBuild, CodeDeploy, CloudFormation
+
+**I can help with:**
+• Service explanations and use cases
+• Architecture best practices
+• Cost optimization strategies
+• Security recommendations
+• Migration guidance
+• Troubleshooting common issues
+
+What specific AWS service or concept would you like me to explain?`;
   };
 
   // Security function to validate and sanitize user input
@@ -153,7 +270,7 @@ const ImprovedChatbot = () => {
       try {
         console.log('Getting intelligent response for:', sanitizedMessage);
         
-        let botResponse = "🤖 **Thank you for your question!**\n\nI'm here to help with comprehensive answers on any topic. Let me provide you with detailed information.\n\n**What I can help with:**\n• Science & Technology\n• History & Culture\n• DevOps & AWS\n• Mathematics & Physics\n• Business & Economics\n• And much more!\n\nWhat specific aspect would you like me to explain?";
+        let botResponse = "I'm Amazon Q, your AI assistant. I can help you with a wide range of topics including software development, AWS and cloud services, DevOps practices, and general technical questions. What would you like to know about today?";
 
         // Check if this should use Amazon Q CLI
         if (shouldUseAmazonQ(sanitizedMessage)) {
@@ -383,9 +500,9 @@ What type of current information or news topic interests you most?`;
                   </svg>
                 </div>
                 <div>
-                  <h3 className="font-bold text-lg">AI Assistant</h3>
+                  <h3 className="font-bold text-lg">Amazon Q</h3>
                   <p className="text-sm opacity-90">
-                    {amazonQStatus.available ? '🚀 Amazon Q CLI Ready' : '🧠 Universal Knowledge'}
+                    AI Assistant
                   </p>
                 </div>
               </div>
