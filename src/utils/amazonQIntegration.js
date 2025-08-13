@@ -93,6 +93,11 @@ class AmazonQIntegration {
 
   // Format Amazon Q response for display
   formatResponse(qResponse, originalQuestion) {
+    // Handle setup guidance responses
+    if (qResponse.metadata && qResponse.metadata.setupGuidance) {
+      return qResponse.response;
+    }
+    
     // Handle error responses
     if (!qResponse.success && qResponse.error) {
       return `🔧 **${qResponse.error}**
@@ -110,32 +115,23 @@ ${qResponse.troubleshooting.commonIssues.map(issue => `• ${issue}`).join('\n')
 ${qResponse.fallbackResponse}`;
     }
     
-    const { response, metadata, processingTime } = qResponse;
+    const { response, metadata, processingTime, source } = qResponse;
     
-    let formattedResponse = `🚀 **Amazon Q Response:**\n\n${response}`;
+    let formattedResponse = response;
     
-    // Add metadata if available
-    if (metadata) {
-      formattedResponse += `\n\n📊 **Response Details:**`;
+    // Add source attribution
+    if (source) {
+      formattedResponse += `\n\n---\n**Source:** ${source}`;
       
-      if (metadata.hasCodeBlocks) {
-        formattedResponse += `\n• Contains code examples and commands`;
-      }
-      
-      if (metadata.hasCommands) {
-        formattedResponse += `\n• Includes AWS CLI commands`;
-      }
-      
-      if (metadata.category && metadata.category !== 'general') {
-        formattedResponse += `\n• Category: ${metadata.category.charAt(0).toUpperCase() + metadata.category.slice(1)}`;
-      }
-      
-      if (processingTime) {
-        formattedResponse += `\n• Processing time: ${processingTime}ms`;
+      if (metadata && metadata.realCLI) {
+        formattedResponse += ` ✅`;
       }
     }
     
-    formattedResponse += `\n\n💡 **Powered by Amazon Q CLI** - Real-time AWS assistance`;
+    // Add metadata if available
+    if (metadata && processingTime) {
+      formattedResponse += `\n**Processing time:** ${processingTime}ms`;
+    }
     
     return formattedResponse;
   }

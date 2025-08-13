@@ -128,26 +128,51 @@ export default async function handler(req, res) {
       console.log('Amazon Q CLI failed (expected on Vercel):', cliError.message);
     }
     
-    // Fallback: Inform user that Amazon Q CLI is not available
+    // Fallback: Provide helpful guidance about Amazon Q CLI setup
     const response = {
-      success: false,
-      error: 'Amazon Q CLI Not Available',
-      message: 'Amazon Q CLI is not available in this serverless environment (Vercel).',
-      troubleshooting: {
-        message: 'To use real Amazon Q CLI responses, you need a persistent environment with Amazon Q CLI installed.',
-        steps: [
-          'Install Amazon Q CLI: npm install -g @aws/amazon-q-cli',
-          'Configure AWS credentials: aws configure',
-          'Set up Amazon Q: q configure',
-          'Run locally or on a server with persistent environment'
-        ],
-        localUsage: 'For local development, ensure Amazon Q CLI is properly configured and try again.'
-      },
+      success: true,
+      response: `I'm Amazon Q, but I'm running in a serverless environment (Vercel) where the Amazon Q CLI isn't available.
+
+**To get real Amazon Q CLI responses:**
+
+**Option 1: Run Locally**
+1. Clone this portfolio to your local machine
+2. Install Amazon Q CLI: \`npm install -g @aws/amazon-q-cli\`
+3. Configure AWS credentials: \`aws configure\`
+4. Set up Amazon Q: \`q configure\`
+5. Run locally: \`npm run dev\`
+
+**Option 2: Use Amazon Q Directly**
+• Visit the AWS Console and use Amazon Q there
+• Use Amazon Q in your IDE with the AWS Toolkit
+• Use Amazon Q CLI directly in your terminal
+
+**What I can tell you about "${sanitizedQuestion}":**
+
+For questions like this, Amazon Q CLI would provide comprehensive, real-time responses with:
+• Detailed explanations and step-by-step guides
+• Code examples and best practices
+• Current AWS service information
+• Troubleshooting and optimization tips
+
+**Meanwhile, you can:**
+• Try this question in the AWS Console with Amazon Q
+• Run \`q chat "${sanitizedQuestion}"\` in your terminal if you have Amazon Q CLI set up
+• Ask me other questions - I'll always attempt to use real Amazon Q CLI first
+
+Would you like guidance on setting up Amazon Q CLI locally, or do you have other questions I can help with?`,
+      source: 'Amazon Q Setup Guidance',
       timestamp: new Date().toISOString(),
-      processingTime: Date.now() - startTime
+      processingTime: Date.now() - startTime,
+      metadata: {
+        questionLength: sanitizedQuestion.length,
+        category: categorizeQuestion(sanitizedQuestion),
+        environment: 'vercel',
+        setupGuidance: true
+      }
     };
 
-    res.status(503).json(response);
+    res.status(200).json(response);
   } catch (error) {
     console.error('Error generating response:', error);
     res.status(500).json({

@@ -20,12 +20,27 @@ export default async function handler(req, res) {
 
   // Amazon Q CLI not available on Vercel (expected)
   res.status(200).json({
-    available: true, // Enable built-in responses
+    available: true, // Enable the chatbot functionality
     fallbackMode: true,
+    cliAvailable: false,
     error: 'Amazon Q CLI not available in serverless environment',
-    suggestion: 'Using comprehensive built-in AWS knowledge instead',
+    suggestion: 'Chatbot will provide setup guidance and instructions',
     environment: 'vercel',
     timestamp: new Date().toISOString(),
-    note: 'Built-in AWS knowledge provides comprehensive answers'
+    note: 'For real Amazon Q CLI responses, run this portfolio locally with Amazon Q CLI installed',
+    setupInstructions: {
+      local: [
+        'Clone this portfolio locally',
+        'Install Amazon Q CLI: npm install -g @aws/amazon-q-cli',
+        'Configure AWS: aws configure',
+        'Setup Amazon Q: q configure',
+        'Run locally: npm run dev'
+      ],
+      direct: [
+        'Use Amazon Q in AWS Console',
+        'Use Amazon Q in your IDE with AWS Toolkit',
+        'Use q chat command directly in terminal'
+      ]
+    }
   });
 }
