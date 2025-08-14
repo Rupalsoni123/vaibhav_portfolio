@@ -1,15 +1,15 @@
 import React, { useState, useRef, useEffect, useContext } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ThemeContext } from '../utils/ThemeContext';
-import amazonQ from '../utils/amazonQIntegration';
+import huggingfaceAI from '../utils/huggingfaceIntegration';
 
 const ImprovedChatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [amazonQStatus, setAmazonQStatus] = useState({ available: false });
+  const [aiStatus, setAiStatus] = useState({ available: true });
   const [messages, setMessages] = useState([
     {
       id: 1,
-      text: "👋 **Hello! I'm Amazon Q, powered by the real Amazon Q CLI.**\n\n🚀 **Real Amazon Q CLI Integration:**\n• Every question is processed through the actual `q chat` command\n• Get authentic Amazon Q responses with real-time knowledge\n• No built-in knowledge base - pure Amazon Q CLI experience\n\n**🔧 Requirements for Full Functionality:**\n• **Amazon Q CLI installed:** `npm install -g @aws/amazon-q-cli`\n• **AWS credentials configured:** `aws configure`\n• **Amazon Q setup:** `q configure`\n\n**💡 What I can help with:**\n• **Software Development** - Code generation, debugging, best practices\n• **AWS & Cloud** - Service explanations, architecture, cost optimization\n• **DevOps** - CI/CD, containers, infrastructure as code\n• **Programming** - Multiple languages, frameworks, algorithms\n• **General Tech** - Any technical question or concept\n\n**🌟 Experience:**\n• **Local Development:** Full Amazon Q CLI functionality\n• **Vercel/Production:** Will attempt CLI but may show setup instructions\n\n**Ready to help!** Ask me anything - I'll route your question directly to Amazon Q CLI for the most accurate and up-to-date response.\n\nWhat would you like to know?",
+      text: "👋 **Hello! I'm your Assistant \n\n🤗 **What I can help with:**",
       isBot: true,
       timestamp: new Date()
     }
@@ -27,17 +27,12 @@ const ImprovedChatbot = () => {
   useEffect(() => {
     scrollToBottom();
     
-    // Check Amazon Q availability on component mount
-    amazonQ.checkAvailability().then(status => {
-      setAmazonQStatus(status);
-      console.log('Amazon Q CLI status:', status);
+    // Check Hugging Face AI availability on component mount
+    huggingfaceAI.checkAvailability().then(status => {
+      setAiStatus(status);
+      console.log('Hugging Face AI status:', status);
     });
   }, [messages]);
-
-  // Check if question should use Amazon Q CLI
-  const shouldUseAmazonQ = (question) => {
-    return amazonQ.shouldUseAmazonQ(question) && amazonQStatus.available;
-  };
 
   // Helper function to determine season
   const getSeason = (date) => {
@@ -993,41 +988,19 @@ What specific aspect of "${question}" would you like me to focus on? I'm designe
       try {
         console.log('Getting intelligent response for:', sanitizedMessage);
         
-        let botResponse = "I'm Amazon Q, your AI assistant. Let me get you a comprehensive answer using Amazon Q CLI.";
+        let botResponse = "I'm your Free AI assistant. Let me get you a helpful answer.";
 
-        // Always try to use real Amazon Q CLI first for ALL questions
-        console.log('Attempting to use real Amazon Q CLI for:', sanitizedMessage);
+        // Use Free AI services for all questions
+        console.log('Getting Free AI response for:', sanitizedMessage);
         
         try {
-          // Try Amazon Q CLI for every question
-          const qResponse = await amazonQ.query(sanitizedMessage, '', 'portfolio-user');
-          const formattedResponse = amazonQ.formatResponse(qResponse, sanitizedMessage);
+          const aiResponse = await freeAI.query(sanitizedMessage, '', 'portfolio-user');
+          const formattedResponse = freeAI.formatResponse(aiResponse, sanitizedMessage);
           botResponse = formattedResponse;
-          console.log('Successfully got response from Amazon Q CLI');
-        } catch (qError) {
-          console.error('Amazon Q CLI failed, error:', qError);
-          // Only use fallback if Amazon Q CLI completely fails
-          botResponse = `I'm having trouble connecting to Amazon Q CLI right now.
-
-**Error:** ${qError.message}
-
-**To get the best responses, please ensure:**
-• Amazon Q CLI is installed: \`npm install -g @aws/amazon-q-cli\`
-• AWS credentials are configured: \`aws configure\`
-• Amazon Q is set up: \`q configure\`
-
-**Troubleshooting Steps:**
-1. **Check Installation:** Run \`q --version\` to verify Amazon Q CLI is installed
-2. **Check Authentication:** Run \`aws sts get-caller-identity\` to verify AWS credentials
-3. **Configure Amazon Q:** Run \`q configure\` to set up Amazon Q CLI
-4. **Test Connection:** Try \`q chat "hello"\` in your terminal
-
-**Meanwhile, you can:**
-• Try your question again in a moment
-• Check the Amazon Q CLI setup in your terminal
-• Ensure you have proper AWS permissions for Amazon Q
-
-Would you like me to help you troubleshoot the Amazon Q CLI setup?`;
+          console.log('Successfully got response from Free AI services');
+        } catch (aiError) {
+          console.error('Free AI failed, error:', aiError);
+          botResponse = freeAI.handleError(aiError, sanitizedMessage);
         }
 
         // Check if this should use Amazon Q CLI
@@ -1258,9 +1231,9 @@ What type of current information or news topic interests you most?`;
                   </svg>
                 </div>
                 <div>
-                  <h3 className="font-bold text-lg">Amazon Q</h3>
+                  <h3 className="font-bold text-lg">Free AI Assistant</h3>
                   <p className="text-sm opacity-90">
-                    AI Assistant
+                    Multiple Free AI Services
                   </p>
                 </div>
               </div>
