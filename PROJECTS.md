@@ -78,6 +78,61 @@ This document showcases my key DevOps and infrastructure projects based on my pr
 
 ---
 
+### Trading Bot – Infrastructure & DevOps
+
+**Description:** Designed and implemented complete CI/CD infrastructure for a trading bot application with automated deployment pipelines and cloud-native architecture.
+
+**Key Technologies:**
+- GitLab (Repository Management)
+- Jenkins (CI/CD)
+- SonarQube (Code Quality)
+- Redis, Dozzle, Apache, WebSocket
+- FastAPI, PostgreSQL
+- Docker, Nginx
+- AWS S3, CloudFront, ACM, Route53, SSL
+
+**Achievements:**
+- Integrated GitLab repositories with Jenkins pipelines to automate build, test, code quality checks, and deployment for both frontend and backend
+- Deployed backend services on EC2 using Docker containers, exposed securely via Nginx reverse proxy
+- Hosted frontend on AWS S3 with CloudFront CDN, ACM SSL certificates, and Route53 DNS for high availability
+- Implemented SonarQube scanning in CI/CD pipelines for security and code quality
+- Configured Redis, Dozzle, Apache, and WebSocket services to support real-time trading operations
+- Secured infrastructure with SSL/TLS and optimized PostgreSQL roles & permissions
+
+**Impact:**
+- Reduced deployment cycle by 60% with Jenkins-based automation
+- Enhanced application security and compliance with SonarQube and SSL
+- Improved frontend performance and backend reliability using CDN + Dockerized infrastructure
+
+---
+
+### DDA – Liferay Environment Setup & Troubleshooting
+
+**Description:** Provisioned and managed dedicated Liferay development environments with comprehensive troubleshooting and optimization for multiple developers.
+
+**Key Technologies:**
+- Liferay
+- PostgreSQL
+- Java, Tomcat
+- IntelliJ IDE
+- Docker
+- Windows RDP
+- Proxy Configuration
+
+**Achievements:**
+- Provisioned dedicated Liferay environments for multiple developers with user-specific PostgreSQL databases and custom port mappings
+- Configured proxy-based internet access for plugin downloads and performed setup via RDP sessions in isolated environments
+- Installed and configured the Liferay IntelliJ plugin, initialized bundles, and integrated with project repositories
+- Resolved Tomcat startup failures, lock manager errors, and JVM misconfigurations by adjusting settings and cleaning temp files
+- Managed PostgreSQL roles, grants, and schema permissions for secure user access
+
+**Impact:**
+- Reduced onboarding time by 30% with standardized environment setup
+- Increased stability by isolating environments with dedicated databases and ports
+- Ensured secure and compliant setups with proxy-based internet and RDP access
+
+---
+
 ### Cloud Infrastructure Automation (Current)
 
 **Description:** Currently contributing to cloud infrastructure automation and deployment optimization initiatives at Inexture Solutions.

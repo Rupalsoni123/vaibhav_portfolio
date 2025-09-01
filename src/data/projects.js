@@ -53,6 +53,32 @@ const projectsData = [
   },
   {
     id: 5,
+    title: "Trading Bot – Infrastructure & DevOps",
+    category: "CI/CD & Cloud Infrastructure",
+    description: "Designed and implemented complete CI/CD infrastructure for a trading bot application with automated deployment pipelines and cloud-native architecture.",
+    longDescription: "Designed and implemented complete CI/CD infrastructure for a trading bot application with automated deployment pipelines and cloud-native architecture. Integrated GitLab repositories with Jenkins pipelines to automate build, test, code quality checks, and deployment for both frontend and backend. Deployed backend services on EC2 using Docker containers, exposed securely via Nginx reverse proxy. Hosted frontend on AWS S3 with CloudFront CDN, ACM SSL certificates, and Route53 DNS for high availability. Implemented SonarQube scanning in CI/CD pipelines for security and code quality. Configured Redis, Dozzle, Apache, and WebSocket services to support real-time trading operations.",
+    technologies: ["GitLab", "Jenkins", "SonarQube", "Redis", "FastAPI", "PostgreSQL", "Docker", "Nginx", "AWS S3", "CloudFront", "ACM", "Route53", "SSL"],
+    live: null,
+    image: null,
+    icon: "rocket",
+    status: "Completed",
+    featured: true
+  },
+  {
+    id: 6,
+    title: "DDA – Liferay Environment Setup & Troubleshooting",
+    category: "Environment Management",
+    description: "Provisioned and managed dedicated Liferay development environments with comprehensive troubleshooting and optimization for multiple developers.",
+    longDescription: "Provisioned and managed dedicated Liferay development environments with comprehensive troubleshooting and optimization for multiple developers. Provisioned dedicated Liferay environments for multiple developers with user-specific PostgreSQL databases and custom port mappings. Configured proxy-based internet access for plugin downloads and performed setup via RDP sessions in isolated environments. Installed and configured the Liferay IntelliJ plugin, initialized bundles, and integrated with project repositories. Resolved Tomcat startup failures, lock manager errors, and JVM misconfigurations by adjusting settings and cleaning temp files.",
+    technologies: ["Liferay", "PostgreSQL", "Java", "Tomcat", "IntelliJ", "Docker", "Windows RDP", "Proxy"],
+    live: null,
+    image: null,
+    icon: "server",
+    status: "Completed",
+    featured: true
+  },
+  {
+    id: 7,
     title: "Cloud Infrastructure Automation",
     category: "DevOps Automation",
     description: "Currently contributing to cloud infrastructure automation and deployment optimization initiatives at Inexture Solutions.",

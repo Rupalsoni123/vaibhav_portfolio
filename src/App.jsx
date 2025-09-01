@@ -5,7 +5,7 @@ import Home from "./components/Home";
 import LoadingSpinner from "./components/ui/LoadingSpinner";
 import ErrorBoundary from "./components/ui/ErrorBoundary";
 import SEO from "./components/ui/SEO";
-import ImprovedChatbot from "./components/ImprovedChatbot";
+import SimpleChatbot from "./components/SimpleChatbot";
 
 // Lazy load non-critical components
 const About = lazy(() => import("./components/About"));
@@ -93,7 +93,7 @@ const App = () => {
         
         {/* AI Chatbot */}
         <ErrorBoundary>
-          <ImprovedChatbot />
+          <SimpleChatbot />
         </ErrorBoundary>
       </div>
     </div>

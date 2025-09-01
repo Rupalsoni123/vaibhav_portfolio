@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, useContext } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ThemeContext } from '../utils/ThemeContext';
-import huggingfaceAI from '../utils/huggingfaceIntegration';
+import freeChatbot from '../utils/freeChatbot';
 
 const ImprovedChatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,12 +26,6 @@ const ImprovedChatbot = () => {
 
   useEffect(() => {
     scrollToBottom();
-    
-    // Check Hugging Face AI availability on component mount
-    huggingfaceAI.checkAvailability().then(status => {
-      setAiStatus(status);
-      console.log('Hugging Face AI status:', status);
-    });
   }, [messages]);
 
   // Helper function to determine season
