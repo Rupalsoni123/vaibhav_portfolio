@@ -150,7 +150,6 @@ const SimpleChatbot = () => {
                 </div>
                 <div>
                   <h3 className="font-bold text-lg">Portfolio Assistant</h3>
-                  <p className="text-sm opacity-90">Free & Fast</p>
                 </div>
               </div>
             </div>
