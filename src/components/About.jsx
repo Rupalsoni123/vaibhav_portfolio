@@ -39,8 +39,13 @@ const About = () => {
 
   const journey = [
     {
+      year: "Aug 2025",
+      title: "Junior DevOps Engineer",
+      company: "Inexture Solutions",
+      description: "Working on multi cloud infrastructure, Multiple CI/CD pipelines, SonarQube and Automation."
+    },{
       year: "2025",
-      title: "DevOps Engineer",
+      title: "DevOps intern",
       company: "Inexture Solutions",
       description: "Working on cloud infrastructure, CI/CD pipelines, and container orchestration."
     },{

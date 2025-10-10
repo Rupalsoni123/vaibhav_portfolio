@@ -89,6 +89,45 @@ const projectsData = [
     icon: "server",
     status: "In Progress",
     featured: false
+  },
+  {
+    id: 8,
+    title: "Solvere Multi-Tenant Platform",
+    category: "CI/CD Pipeline",
+    description: "Deployed full-stack Django backend and TypeScript frontend on AWS EC2 using Docker containerization with multi-tenant architecture.",
+    longDescription: "Deployed full-stack Django backend and TypeScript frontend on AWS EC2 using Docker containerization. Configured wildcard domain setup and advanced Nginx proxy routing for multi-tenant architecture. Orchestrated PostgreSQL and Redis services with persistent volume management using Docker Compose. Created custom Dockerfiles and resolved complex CORS errors and routing configuration issues. Automated CI/CD deployment pipeline using GitHub Actions for both frontend and backend services.",
+    technologies: ["Django", "TypeScript", "AWS EC2", "Docker", "Nginx", "PostgreSQL", "Redis", "Docker Compose", "GitHub Actions"],
+    live: null,
+    image: null,
+    icon: "rocket",
+    status: "Completed",
+    featured: true
+  },
+  {
+    id: 9,
+    title: "Internal AI PoC Deployments",
+    category: "CI/CD Pipeline",
+    description: "Deployed multiple AI applications using Python FastAPI, Streamlit, React.js, and TypeScript with comprehensive CI/CD pipeline.",
+    longDescription: "Deployed multiple AI applications using Python FastAPI, Streamlit, React.js, and TypeScript on Docker. Designed custom Docker network subnets for project isolation and optimized Alpine images from scratch. Built comprehensive Jenkins CI/CD pipeline with checkout, SonarQube analysis, and Flake8 linting. Implemented health checks, dependency management, and achieved 95%+ unit test coverage. Configured SSL certificates using Certbot and managed self-hosted GitLab repositories with Nginx proxy.",
+    technologies: ["Python", "FastAPI", "Streamlit", "React.js", "TypeScript", "Docker", "Alpine", "Jenkins", "SonarQube", "Flake8", "SSL", "Certbot", "GitLab", "Nginx"],
+    live: null,
+    image: null,
+    icon: "rocket",
+    status: "Completed",
+    featured: true
+  },
+  {
+    id: 10,
+    title: "Jenkins Migration Project",
+    category: "Infrastructure Migration",
+    description: "Successfully upgraded Jenkins infrastructure from version 4.22 to 5.23 with minimal service disruption.",
+    longDescription: "Successfully upgraded Jenkins infrastructure from version 4.22 to 5.23 with minimal service disruption. Migrated Jenkins from bare-metal server to containerized Docker environment with enhanced security. Achieved complete migration with only 5-10 minutes downtime through careful planning and execution. Ensured 100% data integrity and plugin compatibility during infrastructure transition process. Conducted comprehensive week-long testing and validation before production deployment.",
+    technologies: ["Jenkins", "Docker", "Infrastructure Migration", "Version Upgrade", "Data Migration", "Plugin Management"],
+    live: null,
+    image: null,
+    icon: "server",
+    status: "Completed",
+    featured: true
   }
 ];
 
