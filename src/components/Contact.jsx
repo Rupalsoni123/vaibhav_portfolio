@@ -53,7 +53,7 @@ const Contact = () => {
       // Get Getform endpoint from environment variables
       const getformEndpoint = import.meta.env.VITE_GETFORM_ENDPOINT;
       
-      if (!getformEndpoint || getformEndpoint === 'https://getform.io/f/YOUR_FORM_ID') {
+      if (!getformEndpoint || getformEndpoint === 'https://getform.io/f/bjjowvwb') {
         throw new Error('Getform endpoint not configured');
       }
 
