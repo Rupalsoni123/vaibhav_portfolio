@@ -24,10 +24,10 @@ const Contact = () => {
     e.preventDefault();
     e.stopPropagation();
     console.log('Form submitted:', formData);
-    
+
     setIsSubmitting(true);
     setStatus({ type: "", message: "" });
-    
+
     // Basic validation
     if (!formData.name || !formData.email || !formData.message) {
       setStatus({
@@ -50,9 +50,9 @@ const Contact = () => {
     }
 
     try {
-      // Get Getform endpoint from environment variables
-      const getformEndpoint = import.meta.env.VITE_GETFORM_ENDPOINT;
-      
+      // Get Getform endpoint from environment variables or use provided fallback
+      const getformEndpoint = import.meta.env.VITE_GETFORM_ENDPOINT || 'https://getform.io/f/bjjowvwb';
+
       if (!getformEndpoint || getformEndpoint === 'https://getform.io/') {
         throw new Error('Getform endpoint not configured');
       }
@@ -78,7 +78,7 @@ const Contact = () => {
           message: "Message sent successfully! I'll get back to you within 24 hours."
         });
         setFormData({ name: "", email: "", subject: "", message: "" });
-        
+
         // Clear status after 5 seconds
         setTimeout(() => {
           setStatus({ type: "", message: "" });
@@ -88,7 +88,7 @@ const Contact = () => {
       }
     } catch (error) {
       console.error('Form submission error:', error);
-      
+
       // Fallback: Try alternative method or show error
       if (error.message.includes('Getform endpoint not configured')) {
         setStatus({
@@ -117,7 +117,7 @@ const Contact = () => {
     e.preventDefault();
     e.stopPropagation();
     console.log('Contact method clicked:', method, value);
-    
+
     switch (method) {
       case 'email':
         window.location.href = `mailto:${value}`;
@@ -193,8 +193,8 @@ const Contact = () => {
           <h2 className="heading-lg" style={{ marginBottom: '1rem' }}>
             Get In <span className="text-gradient">Touch</span>
           </h2>
-          <p style={{ 
-            color: 'var(--text-secondary)', 
+          <p style={{
+            color: 'var(--text-secondary)',
             fontSize: '1.125rem',
             maxWidth: '600px',
             margin: '0 auto'
@@ -211,8 +211,8 @@ const Contact = () => {
         }}>
           {/* Contact Information */}
           <div className="animate-slide-in-left">
-            <h3 style={{ 
-              fontWeight: '600', 
+            <h3 style={{
+              fontWeight: '600',
               marginBottom: '2rem',
               color: 'var(--text-primary)',
               fontSize: '1.25rem'
@@ -383,11 +383,11 @@ const Contact = () => {
                         padding: '0.5rem 1rem',
                         borderRadius: '0.5rem',
                         border: '1px solid var(--border-color)',
-                        background: formData.subject === topic 
-                          ? '#2563eb' 
+                        background: formData.subject === topic
+                          ? '#2563eb'
                           : 'var(--card-bg)',
-                        color: formData.subject === topic 
-                          ? 'white' 
+                        color: formData.subject === topic
+                          ? 'white'
                           : 'var(--text-secondary)',
                         fontSize: '0.875rem',
                         cursor: 'pointer',
@@ -424,7 +424,7 @@ const Contact = () => {
                   tabIndex="-1"
                   autoComplete="off"
                 />
-                
+
                 {/* Name Field */}
                 <div>
                   <label htmlFor="name" style={{
@@ -590,8 +590,8 @@ const Contact = () => {
                     justifyContent: 'center',
                     gap: '0.5rem',
                     padding: '0.75rem 1.5rem',
-                    background: isSubmitting 
-                      ? 'var(--bg-tertiary)' 
+                    background: isSubmitting
+                      ? 'var(--bg-tertiary)'
                       : 'linear-gradient(135deg, #2563eb, #3b82f6)',
                     color: isSubmitting ? 'var(--text-tertiary)' : 'white',
                     border: 'none',
