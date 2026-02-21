@@ -40,7 +40,7 @@ const About = () => {
   const journey = [
     {
       year: "Aug 2025",
-      title: "Junior DevOps Engineer",
+      title: "DevOps Engineer",
       company: "Inexture Solutions",
       description: "Working on multi cloud infrastructure, Multiple CI/CD pipelines, SonarQube and Automation."
     },{
@@ -99,7 +99,7 @@ const About = () => {
           <p style={{ color: 'var(--text-secondary)', lineHeight: '1.7' }}>
             Self-driven professional who transitioned from non-CS background to DevOps through practical project experience, certifications, and continuous learning. Currently focused on advancing Kubernetes expertise and AWS CDK with TypeScript to deliver scalable, enterprise-grade cloud-native solutions.
           <br />
-            Results-driven DevOps Engineer with 1 year of hands-on experience in cloud infrastructure automation, containerization, and CI/CD pipeline optimization across AWS, Azure, and DigitalOcean platforms. Proven track record of migrating 240+ Azure resources to Terraform-based Infrastructure as Code, reducing code duplication by 70% through reusable dynamic modules and standardized deployment practices.
+            Results-driven DevOps Engineer with 2+ year of hands-on experience in cloud infrastructure automation, containerization, and CI/CD pipeline optimization across AWS, Azure, and DigitalOcean platforms. Proven track record of migrating 240+ Azure resources to Terraform-based Infrastructure as Code, reducing code duplication by 70% through reusable dynamic modules and standardized deployment practices.
           <br />
             Expert in Kubernetes orchestration and Docker containerization, with experience designing  clusters and custom container solutions for  clients. Skilled in implementing comprehensive DevOps workflows using Terragrunt, GitLab CI/CD, and Bitbucket Pipelines, ensuring consistent and secure deployments across multiple environments.
           <br />
