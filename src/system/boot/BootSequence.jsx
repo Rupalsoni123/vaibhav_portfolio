@@ -36,10 +36,10 @@ const BootSequence = () => {
 
   useEffect(() => {
     // 1. Black screen for a bit
-    // 2. Logo appears after 800ms
-    const logoTimer = setTimeout(() => setShowLogo(true), 800);
+    // 2. Logo appears after 400ms (Faster)
+    const logoTimer = setTimeout(() => setShowLogo(true), 400);
     
-    // 3. Start logs after logo is fully in (approx 1.5s total)
+    // 3. Start logs after logo is fully in (Faster)
     const logsTimer = setTimeout(() => {
       setVisibleLogsCount(1);
       // Play start sound if enabled
@@ -52,7 +52,7 @@ const BootSequence = () => {
           console.error('Audio play failed', e);
         }
       }
-    }, 2300);
+    }, 1200);
 
     return () => {
       clearTimeout(logoTimer);
@@ -62,18 +62,18 @@ const BootSequence = () => {
 
   const handleLogComplete = () => {
     if (visibleLogsCount < BOOT_LOGS.length) {
-      setTimeout(() => setVisibleLogsCount(prev => prev + 1), 300);
+      setTimeout(() => setVisibleLogsCount(prev => prev + 1), 150);
     } else {
       // All logs done
-      setTimeout(() => setIsReady(true), 600);
+      setTimeout(() => setIsReady(true), 300);
     }
   };
 
   useEffect(() => {
     if (isReady) {
-      // 5. Final message shown, then fade out
-      const fadeTimer = setTimeout(() => setFadeOut(true), 2000);
-      const bootTimer = setTimeout(() => setBooted(true), 2800);
+      // 5. Final message shown, then fade out (Faster)
+      const fadeTimer = setTimeout(() => setFadeOut(true), 800);
+      const bootTimer = setTimeout(() => setBooted(true), 1400);
       return () => {
         clearTimeout(fadeTimer);
         clearTimeout(bootTimer);

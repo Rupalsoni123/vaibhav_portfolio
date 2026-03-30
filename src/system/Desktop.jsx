@@ -137,7 +137,6 @@ const Desktop = () => {
   return (
     <div className={desktopClasses} onContextMenu={handleDesktopContextMenu}>
       <div className="os-desktop__wallpaper" style={wallpaperStyle} />
-      <div className="os-desktop__noise" />
       <div className="os-desktop__vignette" />
       
       {/* 
