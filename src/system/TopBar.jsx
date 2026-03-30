@@ -48,7 +48,7 @@ const CalendarPanel = ({ isOpen }) => {
 };
 
 const SystemMenu = ({ isOpen }) => {
-  const { openWindow, toggleSystemMenu } = useOS();
+  const { openWindow, toggleSystemMenu, setBooted } = useOS();
   const menuRef = useRef(null);
 
   if (!isOpen) return null;
@@ -85,8 +85,8 @@ const SystemMenu = ({ isOpen }) => {
       {/* Application Actions */}
       <div className="px-1">
         <MenuItem iconName="FileText" label="Open Resume" onClick={(e) => { e.stopPropagation(); toggleSystemMenu(); window.open('/resume/Vaibhav_Soni_Resume.pdf', '_blank'); }} />
-        <MenuItem iconName="LinkedIn" label="LinkedIn Profile" onClick={(e) => { e.stopPropagation(); toggleSystemMenu(); window.open('https://linkedin.com/in/vaibhavsonii21', '_blank'); }} />
-        <MenuItem iconName="GitHub" label="GitHub Marketplace" onClick={(e) => { e.stopPropagation(); toggleSystemMenu(); window.open('https://github.com/vaibhav21soni', '_blank'); }} />
+        <MenuItem iconName="Linkedin" label="LinkedIn Profile" onClick={(e) => { e.stopPropagation(); toggleSystemMenu(); window.open('https://linkedin.com/in/vaibhavsonii21', '_blank'); }} />
+        <MenuItem iconName="Github" label="GitHub Marketplace" onClick={(e) => { e.stopPropagation(); toggleSystemMenu(); window.open('https://github.com/vaibhav21soni', '_blank'); }} />
         <MenuItem iconName="Settings" label="Settings" onClick={(e) => { e.stopPropagation(); toggleSystemMenu(); openWindow('settings'); }} />
       </div>
 
@@ -94,8 +94,14 @@ const SystemMenu = ({ isOpen }) => {
 
       {/* System Actions */}
       <div className="px-1">
-        <MenuItem iconName="RotateCcw" label="Restart System" className="text-gray-400" onClick={() => { window.location.reload(); }} />
-        <MenuItem iconName="Power" label="Power Off" className="text-gray-400 hover:text-red-400" onClick={() => { toggleSystemMenu(); }} />
+        <MenuItem iconName="RotateCcw" label="Restart System" className="text-gray-400" onClick={() => { 
+          toggleSystemMenu();
+          window.location.reload(); 
+        }} />
+        <MenuItem iconName="Power" label="Power Off" className="text-gray-400 hover:text-red-400" onClick={() => { 
+          toggleSystemMenu();
+          setTimeout(() => setBooted(false), 500);
+        }} />
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ import { useTerminal } from './useTerminal';
 import TerminalTabs from './TerminalTabs';
 
 const Terminal = () => {
-  const { openWindow, fileSystem } = useOS();
+  const os = useOS();
   const {
     tabs,
     activeTabId,
@@ -15,7 +15,7 @@ const Terminal = () => {
     handleInput,
     handleKeyDown,
     exitVim
-  } = useTerminal(openWindow, fileSystem);
+  } = useTerminal(os);
   
   const inputRef = useRef(null);
   const scrollRef = useRef(null);

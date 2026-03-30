@@ -17,7 +17,9 @@ const HELP_TEXT = `Available commands:
   projects   — List projects
   clear      — Clear terminal
   open <app> — Open an app (about, skills, projects, contact)
-  neofetch   — System info`;
+  neofetch   — System info
+  reboot     — Restart the OS
+  poweroff   — Shut down the OS`;
 
 const NEOFETCH = `
       .-/+oossssoo+/-.        vaibhav@VaibhavOS
@@ -41,7 +43,8 @@ const INITIAL_HISTORY = [
   { type: 'output', text: 'Logged in as vaibhav. Type "help" for a list of commands.\n' },
 ];
 
-export const useTerminal = (openWindow, fileSystem) => {
+export const useTerminal = (os) => {
+  const { openWindow, fileSystem, setBooted } = os;
   const [tabs, setTabs] = useState([
     {
       id: 1,
@@ -253,6 +256,19 @@ export const useTerminal = (openWindow, fileSystem) => {
         } else {
           result = { type: 'error', text: `Unknown application: ${appId}` };
         }
+        break;
+      }
+
+      case 'reboot': {
+        result = { type: 'success', text: 'System is rebooting... Please wait.' };
+        setTimeout(() => window.location.reload(), 1500);
+        break;
+      }
+
+      case 'poweroff':
+      case 'shutdown': {
+        result = { type: 'error', text: 'Broadcast message from root@VaibhavOS...\nThe system is going down for power off NOW!' };
+        setTimeout(() => setBooted(false), 2000);
         break;
       }
 

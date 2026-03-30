@@ -114,6 +114,68 @@
   box-shadow: 0 0 10px #4ade80;
 }
 
+/* ─── POWER OFF STATE ─── */
+.os-power-off {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, #111 0%, #000 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  color: #fff;
+}
+.power-button-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+.power-on-btn {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: #0a0a0a;
+  border: 1px solid #222;
+  color: #444;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+.power-on-btn svg {
+  width: 36px;
+  height: 36px;
+}
+.power-on-btn:hover {
+  border-color: #e95420;
+  color: #e95420;
+  box-shadow: 0 0 40px rgba(233, 84, 32, 0.4);
+  transform: translateY(-5px);
+}
+.power-on-btn:active {
+  transform: scale(0.92);
+}
+.power-text {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: #222;
+  animation: pulsePowerText 2s infinite ease-in-out;
+}
+@keyframes pulsePowerText {
+  0%, 100% { opacity: 0.3; color: #111; }
+  50% { opacity: 1; color: #444; }
+}
+@keyframes bootBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
 @keyframes bootBlink {
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }
