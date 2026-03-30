@@ -12,6 +12,13 @@ export default defineConfig({
     host: true,
     port: 3000
   },
+  optimizeDeps: {
+    force: true,
+    include: ['react', 'react-dom']
+  },
+  resolve: {
+    dedupe: ['react', 'react-dom']
+  },
   build: {
     // 1. Minification using Terser for better dead-code elimination
     minify: 'terser',
