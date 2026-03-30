@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useOS } from '../OSContext';
 import Dock from '../Dock';
+import * as LucideIcons from 'lucide-react';
 
 const ActivitiesOverview = () => {
   const { windows, isOverviewOpen, toggleOverview, focusWindow, APP_REGISTRY, openWindow } = useOS();
@@ -19,6 +20,10 @@ const ActivitiesOverview = () => {
   const filteredApps = Object.entries(APP_REGISTRY).filter(([id, app]) => 
     app.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  const getIcon = (iconName) => {
+    return LucideIcons[iconName] || LucideIcons['File'];
+  };
 
   return (
     <div className="os-overview select-none" onClick={toggleOverview}>
@@ -39,48 +44,56 @@ const ActivitiesOverview = () => {
       </div>
 
       {/* Grid of Windows and Apps */}
-      <div className="os-overview__grid">
+      <div className="os-overview__grid custom-scrollbar">
         {windows.length > 0 && (
            <div className="col-span-full border-b border-white/5 pb-2 mb-4">
               <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-[3px]">Running Applications</span>
            </div>
         )}
         
-        {windows.map(win => (
-          <div 
-            key={win.id} 
-            className="os-overview__item group"
-            onClick={() => { focusWindow(win.id); toggleOverview(); }}
-          >
-            <div className="os-overview__window-preview flex flex-col items-center justify-center gap-2">
-               <div className="text-3xl opacity-20 group-hover:opacity-40 transition-opacity">🪟</div>
-               <span className="text-[9px] font-bold text-gray-500 uppercase">Window</span>
+        {windows.map(win => {
+          const Icon = getIcon(win.icon);
+          return (
+            <div 
+              key={win.id} 
+              className="os-overview__item group"
+              onClick={() => { focusWindow(win.id); toggleOverview(); }}
+            >
+              <div className="os-overview__window-preview flex flex-col items-center justify-center gap-2">
+                 <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center group-hover:bg-white/10 transition-colors">
+                    <Icon size={24} className="text-indigo-400 group-hover:scale-110 transition-transform" />
+                 </div>
+                 <span className="text-[9px] font-bold text-gray-500 uppercase tracking-widest">Active Task</span>
+              </div>
+              <div className="os-overview__window-title">{win.title}</div>
             </div>
-            <div className="os-overview__window-title">{win.title}</div>
-          </div>
-        ))}
+          );
+        })}
 
         <div className="col-span-full border-b border-white/5 pb-2 mt-8 mb-4">
            <span className="text-[10px] font-bold text-gray-500 uppercase tracking-[3px]">System Applications</span>
         </div>
 
-        {filteredApps.map(([id, app]) => (
-          <div 
-            key={id} 
-            className="os-overview__item group"
-            onClick={() => { openWindow(id); toggleOverview(); }}
-          >
-            <div className="os-overview__window-preview bg-white/5 flex flex-col items-center justify-center gap-1">
-               <span className="text-2xl group-hover:scale-110 transition-transform">🚀</span>
-               <span className="text-[8px] font-bold text-gray-600 uppercase">App Launcher</span>
+        {filteredApps.map(([id, app]) => {
+          const Icon = getIcon(app.icon);
+          return (
+            <div 
+              key={id} 
+              className="os-overview__item group"
+              onClick={() => { openWindow(id); toggleOverview(); }}
+            >
+              <div className="os-overview__window-preview bg-white/5 flex flex-col items-center justify-center gap-1 group-hover:bg-white/10 transition-colors">
+                 <Icon size={28} className="text-gray-300 group-hover:text-white group-hover:scale-110 transition-all duration-300" />
+                 <span className="text-[8px] font-bold text-gray-600 uppercase tracking-tighter">Launch App</span>
+              </div>
+              <div className="os-overview__window-title">{app.title}</div>
             </div>
-            <div className="os-overview__window-title">{app.title}</div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* FOOTER DOCK (GNOME 40+ Style) */}
-      <div onClick={(e) => e.stopPropagation()}>
+      <div className="fixed bottom-6 left-0 right-0 flex justify-center" onClick={(e) => e.stopPropagation()}>
         <Dock />
       </div>
     </div>
