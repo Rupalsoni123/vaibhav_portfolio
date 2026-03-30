@@ -138,7 +138,7 @@ export const OSProvider = ({ children }) => {
       size: memory?.size || app.defaultSize || { width: 850, height: 560 },
       zIndex: newZ,
       isMinimized: false,
-      isMaximized: false,
+      isMaximized: true,
     };
 
     setWindows(prev => [...prev, newWindow]);
@@ -147,11 +147,13 @@ export const OSProvider = ({ children }) => {
 
   const closeWindow = useCallback((windowId) => {
     setWindows(prev => {
-      const win = prev.find(w => w.id === windowId);
-      if (win) windowMemory.current[win.appId] = { position: win.position, size: win.size };
-      return prev.filter(w => w.id !== windowId);
+      const winArr = prev.filter(w => w.id !== windowId);
+      if (activeWindowId === windowId) {
+        setActiveWindowId(winArr.length > 0 ? winArr[winArr.length - 1].id : null);
+      }
+      return winArr;
     });
-  }, []);
+  }, [activeWindowId]);
 
   const focusWindow = useCallback((windowId) => {
     const newZ = nextZIndex + 1;
@@ -163,15 +165,40 @@ export const OSProvider = ({ children }) => {
   }, [nextZIndex]);
 
   const minimizeWindow = useCallback((windowId) => {
-    setWindows(prev => prev.map(w =>
-      w.id === windowId ? { ...w, isMinimized: true } : w
-    ));
+    setWindows(prev => prev.map(w => {
+      if (w.id !== windowId) return w;
+      
+      const isCurrentlyMinimized = w.isMinimized;
+      
+      // Toggle logic: If already minimized, un-minimize
+      if (isCurrentlyMinimized) {
+        return { ...w, isMinimized: false, isMaximized: true };
+      }
+
+      // Calculate random position for minimized state
+      const maxX = window.innerWidth - (w.size.width * 0.5);
+      const maxY = window.innerHeight - (w.size.height * 0.5) - 32;
+      const randomX = Math.max(0, Math.random() * maxX);
+      const randomY = Math.max(0, Math.random() * maxY);
+
+      return { 
+        ...w, 
+        isMinimized: true, 
+        isMaximized: false,
+        position: { x: randomX, y: randomY } 
+      };
+    }));
   }, []);
 
   const toggleMaximize = useCallback((windowId) => {
     setWindows(prev => prev.map(w => {
       if (w.id !== windowId) return w;
-      return { ...w, isMaximized: !w.isMaximized };
+      // If was minimized, just maximize it back
+      if (w.isMinimized) {
+        return { ...w, isMaximized: true, isMinimized: false };
+      }
+      // Otherwise toggle between maximized and original size
+      return { ...w, isMaximized: !w.isMaximized, isMinimized: false };
     }));
   }, []);
 

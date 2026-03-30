@@ -92,6 +92,10 @@ const Window = ({ window: win, isActive, children }) => {
         width: win.isMaximized ? '100vw' : win.size.width,
         height: win.isMaximized ? 'calc(100vh - 32px)' : win.size.height,
         zIndex: win.zIndex,
+        transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s',
+        transformOrigin: 'top left',
+        transform: win.isMinimized ? 'scale(0.5)' : 'scale(1)',
+        pointerEvents: 'auto',
       }}
       onMouseDown={() => focusWindow(win.id)}
     >
@@ -103,28 +107,28 @@ const Window = ({ window: win, isActive, children }) => {
       >
         <div className="os-window__controls group/buttons">
           <button
-            className="os-window__btn os-window__btn--close flex items-center justify-center"
+            className="os-window__btn w-[14px] h-[14px] os-window__btn--close flex items-center justify-center p-0"
             onClick={(e) => { e.stopPropagation(); closeWindow(win.id); }}
             title="Close"
           >
-            <X size={8} className="opacity-0 group-hover/buttons:opacity-100 text-black/50 transition-opacity" strokeWidth={4} />
+            <X size={10} className="opacity-0 group-hover/buttons:opacity-100 text-black/50 transition-opacity" strokeWidth={4} />
           </button>
           <button
-            className="os-window__btn os-window__btn--minimize flex items-center justify-center"
+            className="os-window__btn w-[14px] h-[14px] os-window__btn--minimize flex items-center justify-center p-0"
             onClick={(e) => { e.stopPropagation(); minimizeWindow(win.id); }}
             title="Minimize"
           >
-            <Minus size={8} className="opacity-0 group-hover/buttons:opacity-100 text-black/50 transition-opacity" strokeWidth={4} />
+            <Minus size={10} className="opacity-0 group-hover/buttons:opacity-100 text-black/50 transition-opacity" strokeWidth={4} />
           </button>
           <button
-            className="os-window__btn os-window__btn--maximize flex items-center justify-center"
+            className="os-window__btn w-[14px] h-[14px] os-window__btn--maximize flex items-center justify-center p-0"
             onClick={(e) => { e.stopPropagation(); toggleMaximize(win.id); }}
             title={win.isMaximized ? "Restore" : "Maximize"}
           >
             {win.isMaximized ? (
-              <Copy size={7} className="opacity-0 group-hover/buttons:opacity-100 text-black/50 transition-opacity" strokeWidth={4} />
+              <Copy size={9} className="opacity-0 group-hover/buttons:opacity-100 text-black/50 transition-opacity" strokeWidth={4} />
             ) : (
-              <Square size={7} className="opacity-0 group-hover/buttons:opacity-100 text-black/50 transition-opacity" strokeWidth={4} />
+              <Square size={9} className="opacity-0 group-hover/buttons:opacity-100 text-black/50 transition-opacity" strokeWidth={4} />
             )}
           </button>
         </div>
