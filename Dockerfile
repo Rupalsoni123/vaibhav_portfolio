@@ -1,64 +1,40 @@
-# Production Dockerfile for Portfolio with Integrated API
-FROM node:18.20.4-alpine AS builder
+# -------- Build Stage --------
+FROM node:22.19.0-slim AS builder
 
 WORKDIR /app
 
-# Install pnpm
-RUN npm install -g pnpm
+# Copy dependency files
+COPY package.json package-lock.json ./
 
-# Copy package files
-COPY package.json pnpm-lock.yaml* ./
-
-# Install dependencies
-RUN pnpm install --frozen-lockfile
+# Install dependencies (using npm since package-lock.json exists)
+RUN npm ci
 
 # Copy source code
 COPY . ./
 
-# Build the application
-RUN pnpm run build
+# Build the app
+RUN npm run build
 
-# Production stage
-FROM node:18.20.4-alpine AS production
+
+# -------- Production Stage --------
+FROM node:22.19.0-slim
 
 WORKDIR /app
 
-# Install pnpm and curl for health checks
-RUN npm install -g pnpm && \
-    apk add --no-cache curl bash
+# Install only required runtime tools (using apt-get for slim images)
+RUN npm install -g serve && \
+    apt-get update && \
+    apt-get install -y wget && \
+    rm -rf /var/lib/apt/lists/*
 
-# Install Amazon Q CLI (optional)
-RUN npm install -g @aws/amazon-q-cli || echo "Amazon Q CLI not available - using fallback mode"
-
-# Copy package files
-COPY package.json pnpm-lock.yaml* ./
-
-# Install only production dependencies
-RUN pnpm install --prod --frozen-lockfile
-
-# Copy built application and source files
+# Copy only built files from builder
 COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/vite-api-plugin.js ./
-COPY --from=builder /app/vite.config.js ./
-COPY --from=builder /app/src ./src
-COPY --from=builder /app/public ./public
 
-# Create temp directory for Amazon Q CLI scripts
-RUN mkdir -p /tmp && chmod 755 /tmp
-
-# Set environment variables
+# Environment variables
 ENV NODE_ENV=production
-ENV AWS_CLI_AUTO_PROMPT=off
-ENV AWS_PAGER=""
-ENV NO_COLOR=1
-ENV TERM=dumb
 
 # Create non-root user for security
-RUN addgroup -g 1001 -S nodejs && \
-    adduser -S portfolio -u 1001 -G nodejs
-
-# Change ownership of app directory
-RUN chown -R portfolio:nodejs /app /tmp
+RUN groupadd -r nodejs && useradd -r -g nodejs portfolio
 
 # Switch to non-root user
 USER portfolio
@@ -66,9 +42,9 @@ USER portfolio
 # Expose port
 EXPOSE 3000
 
-# Health check
+# Healthcheck (lightweight)
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-  CMD curl -f   CMD curl -f https://vaibhavsoni21.vercel.app/api/health ||  exit 1
+  CMD wget --no-verbose --tries=1 --spider http://localhost:3000 || exit 1
 
-# Start the application in production mode
-CMD ["pnpm", "run", "preview"]
+# Start static server
+CMD ["serve", "-s", "dist", "-l", "3000"]

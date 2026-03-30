@@ -20,30 +20,30 @@ export default defineConfig({
     dedupe: ['react', 'react-dom']
   },
   build: {
-    // 1. Minification using Terser for better dead-code elimination
     minify: 'terser',
     terserOptions: {
       compress: {
-        drop_console: true, // Remove console.logs for production
+        drop_console: true,
         drop_debugger: true
       }
     },
-    // 2. Manual Chunks for optimized code splitting
     rollupOptions: {
       output: {
-        manualChunks: {
-          'vendor-react': ['react', 'react-dom', 'lucide-react'],
-          'ui-components': [
-            './src/system/Window.jsx',
-            './src/system/WindowManager.jsx',
-            './src/system/OSContext.jsx'
-          ]
+        // REMOVED manualChunks for vendor libraries. 
+        // Vite's default chunking strategy is safer for preventing initialization order issues 
+        // with React and Lucide-React in production.
+        manualChunks: (id) => {
+          if (id.includes('node_modules')) {
+            return 'vendor'; // All node_modules in one vendor chunk
+          }
+          if (id.includes('src/system')) {
+            return 'ui-core'; // Core OS logic in its own chunk
+          }
         }
       }
     },
-    // 3. Asset optimization
-    assetsInlineLimit: 4096, // Inline small assets under 4KB
-    chunkSizeWarningLimit: 1000,
+    assetsInlineLimit: 4096,
+    chunkSizeWarningLimit: 2000,
     cssCodeSplit: true,
     sourcemap: false
   }
