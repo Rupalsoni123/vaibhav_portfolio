@@ -1,0 +1,1084 @@
+/* ============================================
+   VaibhavOS — System CSS
+   Ubuntu-style desktop environment
+   ============================================ */
+
+/* ─── BOOT SCREEN ─────────────────────────── */
+/* ─── BOOT SCREEN (V2 OS STARTUP) ─────────── */
+.os-boot-v2 {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #000; /* True black startup */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Ubuntu Mono', monospace;
+  transition: opacity 0.8s ease-in-out;
+  color: #fff;
+}
+.os-boot-v2--fade {
+  opacity: 0;
+  pointer-events: none;
+}
+.os-boot-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.os-boot-logo-v2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.os-boot-logo-v2.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.os-boot-icon-wrapper {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #e95420, #772953);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  box-shadow: 0 0 40px rgba(233, 84, 32, 0.2);
+}
+.os-boot-icon {
+  font-size: 36px;
+  font-weight: 700;
+  color: #fff;
+}
+.os-boot-title-v2 {
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.os-boot-logs {
+  min-height: 120px;
+  width: 100%;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 14px;
+  color: #9ca3af; /* muted grey logs */
+}
+.boot-log-line {
+  white-space: pre-wrap;
+}
+
+.boot-cursor-v2 {
+  display: inline-block;
+  width: 8px;
+  height: 16px;
+  background: #fff;
+  margin-left: 4px;
+  animation: bootBlink 0.8s steps(1) infinite;
+}
+
+.os-boot-ready-msg {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 15px;
+  color: #4ade80; /* Ready Green */
+  font-weight: 600;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  margin-top: 20px;
+}
+.os-boot-ready-msg.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+.ready-indicator {
+  width: 8px;
+  height: 8px;
+  background: #4ade80;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #4ade80;
+}
+
+@keyframes bootBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes bootDot {
+  0%, 60%, 100% { opacity: 0.3; transform: scale(1); }
+  30% { opacity: 1; transform: scale(1.3); background: #e95420; }
+}
+
+/* ─── DESKTOP ─────────────────────────────── */
+.os-desktop {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  font-family: 'Ubuntu', 'Inter', 'Segoe UI', sans-serif;
+  color: #fff;
+  user-select: none;
+}
+
+/* ─── DESKTOP HERO OVERLAY ────────────────── */
+.os-desktop__hero {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 10;
+  text-align: center;
+  opacity: 0.15; /* Very subtle */
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s;
+}
+
+.os-desktop--zoom .os-desktop__hero {
+  transform: scale(0.9);
+  filter: blur(4px);
+}
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  filter: grayscale(1);
+}
+.hero-avatar {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 24px;
+  border: 4px solid rgba(255,255,255,0.05);
+}
+.hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.hero-name {
+  font-size: 42px;
+  font-weight: 800;
+  letter-spacing: 8px;
+  color: #fff;
+}
+.hero-tagline {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 4px;
+  color: #94a3b8;
+  text-transform: uppercase;
+  margin-top: 10px;
+}
+.hero-cursor {
+  animation: heroBlink 0.8s steps(1) infinite;
+}
+@keyframes heroBlink {
+  50% { opacity: 0; }
+}
+
+.os-desktop__wallpaper {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(150deg, #2c001e 0%, #401030 40%, #502020 80%, #2c001e 100%);
+  background-size: 200% 200%;
+  animation: bgGradientMove 20s ease infinite;
+  z-index: 0;
+}
+
+@keyframes bgGradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.os-desktop__noise {
+  position: absolute;
+  inset: 0;
+  background: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.03"/%3E%3C/svg%3E');
+  opacity: 0.1;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.os-desktop__vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, transparent 60%, rgba(0,0,0,0.4) 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Desktop Icons Grid - Side 3x3 App Layout */
+.os-desktop__icons-grid {
+  position: absolute;
+  top: 50px;
+  left: 30px;
+  width: auto;
+  display: grid !important;
+  grid-template-columns: repeat(3, 110px) !important;
+  grid-auto-rows: min-content;
+  gap: 36px 16px;
+  padding: 16px;
+  z-index: 5;
+  pointer-events: none;
+  justify-items: center;
+  align-items: start;
+}
+
+.os-desktop__icons-grid > * {
+  pointer-events: auto;
+}
+
+/* Dock is now used dynamically in Activities Overview only */
+/* .os-dock { display: none !important; } */
+
+/* Chatbot Specific */
+.chatbot-trigger {
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3), 0 0 10px rgba(99,102,241,0.2);
+}
+
+.chatbot-trigger::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.6s;
+}
+
+.chatbot-trigger:hover::before {
+  transform: translateX(100%);
+}
+
+.os-desktop__icon:active {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.os-desktop__icon.selected {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Snap Preview Overlay */
+.os-snap-preview {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.1);
+  border: 4px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+  border-radius: 12px;
+  pointer-events: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ─── TOP BAR (GNOME STYLE) ─────────────── */
+.os-topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 32px;
+  background: rgba(24, 24, 24, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  z-index: 2500;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #ededed;
+}
+.os-topbar__left, .os-topbar__right {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+.os-topbar__right {
+  justify-content: flex-end;
+  gap: 14px;
+}
+.os-topbar__center {
+  flex: 0 1 auto;
+  text-align: center;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0 10px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  transition: background 0.2s;
+}
+.os-topbar__center:hover {
+  background: rgba(255,255,255,0.08);
+}
+.os-topbar__activities {
+  cursor: pointer;
+  padding: 0 10px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  transition: background 0.2s;
+  font-weight: 600;
+}
+.os-topbar__activities:hover {
+  background: rgba(255,255,255,0.08);
+}
+.os-topbar__icon {
+  opacity: 0.9;
+  cursor: pointer;
+}
+
+/* Battery */
+.os-topbar__battery {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+}
+.os-topbar__battery-body {
+  width: 22px;
+  height: 12px;
+  border: 1.5px solid rgba(255,255,255,0.8);
+  border-radius: 3px;
+  padding: 1px;
+  display: flex;
+  align-items: stretch;
+}
+.os-topbar__battery-level {
+  width: 80%;
+  background: #fff;
+  border-radius: 1px;
+}
+.os-topbar__battery-cap {
+  width: 2px;
+  height: 4px;
+  background: rgba(255,255,255,0.8);
+  border-radius: 0 1px 1px 0;
+}
+
+/* ─── DOCK (FLOATING GNOME STYLE) ───────── */
+.os-dock {
+  position: fixed;
+  left: 16px; /* left-4 approx */
+  top: 50%;
+  transform: translateY(-50%);
+  width: auto;
+  min-width: 48px;
+  background: rgba(40, 40, 40, 0.6);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 0; /* py-3 */
+  gap: 12px;
+  z-index: 999;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+.os-dock__item {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.os-dock__item:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: scale(1.2) translateY(-4px);
+}
+.os-dock__item:active {
+  transform: scale(0.95);
+}
+
+/* Tooltip on Dock */
+.os-dock__item::after {
+  content: attr(title);
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%) translateX(12px) scale(0.9);
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(8px);
+  color: #eee;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.2s ease-out;
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+.os-dock__item:hover::after {
+  opacity: 1;
+  transform: translateY(-50%) translateX(20px) scale(1);
+}
+
+.os-dock__item--active {
+  background: rgba(255, 255, 255, 0.08);
+}
+.os-dock__icon {
+  font-size: 20px; 
+  line-height: 1;
+}
+.os-dock__dot {
+  position: absolute;
+  bottom: 1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+.os-dock__dot--active {
+  background: #E95420;
+  width: 4px;
+  height: 4px;
+  box-shadow: 0 0 8px #E95420;
+  animation: dotBounce 2s infinite;
+}
+
+@keyframes dotBounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-1px); }
+}
+
+/* GNOME 40+ Bottom Dock Override inside Activities */
+.os-overview .os-dock {
+  left: 50%;
+  top: auto;
+  bottom: 24px;
+  transform: translateX(-50%);
+  flex-direction: row;
+  padding: 8px 16px;
+  border-radius: 24px;
+  width: auto;
+  min-width: unset;
+}
+.os-overview .os-dock__item {
+  width: 44px;
+  height: 44px;
+}
+.os-overview .os-dock__icon {
+  font-size: 24px;
+}
+.os-overview .os-dock__dot {
+  top: auto;
+  bottom: -4px;
+}
+
+.btn-click-scale {
+  transition: transform 0.1s ease;
+}
+.btn-click-scale:active {
+  transform: scale(0.96);
+}
+
+/* ─── WINDOW ──────────────────────────────── */
+.os-window-manager {
+  position: fixed;
+  inset: 28px 0 0 0;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.os-window {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px; /* rounded-lg */
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25), 0 0 0 1px rgba(255,255,255,0.06);
+  pointer-events: auto;
+  animation: windowOpen 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  background: #1c1c1e;
+  transition: box-shadow 0.3s, transform 0.3s, opacity 0.3s, filter 0.3s;
+  transform-origin: center center;
+}
+.os-window--active {
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.15);
+  filter: brightness(1.05);
+}
+.os-window--inactive {
+  opacity: 0.9;
+  filter: brightness(0.9) contrast(0.95);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05);
+}
+
+.os-window--minimized {
+  transform: scale(0.8) translateY(100vh) rotateX(20deg);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes windowOpen {
+  from { opacity: 0; transform: scale(0.95) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* GNOME Title Bar */
+.os-window__titlebar {
+  height: 34px;
+  min-height: 34px;
+  background: rgba(28, 28, 30, 0.85); 
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  cursor: grab;
+  border-bottom: 1px solid rgba(0,0,0,0.2);
+  position: relative;
+}
+.os-window__titlebar:active {
+  cursor: grabbing;
+}
+
+.os-window__controls {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+  align-items: center;
+  z-index: 10;
+}
+.os-window__btn {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.os-window__btn:hover { opacity: 0.85; }
+
+/* Ubuntu colors: close(muted red), minimize(amber), maximize(green) */
+.os-window__btn--close { background: #ff5f56; }
+.os-window__btn--minimize { background: #ffbd2e; }
+.os-window__btn--maximize { background: #27c93f; }
+
+.os-window__title {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13.5px; /* text-sm */
+  font-weight: 500;
+  color: #9ca3af; /* gray-300 approx */
+  pointer-events: none;
+  gap: 6px;
+}
+.os-window__spacer {
+  width: 60px;
+  flex-shrink: 0;
+}
+
+/* Window body */
+.os-window__body {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: #18181b; /* Flat dark surface */
+  color: #ededed;
+  /* Add padding as requested, but we handle it via a wrapper if needed or directly */
+  padding: 16px; 
+}
+/* We override padding for Terminal and Assistant to ensure they still fill the window correctly if they need to */
+.os-terminal-container { padding: 0 !important; margin: -16px; width: calc(100% + 32px); height: calc(100% + 32px); }
+.os-window__body:has(.os-terminal-container),
+.os-window__body:has(.game-container) {
+  padding: 0 !important;
+}
+.os-window__body::-webkit-scrollbar {
+  width: 8px;
+}
+.os-window__body::-webkit-scrollbar-track {
+  background: transparent;
+}
+.os-window__body::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.2);
+  border-radius: 4px;
+  border: 2px solid #1E1E1E; /* creates padding around thumb */
+}
+.os-window__body::-webkit-scrollbar-thumb:hover {
+  background: rgba(255,255,255,0.4);
+}
+
+/* ─── TERMINAL ────────────────────────────── */
+.os-terminal-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #24142c; /* Muted Ubuntu terminal */
+  margin: -16px; 
+  width: calc(100% + 32px);
+  height: calc(100% + 32px);
+}
+.os-terminal-tabs {
+  display: flex;
+  align-items: center;
+  background: #18181b; /* Match window header exactly */
+  height: 38px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  flex-shrink: 0;
+  padding-right: 8px;
+}
+.os-terminal-tabs__list {
+  display: flex;
+  overflow-x: auto;
+  flex: 0 1 auto;
+  height: 100%;
+}
+.os-terminal-tabs__list::-webkit-scrollbar { display: none; }
+
+.os-terminal-tab {
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  height: 100%;
+  background: transparent;
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  transition: background 0.2s;
+  min-width: 120px;
+  max-width: 180px;
+  position: relative;
+}
+.os-terminal-tab.active {
+  background: #24142c;
+}
+.os-terminal-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #e95420; /* Ubuntu orange accent */
+}
+.os-terminal-tab:hover:not(.active) { background: rgba(255, 255, 255, 0.05); }
+
+.os-terminal-tab__name {
+  flex: 1;
+  font-family: 'Ubuntu Mono', monospace;
+  font-size: 13px;
+  color: #ddd;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.os-terminal-tab__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  margin-left: 8px;
+  border: none;
+  background: transparent;
+  color: #94a3b8;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+.os-terminal-tab__close:hover { background: rgba(255, 255, 255, 0.15); color: #f87171; }
+.os-terminal-tabs__add {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.os-terminal-tabs__add:hover { background: rgba(255, 255, 255, 0.1); color: #fff; }
+
+.os-terminal {
+  flex: 1;
+  background: #000; /* Real terminal black */
+  color: #4ade80; /* Green by default */
+  font-family: 'Ubuntu Mono', 'Fira Code', monospace;
+  font-size: 14.5px;
+  line-height: 1.5;
+  cursor: text;
+  overflow: hidden;
+}
+.os-terminal__output { 
+  height: 100%;
+  overflow-y: auto; 
+  padding: 16px; 
+  user-select: text;
+}
+.os-terminal__output::-webkit-scrollbar { width: 4px; }
+.os-terminal__output::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 2px; }
+
+.os-terminal__line { 
+  white-space: pre-wrap; 
+  word-break: break-word; 
+  display: flex;
+  gap: 8px;
+}
+.os-terminal__line--command { margin-top: 6px; }
+.os-terminal__line--error .os-terminal__text { color: #f87171; }
+.os-terminal__line--success .os-terminal__text { color: #4ade80; }
+.os-terminal__line--output .os-terminal__text { color: #cbd5e1; }
+.os-terminal__line--input { align-items: center; margin-top: 6px; }
+
+.os-terminal__prompt { 
+  color: #4ade80; 
+  font-weight: 700; 
+  white-space: nowrap;
+}
+.os-terminal__input {
+  flex: 1; 
+  background: transparent; 
+  border: none; 
+  outline: none;
+  color: #ffffff; 
+  font-family: inherit; 
+  font-size: inherit; 
+  line-height: inherit;
+  caret-color: #4ade80; /* Terminal green cursor */
+  padding: 0;
+  min-width: 10px;
+}
+@keyframes terminalBlink {
+  50% { opacity: 0; }
+}
+
+/* ─── OVERRIDES FOR APP-LIKE FEELING INSIDE WINDOWS ── */
+/* Strip standard webpage styling (cards, shadows, global padding) */
+.os-window__body .section-container,
+.os-window__body .section,
+.os-window__body .bg-gray-50,
+.os-window__body .bg-white,
+.os-window__body .dark\:bg-gray-800,
+.os-window__body .dark\:bg-gray-900 {
+  background: transparent !important;
+  box-shadow: none !important;
+  min-height: auto !important;
+  padding: 1rem !important;
+}
+
+.os-window__body .max-w-7xl,
+.os-window__body .container {
+  max-width: 100% !important;
+  padding: 0 1rem !important;
+}
+
+/* Hide website navigation and floaters */
+.os-window__body nav,
+.os-window__body header,
+.os-window__body .navbar,
+.os-window__body [class*="Navbar"],
+.os-window__body .back-to-top,
+.os-window__body [class*="BackToTop"],
+.os-window__body [class*="Chatbot"] {
+  display: none !important;
+}
+
+/* Re-style project cards to look like GNOME file manager / flat items */
+.os-window__body .rounded-2xl {
+  border-radius: 8px !important;
+  border: 1px solid rgba(255,255,255,0.08) !important;
+  background: rgba(255,255,255,0.03) !important;
+}
+.os-window__body .shadow-lg,
+.os-window__body .shadow-md {
+  box-shadow: none !important;
+}
+
+/* Text overrides to match dark mode GNOME */
+.os-window__body h1, 
+.os-window__body h2, 
+.os-window__body h3, 
+.os-window__body p,
+.os-window__body span {
+  color: #e5e7eb !important; /* Muted white */
+}
+.os-window__body .text-gray-600,
+.os-window__body .text-gray-500,
+.os-window__body .dark\:text-gray-400 {
+  color: #A0A0A0 !important;
+}
+
+/* ─── ACTIVITIES OVERVIEW (GNOME STYLE) ─── */
+.os-overview {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(30px) saturate(1.8);
+  -webkit-backdrop-filter: blur(30px) saturate(1.8);
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 40px;
+  animation: overviewFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes overviewFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes resultIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(99, 102, 241, 0.1); border-color: rgba(99, 102, 241, 0.2); }
+  50% { box-shadow: 0 0 40px rgba(99, 102, 241, 0.3); border-color: rgba(99, 102, 241, 0.5); }
+}
+
+.animate-glow {
+  animation: glow 3s infinite ease-in-out;
+}
+
+.os-desktop--blurred .os-window-manager {
+  filter: blur(10px) brightness(0.7);
+  pointer-events: none;
+}
+
+/* ─── RESPONSIVE ──────────────────────────── */
+@media (max-width: 768px) {
+  .os-dock {
+    width: 100%;
+    left: 0;
+    top: auto;
+    bottom: 0;
+    flex-direction: row;
+    justify-content: center;
+    transform: none;
+    border-radius: 12px 12px 0 0;
+    padding: 6px 0;
+  }
+  .os-dock__dot {
+    top: auto;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .os-window-manager {
+    inset: 28px 0 50px 0;
+  }
+  .os-window {
+    width: 100% !important;
+    height: 100% !important;
+    left: 0 !important;
+    top: 0 !important;
+    border-radius: 0;
+  }
+  .os-desktop__icons-grid {
+    width: 90%;
+    max-width: 100%;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 30px 10px;
+  }
+  .os-overview__grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    grid-auto-rows: 120px;
+  }
+}
+
+.os-overview__search {
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 50px;
+  transform: translateY(-20px);
+  animation: overviewSlideDown 0.4s 0.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+
+@keyframes overviewSlideDown {
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.os-overview__search-input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 12px 24px;
+  color: #fff;
+  font-size: 16px;
+  outline: none;
+  transition: all 0.2s;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.os-overview__search-input:focus {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+  width: 110%;
+  transform: translateX(-5%);
+}
+
+.os-overview__grid {
+  flex: 1;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-auto-rows: 200px;
+  gap: 30px;
+  max-width: 1200px;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.os-overview__item {
+  position: relative;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 10px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+
+.os-overview__item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.05) translateY(-5px);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+
+.os-overview__window-preview {
+  flex: 1;
+  background: #18181b;
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.os-overview__window-title {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.os-overview__no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding-top: 100px;
+  color: rgba(255, 255, 255, 0.3);
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+
+/* Fade in for overview results */
+.os-overview__item {
+  animation: resultIn 0.4s ease backwards;
+}
+
+@keyframes resultIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* ─── RESPONSIVE ──────────────────────────── */
+@media (max-width: 768px) {
+  .os-dock {
+    width: 100%;
+    left: 0;
+    top: auto;
+    bottom: 0;
+    flex-direction: row;
+    justify-content: center;
+    transform: none;
+    border-radius: 12px 12px 0 0;
+    padding: 6px 0;
+  }
+  .os-dock__dot {
+    top: auto;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .os-window-manager {
+    inset: 28px 0 50px 0;
+  }
+  .os-window {
+    width: 100% !important;
+    height: 100% !important;
+    left: 0 !important;
+    top: 0 !important;
+    border-radius: 0;
+  }
+  .os-desktop__icons-grid {
+    width: 90%;
+    max-width: 100%;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 30px 10px;
+  }
+  .os-overview__grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    grid-auto-rows: 120px;
+  }
+}
+
+.no-animations *,
+.no-animations {
+  transition-duration: 0s !important;
+  animation-duration: 0s !important;
+}

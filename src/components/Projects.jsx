@@ -1,664 +1,166 @@
 import React, { useState } from "react";
-import { Code, Link, ArrowRightLong, Cancel, Rocket, Cloud, Server } from "./Icons";
+import { Code, ExternalLink, Rocket, Cloud, Server, ChevronRight, Layout, CheckCircle2, Clock } from "lucide-react";
 import projectsData from "../data/projects";
+import { GitHub as Github } from "./Icons";
 
 const Projects = () => {
   const [activeCategory, setActiveCategory] = useState("All");
-  const [selectedProject, setSelectedProject] = useState(null);
-  const [showModal, setShowModal] = useState(false);
-  const [hoveredProject, setHoveredProject] = useState(null);
+  const [selectedProjectId, setSelectedProjectId] = useState(projectsData[0]?.id);
 
-  // Icon mapping function
-  const getProjectIcon = (iconName) => {
+  const categories = ["All", ...new Set(projectsData.map(p => p.category))];
+  const filteredProjects = activeCategory === "All" ? projectsData : projectsData.filter(p => p.category === activeCategory);
+  
+  const selectedProject = projectsData.find(p => p.id === selectedProjectId) || projectsData[0];
+
+  const getProjectIcon = (iconName, color = "text-indigo-400") => {
     const iconMap = {
-      rocket: <Rocket size={24} color="#2563eb" />,
-      cloud: <Cloud size={24} color="#2563eb" />,
-      server: <Server size={24} color="#2563eb" />
+      rocket: <Rocket size={18} className={color} />,
+      cloud: <Cloud size={18} className={color} />,
+      server: <Server size={18} className={color} />
     };
-    return iconMap[iconName] || <Rocket size={24} color="#2563eb" />;
-  };
-
-  // Get unique categories
-  const categories = ["All", ...new Set(projectsData.map(project => project.category))];
-
-  // Filter projects based on active category
-  const filteredProjects = activeCategory === "All" 
-    ? projectsData 
-    : projectsData.filter(project => project.category === activeCategory);
-
-  const handleCategoryClick = (category, e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    console.log('Category clicked:', category);
-    setActiveCategory(category);
-  };
-
-  const openModal = (project, e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    console.log('Opening modal for project:', project.title);
-    setSelectedProject(project);
-    setShowModal(true);
-    document.body.style.overflow = 'hidden';
-  };
-
-  const closeModal = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    console.log('Closing modal');
-    setShowModal(false);
-    setSelectedProject(null);
-    document.body.style.overflow = 'unset';
-  };
-
-  const handleStartProject = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    console.log('Start Project clicked');
-    const contactSection = document.getElementById('contact');
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  const handleViewGitHub = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    console.log('View GitHub clicked');
-    window.open('https://github.com/vaibhav21soni', '_blank', 'noopener,noreferrer');
+    return iconMap[iconName] || <Layout size={18} className={color} />;
   };
 
   return (
-    <section id="projects" className="section" style={{
-      background: 'var(--bg-secondary)',
-      padding: '5rem 0'
-    }}>
-      <div className="container">
-        {/* Section Header */}
-        <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-          <h2 className="heading-lg" style={{ marginBottom: '1rem' }}>
-            Featured <span className="text-gradient">Projects</span>
-          </h2>
-          <p style={{ 
-            color: 'var(--text-secondary)', 
-            fontSize: '1.125rem',
-            maxWidth: '600px',
-            margin: '0 auto'
-          }}>
-            A showcase of DevOps projects, infrastructure automation, and cloud solutions I've built and deployed.
-          </p>
+    <div className="flex h-full bg-[#1c1c1e] text-gray-100 font-sans select-none overflow-hidden rounded-b-lg">
+      
+      {/* LEFT PANEL: Project Explorer */}
+      <div className="w-[320px] flex-shrink-0 border-r border-black/40 bg-[#1a1a1b] flex flex-col">
+        {/* Sidebar Header (Categories) */}
+        <div className="p-4 border-b border-black/20">
+          <h2 className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3 px-1">Explorer</h2>
+          <div className="flex flex-wrap gap-1.5">
+            {categories.slice(0, 4).map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`px-2 py-1 rounded text-[9px] font-bold uppercase transition-all border ${
+                  activeCategory === cat
+                    ? "bg-indigo-600/20 text-indigo-400 border-indigo-500/30"
+                    : "bg-white/5 text-gray-500 border-transparent hover:text-gray-300 hover:bg-white/10"
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
         </div>
 
-        {/* Category Filter */}
-        <div style={{
-          display: 'flex',
-          justifyContent: 'center',
-          marginBottom: '3rem',
-          flexWrap: 'wrap',
-          gap: '0.5rem'
-        }}>
-          {categories.map((category) => (
-            <button
-              key={category}
-              type="button"
-              onClick={(e) => handleCategoryClick(category, e)}
-              style={{
-                padding: '0.75rem 1.5rem',
-                borderRadius: '0.5rem',
-                border: activeCategory === category 
-                  ? 'none' 
-                  : '1px solid var(--border-color)',
-                background: activeCategory === category 
-                  ? 'linear-gradient(135deg, #7c3aed, #8b5cf6)' 
-                  : 'var(--card-bg)',
-                color: activeCategory === category 
-                  ? 'white' 
-                  : 'var(--text-secondary)',
-                fontWeight: '500',
-                fontSize: '0.875rem',
-                cursor: 'pointer',
-                transition: 'all 0.3s ease',
-                boxShadow: activeCategory === category 
-                  ? '0 4px 12px rgba(124, 58, 237, 0.3)' 
-                  : 'none',
-                transform: 'translateY(0)'
-              }}
-              onMouseEnter={(e) => {
-                if (activeCategory !== category) {
-                  e.target.style.borderColor = '#7c3aed';
-                  e.target.style.color = '#7c3aed';
-                  e.target.style.transform = 'translateY(-2px)';
-                  e.target.style.boxShadow = '0 4px 12px rgba(124, 58, 237, 0.2)';
-                }
-              }}
-              onMouseLeave={(e) => {
-                if (activeCategory !== category) {
-                  e.target.style.borderColor = 'var(--border-color)';
-                  e.target.style.color = 'var(--text-secondary)';
-                  e.target.style.transform = 'translateY(0)';
-                  e.target.style.boxShadow = 'none';
-                }
-              }}
+        {/* Project List */}
+        <div className="flex-1 overflow-y-auto custom-scrollbar p-2 space-y-1">
+          {filteredProjects.map(project => (
+            <div 
+              key={project.id} 
+              onClick={() => setSelectedProjectId(project.id)}
+              className={`group flex flex-col p-3 rounded-md cursor-pointer transition-all border ${
+                selectedProjectId === project.id 
+                  ? "bg-indigo-600/10 border-indigo-500/20 shadow-sm" 
+                  : "bg-transparent border-transparent hover:bg-white/5"
+              }`}
             >
-              {category}
-            </button>
-          ))}
-        </div>
-
-        {/* Projects Grid */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
-          gap: '2rem',
-          marginBottom: '4rem'
-        }}>
-          {filteredProjects.map((project) => (
-            <div
-              key={project.id}
-              className="card-elevated"
-              style={{
-                cursor: 'pointer',
-                position: 'relative',
-                overflow: 'hidden'
-              }}
-              onMouseEnter={() => setHoveredProject(project.id)}
-              onMouseLeave={() => setHoveredProject(null)}
-              onClick={(e) => openModal(project, e)}
-            >
-              {/* Gradient Border Effect */}
-              <div style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                height: '3px',
-                background: project.category === 'Infrastructure as Code' ? 'var(--gradient-primary)' :
-                           project.category === 'Container Orchestration' ? 'var(--gradient-success)' :
-                           project.category === 'CI/CD Pipeline' ? 'var(--gradient-secondary)' :
-                           project.category === 'Monitoring' ? 'var(--gradient-tertiary)' :
-                           'var(--gradient-primary)'
-              }} />
-              
-              {/* Project Header */}
-              <div style={{ padding: '1.5rem' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
-                  <div className="tech-tag" style={{
-                    background: project.category === 'Infrastructure as Code' ? 'var(--accent-primary)' :
-                               project.category === 'Container Orchestration' ? 'var(--accent-success)' :
-                               project.category === 'CI/CD Pipeline' ? 'var(--accent-error)' :
-                               project.category === 'Monitoring' ? 'var(--accent-secondary)' :
-                               'var(--accent-warning)',
-                    color: 'white',
-                    border: 'none'
-                  }}>
-                    {project.category}
-                  </div>
-                  <div style={{ 
-                    fontSize: '1.5rem',
-                    background: 'var(--bg-tertiary)',
-                    padding: '0.5rem',
-                    borderRadius: '0.5rem',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}>
-                    {getProjectIcon(project.icon)}
-                  </div>
-                </div>
-
-                <h3 style={{
-                  fontWeight: '600',
-                  color: 'var(--text-primary)',
-                  marginBottom: '0.75rem',
-                  fontSize: '1.25rem'
-                }}>
+              <div className="flex items-center gap-3 mb-1">
+                {getProjectIcon(project.icon, selectedProjectId === project.id ? "text-indigo-400" : "text-gray-500")}
+                <span className={`text-[12px] font-bold truncate ${selectedProjectId === project.id ? "text-white" : "text-gray-400 transition-colors group-hover:text-gray-200"}`}>
                   {project.title}
-                </h3>
-
-                <p style={{
-                  color: 'var(--text-secondary)',
-                  lineHeight: '1.6',
-                  marginBottom: '1rem'
-                }}>
-                  {project.description}
-                </p>
-
-                {/* Technologies */}
-                <div style={{
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  gap: '0.5rem',
-                  marginBottom: '1rem'
-                }}>
-                  {project.technologies.slice(0, 4).map((tech, index) => (
-                    <span
-                      key={index}
-                      className="tech-tag"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                  {project.technologies.length > 4 && (
-                    <span className="tech-tag" style={{
-                      background: 'var(--bg-tertiary)',
-                      color: 'var(--text-secondary)'
-                    }}>
-                      +{project.technologies.length - 4} more
-                    </span>
-                  )}
-                </div>
-
-                {/* Action Buttons */}
-                <div style={{
-                  display: 'flex',
-                  gap: '0.75rem',
-                  alignItems: 'center'
-                }}>
-                  {project.github && (
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        width: '2.5rem',
-                        height: '2.5rem',
-                        borderRadius: '50%',
-                        background: 'var(--bg-tertiary)',
-                        color: 'var(--text-secondary)',
-                        transition: 'all 0.3s ease',
-                        textDecoration: 'none',
-                        transform: 'scale(1)'
-                      }}
-                      onMouseEnter={(e) => {
-                        e.target.style.background = '#2563eb';
-                        e.target.style.color = 'white';
-                        e.target.style.transform = 'scale(1.1)';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.target.style.background = 'var(--bg-tertiary)';
-                        e.target.style.color = 'var(--text-secondary)';
-                        e.target.style.transform = 'scale(1)';
-                      }}
-                    >
-                      <Code size={16} />
-                    </a>
-                  )}
-
-                  {project.live && (
-                    <a
-                      href={project.live}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        width: '2.5rem',
-                        height: '2.5rem',
-                        borderRadius: '50%',
-                        background: 'var(--bg-tertiary)',
-                        color: 'var(--text-secondary)',
-                        transition: 'all 0.3s ease',
-                        textDecoration: 'none',
-                        transform: 'scale(1)'
-                      }}
-                      onMouseEnter={(e) => {
-                        e.target.style.background = '#059669';
-                        e.target.style.color = 'white';
-                        e.target.style.transform = 'scale(1.1)';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.target.style.background = 'var(--bg-tertiary)';
-                        e.target.style.color = 'var(--text-secondary)';
-                        e.target.style.transform = 'scale(1)';
-                      }}
-                    >
-                      <Link size={16} />
-                    </a>
-                  )}
-
-                  <button
-                    type="button"
-                    onClick={(e) => openModal(project, e)}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '0.5rem',
-                      padding: '0.5rem 1rem',
-                      background: 'linear-gradient(135deg, #7c3aed, #8b5cf6)',
-                      color: 'white',
-                      border: 'none',
-                      borderRadius: '0.5rem',
-                      fontSize: '0.875rem',
-                      fontWeight: '500',
-                      cursor: 'pointer',
-                      transition: 'all 0.3s ease',
-                      transform: 'translateY(0)',
-                      marginLeft: 'auto'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.target.style.transform = 'translateY(-1px)';
-                      e.target.style.boxShadow = '0 4px 12px rgba(124, 58, 237, 0.3)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.target.style.transform = 'translateY(0)';
-                      e.target.style.boxShadow = 'none';
-                    }}
-                  >
-                    View Details
-                    <ArrowRightLong size={14} />
-                  </button>
-                </div>
+                </span>
               </div>
+              <p className="text-[10px] text-gray-600 leading-tight line-clamp-1 pl-[30px]">
+                {project.category}
+              </p>
             </div>
           ))}
-        </div>
-
-        {/* Call to Action */}
-        <div style={{
-          textAlign: 'center',
-          padding: '3rem 2rem',
-          background: 'linear-gradient(135deg, #1e293b, #334155)',
-          borderRadius: '1rem',
-          color: 'white'
-        }}>
-          <h3 style={{ fontWeight: '600', marginBottom: '1rem', fontSize: '1.5rem' }}>
-            Have a Project in Mind?
-          </h3>
-          <p style={{ marginBottom: '2rem', opacity: 0.9 }}>
-            Let's discuss how we can build scalable, reliable infrastructure for your next project.
-          </p>
-          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <button
-              type="button"
-              onClick={handleStartProject}
-              style={{
-                padding: '0.75rem 1.5rem',
-                background: 'white',
-                color: '#1e293b',
-                border: 'none',
-                borderRadius: '0.5rem',
-                fontWeight: '600',
-                cursor: 'pointer',
-                transition: 'all 0.3s ease',
-                transform: 'translateY(0)'
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.transform = 'translateY(-2px)';
-                e.target.style.boxShadow = '0 10px 25px rgba(255, 255, 255, 0.3)';
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.transform = 'translateY(0)';
-                e.target.style.boxShadow = 'none';
-              }}
-            >
-              Start a Project
-            </button>
-            
-            <button
-              type="button"
-              onClick={handleViewGitHub}
-              style={{
-                padding: '0.75rem 1.5rem',
-                background: 'transparent',
-                color: 'white',
-                border: '2px solid white',
-                borderRadius: '0.5rem',
-                fontWeight: '600',
-                cursor: 'pointer',
-                transition: 'all 0.3s ease',
-                transform: 'translateY(0)'
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.background = 'white';
-                e.target.style.color = '#1e293b';
-                e.target.style.transform = 'translateY(-2px)';
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.background = 'transparent';
-                e.target.style.color = 'white';
-                e.target.style.transform = 'translateY(0)';
-              }}
-            >
-              View GitHub
-            </button>
-          </div>
         </div>
       </div>
 
-      {/* Project Modal */}
-      {showModal && selectedProject && (
-        <div 
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: 'rgba(0, 0, 0, 0.8)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            zIndex: 1000,
-            padding: '1rem',
-            backdropFilter: 'blur(8px)'
-          }} 
-          onClick={closeModal}
-        >
-          <div
-            style={{
-              background: 'var(--card-bg)',
-              borderRadius: '1rem',
-              maxWidth: '800px',
-              width: '100%',
-              maxHeight: '90vh',
-              overflow: 'auto',
-              position: 'relative',
-              border: '1px solid var(--border-color)',
-              boxShadow: '0 25px 50px rgba(0, 0, 0, 0.25)'
-            }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Modal Header */}
-            <div style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'flex-start',
-              padding: '2rem 2rem 1rem',
-              borderBottom: '1px solid var(--border-color)'
-            }}>
-              <div>
-                <div style={{
-                  padding: '0.25rem 0.75rem',
-                  background: selectedProject.category === 'Infrastructure as Code' ? '#2563eb' :
-                             selectedProject.category === 'Container Orchestration' ? '#059669' :
-                             selectedProject.category === 'CI/CD Pipeline' ? '#dc2626' :
-                             selectedProject.category === 'Monitoring' ? '#7c3aed' :
-                             '#f59e0b',
-                  color: 'white',
-                  borderRadius: '1rem',
-                  fontSize: '0.75rem',
-                  fontWeight: '500',
-                  marginBottom: '1rem',
-                  display: 'inline-block'
-                }}>
-                  {selectedProject.category}
+      {/* RIGHT PANEL: Project Details */}
+      <div className="flex-1 flex flex-col bg-[#1c1c1e] overflow-hidden">
+        {selectedProject ? (
+          <div className="flex flex-col h-full animate-fade-in">
+            {/* Detail Header */}
+            <div className="p-8 border-b border-black/20 bg-gradient-to-b from-white/5 to-transparent">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2 px-2 py-1 bg-white/5 rounded border border-white/5">
+                  {selectedProject.status === 'Completed' 
+                    ? <CheckCircle2 size={12} className="text-green-500" /> 
+                    : <Clock size={12} className="text-yellow-500" />}
+                  <span className="text-[9px] font-bold uppercase tracking-widest text-gray-400">
+                    {selectedProject.status}
+                  </span>
                 </div>
-                <h2 style={{ 
-                  fontWeight: '700', 
-                  color: 'var(--text-primary)', 
-                  marginBottom: '0.5rem',
-                  fontSize: '1.5rem'
-                }}>
-                  {selectedProject.title}
-                </h2>
-                <p style={{ color: 'var(--text-secondary)' }}>
-                  {selectedProject.description}
-                </p>
+                <span className="text-[10px] font-bold text-gray-600 uppercase tracking-tighter">
+                  ID: PRJ-{selectedProject.id.toString().padStart(3, '0')}
+                </span>
               </div>
-              <button
-                type="button"
-                onClick={closeModal}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  color: 'var(--text-tertiary)',
-                  cursor: 'pointer',
-                  padding: '0.5rem',
-                  borderRadius: '50%',
-                  transition: 'all 0.3s ease',
-                  transform: 'scale(1)'
-                }}
-                onMouseEnter={(e) => {
-                  e.target.style.background = 'var(--bg-tertiary)';
-                  e.target.style.color = 'var(--text-primary)';
-                  e.target.style.transform = 'scale(1.1)';
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.background = 'none';
-                  e.target.style.color = 'var(--text-tertiary)';
-                  e.target.style.transform = 'scale(1)';
-                }}
-              >
-                <Cancel size={24} />
-              </button>
+
+              <h1 className="text-2xl font-black text-white tracking-tight leading-none mb-4">
+                {selectedProject.title}
+              </h1>
+              
+              <div className="flex gap-3">
+                {selectedProject.github !== undefined && (
+                  <button 
+                    onClick={() => selectedProject.github && window.open(selectedProject.github, '_blank')}
+                    className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-md text-[11px] font-bold transition-all hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-indigo-600/20"
+                  >
+                    <Github width={14} height={14} /> Open Repository
+                  </button>
+                )}
+                {selectedProject.live && (
+                  <button 
+                    onClick={() => window.open(selectedProject.live, '_blank')}
+                    className="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 text-gray-300 rounded-md text-[11px] font-bold border border-white/10 transition-all"
+                  >
+                    <ExternalLink size={14} /> Live Demo
+                  </button>
+                )}
+              </div>
             </div>
 
-            {/* Modal Content */}
-            <div style={{ padding: '2rem' }}>
-              {/* Long Description */}
-              <div style={{ marginBottom: '2rem' }}>
-                <h3 style={{
-                  fontWeight: '600',
-                  color: 'var(--text-primary)',
-                  marginBottom: '1rem'
-                }}>
-                  Project Details
-                </h3>
-                <p style={{
-                  color: 'var(--text-secondary)',
-                  lineHeight: '1.7',
-                  fontSize: '1rem'
-                }}>
+            {/* Detail Content */}
+            <div className="flex-1 overflow-y-auto p-8 custom-scrollbar space-y-8">
+              {/* Description Section */}
+              <div className="space-y-3">
+                <h3 className="text-[10px] font-bold text-gray-500 uppercase tracking-widest font-mono">Overview</h3>
+                <p className="text-sm text-gray-400 leading-relaxed font-medium">
                   {selectedProject.longDescription || selectedProject.description}
                 </p>
               </div>
 
-              {/* Technologies */}
-              <div style={{ marginBottom: '2rem' }}>
-                <h3 style={{
-                  fontWeight: '600',
-                  color: 'var(--text-primary)',
-                  marginBottom: '1rem'
-                }}>
-                  Technologies Used
-                </h3>
-                <div style={{
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  gap: '0.75rem'
-                }}>
-                  {selectedProject.technologies?.map((tech, index) => (
-                    <span
-                      key={index}
-                      style={{
-                        padding: '0.5rem 1rem',
-                        background: 'var(--bg-tertiary)',
-                        color: 'var(--text-primary)',
-                        borderRadius: '0.5rem',
-                        fontSize: '0.875rem',
-                        fontWeight: '500'
-                      }}
+              {/* Stack Section */}
+              <div className="space-y-4">
+                <h3 className="text-[10px] font-bold text-gray-500 uppercase tracking-widest font-mono">Tech Stack</h3>
+                <div className="flex flex-wrap gap-2">
+                  {selectedProject.technologies.map((tech, idx) => (
+                    <div 
+                      key={idx} 
+                      className="px-3 py-1.5 bg-white/5 border border-white/5 rounded text-[11px] text-gray-300 font-bold hover:bg-indigo-600/20 hover:border-indigo-500/30 hover:text-indigo-400 transition-all cursor-default"
                     >
                       {tech}
-                    </span>
+                    </div>
                   ))}
                 </div>
               </div>
 
-              {/* Links */}
-              <div style={{
-                display: 'flex',
-                gap: '1rem',
-                flexWrap: 'wrap'
-              }}>
-                {selectedProject.github && (
-                  <a
-                    href={selectedProject.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '0.5rem',
-                      padding: '0.75rem 1.5rem',
-                      background: 'transparent',
-                      color: '#2563eb',
-                      border: '2px solid #2563eb',
-                      borderRadius: '0.5rem',
-                      textDecoration: 'none',
-                      fontWeight: '600',
-                      transition: 'all 0.3s ease',
-                      transform: 'translateY(0)'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.target.style.background = '#2563eb';
-                      e.target.style.color = 'white';
-                      e.target.style.transform = 'translateY(-2px)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.target.style.background = 'transparent';
-                      e.target.style.color = '#2563eb';
-                      e.target.style.transform = 'translateY(0)';
-                    }}
-                  >
-                    <Code size={16} />
-                    View Code
-                  </a>
-                )}
-                {selectedProject.live && (
-                  <a
-                    href={selectedProject.live}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '0.5rem',
-                      padding: '0.75rem 1.5rem',
-                      background: 'linear-gradient(135deg, #059669, #10b981)',
-                      color: 'white',
-                      border: 'none',
-                      borderRadius: '0.5rem',
-                      textDecoration: 'none',
-                      fontWeight: '600',
-                      transition: 'all 0.3s ease',
-                      transform: 'translateY(0)'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.target.style.transform = 'translateY(-2px)';
-                      e.target.style.boxShadow = '0 10px 25px rgba(5, 150, 105, 0.3)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.target.style.transform = 'translateY(0)';
-                      e.target.style.boxShadow = 'none';
-                    }}
-                  >
-                    <Link size={16} />
-                    Live Demo
-                  </a>
-                )}
+              {/* Project Snapshot (Placeholder Image logic if needed) */}
+              <div className="pt-8">
+                <div className="w-full aspect-video bg-gradient-to-br from-indigo-900/20 to-black/40 rounded-xl border border-white/5 flex items-center justify-center relative overflow-hidden group">
+                   <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10" />
+                   <div className="relative text-center">
+                      <div className="text-4xl mb-2 opacity-20 filter grayscale group-hover:grayscale-0 transition-all duration-700">🖥️</div>
+                      <p className="text-[10px] font-bold text-gray-600 uppercase tracking-[4px]">Project Environment</p>
+                   </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      )}
-    </section>
+        ) : (
+          <div className="flex items-center justify-center h-full opacity-20 flex-col gap-4">
+             <Layout size={48} />
+             <p className="text-xs font-bold uppercase tracking-widest">Select a project to view details</p>
+          </div>
+        )}
+      </div>
+    </div>
   );
 };
 

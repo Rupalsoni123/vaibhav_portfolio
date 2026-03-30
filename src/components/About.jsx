@@ -1,453 +1,182 @@
 import React, { useState } from "react";
-import { Download, Certificate, Cloud, Server, User, Rocket } from "./Icons";
-import resume from "../assets/resume.pdf";
+import { Download, Award, Rocket, User, Briefcase } from "lucide-react";
+// import resume from "../assets/resume.pdf"; // Re-enable if exists
 
 const About = () => {
   const [activeTab, setActiveTab] = useState("overview");
 
-  const handleTabClick = (tabKey, e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    console.log('Tab clicked:', tabKey);
-    setActiveTab(tabKey);
-  };
-
   const handleDownloadResume = (e) => {
     e.preventDefault();
-    e.stopPropagation();
-    console.log('Download resume clicked');
-    const link = document.createElement('a');
-    link.href = resume;
-    link.download = 'Vaibhav_Soni_Resume.pdf';
-    link.style.display = 'none';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    // const link = document.createElement('a');
+    // link.href = resume;
+    // link.download = 'Vaibhav_Soni_Resume.pdf';
+    // link.click();
+    window.open('https://vaibhavsoni21.vercel.app/resume/Vaibhav_Soni_Resume.pdf', '_blank');
   };
-
-  const handleGetInTouch = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    console.log('Get In Touch clicked');
-    const contactSection = document.getElementById('contact');
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
- 
 
   const journey = [
     {
       year: "Aug 2025",
       title: "DevOps Engineer",
       company: "Inexture Solutions",
-      description: "Working on multi cloud infrastructure, Multiple CI/CD pipelines, SonarQube and Automation."
-    },{
-      year: "2025",
-      title: "DevOps intern",
-      company: "Inexture Solutions",
-      description: "Working on cloud infrastructure, CI/CD pipelines, and container orchestration."
-    },{
-    year: "2024",
-      title: "Career break",
-      company: "Family's health issues",
-      description: "Focused on family responsibilities and personal development. Also completed HashiCorp Certified: Terraform Associate (003) certification."
-  },
+      description: "Working on multi-cloud infrastructure, CI/CD pipelines, SonarQube, and Automation."
+    },
+    {
+      year: "2024",
+      title: "Career Break",
+      company: "Family & Upskilling",
+      description: "Completed HashiCorp Certified: Terraform Associate (003) certification."
+    },
     {
       year: "2023",
       title: "DevOps Engineer",
       company: "HighSkyIT Solutions",
-      description: "Sucessfully delivered multiple projects, including migrating Azure resources to Terraform, building Kubernetes clusters, and automating AWS infrastructure with Terragrunt."
+      description: "Migrated Azure to Terraform, built K8s clusters, automated AWS with Terragrunt."
     },
     {
       year: "2022",
       title: "Journey into DevOps",
       company: "Non-CS background",
-      description: "Completed DevOps training from HighSkyIT Solutions, focusing on practical skills in cloud and container technologies. completed Red Hat certification."
+      description: "Completed DevOps training from HighSkyIT and Red Hat certification."
     }
   ];
 
   const certifications = [
     {
-      name: "HashiCorp Certified: Terraform Associate (003)",
+      name: "HashiCorp Certified: Terraform Associate",
       issuer: "HashiCorp",
       year: "2024",
-      badge: <Certificate size={48} color="#f59e0b" />
+      icon: <Award size={24} className="text-orange-400" />
     },
     {
       name: "AWS Certified Cloud Practitioner",
       issuer: "Amazon Web Services",
       year: "2023",
-      badge: <Cloud size={48} color="#2563eb" />
+      icon: <Award size={24} className="text-blue-400" />
     },
     {
-      name: "Red Hat Certified System Administrator (RHCSA)",
+      name: "Red Hat Certified System Administrator",
       issuer: "Red Hat",
       year: "2022",
-      badge: <Server size={48} color="#dc2626" />
+      icon: <Award size={24} className="text-red-500" />
     }
   ];
 
-  const tabContent = {
-    overview: (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-        <div>
-          <h3 style={{ fontWeight: '600', marginBottom: '1rem', color: 'var(--text-primary)' }}>
-            Professional Summary
-          </h3>
-          <p style={{ color: 'var(--text-secondary)', lineHeight: '1.7' }}>
-            Self-driven professional who transitioned from non-CS background to DevOps through practical project experience, certifications, and continuous learning. Currently focused on advancing Kubernetes expertise and AWS CDK with TypeScript to deliver scalable, enterprise-grade cloud-native solutions.
-          <br />
-            Results-driven DevOps Engineer with 2+ year of hands-on experience in cloud infrastructure automation, containerization, and CI/CD pipeline optimization across AWS, Azure, and DigitalOcean platforms. Proven track record of migrating 240+ Azure resources to Terraform-based Infrastructure as Code, reducing code duplication by 70% through reusable dynamic modules and standardized deployment practices.
-          <br />
-            Expert in Kubernetes orchestration and Docker containerization, with experience designing  clusters and custom container solutions for  clients. Skilled in implementing comprehensive DevOps workflows using Terragrunt, GitLab CI/CD, and Bitbucket Pipelines, ensuring consistent and secure deployments across multiple environments.
-          <br />
-            Demonstrated expertise in AWS Organizations management, handling 6 AWS accounts with centralized governance, SSO integration, and role-based access control. Proficient in monitoring and observability solutions including Prometheus, Grafana, and ELK Stack for maintaining system reliability and performance.
-          <br />
-            Strong foundation in security best practices, implementing IAM policies, secret management, and policy-as-code frameworks to ensure compliance and operational security. Continuously expanding skillset through industry certifications including HashiCorp Terraform Associate, AWS Cloud Practitioner, and pursuing CKA certification.
-
-          </p>
-        </div>
-      </div>
-    ),
-    
-    journey: (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-        {journey.map((item, index) => (
-          <div key={index} className="card-elevated" style={{
-            padding: '1.5rem',
-            borderLeft: '4px solid var(--accent-primary)',
-            position: 'relative',
-            overflow: 'hidden'
-          }}>
-            {/* Background Pattern */}
-            <div style={{
-              position: 'absolute',
-              top: 0,
-              right: 0,
-              width: '100px',
-              height: '100px',
-              background: 'var(--gradient-primary)',
-              opacity: 0.05,
-              borderRadius: '50%',
-              transform: 'translate(30px, -30px)'
-            }} />
+  const renderContent = () => {
+    switch (activeTab) {
+      case 'overview':
+        return (
+          <div className="space-y-6">
+            <h2 className="text-lg font-bold text-gray-200">Executive Summary</h2>
+            <div className="space-y-4 text-gray-400 leading-relaxed text-[13px]">
+              <p>
+                Self-driven professional who transitioned from a non-CS background to DevOps through practical project experience, certifications, and continuous learning. Currently focused on advancing Kubernetes expertise and AWS CDK with TypeScript to deliver scalable, enterprise-grade cloud-native solutions.
+              </p>
+              <p>
+                Results-driven DevOps Engineer with hands-on experience in cloud infrastructure automation, containerization, and CI/CD pipeline optimization across AWS, Azure, and DigitalOcean platforms. Proven track record of migrating 240+ Azure resources to Terraform-based Infrastructure as Code, reducing code duplication by 70%.
+              </p>
+            </div>
             
-            <div style={{ 
-              display: 'flex', 
-              justifyContent: 'space-between', 
-              alignItems: 'flex-start', 
-              marginBottom: '0.5rem',
-              position: 'relative',
-              zIndex: 1
-            }}>
-              <h3 style={{ 
-                fontWeight: '600', 
-                color: 'var(--text-primary)',
-                fontSize: '1.25rem'
-              }}>
-                {item.title}
-              </h3>
-              <span className="tech-tag" style={{
-                background: 'var(--accent-primary)',
-                color: 'white',
-                border: 'none'
-              }}>
-                {item.year}
-              </span>
-            </div>
-            <div style={{ 
-              color: 'var(--accent-primary)', 
-              fontWeight: '600', 
-              marginBottom: '0.75rem',
-              fontSize: '1rem'
-            }}>
-              {item.company}
-            </div>
-            <p style={{ 
-              color: 'var(--text-secondary)', 
-              lineHeight: '1.6',
-              position: 'relative',
-              zIndex: 1
-            }}>
-              {item.description}
-            </p>
-          </div>
-        ))}
-      </div>
-    ),
-    
-    certifications: (
-      <div style={{ 
-        display: 'grid', 
-        gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
-        gap: '2rem',
-        justifyItems: 'center',
-        alignItems: 'start'
-      }}>
-        {certifications.map((cert, index) => (
-          <div key={index} style={{
-            padding: '2rem',
-            background: 'var(--card-bg)',
-            border: '1px solid var(--border-color)',
-            borderRadius: '1rem',
-            textAlign: 'center',
-            transition: 'all 0.3s ease',
-            transform: 'translateY(0)',
-            width: '100%',
-            maxWidth: '350px',
-            height: 'auto',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            minHeight: '200px'
-          }}
-          onMouseEnter={(e) => {
-            e.target.style.transform = 'translateY(-4px)';
-            e.target.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.1)';
-            e.target.style.borderColor = '#2563eb';
-          }}
-          onMouseLeave={(e) => {
-            e.target.style.transform = 'translateY(0)';
-            e.target.style.boxShadow = 'none';
-            e.target.style.borderColor = 'var(--border-color)';
-          }}
-          >
-            <div>
-              <div style={{ 
-                display: 'flex', 
-                justifyContent: 'center', 
-                marginBottom: '1rem' 
-              }}>
-                {cert.badge}
-              </div>
-              <h3 style={{ 
-                fontWeight: '600', 
-                color: 'var(--text-primary)', 
-                marginBottom: '1rem',
-                fontSize: '1.125rem',
-                lineHeight: '1.4'
-              }}>
-                {cert.name}
-              </h3>
-            </div>
-            <div>
-              <div style={{ 
-                color: '#2563eb', 
-                fontWeight: '600', 
-                marginBottom: '0.5rem',
-                fontSize: '1rem'
-              }}>
-                {cert.issuer}
-              </div>
-              <div style={{ 
-                color: 'var(--text-tertiary)', 
-                fontSize: '0.875rem',
-                fontWeight: '500'
-              }}>
-                {cert.year}
-              </div>
+            <div className="mt-8 pt-4 border-t border-white/5">
+              <button 
+                onClick={handleDownloadResume}
+                className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-md transition-all font-semibold text-xs shadow-lg shadow-indigo-600/20"
+              >
+                <Download size={14} /> View Official Resume
+              </button>
             </div>
           </div>
-        ))}
-      </div>
-    )
+        );
+      
+      case 'journey':
+        return (
+          <div className="relative">
+            <h2 className="text-lg font-bold text-gray-200 mb-6">Professional Timeline</h2>
+            <div className="border-l-2 border-indigo-500/20 ml-3 space-y-6 pb-4">
+              {journey.map((item, idx) => (
+                <div key={idx} className="relative pl-6">
+                  <div className="absolute w-2.5 h-2.5 bg-indigo-500 rounded-full -left-[7px] top-1.5 ring-4 ring-[#1c1c1e]" />
+                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-0.5">
+                    <h3 className="text-sm font-bold text-gray-200">{item.title}</h3>
+                    <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-wider">{item.year}</span>
+                  </div>
+                  <div className="text-[11px] font-semibold text-gray-500 mb-2 uppercase tracking-tight">{item.company}</div>
+                  <p className="text-[12px] text-gray-400 leading-normal">{item.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+
+      case 'certifications':
+        return (
+          <div>
+            <h2 className="text-lg font-bold text-gray-200 mb-6">Credentials</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {certifications.map((cert, idx) => (
+                <div key={idx} className="bg-[#2d2d2d] border border-white/5 rounded-lg p-4 transition-all hover:border-indigo-500/30 flex items-center gap-4">
+                  <div className="p-2.5 bg-white/5 rounded-lg shrink-0">
+                    {cert.icon}
+                  </div>
+                  <div>
+                    <h3 className="text-gray-200 font-bold text-[13px] leading-tight mb-1">{cert.name}</h3>
+                    <p className="text-[10px] text-indigo-400 font-bold uppercase tracking-wide">{cert.issuer}</p>
+                    <p className="text-[10px] text-gray-500 mt-1 font-medium">{cert.year}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      
+      default:
+        return null;
+    }
   };
 
+  const navItems = [
+    { id: 'overview', icon: <User size={15} />, label: 'Profile' },
+    { id: 'journey', icon: <Briefcase size={15} />, label: 'Experience' },
+    { id: 'certifications', icon: <Award size={15} />, label: 'Certifications' }
+  ];
+
   return (
-    <section id="about" className="section" style={{
-      background: 'var(--bg-secondary)',
-      padding: '5rem 0'
-    }}>
-      <div className="container">
-        {/* Section Header */}
-        <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-          <h2 className="heading-lg" style={{ marginBottom: '1rem' }}>
-            About <span className="text-gradient">Me</span>
-          </h2>
-          <p style={{ 
-            color: 'var(--text-secondary)', 
-            fontSize: '1.125rem',
-            maxWidth: '600px',
-            margin: '0 auto'
-          }}>
-            Get to know more about my background, journey, and certifications in DevOps and cloud technologies.
-          </p>
+    <div className="flex h-full bg-[#1c1c1e] text-gray-100 overflow-hidden select-none">
+      {/* Sidebar sidebar */}
+      <div className="w-[240px] bg-[#1a1a1b] border-r border-black/20 flex flex-col p-5">
+        <div className="flex flex-col items-center mb-10 mt-2">
+          <div className="w-20 h-20 rounded-lg bg-[#252526] p-0.5 mb-4 shadow-xl border border-white/5 overflow-hidden">
+             <img src="/images/caricature.png" alt="Vaibhav" className="w-full h-full object-cover" />
+          </div>
+          <h1 className="text-base font-bold text-gray-100 mb-0.5 tracking-tight">Vaibhav Soni</h1>
+          <p className="text-[10px] text-indigo-400 font-bold uppercase tracking-widest">DevOps Engineer</p>
         </div>
 
-        {/* Tab Navigation */}
-        <div style={{
-          display: 'flex',
-          justifyContent: 'center',
-          marginBottom: '3rem',
-          flexWrap: 'wrap',
-          gap: '0.5rem'
-        }}>
-          {[
-            { key: 'overview', label: 'Overview', icon: <User size={16} /> },
-            { key: 'journey', label: 'Journey', icon: <Rocket size={16} /> },
-            { key: 'certifications', label: 'Certifications', icon: <Certificate size={16} /> }
-          ].map((tab) => (
+        <nav className="flex flex-col gap-1.5">
+          {navItems.map(item => (
             <button
-              key={tab.key}
-              type="button"
-              onClick={(e) => handleTabClick(tab.key, e)}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                padding: '0.75rem 1.5rem',
-                borderRadius: '0.5rem',
-                border: activeTab === tab.key 
-                  ? 'none' 
-                  : '1px solid var(--border-color)',
-                background: activeTab === tab.key 
-                  ? 'linear-gradient(135deg, #f59e0b, #f97316)' 
-                  : 'var(--card-bg)',
-                color: activeTab === tab.key 
-                  ? 'white' 
-                  : 'var(--text-secondary)',
-                fontWeight: '500',
-                fontSize: '0.875rem',
-                cursor: 'pointer',
-                transition: 'all 0.3s ease',
-                boxShadow: activeTab === tab.key 
-                  ? '0 4px 12px rgba(245, 158, 11, 0.3)' 
-                  : 'none',
-                transform: 'translateY(0)'
-              }}
-              onMouseEnter={(e) => {
-                if (activeTab !== tab.key) {
-                  e.target.style.borderColor = '#f59e0b';
-                  e.target.style.color = '#f59e0b';
-                  e.target.style.transform = 'translateY(-2px)';
-                  e.target.style.boxShadow = '0 4px 12px rgba(245, 158, 11, 0.2)';
-                }
-              }}
-              onMouseLeave={(e) => {
-                if (activeTab !== tab.key) {
-                  e.target.style.borderColor = 'var(--border-color)';
-                  e.target.style.color = 'var(--text-secondary)';
-                  e.target.style.transform = 'translateY(0)';
-                  e.target.style.boxShadow = 'none';
-                }
-              }}
-              aria-label={`Switch to ${tab.label} tab`}
+              key={item.id}
+              onClick={() => setActiveTab(item.id)}
+              className={`flex items-center gap-3 px-4 py-2.5 rounded-md transition-all text-xs font-bold ${
+                activeTab === item.id 
+                  ? 'bg-indigo-600/10 text-indigo-400 border border-indigo-500/20' 
+                  : 'text-gray-500 hover:text-gray-300 hover:bg-white/5'
+              }`}
             >
-              <div style={{ display: 'flex', alignItems: 'center' }}>
-                {tab.icon}
-              </div>
-              {tab.label}
+              {item.icon}
+              {item.label}
             </button>
           ))}
-        </div>
-
-        {/* Tab Content */}
-        <div style={{ minHeight: '400px', marginBottom: '4rem' }}>
-          {tabContent[activeTab]}
-        </div>
-
-        {/* Call to Action */}
-        <div style={{
-          textAlign: 'center',
-          padding: '2rem',
-          background: 'var(--card-bg)',
-          borderRadius: '1rem',
-          border: '1px solid var(--border-color)',
-          maxWidth: '600px',
-          margin: '0 auto'
-        }}>
-          <h3 style={{ fontWeight: '600', marginBottom: '1rem', color: 'var(--text-primary)' }}>
-            Let's Work Together
-          </h3>
-          <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem' }}>
-            Ready to discuss your next DevOps project or need help with cloud infrastructure?
-          </p>
-          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <button
-              type="button"
-              onClick={handleDownloadResume}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                padding: '0.75rem 1.5rem',
-                background: 'linear-gradient(135deg, #2563eb, #3b82f6)',
-                color: 'white',
-                border: 'none',
-                borderRadius: '0.5rem',
-                fontWeight: '600',
-                cursor: 'pointer',
-                transition: 'all 0.3s ease',
-                transform: 'translateY(0)'
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.transform = 'translateY(-2px)';
-                e.target.style.boxShadow = '0 10px 25px rgba(37, 99, 235, 0.3)';
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.transform = 'translateY(0)';
-                e.target.style.boxShadow = 'none';
-              }}
-            >
-              <Download size={16} />
-              Download Resume
-            </button>
-            
-            <button
-              type="button"
-              onClick={handleGetInTouch}
-              style={{
-                padding: '0.75rem 1.5rem',
-                background: 'transparent',
-                color: '#2563eb',
-                border: '2px solid #2563eb',
-                borderRadius: '0.5rem',
-                fontWeight: '600',
-                cursor: 'pointer',
-                transition: 'all 0.3s ease',
-                transform: 'translateY(0)'
-              }}
-              onMouseEnter={(e) => {
-                e.target.style.background = '#2563eb';
-                e.target.style.color = 'white';
-                e.target.style.transform = 'translateY(-2px)';
-              }}
-              onMouseLeave={(e) => {
-                e.target.style.background = 'transparent';
-                e.target.style.color = '#2563eb';
-                e.target.style.transform = 'translateY(0)';
-              }}
-            >
-              Get In Touch
-            </button>
-          </div>
-        </div>
+        </nav>
       </div>
 
-      <style>{`
-        @media (max-width: 768px) {
-          .container > div:last-child {
-            grid-template-columns: 1fr !important;
-            gap: 1.5rem !important;
-          }
-          
-          .container > div:last-child > div {
-            max-width: 100% !important;
-            padding: 1.5rem !important;
-          }
-        }
-        
-        @media (max-width: 480px) {
-          .container > div:last-child > div {
-            min-height: 180px !important;
-            padding: 1rem !important;
-          }
-        }
-      `}</style>
-    </section>
-    
+      {/* Main Content Area */}
+      <div className="flex-1 overflow-y-auto p-8 custom-scrollbar bg-[#1c1c1e]">
+        <div className="max-w-2xl mx-auto">
+          {renderContent()}
+        </div>
+      </div>
+    </div>
   );
 };
 

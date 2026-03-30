@@ -8,7 +8,7 @@ Thank you for your interest in my portfolio! I'm always open to discussing new p
 
 - **LinkedIn**: [linkedin.com/in/vaibhavsoni](https://linkedin.com/in/vaibhavsonii21)
 - **GitHub**: [github.com/vaibhav21soni](https://github.com/vaibhav21soni)
-- **Portfolio**: [View My Portfolio](https://vaibhav-portfolio-cyan.vercel.app)
+- **Portfolio**: [View My Portfolio](https://vaibhavsoni21.vercel.app)
 
 ### Direct Contact
 
@@ -34,6 +34,7 @@ If you're interested in collaborating on a project or have any questions about m
 ## 📚 Professional Development
 
 I'm currently focused on:
+
 - Pursuing advanced Kubernetes skills through the CKA certification track
 - Expanding my knowledge of AWS CDK with TypeScript
 - Learning the Serverless Framework

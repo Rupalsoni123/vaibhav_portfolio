@@ -68,7 +68,7 @@ EXPOSE 3000
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-  CMD curl -f   CMD curl -f https://vaibhav-portfolio-cyan.vercel.app/api/health ||  exit 1
+  CMD curl -f   CMD curl -f https://vaibhavsoni21.vercel.app/api/health ||  exit 1
 
 # Start the application in production mode
 CMD ["pnpm", "run", "preview"]

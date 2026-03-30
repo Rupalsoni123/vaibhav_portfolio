@@ -1,23 +1,5 @@
 User-agent: *
 Allow: /
+Allow: /resume/Vaibhav_Soni_Resume.pdf
 
-# Sitemap
-Sitemap: https://vaibhavsoni.dev/sitemap.xml
-
-# Disallow sensitive areas
-Disallow: /api/
-Disallow: /.env
-Disallow: /node_modules/
-Disallow: /src/
-
-# Allow important pages
-Allow: /
-Allow: /about
-Allow: /skills
-Allow: /projects
-Allow: /blog
-Allow: /contact
-Allow: /resume
-
-# Crawl delay
-Crawl-delay: 1
+Sitemap: https://vaibhavsoni21.vercel.app/sitemap.xml

@@ -27,7 +27,7 @@ const socials = [
     {
         id: 4,
         name: "Resume",
-        link: "/resume.pdf",
+        link: "/resume/Vaibhav_Soni_Resume.pdf",
         icon: <BsPersonLinesFill size={22} />,
         style: "hover:bg-black rounded-br-md hover:text-[#5EEAC5]",
         download: true
