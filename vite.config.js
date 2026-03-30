@@ -25,8 +25,7 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          'vendor-react': ['react', 'react-dom'],
-          'vendor-lucide': ['lucide-react'],
+          'vendor-react': ['react', 'react-dom', 'lucide-react'],
           'ui-components': [
             './src/system/Window.jsx',
             './src/system/WindowManager.jsx',
