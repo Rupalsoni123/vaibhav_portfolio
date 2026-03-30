@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useOS } from '../OSContext';
 import Dock from './Dock';
-import * as LucideIcons from 'lucide-react';
+import { Search, User, Cpu, Folder, FileText, Mail, Terminal, Gamepad2, Settings, Layout, Navigation, XCircle, File } from 'lucide-react';
+
+const ICON_MAP = {
+  User, Cpu, Folder, FileText, Mail, Terminal, Gamepad2, Settings, Layout, Navigation, XCircle, File
+};
 
 const ActivitiesOverview = () => {
   const { windows, isOverviewOpen, toggleOverview, focusWindow, APP_REGISTRY, openWindow } = useOS();
@@ -22,7 +26,7 @@ const ActivitiesOverview = () => {
   );
 
   const getIcon = (iconName) => {
-    return LucideIcons[iconName] || LucideIcons['File'];
+    return ICON_MAP[iconName] || File;
   };
 
   return (

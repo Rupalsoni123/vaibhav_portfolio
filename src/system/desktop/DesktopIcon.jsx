@@ -1,12 +1,16 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useOS } from '../OSContext';
-import * as LucideIcons from 'lucide-react';
+import { User, Cpu, Folder, FileText, Mail, Terminal, Gamepad2, Settings, Layout, Navigation, XCircle, File } from 'lucide-react';
+
+const ICON_MAP = {
+  User, Cpu, Folder, FileText, Mail, Terminal, Gamepad2, Settings, Layout, Navigation, XCircle, File
+};
 
 const DesktopIcon = ({ appId, icon, label, onContextMenu }) => {
   const { openWindow } = useOS();
   
   // Dynamic Icon Loading (Lucide)
-  const Icon = LucideIcons[icon] || LucideIcons['File'];
+  const Icon = ICON_MAP[icon] || File;
   const itemRef = useRef(null);
   const [isSelected, setIsSelected] = useState(false);
 
