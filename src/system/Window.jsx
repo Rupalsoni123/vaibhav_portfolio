@@ -1,5 +1,6 @@
 import React, { useRef, useCallback } from 'react';
 import { useOS } from './OSContext';
+import { X, Minus, Square, Copy } from 'lucide-react';
 
 const Window = ({ window: win, isActive, children }) => {
   const { 
@@ -13,6 +14,8 @@ const Window = ({ window: win, isActive, children }) => {
   const dragRef = useRef(null);
 
   const handleMouseDown = useCallback((e) => {
+    // If the click is on a button or its child, don't start dragging
+    if (e.target.closest('button')) return;
     if (!e.target.closest('.os-window__titlebar')) return;
     if (win.isMinimized || win.isMaximized) return;
     
@@ -98,19 +101,32 @@ const Window = ({ window: win, isActive, children }) => {
         onMouseDown={handleMouseDown}
         onDoubleClick={() => toggleMaximize(win.id)}
       >
-        <div className="os-window__controls">
+        <div className="os-window__controls group/buttons">
           <button
-            className="os-window__btn os-window__btn--close cursor-pointer"
+            className="os-window__btn os-window__btn--close flex items-center justify-center"
             onClick={(e) => { e.stopPropagation(); closeWindow(win.id); }}
-          />
+            title="Close"
+          >
+            <X size={8} className="opacity-0 group-hover/buttons:opacity-100 text-black/50 transition-opacity" strokeWidth={4} />
+          </button>
           <button
-            className="os-window__btn os-window__btn--minimize cursor-pointer"
+            className="os-window__btn os-window__btn--minimize flex items-center justify-center"
             onClick={(e) => { e.stopPropagation(); minimizeWindow(win.id); }}
-          />
+            title="Minimize"
+          >
+            <Minus size={8} className="opacity-0 group-hover/buttons:opacity-100 text-black/50 transition-opacity" strokeWidth={4} />
+          </button>
           <button
-            className="os-window__btn os-window__btn--maximize cursor-pointer"
+            className="os-window__btn os-window__btn--maximize flex items-center justify-center"
             onClick={(e) => { e.stopPropagation(); toggleMaximize(win.id); }}
-          />
+            title={win.isMaximized ? "Restore" : "Maximize"}
+          >
+            {win.isMaximized ? (
+              <Copy size={7} className="opacity-0 group-hover/buttons:opacity-100 text-black/50 transition-opacity" strokeWidth={4} />
+            ) : (
+              <Square size={7} className="opacity-0 group-hover/buttons:opacity-100 text-black/50 transition-opacity" strokeWidth={4} />
+            )}
+          </button>
         </div>
         <div className="os-window__title">
           {win.title}
