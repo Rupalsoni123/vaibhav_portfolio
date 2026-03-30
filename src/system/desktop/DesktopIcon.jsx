@@ -44,7 +44,7 @@ const DesktopIcon = ({ appId, icon, label, onContextMenu }) => {
   return (
     <div 
       ref={itemRef}
-      className={`os-desktop__icon group w-[80px] flex flex-col items-center gap-2 p-2 rounded-lg cursor-pointer transition-all select-none pointer-events-auto ${
+      className={`os-desktop__icon group w-[88px] flex flex-col items-center gap-2 p-2 rounded-lg cursor-pointer transition-all select-none pointer-events-auto ${
         isSelected ? 'bg-white/20 shadow-md ring-1 ring-white/10' : 'hover:bg-white/5'
       }`}
       onClick={handleClick}
@@ -52,11 +52,11 @@ const DesktopIcon = ({ appId, icon, label, onContextMenu }) => {
       onContextMenu={handleRightClick}
       title={label}
     >
-      {/* Icon: 28px as per user request */}
-      <div className={`w-12 h-12 flex items-center justify-center rounded-xl transition-all ${
+      {/* Icon: 30px (approx 8% bigger than 28px) */}
+      <div className={`w-[52px] h-[52px] flex items-center justify-center rounded-xl transition-all ${
         isSelected ? 'bg-white/10' : 'bg-[#1a1a1b]/40 backdrop-blur-md'
       }`}>
-        <Icon size={28} className={isSelected ? 'text-white' : 'text-gray-300'} strokeWidth={1.5} />
+        <Icon size={30} className={isSelected ? 'text-white' : 'text-gray-300'} strokeWidth={1.5} />
       </div>
 
       {/* Label: text-xs */}

@@ -231,7 +231,7 @@
   left: 30px;
   width: auto;
   display: grid !important;
-  grid-template-columns: repeat(3, 110px) !important;
+  grid-template-columns: repeat(3, 120px) !important;
   grid-auto-rows: min-content;
   gap: 36px 16px;
   padding: 16px;
