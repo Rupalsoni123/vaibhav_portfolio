@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useOS } from '../OSContext';
-import Dock from '../Dock';
+import Dock from './Dock';
 import * as LucideIcons from 'lucide-react';
 
 const ActivitiesOverview = () => {
