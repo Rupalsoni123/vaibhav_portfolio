@@ -1,404 +1,369 @@
 import React, { useState, useEffect } from "react";
-import { TypeAnimation } from "react-type-animation";
-import { ArrowDown } from "./Icons";
-import AvatarImage from "../assets/Avatars/93f50dd8-9dec-4f20-ad88-d40acc26dec5.jpg";
+import Avatar from "./Avatar";
+import CursorGrid from "./CursorGrid";
 import contactInfo from "../data/contactInfo";
 import resume from "../assets/resume.pdf";
 
+const STACK = [
+  "AWS", "GCP", "Azure",
+  "Kubernetes", "Terraform", "Terragrunt",
+  "Docker", "Jenkins", "GitHub Actions",
+  "Istio", "Prometheus", "Grafana",
+];
+
+const SLO = [
+  { label: "Status", value: "shipping", tone: "ok" },
+  { label: "Projects owned", value: "14+", tone: "ok" },
+  { label: "AI PoCs deployed", value: "7", tone: "ok" },
+  { label: "Scope", value: "infra + CI/CD", tone: "ok" },
+];
+
+const Sparkline = () => (
+  <svg viewBox="0 0 120 32" width="100%" height="32" aria-hidden="true">
+    <polyline
+      fill="none"
+      stroke="var(--p3-ok)"
+      strokeWidth="1.5"
+      points="0,22 12,18 24,24 36,16 48,20 60,12 72,14 84,8 96,12 108,6 120,10"
+    />
+    <polyline
+      fill="none"
+      stroke="var(--p3-ok)"
+      strokeWidth="1.5"
+      opacity="0.25"
+      points="0,28 12,28 24,28 36,28 48,28 60,28 72,28 84,28 96,28 108,28 120,28"
+    />
+  </svg>
+);
+
+const SLOTile = ({ label, value, tone }) => (
+  <div
+    style={{
+      background: "var(--p3-bg-2)",
+      border: "1px solid var(--p3-line)",
+      borderRadius: "var(--radius-md)",
+      padding: "16px",
+      display: "flex",
+      flexDirection: "column",
+      gap: "8px",
+    }}
+  >
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        fontFamily: "var(--font-mono)",
+        fontSize: 11,
+        color: "var(--p3-ink-mut)",
+        textTransform: "uppercase",
+        letterSpacing: ".08em",
+      }}
+    >
+      <span>{label}</span>
+      <span
+        className={`p3-pill p3-pill--${tone}`}
+        style={{ padding: "2px 6px", fontSize: 9 }}
+      >
+        live
+      </span>
+    </div>
+    <div
+      style={{
+        fontFamily: "var(--font-display)",
+        fontSize: 24,
+        fontWeight: 600,
+        color: "var(--p3-ink)",
+        lineHeight: 1,
+      }}
+    >
+      {value}
+    </div>
+    <Sparkline />
+  </div>
+);
+
 const Home = () => {
-  const [currentTime, setCurrentTime] = useState(new Date());
-  const [avatarSrc, setAvatarSrc] = useState(AvatarImage);
-  const [avatarError, setAvatarError] = useState(false);
+  const [time, setTime] = useState(new Date());
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 1000);
-
-    return () => clearInterval(timer);
+    const t = setInterval(() => setTime(new Date()), 30000);
+    return () => clearInterval(t);
   }, []);
 
-  const handleGetInTouch = (e) => {
+  const scrollTo = (id) => (e) => {
     e.preventDefault();
-    e.stopPropagation();
-    console.log('Get In Touch clicked');
-    const contactSection = document.getElementById('contact');
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    } else {
-      console.error('Contact section not found');
-    }
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  const handleViewProjects = (e) => {
+  const downloadCV = (e) => {
     e.preventDefault();
-    e.stopPropagation();
-    console.log('View Projects clicked');
-    const projectsSection = document.getElementById('projects');
-    if (projectsSection) {
-      projectsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    } else {
-      console.error('Projects section not found');
-    }
-  };
-
-  const handleDownloadCV = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    console.log('Download CV clicked');
-    // Create download link
-    const link = document.createElement('a');
-    link.href = resume;
-    link.download = 'Vaibhav_Soni_Resume.pdf';
-    link.style.display = 'none';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
-  const handleScrollToAbout = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    console.log('Scroll to About clicked');
-    const aboutSection = document.getElementById('about');
-    if (aboutSection) {
-      aboutSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    } else {
-      console.error('About section not found');
-    }
+    const a = document.createElement("a");
+    a.href = resume;
+    a.download = "Vaibhav_Soni_Resume.pdf";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
   };
 
   return (
-    <section id="home" className="section-container">
-      <div className="content-wrapper">
-        <div className="container">
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr',
-            gap: '3rem',
-            alignItems: 'center',
-            minHeight: '80vh'
-          }}>
-            {/* Content Section */}
-            <div className="animate-fade-in-up" style={{
-              order: 1,
-              textAlign: 'center',
-              maxWidth: '800px',
-              margin: '0 auto'
-            }}>
-            {/* Avatar */}
-            <div style={{
-              display: 'flex',
-              justifyContent: 'center',
-              marginBottom: '2rem'
-            }}>
-              <div style={{
-                position: 'relative',
-                width: '180px',
-                height: '180px'
-              }}>
-                <img
-                  src={avatarSrc}
-                  alt="Vaibhav Soni - DevOps Engineer"
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    borderRadius: '50%',
-                    objectFit: 'cover',
-                    border: '4px solid #2563eb',
-                    boxShadow: '0 10px 30px rgba(37, 99, 235, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1)',
-                    transition: 'all 0.3s ease',
-                    background: 'var(--card-bg)',
-                    display: avatarError ? 'none' : 'block'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.target.style.transform = 'scale(1.05)';
-                    e.target.style.boxShadow = '0 15px 40px rgba(37, 99, 235, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.2)';
-                    e.target.style.borderColor = '#3b82f6';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.transform = 'scale(1)';
-                    e.target.style.boxShadow = '0 10px 30px rgba(37, 99, 235, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1)';
-                    e.target.style.borderColor = '#2563eb';
-                  }}
-                  onError={(e) => {
-                    console.error('Avatar image failed to load, trying fallback');
-                    if (avatarSrc === AvatarImage) {
-                      setAvatarSrc(FallbackAvatar);
-                    } else {
-                      setAvatarError(true);
-                      console.error('Both avatar images failed to load');
-                    }
-                  }}
-                  onLoad={() => {
-                    console.log('Avatar loaded successfully');
-                    setAvatarError(false);
-                  }}
-                  loading="eager"
-                />
-                
-                {/* Fallback when both images fail */}
-                {avatarError && (
-                  <div style={{
-                    width: '100%',
-                    height: '100%',
-                    borderRadius: '50%',
-                    background: 'linear-gradient(135deg, #2563eb, #3b82f6)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: 'white',
-                    fontSize: '4rem',
-                    fontWeight: '700',
-                    border: '4px solid #2563eb',
-                    boxShadow: '0 10px 30px rgba(37, 99, 235, 0.3)'
-                  }}>
-                    VS
-                  </div>
-                )}
-                {/* Decorative ring */}
-                <div style={{
-                  position: 'absolute',
-                  top: '-8px',
-                  left: '-8px',
-                  right: '-8px',
-                  bottom: '-8px',
-                  borderRadius: '50%',
-                  border: '2px solid rgba(59, 130, 246, 0.2)',
-                  animation: 'pulse 3s infinite'
-                }} />
-              </div>
-            </div>
-            {/* Main Heading */}
-            <h1 className="heading-xl" style={{
-              marginBottom: '1.5rem',
-              lineHeight: '1.1'
-            }}>
-              Hi, I'm <span className="text-gradient">Vaibhav Soni</span>
-              <br />
-              <TypeAnimation
-                sequence={[
-                  'DevOps Engineer',
-                  2000,
-                  'Cloud Architect',
-                  2000,
-                  'Infrastructure Specialist',
-                  2000,
-                  'Automation Expert',
-                  2000,
-                ]}
-                wrapper="span"
-                speed={50}
-                style={{ 
-                  fontSize: 'inherit',
-                  color: 'var(--primary-blue)'
-                }}
-                repeat={Infinity}
-              />
-            </h1>
+    <section
+      id="home"
+      style={{
+        minHeight: "100vh",
+        padding: "120px 24px 80px",
+        display: "flex",
+        alignItems: "center",
+        background: "var(--p3-bg-0)",
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      <CursorGrid height="100%" />
+      <div
+        style={{
+          maxWidth: 1200,
+          margin: "0 auto",
+          width: "100%",
+          display: "grid",
+          gap: "48px",
+          gridTemplateColumns: "minmax(0, 1.2fr) minmax(0, 1fr)",
+          alignItems: "center",
+          position: "relative",
+          zIndex: 1,
+        }}
+        className="hero-grid"
+      >
+        {/* Left: copy */}
+        <div>
+          <span className="p3-pill p3-pill--ok" style={{ marginBottom: 24 }}>
+            available · ahmedabad, IST
+          </span>
 
-            {/* Description */}
-            <p style={{
-              fontSize: '1.25rem',
-              color: 'var(--text-secondary)',
-              marginBottom: '2rem',
-              lineHeight: '1.7',
-              maxWidth: '600px',
-              margin: '0 auto 2rem'
-            }}>
-              Passionate about building scalable cloud infrastructure, automating workflows, 
-              and empowering development teams with reliable DevOps solutions.
-            </p>
+          <h1
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "clamp(36px, 6vw, 64px)",
+              fontWeight: 600,
+              lineHeight: 1.05,
+              letterSpacing: "-0.02em",
+              color: "var(--p3-ink)",
+              margin: "0 0 16px",
+            }}
+          >
+            DevOps engineer.
+            <br />
+            <span
+              style={{
+                background:
+                  "linear-gradient(135deg, var(--p3-accent), var(--p3-accent-2))",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              Ship faster, page less.
+            </span>
+          </h1>
 
-            {/* Location & Time */}
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '2rem',
-              marginBottom: '3rem',
-              flexWrap: 'wrap'
-            }}>
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                color: 'var(--text-tertiary)',
-                fontSize: '0.875rem'
-              }}>
-                <span>📍</span>
-                Ahmedabad, India
-              </div>
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                color: 'var(--text-tertiary)',
-                fontSize: '0.875rem'
-              }}>
-                <span>🕐</span>
-                {currentTime.toLocaleTimeString('en-US', {
-                  timeZone: 'Asia/Kolkata',
-                  hour12: true,
-                  hour: 'numeric',
-                  minute: '2-digit'
-                })} IST
-              </div>
-            </div>
+          <p
+            style={{
+              fontSize: 18,
+              lineHeight: 1.6,
+              color: "var(--p3-ink-mut)",
+              margin: "0 0 32px",
+              maxWidth: 540,
+            }}
+          >
+            I'm <strong style={{ color: "var(--p3-ink)" }}>Vaibhav Soni</strong> —
+            I build the reliability layer. Production K8s on AWS/GCP/Azure,
+            Terraform-first infra, CI/CD pipelines that actually catch bugs,
+            observability that wakes the right person.
+          </p>
 
-            {/* CTA Buttons */}
-            <div style={{
-              display: 'flex',
-              gap: '1rem',
-              marginBottom: '3rem',
-              flexWrap: 'wrap',
-              justifyContent: 'center'
-            }}>
-              <button
-                type="button"
-                onClick={handleGetInTouch}
+          {/* CTAs */}
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginBottom: 32 }}>
+            <button
+              onClick={scrollTo("contact")}
+              style={{
+                padding: "12px 20px",
+                background: "var(--p3-accent)",
+                color: "var(--p3-bg-0)",
+                border: "none",
+                borderRadius: "var(--radius-md)",
+                fontWeight: 700,
+                fontSize: 15,
+                cursor: "pointer",
+                fontFamily: "var(--font-sans)",
+              }}
+            >
+              Hire me →
+            </button>
+            <button
+              onClick={scrollTo("projects")}
+              style={{
+                padding: "12px 20px",
+                background: "transparent",
+                color: "var(--p3-ink)",
+                border: "1px solid var(--p3-line)",
+                borderRadius: "var(--radius-md)",
+                fontWeight: 600,
+                fontSize: 15,
+                cursor: "pointer",
+                fontFamily: "var(--font-sans)",
+              }}
+            >
+              View work
+            </button>
+            <button
+              onClick={downloadCV}
+              style={{
+                padding: "12px 20px",
+                background: "transparent",
+                color: "var(--p3-accent-2)",
+                border: "1px solid var(--p3-accent-2)",
+                borderRadius: "var(--radius-md)",
+                fontWeight: 600,
+                fontSize: 15,
+                cursor: "pointer",
+                fontFamily: "var(--font-sans)",
+              }}
+            >
+              ↓ Résumé
+            </button>
+          </div>
+
+          {/* Stack chips */}
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: 6,
+              fontFamily: "var(--font-mono)",
+            }}
+          >
+            {STACK.map((s) => (
+              <span
+                key={s}
                 style={{
-                  padding: '0.75rem 1.5rem',
-                  background: 'linear-gradient(135deg, #2563eb, #3b82f6)',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '0.5rem',
-                  fontWeight: '600',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s ease',
-                  fontSize: '1rem',
-                  transform: 'translateY(0)',
-                  boxShadow: 'none'
+                  padding: "4px 10px",
+                  fontSize: 12,
+                  color: "var(--p3-ink-mut)",
+                  background: "var(--p3-bg-1)",
+                  border: "1px solid var(--p3-line)",
+                  borderRadius: 6,
                 }}
-                onMouseEnter={(e) => {
-                  e.target.style.transform = 'translateY(-2px)';
-                  e.target.style.boxShadow = '0 10px 25px rgba(37, 99, 235, 0.3)';
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.transform = 'translateY(0)';
-                  e.target.style.boxShadow = 'none';
-                }}
-                aria-label="Navigate to contact section"
               >
-                Get In Touch
-              </button>
-              
-              <button
-                type="button"
-                onClick={handleViewProjects}
-                style={{
-                  padding: '0.75rem 1.5rem',
-                  background: 'transparent',
-                  color: '#2563eb',
-                  border: '2px solid #2563eb',
-                  borderRadius: '0.5rem',
-                  fontWeight: '600',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s ease',
-                  fontSize: '1rem',
-                  transform: 'translateY(0)'
-                }}
-                onMouseEnter={(e) => {
-                  e.target.style.background = '#2563eb';
-                  e.target.style.color = 'white';
-                  e.target.style.transform = 'translateY(-2px)';
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.background = 'transparent';
-                  e.target.style.color = '#2563eb';
-                  e.target.style.transform = 'translateY(0)';
-                }}
-                aria-label="Navigate to projects section"
-              >
-                View Projects
-              </button>
-              
-              <button
-                type="button"
-                onClick={handleDownloadCV}
-                style={{
-                  padding: '0.75rem 1.5rem',
-                  background: 'linear-gradient(135deg, #7c3aed, #8b5cf6)',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '0.5rem',
-                  fontWeight: '600',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s ease',
-                  fontSize: '1rem',
-                  transform: 'translateY(0)',
-                  boxShadow: 'none'
-                }}
-                onMouseEnter={(e) => {
-                  e.target.style.transform = 'translateY(-2px)';
-                  e.target.style.boxShadow = '0 10px 25px rgba(124, 58, 237, 0.3)';
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.transform = 'translateY(0)';
-                  e.target.style.boxShadow = 'none';
-                }}
-                aria-label="Download resume PDF"
-              >
-                Download CV
-              </button>
-            </div>
-
-            {/* Social Links */}
-            <div style={{
-              display: 'flex',
-              gap: '1rem',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}>
-              <span style={{
-                color: 'var(--text-tertiary)',
-                fontSize: '0.875rem',
-                marginRight: '0.5rem'
-              }}>
-                Connect:
+                {s}
               </span>
-              {contactInfo.socialLinks.map((link, index) => (
-                <a
-                  key={index}
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="social-icon"
-                  title={link.platform}
+            ))}
+          </div>
+        </div>
+
+        {/* Right: SLO board */}
+        <div
+          style={{
+            background: "var(--p3-bg-1)",
+            border: "1px solid var(--p3-line)",
+            borderRadius: "var(--radius-lg)",
+            padding: 20,
+            boxShadow: "var(--shadow-lg)",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginBottom: 16,
+              paddingBottom: 12,
+              borderBottom: "1px solid var(--p3-line)",
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+              <Avatar
+                size={36}
+                alt=""
+                eager
+                style={{ border: "2px solid var(--p3-accent)" }}
+              />
+              <div>
+                <div
                   style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    width: '2.5rem',
-                    height: '2.5rem',
-                    borderRadius: '50%',
-                    background: 'var(--card-bg)',
-                    border: '1px solid var(--border-color)',
-                    color: 'var(--text-secondary)',
-                    transition: 'all 0.3s ease',
-                    transform: 'translateY(0)'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.target.style.borderColor = '#2563eb';
-                    e.target.style.color = '#2563eb';
-                    e.target.style.transform = 'translateY(-2px)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.borderColor = 'var(--border-color)';
-                    e.target.style.color = 'var(--text-secondary)';
-                    e.target.style.transform = 'translateY(0)';
+                    fontFamily: "var(--font-mono)",
+                    fontSize: 12,
+                    color: "var(--p3-ink-mut)",
                   }}
                 >
-                  {link.icon}
-                </a>
-              ))}
+                  ~/status
+                </div>
+                <div
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontSize: 14,
+                    fontWeight: 600,
+                    color: "var(--p3-ink)",
+                  }}
+                >
+                  Vaibhav Soni · SRE/DevOps
+                </div>
+              </div>
             </div>
-          </div>
+            <span className="p3-pill p3-pill--ok">all systems go</span>
           </div>
 
-          {/* Scroll Indicator */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: 12,
+            }}
+          >
+            {SLO.map((s) => (
+              <SLOTile key={s.label} {...s} />
+            ))}
+          </div>
+
+          <div
+            style={{
+              marginTop: 16,
+              paddingTop: 12,
+              borderTop: "1px solid var(--p3-line)",
+              fontFamily: "var(--font-mono)",
+              fontSize: 11,
+              color: "var(--p3-ink-mut)",
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
+            <span>
+              {contactInfo.socialLinks?.length || 0} channels ·{" "}
+              <a
+                href="#contact"
+                onClick={scrollTo("contact")}
+                style={{ color: "var(--p3-accent)" }}
+              >
+                page on-call
+              </a>
+            </span>
+            <span>
+              {time.toLocaleTimeString("en-US", {
+                timeZone: "Asia/Kolkata",
+                hour12: false,
+                hour: "2-digit",
+                minute: "2-digit",
+              })}{" "}
+              IST
+            </span>
+          </div>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 880px) {
+          .hero-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
     </section>
   );
 };

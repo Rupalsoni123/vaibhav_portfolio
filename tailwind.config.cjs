@@ -163,32 +163,5 @@ module.exports = {
     }
   },
   plugins: [],
-  // Updated safelist configuration for Tailwind CSS v3.0
-  safelist: [
-    'dark',
-    // Background classes
-    {
-      pattern: /bg-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900|950)/,
-    },
-    // Text classes
-    {
-      pattern: /text-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900|950)/,
-    },
-    // Border classes
-    {
-      pattern: /border-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900|950)/,
-    },
-    // Hover states
-    {
-      pattern: /hover:(bg|text|border)-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900|950)/,
-    },
-    // Focus states
-    {
-      pattern: /focus:(bg|text|border)-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900|950)/,
-    },
-    // Custom theme colors
-    {
-      pattern: /(bg|text|border)-(neon|cyber|matrix|terminal)-(green|blue|purple|pink|yellow|orange|bg|amber|red)/,
-    }
-  ]
+  safelist: ['dark', 'light']
 }

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Vaibhav Soni — Notes from the trenches</title>
+  <link href="https://vaibhavsoni21.vercel.app"/>
+  <link href="https://vaibhavsoni21.vercel.app/atom.xml" rel="self"/>
+  <updated>2026-05-14T12:31:43.984Z</updated>
+  <id>https://vaibhavsoni21.vercel.app/</id>
+  <author><name>Vaibhav Soni</name></author>
+  <entry>
+    <title>Deploying AI PoCs: what an infra engineer actually owns</title>
+    <link href="https://vaibhavsoni21.vercel.app/#blog"/>
+    <id>https://vaibhavsoni21.vercel.app/blog/ai-poc-infra-ownership</id>
+    <updated>2026-04-18T00:00:00.000Z</updated>
+    <summary>Scope contract for deploying AI proof-of-concepts when you don't own the model. Jenkins, Sonar gates, Nginx, TLS, and where the line is.</summary>
+    <category term="ci-cd"/>
+    <author><name>Vaibhav Soni</name></author>
+  </entry>
+  <entry>
+    <title>Building Production-Grade Kubernetes Clusters on DigitalOcean</title>
+    <link href="https://vaibhavsoni21.vercel.app/#blog"/>
+    <id>https://vaibhavsoni21.vercel.app/blog/kubernetes-digitalocean-production</id>
+    <updated>2024-01-10T00:00:00.000Z</updated>
+    <summary>Step-by-step guide to deploying a highly available Kubernetes cluster with Apache Kafka and ZooKeeper on DigitalOcean.</summary>
+    <category term="kubernetes"/>
+    <author><name>Vaibhav Soni</name></author>
+  </entry>
+  <entry>
+    <title>Pinning Asterisk: when docker commit beats a Dockerfile</title>
+    <link href="https://vaibhavsoni21.vercel.app/#blog"/>
+    <id>https://vaibhavsoni21.vercel.app/blog/asterisk-docker-commit-image</id>
+    <updated>2023-11-04T00:00:00.000Z</updated>
+    <summary>Client needed an exact-version Asterisk calling server. The clean Dockerfile path lost — runtime state forced a different approach.</summary>
+    <category term="containers"/>
+    <author><name>Vaibhav Soni</name></author>
+  </entry>
+</feed>

@@ -1,166 +1,300 @@
 import React, { useState } from "react";
-import LinkedIn, { Mail, Phone, MapPin, Send, Loader, GitHub } from "./Icons";
+
+const CHANNELS = [
+  { label: "Email", value: "vaibhavsoni5567@gmail.com", link: "mailto:vaibhavsoni5567@gmail.com" },
+  { label: "Phone / WhatsApp", value: "+91 8890944027", link: "tel:+918890944027" },
+  { label: "Location", value: "Ahmedabad, India", link: "https://maps.google.com/?q=Ahmedabad" },
+  { label: "LinkedIn", value: "linkedin.com/in/vaibhavsonii21", link: "https://linkedin.com/in/vaibhavsonii21" },
+  { label: "GitHub", value: "github.com/vaibhav21soni", link: "https://github.com/vaibhav21soni" },
+];
+
+const fieldStyle = {
+  width: "100%",
+  background: "var(--p3-bg-0)",
+  border: "1px solid var(--p3-line)",
+  borderRadius: "var(--radius-md)",
+  padding: "10px 12px",
+  color: "var(--p3-ink)",
+  fontFamily: "var(--font-sans)",
+  fontSize: 14,
+  outline: "none",
+  transition: "border-color .15s",
+};
+
+const labelStyle = {
+  display: "block",
+  fontFamily: "var(--font-mono)",
+  fontSize: 11,
+  color: "var(--p3-ink-mut)",
+  textTransform: "uppercase",
+  letterSpacing: ".1em",
+  marginBottom: 6,
+};
 
 const Contact = () => {
-  const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
+  const [busy, setBusy] = useState(false);
   const [status, setStatus] = useState({ type: "", message: "" });
 
-  const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+  const onChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleSubmit = async (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
+    setBusy(true);
     setStatus({ type: "", message: "" });
-
     try {
-      const endpoint = 'https://getform.io/f/bjjowvwb';
-      const res = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...formData, _gotcha: '' })
+      const res = await fetch("https://getform.io/f/bjjowvwb", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...form, _gotcha: "" }),
       });
-
-      if (res.ok) {
-        setStatus({ type: "success", message: "Message sent! I'll reply within 24 hours." });
-        setFormData({ name: "", email: "", subject: "", message: "" });
-        setTimeout(() => setStatus({ type: "", message: "" }), 5000);
-      } else {
-        throw new Error("HTTP error");
-      }
-    } catch (error) {
-      setStatus({ type: "error", message: "Failed to send message. Please try email." });
+      if (!res.ok) throw new Error("HTTP");
+      setStatus({ type: "success", message: "Message sent. Reply within 24h." });
+      setForm({ name: "", email: "", subject: "", message: "" });
+      setTimeout(() => setStatus({ type: "", message: "" }), 5000);
+    } catch {
+      setStatus({ type: "error", message: "Send failed. Try email: vaibhavsoni5567@gmail.com" });
     } finally {
-      setIsSubmitting(false);
+      setBusy(false);
     }
   };
 
-  const contactMethods = [
-    { icon: <Mail size={22} />, label: "Email Address", value: "vaibhavsoni5567@gmail.com", link: "mailto:vaibhavsoni5567@gmail.com", color: "text-blue-500", bg: "bg-blue-500/10" },
-    { icon: <Phone size={22} />, label: "Phone & WhatsApp", value: "+91 8890944027", link: "tel:+918890944027", color: "text-indigo-500", bg: "bg-indigo-500/10" },
-    { icon: <MapPin size={22} />, label: "Current Location", value: "Ahmedabad, India", link: "https://maps.google.com/?q=Ahmedabad", color: "text-emerald-500", bg: "bg-emerald-500/10" }
-  ];
-
   return (
-    <div className="flex h-full bg-[#1c1c1e] text-gray-100 font-sans select-none overflow-hidden sm:rounded-b-2xl">
-      {/* High-Fidelity Sidebar */}
-      <div className="w-[360px] bg-[#1a1a1b] border-r border-black/40 flex flex-col p-10 shrink-0">
-        <h2 className="text-3xl font-black text-white mb-10 tracking-tighter leading-none">Let's Talk</h2>
-        
-        <div className="flex-1 space-y-6 overflow-y-auto no-scrollbar">
-          {contactMethods.map((cm, idx) => (
-            <a 
-              key={idx} 
-              href={cm.link} 
-              target="_blank" 
-              rel="noreferrer"
-              className="flex items-center gap-6 p-5 rounded-2xl hover:bg-white/5 transition-all border border-white/5 hover:border-indigo-500/30 group bg-[#252526]"
-            >
-              <div className={`w-14 h-14 rounded-2xl flex items-center justify-center ${cm.bg} ${cm.color} group-hover:scale-110 transition-all duration-300 shadow-xl shadow-black/40 shrink-0`}>
-                {cm.icon}
-              </div>
-              <div className="min-w-0">
-                <p className="text-[10px] text-gray-500 font-black uppercase tracking-[0.2em] leading-none mb-2">{cm.label}</p>
-                <p className="text-[13px] text-gray-200 font-bold truncate">{cm.value}</p>
-              </div>
-            </a>
-          ))}
-        </div>
-
-        {/* Social Bridge */}
-        <div className="mt-8 pt-8 border-t border-black/40">
-          <p className="text-[10px] text-gray-500 font-black uppercase tracking-[0.3em] mb-6">Network Nodes</p>
-          <div className="flex gap-4">
-            <a href="https://linkedin.com/in/vaibhavsonii21" target="_blank" rel="noreferrer" className="flex-1 group flex items-center justify-center gap-3 py-4 rounded-2xl bg-[#0077b5]/10 border border-[#0077b5]/20 text-[#0077b5] hover:bg-[#0077b5] hover:text-white transition-all shadow-sm">
-              <LinkedIn style={{ width: '18px', height: '18px' }} />
-              <span className="text-[10px] font-black uppercase tracking-widest text-[#0077b5] group-hover:text-white">LinkedIn</span>
-            </a>
-            <a href="https://github.com/vaibhav21soni" target="_blank" rel="noreferrer" className="flex-1 group flex items-center justify-center gap-3 py-4 rounded-2xl bg-white/5 border border-white/10 text-gray-400 hover:bg-white hover:text-black transition-all shadow-sm">
-              <GitHub width={18} height={18} />
-              <span className="text-[10px] font-black uppercase tracking-widest">GitHub</span>
-            </a>
+    <section
+      id="contact"
+      style={{
+        padding: "96px 24px",
+        background: "var(--p3-bg-0)",
+        borderTop: "1px solid var(--p3-line)",
+        color: "var(--p3-ink)",
+      }}
+    >
+      <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+        <div style={{ marginBottom: 40 }}>
+          <div
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: 12,
+              color: "var(--p3-accent)",
+              textTransform: "uppercase",
+              letterSpacing: ".15em",
+              marginBottom: 8,
+            }}
+          >
+            ~/contact
           </div>
+          <h2
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "clamp(28px, 4vw, 40px)",
+              fontWeight: 600,
+              margin: 0,
+              letterSpacing: "-0.02em",
+            }}
+          >
+            Page on-call
+          </h2>
+          <p style={{ color: "var(--p3-ink-mut)", margin: "8px 0 0", maxWidth: 600 }}>
+            Infra question, role, or migration plan? Send a short note. I reply within 24h.
+          </p>
         </div>
-      </div>
 
-      {/* Modern Centered Form Area */}
-      <div className="flex-1 bg-[#1c1c1e] overflow-y-auto custom-scrollbar flex items-start justify-center p-8 lg:p-12">
-        <div className="w-full max-w-xl animate-in fade-in slide-in-from-bottom-6 duration-700">
-          <div className="bg-[#252526] p-10 rounded-[2.5rem] border border-white/10 shadow-3xl shadow-black/60 relative overflow-hidden group">
-            {/* Design Elements */}
-            <div className="absolute top-0 right-0 w-48 h-48 bg-indigo-600/5 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2"></div>
-            
-            <div className="relative z-10">
-              <div className="flex items-center gap-3 mb-4">
-                 <div className="w-1 h-6 bg-indigo-500 rounded-full"></div>
-                 <h3 className="text-2xl font-black text-white tracking-tight">Direct Transmission</h3>
-              </div>
-              <p className="text-[13px] text-gray-400 mb-8 leading-relaxed font-medium">Infrastructure challenge or career opportunity? Transmit your data below.</p>
-
-              <form onSubmit={handleSubmit} className="space-y-5">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                  <div className="space-y-2">
-                    <label className="text-[9px] font-black uppercase tracking-[0.2em] text-gray-500 ml-1">Identity</label>
-                    <input 
-                      type="text" name="name" required value={formData.name} onChange={handleChange} 
-                      placeholder="Your Name"
-                      className="w-full bg-[#111119] border border-white/10 rounded-xl px-5 py-3.5 text-[13px] text-white focus:border-indigo-500/50 focus:ring-4 focus:ring-indigo-500/5 outline-none transition-all placeholder-gray-600 font-medium"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-[9px] font-black uppercase tracking-[0.2em] text-gray-500 ml-1">Frequency</label>
-                    <input 
-                      type="email" name="email" required value={formData.email} onChange={handleChange} 
-                      placeholder="Email Address"
-                      className="w-full bg-[#111119] border border-white/10 rounded-xl px-5 py-3.5 text-[13px] text-white focus:border-indigo-500/50 focus:ring-4 focus:ring-indigo-500/5 outline-none transition-all placeholder-gray-600 font-medium"
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-[9px] font-black uppercase tracking-[0.2em] text-gray-500 ml-1">Protocol / Subject</label>
-                  <input 
-                    type="text" name="subject" value={formData.subject} onChange={handleChange} 
-                    placeholder="Briefly describe the inquiry"
-                    className="w-full bg-[#111119] border border-white/10 rounded-xl px-5 py-3.5 text-[13px] text-white focus:border-indigo-500/50 focus:ring-4 focus:ring-indigo-500/5 outline-none transition-all placeholder-gray-600 font-medium"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-[9px] font-black uppercase tracking-[0.2em] text-gray-500 ml-1">Data / Message</label>
-                  <textarea 
-                    name="message" required value={formData.message} onChange={handleChange} rows="4"
-                    placeholder="Detailed message regarding migration, automation, or role..."
-                    className="w-full bg-[#111119] border border-white/10 rounded-xl px-5 py-4 text-[13px] text-white focus:border-indigo-500/50 focus:ring-4 focus:ring-indigo-500/5 outline-none transition-all resize-none placeholder-gray-600 font-medium"
-                  />
-                </div>
-
-                {status.message && (
-                  <div className={`p-4 rounded-xl text-[12px] font-bold border animate-in fade-in zoom-in duration-300 ${status.type === 'success' ? 'bg-emerald-500/5 border-emerald-500/20 text-emerald-400' : 'bg-red-500/5 border-red-500/20 text-red-400'}`}>
-                    <div className="flex items-center gap-3">
-                      <div className={`w-1.5 h-1.5 rounded-full ${status.type === 'success' ? 'bg-emerald-500' : 'bg-red-500'} animate-pulse`}></div>
-                      {status.message}
-                    </div>
-                  </div>
-                )}
-
-                <button 
-                  type="submit" 
-                  disabled={isSubmitting}
-                  className="w-full group flex items-center justify-center gap-3 bg-indigo-600 hover:bg-indigo-500 active:scale-[0.98] disabled:bg-gray-700/50 text-white h-14 rounded-2xl font-black text-[11px] uppercase tracking-[0.25em] transition-all shadow-2xl shadow-indigo-600/30 disabled:shadow-none"
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "minmax(0, 1fr) minmax(0, 1.4fr)",
+            gap: 24,
+          }}
+          className="contact-grid"
+        >
+          {/* Channels */}
+          <div
+            style={{
+              background: "var(--p3-bg-1)",
+              border: "1px solid var(--p3-line)",
+              borderRadius: "var(--radius-lg)",
+              padding: 20,
+              display: "flex",
+              flexDirection: "column",
+              gap: 12,
+            }}
+          >
+            <div
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: 11,
+                color: "var(--p3-ink-mut)",
+                textTransform: "uppercase",
+                letterSpacing: ".1em",
+                paddingBottom: 8,
+                borderBottom: "1px solid var(--p3-line)",
+              }}
+            >
+              channels
+            </div>
+            {CHANNELS.map((c) => (
+              <a
+                key={c.label}
+                href={c.link}
+                target={c.link.startsWith("http") ? "_blank" : undefined}
+                rel="noreferrer"
+                style={{
+                  display: "block",
+                  padding: 10,
+                  borderRadius: "var(--radius-sm)",
+                  textDecoration: "none",
+                  border: "1px solid var(--p3-line)",
+                  background: "var(--p3-bg-2)",
+                  transition: "border-color .15s",
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.borderColor = "var(--p3-accent)")}
+                onMouseLeave={(e) => (e.currentTarget.style.borderColor = "var(--p3-line)")}
+              >
+                <div
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: 10,
+                    color: "var(--p3-ink-mut)",
+                    textTransform: "uppercase",
+                    letterSpacing: ".1em",
+                  }}
                 >
-                  {isSubmitting ? (
-                     <><Loader size={16} className="animate-spin" /> Transmission...</>
-                  ) : (
-                     <><Send size={16} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" /> Commit & Send</>
-                  )}
-                </button>
-              </form>
+                  {c.label}
+                </div>
+                <div
+                  style={{
+                    color: "var(--p3-ink)",
+                    fontFamily: "var(--font-mono)",
+                    fontSize: 13,
+                    marginTop: 2,
+                    wordBreak: "break-all",
+                  }}
+                >
+                  {c.value}
+                </div>
+              </a>
+            ))}
+            <div
+              style={{
+                marginTop: "auto",
+                paddingTop: 12,
+                borderTop: "1px solid var(--p3-line)",
+              }}
+            >
+              <span className="p3-pill p3-pill--ok">available · open to roles</span>
             </div>
           </div>
+
+          {/* Form */}
+          <form
+            onSubmit={onSubmit}
+            style={{
+              background: "var(--p3-bg-1)",
+              border: "1px solid var(--p3-line)",
+              borderRadius: "var(--radius-lg)",
+              padding: 24,
+              display: "flex",
+              flexDirection: "column",
+              gap: 16,
+            }}
+          >
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }} className="form-row">
+              <div>
+                <label style={labelStyle}>Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  required
+                  value={form.name}
+                  onChange={onChange}
+                  placeholder="Your name"
+                  style={fieldStyle}
+                />
+              </div>
+              <div>
+                <label style={labelStyle}>Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  value={form.email}
+                  onChange={onChange}
+                  placeholder="you@domain.com"
+                  style={fieldStyle}
+                />
+              </div>
+            </div>
+            <div>
+              <label style={labelStyle}>Subject</label>
+              <input
+                type="text"
+                name="subject"
+                value={form.subject}
+                onChange={onChange}
+                placeholder="Migration plan / role / infra question"
+                style={fieldStyle}
+              />
+            </div>
+            <div>
+              <label style={labelStyle}>Message</label>
+              <textarea
+                name="message"
+                required
+                rows="5"
+                value={form.message}
+                onChange={onChange}
+                placeholder="Drop context. Stack, scale, timeline."
+                style={{ ...fieldStyle, resize: "vertical", fontFamily: "var(--font-sans)" }}
+              />
+            </div>
+
+            {status.message && (
+              <div
+                role="status"
+                aria-live="polite"
+                style={{
+                  padding: "10px 12px",
+                  borderRadius: "var(--radius-md)",
+                  fontFamily: "var(--font-mono)",
+                  fontSize: 12,
+                  color: status.type === "success" ? "var(--p3-ok)" : "var(--p3-err)",
+                  background: "var(--p3-bg-2)",
+                  border: `1px solid ${status.type === "success" ? "var(--p3-ok)" : "var(--p3-err)"}`,
+                }}
+              >
+                {status.message}
+              </div>
+            )}
+
+            <button
+              type="submit"
+              disabled={busy}
+              style={{
+                padding: "12px 20px",
+                background: busy ? "var(--p3-bg-2)" : "var(--p3-accent)",
+                color: busy ? "var(--p3-ink-mut)" : "var(--p3-bg-0)",
+                border: "none",
+                borderRadius: "var(--radius-md)",
+                fontWeight: 700,
+                fontSize: 14,
+                fontFamily: "var(--font-mono)",
+                textTransform: "uppercase",
+                letterSpacing: ".12em",
+                cursor: busy ? "not-allowed" : "pointer",
+              }}
+            >
+              {busy ? "$ sending…" : "$ git commit && send"}
+            </button>
+          </form>
         </div>
       </div>
-    </div>
+      <style>{`
+        @media (max-width: 760px) {
+          .contact-grid { grid-template-columns: 1fr !important; }
+          .form-row { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
+    </section>
   );
 };
 

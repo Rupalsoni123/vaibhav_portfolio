@@ -1171,6 +1171,17 @@ const AWS = ({ width = 35, height = 45 }) => {
     </>
   );
 };
+const GCP = ({ width = 45, height = 45 }) => {
+  return (
+    <svg width={width} height={height} viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path fill="#EA4335" d="M80.6 40.4 91 30l.7-4.4C72.7 8.3 42.7 10.3 25.6 29.6 20.8 35 17.3 41.7 15.5 48.6L19.2 48l20.7-3.4 1.6-1.6c9.2-10.1 24.8-11.5 35.4-2.9l3.7.3z"/>
+      <path fill="#4285F4" d="M105.6 48.3a47 47 0 0 0-14.1-22.7l-14.6 14.6a26 26 0 0 1 9.5 20.6v2.6c7.2 0 13 5.8 13 13s-5.8 13-13 13H60.4l-2.6 2.6V90l2.6 2.6h26c18.7.1 33.9-14.8 34-33.5a33.7 33.7 0 0 0-14.8-28z"/>
+      <path fill="#34A853" d="M34.4 117.6h26V97H34.4a12.9 12.9 0 0 1-5.4-1.2L25.3 97l-10.4 10.4-.9 3.5c5.7 4.3 12.7 6.7 19.9 6.7z"/>
+      <path fill="#FBBC05" d="M34.4 50.1a33.6 33.6 0 0 0-21.8 60l15.1-15A13 13 0 1 1 45 78l15-15A33.6 33.6 0 0 0 34.5 50z"/>
+    </svg>
+  );
+};
+
 const AzureIcon = ({ width = 45, height = 45 }) => {
   return (
 
@@ -1726,6 +1737,7 @@ export {
   NextJs,
   HTML,
   AzureIcon,
+  GCP,
   CSS,
   TS,
   TailwindCSS,

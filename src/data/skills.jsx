@@ -1,4 +1,4 @@
-import ReactJs, { Bash, Bootstrap, C, Canva, CPlusPlus, CSS, Docker, ExpressJS, FireBase, Git, GitHub, Bitbucket, AzureIcon, Heroku, HTML, Java, JQuery, Prometheus, JS, Kotlin, Kubernetes, TerragruntLogo, MaterialUI, MongoDB, MySQL, NextJs, NodeJS, PHP, PostGreSql, PostMan, Python, Redux, TailwindCSS, TS, VSCode, Redis, AWS, Ansible, Kafka, DBeaver, GithubActions, Gitlab, Grafana, Jira, Serverless, Nginx, RabbitMQ, SonarQube, Terraform, Jenkins } from "../components/SkillIcons";
+import ReactJs, { Bash, Bootstrap, C, Canva, CPlusPlus, CSS, Docker, ExpressJS, FireBase, Git, GitHub, Bitbucket, AzureIcon, GCP, Heroku, HTML, Java, JQuery, Prometheus, JS, Kotlin, Kubernetes, TerragruntLogo, MaterialUI, MongoDB, MySQL, NextJs, NodeJS, PHP, PostGreSql, PostMan, Python, Redux, TailwindCSS, TS, VSCode, Redis, AWS, Ansible, Kafka, DBeaver, GithubActions, Gitlab, Grafana, Jira, Serverless, Nginx, RabbitMQ, SonarQube, Terraform, Jenkins } from "../components/SkillIcons";
 
 const skills = [
     {
@@ -15,6 +15,18 @@ const skills = [
     },
     {
         id: 2,
+        icon: <GCP />,
+        name: "GCP",
+        category: "Cloud Platforms",
+        level: 85,
+        style: {
+            shadow: "shadow-[#4285F4]",
+            cover: "from-black to-[#4285F4] rounded-b-md",
+            opacity: "opacity-80"
+        }
+    },
+    {
+        id: 100,
         icon: <AzureIcon />,
         name: "Azure",
         category: "Cloud Platforms",

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>Vaibhav Soni — Notes from the trenches</title>
+  <link>https://vaibhavsoni21.vercel.app</link>
+  <atom:link href="https://vaibhavsoni21.vercel.app/rss.xml" rel="self" type="application/rss+xml" />
+  <description>DevOps engineering notes: K8s, Terraform, CI/CD, SRE.</description>
+  <language>en-us</language>
+  <lastBuildDate>Thu, 14 May 2026 12:31:43 GMT</lastBuildDate>
+  <item>
+    <title>Deploying AI PoCs: what an infra engineer actually owns</title>
+    <link>https://vaibhavsoni21.vercel.app/#blog</link>
+    <guid isPermaLink="false">https://vaibhavsoni21.vercel.app/blog/ai-poc-infra-ownership</guid>
+    <pubDate>Sat, 18 Apr 2026 00:00:00 GMT</pubDate>
+    <description>Scope contract for deploying AI proof-of-concepts when you don't own the model. Jenkins, Sonar gates, Nginx, TLS, and where the line is.</description>
+    <category>ci-cd</category>
+  </item>
+  <item>
+    <title>Building Production-Grade Kubernetes Clusters on DigitalOcean</title>
+    <link>https://vaibhavsoni21.vercel.app/#blog</link>
+    <guid isPermaLink="false">https://vaibhavsoni21.vercel.app/blog/kubernetes-digitalocean-production</guid>
+    <pubDate>Wed, 10 Jan 2024 00:00:00 GMT</pubDate>
+    <description>Step-by-step guide to deploying a highly available Kubernetes cluster with Apache Kafka and ZooKeeper on DigitalOcean.</description>
+    <category>kubernetes</category>
+  </item>
+  <item>
+    <title>Pinning Asterisk: when docker commit beats a Dockerfile</title>
+    <link>https://vaibhavsoni21.vercel.app/#blog</link>
+    <guid isPermaLink="false">https://vaibhavsoni21.vercel.app/blog/asterisk-docker-commit-image</guid>
+    <pubDate>Sat, 04 Nov 2023 00:00:00 GMT</pubDate>
+    <description>Client needed an exact-version Asterisk calling server. The clean Dockerfile path lost — runtime state forced a different approach.</description>
+    <category>containers</category>
+  </item>
+</channel>
+</rss>

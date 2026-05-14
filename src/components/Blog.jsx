@@ -1,462 +1,279 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo } from "react";
+import { blogPosts } from "../data/blogData";
 
 const Blog = () => {
-  const [selectedCategory, setSelectedCategory] = useState('all');
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedPost, setSelectedPost] = useState(null);
+  const [active, setActive] = useState("All");
+  const [selected, setSelected] = useState(null);
 
-  // Simple blog posts data
-  const blogPosts = [
-    {
-      id: 1,
-      title: "Migrating 240+ Azure Resources to Terraform: A Complete Guide",
-      excerpt: "Learn how I successfully migrated over 240 Azure resources to Infrastructure as Code using Terraform, reducing deployment time by 70%.",
-      content: `
-# Migrating 240+ Azure Resources to Terraform
+  const categories = useMemo(
+    () => ["All", ...Array.from(new Set(blogPosts.map((p) => p.category)))],
+    []
+  );
 
-## The Challenge
-When I joined the project, the Azure infrastructure was managed manually through the Azure portal. With over 240 resources across multiple environments, this approach was becoming unsustainable.
+  const posts = useMemo(
+    () => (active === "All" ? blogPosts : blogPosts.filter((p) => p.category === active)),
+    [active]
+  );
 
-## The Solution: Infrastructure as Code
-I decided to migrate everything to Terraform-based Infrastructure as Code (IaC). This would enable:
-- **Version Control**: Track all infrastructure changes
-- **Automation**: Eliminate manual deployment errors
-- **Consistency**: Ensure identical environments
-- **Scalability**: Easy replication across environments
+  const formatDate = (iso) =>
+    new Date(iso).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
 
-## Implementation Strategy
-
-### 1. Resource Inventory
-First, I catalogued all existing Azure resources:
-- App Services
-- API Management instances
-- Logic Apps
-- Service Bus namespaces
-- Storage Accounts
-- Key Vaults
-
-### 2. Terraform Module Design
-I created reusable, dynamic Terraform modules for each service type.
-
-### 3. Standardization
-Implemented consistent naming conventions and tagging policies.
-
-## Results
-The migration delivered impressive results:
-- **70% reduction** in deployment time
-- **Zero configuration drift**
-- **Automated infrastructure provisioning**
-- **Improved disaster recovery capabilities**
-
-This project transformed our infrastructure management from a manual, error-prone process to a fully automated, version-controlled system.
-      `,
-      category: "terraform",
-      tags: ["terraform", "azure", "iac", "devops", "automation"],
-      author: "Vaibhav Soni",
-      date: "Jan 15, 2024",
-      readTime: "8 min read"
-    },
-    {
-      id: 2,
-      title: "Kubernetes Production Deployment: Kafka & Zookeeper on DigitalOcean",
-      excerpt: "A comprehensive guide to deploying and managing Kafka and Zookeeper clusters on Kubernetes in production environments.",
-      content: `
-# Kubernetes Production Deployment: Kafka & Zookeeper
-
-## Overview
-Deploying Kafka and Zookeeper on Kubernetes requires careful planning for production workloads. This guide covers the complete setup process.
-
-## Architecture Design
-
-### Zookeeper Cluster
-- **StatefulSet**: Ensures stable network identities
-- **Persistent Volumes**: Data persistence across pod restarts
-- **Anti-affinity**: Distribute pods across nodes
-
-### Kafka Cluster
-- **StatefulSet**: Maintains broker identities
-- **ConfigMaps**: External configuration management
-- **Services**: Internal and external connectivity
-
-## Implementation Steps
-
-### 1. Namespace Setup
-\`\`\`yaml
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: kafka-system
-\`\`\`
-
-### 2. Zookeeper Deployment
-\`\`\`yaml
-apiVersion: apps/v1
-kind: StatefulSet
-metadata:
-  name: zookeeper
-spec:
-  serviceName: zookeeper-headless
-  replicas: 3
-\`\`\`
-
-### 3. Kafka Configuration
-\`\`\`yaml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: kafka-config
-data:
-  server.properties: |
-    broker.id=-1
-    listeners=PLAINTEXT://:9092
-\`\`\`
-
-## Production Considerations
-- **Resource Limits**: CPU and memory allocation
-- **Storage**: High-performance persistent volumes
-- **Monitoring**: Prometheus metrics integration
-- **Security**: RBAC and network policies
-
-This project demonstrated the power of Kubernetes for running complex, distributed systems in production environments.
-      `,
-      category: "kubernetes",
-      tags: ["kubernetes", "digitalocean", "kafka", "zookeeper", "containers"],
-      author: "Vaibhav Soni",
-      date: "Jan 10, 2024",
-      readTime: "12 min read"
-    },
-    {
-      id: 3,
-      title: "Docker Container Optimization: Security and Performance Best Practices",
-      excerpt: "Essential techniques for optimizing Docker containers for production use, focusing on security hardening and performance improvements.",
-      content: `
-# Docker Container Optimization
-
-## Security Best Practices
-
-### 1. Use Minimal Base Images
-\`\`\`dockerfile
-# Instead of ubuntu:latest
-FROM alpine:3.18
-\`\`\`
-
-### 2. Non-Root User
-\`\`\`dockerfile
-RUN addgroup -g 1001 -S nodejs
-RUN adduser -S nextjs -u 1001
-USER nextjs
-\`\`\`
-
-### 3. Multi-Stage Builds
-\`\`\`dockerfile
-FROM node:18-alpine AS builder
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci --only=production
-
-FROM alpine:3.18 AS runtime
-COPY --from=builder /app/node_modules ./node_modules
-\`\`\`
-
-## Performance Optimization
-
-### Layer Caching
-- Order instructions by change frequency
-- Combine RUN commands
-- Use .dockerignore effectively
-
-### Resource Limits
-\`\`\`yaml
-resources:
-  limits:
-    memory: "512Mi"
-    cpu: "500m"
-  requests:
-    memory: "256Mi"
-    cpu: "250m"
-\`\`\`
-
-## Security Scanning
-- Use tools like Trivy or Snyk
-- Implement automated vulnerability scanning
-- Regular base image updates
-
-This approach to container optimization ensures your applications are production-ready, secure, and performant.
-      `,
-      category: "docker",
-      tags: ["docker", "containers", "security", "optimization", "devops"],
-      author: "Vaibhav Soni",
-      date: "Jan 05, 2024",
-      readTime: "6 min read"
-    },
-    {
-      id: 4,
-      title: "GitHub Actions CI/CD Pipeline: From Code to Production",
-      excerpt: "Build a complete CI/CD pipeline using GitHub Actions for automated testing, building, and deployment to production environments.",
-      content: `
-# GitHub Actions CI/CD Pipeline
-
-## Pipeline Overview
-A complete CI/CD pipeline that handles:
-- Code quality checks
-- Automated testing
-- Docker image building
-- Multi-environment deployment
-
-## Workflow Configuration
-
-### 1. Trigger Events
-\`\`\`yaml
-on:
-  push:
-    branches: [main, develop]
-  pull_request:
-    branches: [main]
-\`\`\`
-
-### 2. Build and Test
-\`\`\`yaml
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-      - run: npm ci
-      - run: npm test
-\`\`\`
-
-### 3. Docker Build
-\`\`\`yaml
-  build:
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Build Docker image
-        run: docker build -t app:latest .
-\`\`\`
-
-### 4. Deployment
-\`\`\`yaml
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    steps:
-      - name: Deploy to production
-        run: kubectl apply -f k8s/
-\`\`\`
-
-## Security Best Practices
-- Use secrets for sensitive data
-- Implement OIDC for cloud authentication
-- Scan for vulnerabilities
-
-This CI/CD approach ensures reliable, fast, and secure software delivery.
-      `,
-      category: "cicd",
-      tags: ["github-actions", "cicd", "automation", "deployment"],
-      author: "Vaibhav Soni",
-      date: "Dec 28, 2023",
-      readTime: "10 min read"
-    },
-    {
-      id: 5,
-      title: "Monitoring Stack: Prometheus, Grafana & Setup",
-      excerpt: "Complete guide to setting up a production-ready monitoring stack with Prometheus, Grafana, and Alertmanager.",
-      content: `
-# Complete Monitoring Stack Setup
-
-## Architecture Overview
-A comprehensive monitoring solution including:
-- **Prometheus**: Metrics collection and storage
-- **Grafana**: Visualization and dashboards
-- **Alertmanager**: Alert routing and management
-- **Node Exporter**: System metrics
-
-## Prometheus Configuration
-
-### 1. Prometheus Config
-\`\`\`yaml
-global:
-  scrape_interval: 15s
-  evaluation_interval: 15s
-
-scrape_configs:
-  - job_name: 'prometheus'
-    static_configs:
-      - targets: ['localhost:9090']
-  
-  - job_name: 'node-exporter'
-    static_configs:
-      - targets: ['localhost:9100']
-\`\`\`
-
-### 2. Alert Rules
-\`\`\`yaml
-groups:
-  - name: system
-    rules:
-      - alert: HighCPUUsage
-        expr: 100 - (avg by(instance) (rate(node_cpu_seconds_total{mode="idle"}[2m])) * 100) > 80
-        for: 2m
-        labels:
-          severity: warning
-\`\`\`
-
-## Grafana Dashboards
-- System overview dashboard
-- Application metrics
-- Custom business metrics
-- Alert status panels
-
-## Alertmanager Setup
-\`\`\`yaml
-route:
-  group_by: ['alertname']
-  group_wait: 10s
-  group_interval: 10s
-  repeat_interval: 1h
-  receiver: 'web.hook'
-
-recevers:
-  - name: 'web.hook'
-    slack_configs:
-      - api_url: 'YOUR_SLACK_WEBHOOK'
-\`\`\`
-
-This monitoring approach ensures you have complete visibility into your systems' health and performance.
-      `,
-      category: "monitoring",
-      tags: ["prometheus", "grafana", "monitoring", "observability"],
-      author: "Vaibhav Soni",
-      date: "Dec 20, 2023",
-      readTime: "15 min read"
-    }
-  ];
-
-  const categories = [
-    { id: 'all', name: 'All' },
-    { id: 'terraform', name: 'Terraform' },
-    { id: 'kubernetes', name: 'Kubernetes' },
-    { id: 'docker', name: 'Docker' },
-    { id: 'cicd', name: 'CI/CD' },
-    { id: 'monitoring', name: 'Monitoring' }
-  ];
-
-  const filteredPosts = useMemo(() => {
-    let posts = blogPosts;
-    if (selectedCategory !== 'all') {
-      posts = posts.filter(p => p.category === selectedCategory);
-    }
-    if (searchTerm) {
-      posts = posts.filter(p => 
-        p.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-        p.excerpt.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    }
-    return posts;
-  }, [selectedCategory, searchTerm]);
-
-  if (selectedPost) {
+  if (selected) {
     return (
-      <div className="flex flex-col h-full overflow-hidden bg-[#1e1e2e] text-gray-100 font-sans">
-        <div className="bg-[#111119] border-b border-white/5 py-3 px-6 shadow-sm sticky top-0 z-10 flex items-center">
-          <button 
-            onClick={() => setSelectedPost(null)}
-            className="flex items-center gap-2 text-sm font-semibold text-gray-400 hover:text-white transition-colors"
+      <section
+        id="blog"
+        style={{
+          padding: "96px 24px",
+          background: "var(--p3-bg-1)",
+          borderTop: "1px solid var(--p3-line)",
+          color: "var(--p3-ink)",
+        }}
+      >
+        <div style={{ maxWidth: 760, margin: "0 auto" }}>
+          <button
+            onClick={() => setSelected(null)}
+            style={{
+              background: "transparent",
+              color: "var(--p3-accent)",
+              border: "1px solid var(--p3-line)",
+              borderRadius: "var(--radius-md)",
+              padding: "6px 12px",
+              fontFamily: "var(--font-mono)",
+              fontSize: 12,
+              cursor: "pointer",
+              marginBottom: 24,
+            }}
           >
-            <span className="text-lg leading-none">←</span> Back to Archives
+            ← back to /blog
           </button>
-        </div>
-        
-        <div className="flex-1 overflow-y-auto p-8 custom-scrollbar">
-          <div className="max-w-2xl mx-auto">
-            <h1 className="text-3xl font-bold text-white mb-4 leading-tight">{selectedPost.title}</h1>
-            <div className="flex items-center gap-4 text-xs font-medium text-gray-400 mb-10 pb-6 border-b border-white/5">
-              <span>{selectedPost.date}</span>
-              <span>•</span>
-              <span>{selectedPost.readTime}</span>
-              <span>•</span>
-              <span className="uppercase text-indigo-400">{selectedPost.category}</span>
-            </div>
-            
-            <div 
-              className="prose prose-invert prose-indigo max-w-none text-gray-300 text-[15px] leading-relaxed"
-              dangerouslySetInnerHTML={{ 
-                __html: selectedPost.content
-                  .replace(/^### (.+)$/gm, '<h3 class="text-xl font-bold text-white mt-8 mb-4">$1</h3>')
-                  .replace(/^## (.+)$/gm, '<h2 class="text-2xl font-bold text-white mt-10 mb-5">$1</h2>')
-                  .replace(/^# (.+)$/gm, '')
-                  .replace(/\*\*([^*]+)\*\*/g, '<strong class="text-white font-semibold">$1</strong>')
-                  .replace(/```[\w]*\n?([\s\S]*?)```/g, '<pre class="bg-[#111119] p-4 rounded-xl border border-white/5 overflow-x-auto my-6 text-sm text-indigo-300"><code>$1</code></pre>')
-                  .replace(/^- (.+)$/gm, '<li class="ml-4 list-disc mb-2">$1</li>')
-              }}
-            />
+          <div
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: 12,
+              color: "var(--p3-ink-mut)",
+              marginBottom: 8,
+            }}
+          >
+            {formatDate(selected.publishDate)} · {selected.readTime}
           </div>
+          <h1
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "clamp(28px, 4vw, 40px)",
+              fontWeight: 600,
+              margin: "0 0 24px",
+              letterSpacing: "-0.02em",
+            }}
+          >
+            {selected.title}
+          </h1>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 32 }}>
+            {selected.tags?.map((t) => (
+              <span
+                key={t}
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: 11,
+                  color: "var(--p3-ink-mut)",
+                  background: "var(--p3-bg-2)",
+                  padding: "2px 8px",
+                  borderRadius: 4,
+                  border: "1px solid var(--p3-line)",
+                }}
+              >
+                #{t}
+              </span>
+            ))}
+          </div>
+          <pre
+            style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: 15,
+              lineHeight: 1.7,
+              color: "var(--p3-ink-mut)",
+              whiteSpace: "pre-wrap",
+              wordBreak: "break-word",
+              margin: 0,
+              background: "transparent",
+            }}
+          >
+            {selected.content}
+          </pre>
         </div>
-      </div>
+      </section>
     );
   }
 
   return (
-    <div className="flex flex-col h-full bg-[#1e1e2e] text-gray-100 font-sans">
-      {/* Blog App Header */}
-      <div className="bg-[#111119] border-b border-white/5 px-6 py-4 space-y-4 sticky top-0 z-10 shadow-sm">
-        <div className="flex gap-4">
-          <input
-            type="text"
-            placeholder="Search articles..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="flex-1 bg-[#1e1e2e] border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white focus:border-indigo-500 outline-none transition-all placeholder-gray-500"
-          />
-        </div>
-        <div className="flex flex-wrap gap-2">
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => setSelectedCategory(cat.id)}
-              className={`px-3 py-1.5 rounded-md text-xs font-semibold tracking-wide transition-colors ${
-                selectedCategory === cat.id
-                  ? "bg-blue-600 text-white shadow shadow-blue-500/30"
-                  : "bg-white/5 text-gray-400 hover:text-white hover:bg-white/10"
-              }`}
+    <section
+      id="blog"
+      style={{
+        padding: "96px 24px",
+        background: "var(--p3-bg-1)",
+        borderTop: "1px solid var(--p3-line)",
+        color: "var(--p3-ink)",
+      }}
+    >
+      <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+        <div style={{ marginBottom: 32, display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "end", gap: 24 }}>
+          <div>
+            <div
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: 12,
+                color: "var(--p3-accent)",
+                textTransform: "uppercase",
+                letterSpacing: ".15em",
+                marginBottom: 8,
+              }}
             >
-              {cat.name}
-            </button>
-          ))}
+              ~/blog
+            </div>
+            <h2
+              style={{
+                fontFamily: "var(--font-display)",
+                fontSize: "clamp(28px, 4vw, 40px)",
+                fontWeight: 600,
+                margin: 0,
+                letterSpacing: "-0.02em",
+              }}
+            >
+              Notes from the trenches
+            </h2>
+            <p style={{ color: "var(--p3-ink-mut)", margin: "8px 0 0", maxWidth: 560 }}>
+              Field notes on migrations, K8s, IaC, and incident lessons.
+            </p>
+          </div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+            {categories.map((c) => {
+              const on = c === active;
+              return (
+                <button
+                  key={c}
+                  onClick={() => setActive(c)}
+                  style={{
+                    padding: "6px 12px",
+                    borderRadius: 999,
+                    fontFamily: "var(--font-mono)",
+                    fontSize: 11,
+                    fontWeight: 600,
+                    cursor: "pointer",
+                    background: on ? "var(--p3-accent)" : "transparent",
+                    color: on ? "var(--p3-bg-0)" : "var(--p3-ink-mut)",
+                    border: on ? "1px solid var(--p3-accent)" : "1px solid var(--p3-line)",
+                    textTransform: "uppercase",
+                    letterSpacing: ".06em",
+                  }}
+                >
+                  {c}
+                </button>
+              );
+            })}
+          </div>
         </div>
-      </div>
 
-      {/* Grid Content */}
-      <div className="flex-1 overflow-y-auto p-6 md:p-8 custom-scrollbar">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          {filteredPosts.map(post => (
-            <button 
-              key={post.id}
-              onClick={() => setSelectedPost(post)}
-              className="text-left bg-[#2b2b3b] border border-white/5 rounded-xl p-5 hover:border-blue-500/50 hover:shadow-xl hover:bg-[#323246] transition-all flex flex-col"
+        <div
+          style={{
+            display: "grid",
+            gap: 16,
+            gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
+          }}
+        >
+          {posts.map((p) => (
+            <article
+              key={p.id}
+              onClick={() => setSelected(p)}
+              style={{
+                background: "var(--p3-bg-2)",
+                border: "1px solid var(--p3-line)",
+                borderRadius: "var(--radius-lg)",
+                padding: 20,
+                cursor: "pointer",
+                transition: "border-color .2s, transform .2s",
+                display: "flex",
+                flexDirection: "column",
+                gap: 12,
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = "var(--p3-accent)";
+                e.currentTarget.style.transform = "translateY(-2px)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = "var(--p3-line)";
+                e.currentTarget.style.transform = "translateY(0)";
+              }}
             >
-              <div className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-3">
-                <span className="text-blue-400">{post.category}</span>
-                <span>•</span>
-                <span>{post.readTime}</span>
+              <div
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: 11,
+                  color: "var(--p3-ink-mut)",
+                  display: "flex",
+                  justifyContent: "space-between",
+                }}
+              >
+                <span>{formatDate(p.publishDate)}</span>
+                <span>{p.readTime}</span>
               </div>
-              <h3 className="text-white font-semibold text-lg leading-tight mb-3">
-                {post.title}
+              <h3
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontSize: 18,
+                  fontWeight: 600,
+                  color: "var(--p3-ink)",
+                  margin: 0,
+                  lineHeight: 1.3,
+                }}
+              >
+                {p.title}
               </h3>
-              <p className="text-gray-400 text-sm leading-relaxed line-clamp-2 mt-auto">
-                {post.excerpt}
+              <p
+                style={{
+                  fontSize: 14,
+                  color: "var(--p3-ink-mut)",
+                  lineHeight: 1.6,
+                  margin: 0,
+                }}
+              >
+                {p.excerpt}
               </p>
-            </button>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 4, marginTop: "auto" }}>
+                {p.tags?.slice(0, 4).map((t) => (
+                  <span
+                    key={t}
+                    style={{
+                      fontFamily: "var(--font-mono)",
+                      fontSize: 10,
+                      color: "var(--p3-ink-mut)",
+                      background: "var(--p3-bg-1)",
+                      padding: "2px 6px",
+                      borderRadius: 4,
+                      border: "1px solid var(--p3-line)",
+                    }}
+                  >
+                    #{t}
+                  </span>
+                ))}
+              </div>
+              <div
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: 12,
+                  color: "var(--p3-accent)",
+                  marginTop: 4,
+                }}
+              >
+                read →
+              </div>
+            </article>
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

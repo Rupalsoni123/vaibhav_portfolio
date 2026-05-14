@@ -1,93 +1,5 @@
 const blogPosts = [
   {
-    id: 1,
-    title: "Migrating 240+ Azure Resources to Terraform: A Complete Guide",
-    slug: "azure-terraform-migration-guide",
-    excerpt: "Learn how I successfully migrated over 240 Azure resources to Infrastructure as Code using Terraform, reducing deployment time by 70%.",
-    content: `
-# Migrating 240+ Azure Resources to Terraform: A Complete Guide
-
-## The Challenge
-
-When I joined the project, the Azure infrastructure was managed manually through the Azure portal. With over 240 resources across multiple environments, this approach was becoming unsustainable. Manual deployments were error-prone, inconsistent, and time-consuming.
-
-## The Solution: Infrastructure as Code
-
-I decided to migrate everything to Terraform-based Infrastructure as Code (IaC). This would enable:
-- **Version Control**: Track all infrastructure changes
-- **Automation**: Eliminate manual deployment errors
-- **Consistency**: Ensure identical environments
-- **Scalability**: Easy replication across environments
-
-## Implementation Strategy
-
-### 1. Resource Inventory
-First, I catalogued all existing Azure resources:
-- App Services
-- API Management instances
-- Logic Apps
-- Service Bus namespaces
-- Storage Accounts
-- Key Vaults
-- And many more...
-
-### 2. Terraform Module Design
-I created reusable, dynamic Terraform modules for each service type:
-
-\`\`\`hcl
-# Example: App Service Module
-module "app_service" {
-  source = "./modules/app-service"
-  
-  name                = var.app_name
-  resource_group_name = var.resource_group_name
-  location           = var.location
-  app_service_plan_id = var.app_service_plan_id
-  
-  app_settings = var.app_settings
-  
-  tags = merge(var.common_tags, {
-    Service = "WebApp"
-  })
-}
-\`\`\`
-
-### 3. Standardization
-Implemented consistent naming conventions and tagging policies:
-- Environment-based naming: \`{env}-{service}-{component}\`
-- Mandatory tags: Environment, Owner, CostCenter, Project
-
-## Results
-
-The migration delivered impressive results:
-- **70% reduction** in code duplication
-- **90% faster** deployments
-- **Zero deployment errors** post-migration
-- **100% environment consistency**
-
-## Key Learnings
-
-1. **Start with a clear inventory** - Know what you're migrating
-2. **Design for reusability** - Create modular, parameterized code
-3. **Implement standards early** - Naming and tagging conventions are crucial
-4. **Test thoroughly** - Validate in non-production first
-
-## Technologies Used
-- Terraform
-- Azure Resource Manager
-- Azure CLI
-- Git for version control
-
-This project transformed our infrastructure management from a manual, error-prone process to a fully automated, version-controlled system.
-    `,
-    category: "terraform",
-    tags: ["terraform", "azure", "iac", "devops", "automation"],
-    author: "Vaibhav Soni",
-    featured: true,
-    readTime: "8 min read",
-    publishDate: "2024-01-15"
-  },
-  {
     id: 2,
     title: "Building Production-Grade Kubernetes Clusters on DigitalOcean",
     slug: "kubernetes-digitalocean-production",
@@ -243,6 +155,91 @@ This project demonstrated the power of Kubernetes for running complex, distribut
     featured: true,
     readTime: "12 min read",
     publishDate: "2024-01-10"
+  },
+  {
+    id: 3,
+    title: "Pinning Asterisk: when docker commit beats a Dockerfile",
+    slug: "asterisk-docker-commit-image",
+    excerpt:
+      "Client needed an exact-version Asterisk calling server. The clean Dockerfile path lost — runtime state forced a different approach.",
+    content: `# Pinning Asterisk: when docker commit beats a Dockerfile
+
+## Context
+HighSky client. Asterisk calling server. The client had a specific version that worked. Newer versions broke their dialplan. Couldn't change the version, couldn't change the dialplan.
+
+## What "build from Dockerfile" couldn't do
+The exact version of Asterisk we needed was pinned by a runtime configuration that gets baked in after a one-time interactive setup. Running that setup on every CI rebuild meant:
+- Non-deterministic config
+- Risk of the build host's package mirror serving a slightly newer minor
+
+## The pragmatic path
+- Stand up the exact Asterisk version once on a clean Debian base.
+- Run the interactive config until the dialplan worked.
+- \`docker commit\` the running container into an image.
+- Tag and push to the client's registry.
+- Document the recreation steps separately so the recipe wasn't lost.
+
+## Trade-off
+\`docker commit\` is the dirty cousin of \`docker build\` — image isn't reproducible from source alone, and you need the recreation doc to be the source of truth. We accepted that explicitly.
+
+## Lesson
+"Reproducible from a Dockerfile" is the right north star, not the only star. When a vendor's app expects state at runtime, \`docker commit\` + a written runbook is sometimes the honest answer.
+`,
+    category: "containers",
+    tags: ["docker", "asterisk", "voip", "pragmatism"],
+    author: "Vaibhav Soni",
+    featured: true,
+    readTime: "5 min read",
+    publishDate: "2023-11-04"
+  },
+  {
+    id: 4,
+    title: "Deploying AI PoCs: what an infra engineer actually owns",
+    slug: "ai-poc-infra-ownership",
+    excerpt:
+      "Scope contract for deploying AI proof-of-concepts when you don't own the model. Jenkins, Sonar gates, Nginx, TLS, and where the line is.",
+    content: `# Deploying AI PoCs: what an infra engineer actually owns
+
+## Why scope clarity matters
+"AI engineer" and "DevOps who deploys AI" are different jobs. Conflating them on a resume burns trust. Conflating them on the team burns weekends. The cleanest contract I've used:
+
+> Application + model behavior → ML/dev team.
+> Pipeline + runtime + ingress + TLS → infra (me).
+
+## What the infra-side deploy looks like
+Across multiple AI PoCs I deployed (role: deployment + infra only), the recipe was essentially the same:
+
+1. **Jenkins pipeline** per PoC repo. Conditional stages for monorepo FE/BE.
+2. **SonarQube quality gate** as a hard stage. Fails the pipeline if blockers exist.
+3. **Automated test stage** — if tests fail, build does not progress.
+4. **Docker image build** with pinned base + multi-stage trim.
+5. **Nginx reverse proxy** with route-based proxy_pass to the app container.
+6. **TLS via Certbot** (Let's Encrypt) with auto-renewal hook.
+7. **Environment promotion** Dev → Staging → Prod with separate Jenkins jobs.
+
+## What I do NOT claim
+- I did not choose the model.
+- I did not write prompts or agents.
+- I did not evaluate model output quality.
+- I did not handle training data.
+
+Saying that explicitly costs nothing and pays off the first time a hiring manager asks a sharp question.
+
+## Wins worth claiming
+- Reproducible deploys across PoC count.
+- TLS auto-renews; nobody has paged me about a cert.
+- Pipelines block bad merges via Sonar + tests rather than human review alone.
+- Each PoC's runbook is short enough to fit on one screen.
+
+## Closing
+If you're applying for SRE/DevOps roles after AI-adjacent deploys: list the verb you actually did. Hiring teams can tell the difference, and the ones that can't aren't the ones you want.
+`,
+    category: "ci-cd",
+    tags: ["jenkins", "ci-cd", "ai-deployment", "scope"],
+    author: "Vaibhav Soni",
+    featured: true,
+    readTime: "6 min read",
+    publishDate: "2026-04-18"
   }
 ];
 

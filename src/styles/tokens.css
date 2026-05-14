@@ -1,0 +1,293 @@
+/* Pipeline/03 design tokens.
+   Dark-first DevOps palette. Legacy var aliases retained so existing
+   components inherit the new theme with zero edits. */
+
+:root,
+:root[data-theme="dark"],
+.dark {
+  /* Forge palette · warm slate + amber */
+  --p3-bg-0: #0E1116;
+  --p3-bg-1: #161B22;
+  --p3-bg-2: #1F2530;
+  --p3-ink: #E6E8EC;
+  --p3-ink-mut: #9098A8;
+  --p3-ok: #5FB67A;
+  --p3-warn: #E8B339;
+  --p3-err: #D9646F;
+  --p3-accent: #F2A65A;
+  --p3-accent-2: #E89B5C;
+  --p3-grid: rgba(242, 166, 90, 0.06);
+  --p3-line: rgba(230, 232, 236, 0.08);
+
+  /* Legacy aliases consumed by existing components */
+  --bg-primary: var(--p3-bg-0);
+  --bg-primary-rgb: 11, 16, 32;
+  --bg-secondary: var(--p3-bg-1);
+  --bg-tertiary: var(--p3-bg-2);
+  --card-bg: var(--p3-bg-1);
+  --text-primary: var(--p3-ink);
+  --text-secondary: var(--p3-ink-mut);
+  --text-tertiary: #6B7399;
+  --border-color: var(--p3-line);
+  --primary-blue: var(--p3-accent);
+  --gradient-primary: linear-gradient(135deg, var(--p3-accent) 0%, var(--p3-accent-2) 100%);
+
+  /* Shape + space */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --border-radius-md: var(--radius-md);
+  --border-radius-lg: var(--radius-lg);
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+
+  /* Elevation */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, .3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, .35);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, .4);
+  --shadow-xl: 0 16px 48px rgba(0, 0, 0, .5);
+
+  /* Typography */
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-display: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Ubuntu Mono', ui-monospace, monospace;
+}
+
+:root[data-theme="light"],
+.light {
+  --p3-bg-0: #FAF7F2;
+  --p3-bg-1: #FFFFFF;
+  --p3-bg-2: #F1EDE5;
+  --p3-ink: #1A1E27;
+  --p3-ink-mut: #5C6273;
+  --p3-line: rgba(26, 30, 39, 0.10);
+  --p3-accent: #C77A2C;
+  --p3-accent-2: #B86C20;
+
+  --bg-primary: var(--p3-bg-0);
+  --bg-primary-rgb: 247, 248, 252;
+  --bg-secondary: var(--p3-bg-1);
+  --bg-tertiary: var(--p3-bg-2);
+  --card-bg: var(--p3-bg-1);
+  --text-primary: var(--p3-ink);
+  --text-secondary: var(--p3-ink-mut);
+  --text-tertiary: #6B7399;
+  --border-color: var(--p3-line);
+
+  --shadow-sm: 0 1px 2px rgba(11, 16, 32, .06);
+  --shadow-md: 0 4px 12px rgba(11, 16, 32, .08);
+  --shadow-lg: 0 8px 24px rgba(11, 16, 32, .10);
+  --shadow-xl: 0 16px 48px rgba(11, 16, 32, .14);
+}
+
+/* Scroll-mode body reset. Activated only on the traditional route. */
+body[data-mode="scroll"] {
+  overflow: auto !important;
+  height: auto !important;
+  background: var(--p3-bg-0) !important;
+  color: var(--p3-ink) !important;
+  user-select: text !important;
+  font-family: var(--font-sans);
+}
+
+body[data-mode="scroll"] img {
+  pointer-events: auto;
+  -webkit-user-drag: auto;
+}
+
+body[data-mode="scroll"] #root {
+  height: auto;
+  min-height: 100vh;
+}
+
+/* Faint dot grid on scroll mode hero */
+.p3-grid-bg {
+  background-image:
+    radial-gradient(var(--p3-grid) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Theme-reactive navbar surfaces */
+.p3-nav {
+  background: color-mix(in srgb, var(--p3-bg-0) 55%, transparent);
+  border-bottom: 1px solid transparent;
+}
+.p3-nav.is-scrolled {
+  background: color-mix(in srgb, var(--p3-bg-0) 88%, transparent);
+  border-bottom-color: var(--p3-line);
+}
+/* Fallback for browsers without color-mix */
+@supports not (background: color-mix(in srgb, red, blue)) {
+  .p3-nav { background: var(--p3-bg-0); opacity: .9; }
+  .p3-nav.is-scrolled { background: var(--p3-bg-0); opacity: 1; }
+}
+
+.p3-nav-logo {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--p3-ink);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.p3-nav-logo .slash { color: var(--p3-accent); }
+
+.p3-nav-link {
+  position: relative;
+  padding: 8px 12px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--p3-ink-mut);
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: color .15s;
+}
+.p3-nav-link:hover { color: var(--p3-ink); }
+.p3-nav-link[data-active="true"] { color: var(--p3-ink); }
+.p3-nav-link[data-active="true"]::after {
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: -2px;
+  height: 2px;
+  background: var(--p3-accent);
+  border-radius: 2px;
+}
+
+.p3-nav-pill {
+  padding: 6px 10px;
+  border: 1px solid var(--p3-line);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--p3-ink);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  transition: border-color .15s, color .15s, background .15s;
+}
+.p3-nav-pill:hover {
+  border-color: var(--p3-accent);
+  color: var(--p3-accent);
+}
+.p3-nav-pill--accent { color: var(--p3-accent); border-color: var(--p3-accent); }
+.p3-nav-pill--accent:hover { background: var(--p3-accent); color: var(--p3-bg-0); }
+
+/* Status pill */
+.p3-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: var(--p3-bg-1);
+  color: var(--p3-ink);
+  border: 1px solid var(--p3-line);
+}
+.p3-pill::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 8px currentColor;
+}
+.p3-pill--ok { color: var(--p3-ok); }
+.p3-pill--warn { color: var(--p3-warn); }
+.p3-pill--err { color: var(--p3-err); }
+
+/* Focus ring */
+body[data-mode="scroll"] :focus-visible {
+  outline: 2px solid var(--p3-accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* High-contrast opt-in (selector specificity has to beat .dark[data-theme="dark"]) */
+html[data-hc="on"],
+html.dark[data-hc="on"],
+html.light[data-hc="on"],
+html[data-hc="on"][data-theme="dark"],
+html[data-hc="on"][data-theme="light"] {
+  --p3-ink: #FFFFFF !important;
+  --p3-ink-mut: #E0E0E0 !important;
+  --p3-line: rgba(255, 255, 255, 0.35) !important;
+  --p3-bg-0: #000000 !important;
+  --p3-bg-1: #0A0A0A !important;
+  --p3-bg-2: #181818 !important;
+  --p3-accent: #FFD400 !important;
+  --p3-accent-2: #FFC100 !important;
+  --p3-ok: #00FF6A !important;
+  --p3-warn: #FFD400 !important;
+  --p3-err: #FF5577 !important;
+}
+
+html.light[data-hc="on"],
+html[data-hc="on"][data-theme="light"] {
+  --p3-ink: #000000 !important;
+  --p3-ink-mut: #1A1A1A !important;
+  --p3-bg-0: #FFFFFF !important;
+  --p3-bg-1: #FFFFFF !important;
+  --p3-bg-2: #F0F0F0 !important;
+  --p3-line: rgba(0, 0, 0, 0.6) !important;
+  --p3-accent: #B25E00 !important;
+  --p3-accent-2: #8E4A00 !important;
+  --p3-ok: #006B2D !important;
+  --p3-warn: #8B6B00 !important;
+  --p3-err: #B0002A !important;
+}
+
+html[data-hc="on"] body[data-mode="scroll"] :focus-visible {
+  outline: 3px solid var(--p3-accent) !important;
+  outline-offset: 3px !important;
+}
+
+/* Stronger borders in HC */
+html[data-hc="on"] body[data-mode="scroll"] button,
+html[data-hc="on"] body[data-mode="scroll"] a {
+  text-decoration-thickness: 2px;
+}
+
+/* Dyslexia-friendly opt-in */
+html[data-dys="on"] body[data-mode="scroll"],
+html[data-dys="on"] body[data-mode="scroll"] * {
+  font-family: "Atkinson Hyperlegible", "OpenDyslexic", "Comic Sans MS", system-ui, sans-serif !important;
+  letter-spacing: 0.02em;
+}
+
+/* Wider line spacing opt-in */
+html[data-lw="on"] body[data-mode="scroll"] p,
+html[data-lw="on"] body[data-mode="scroll"] li,
+html[data-lw="on"] body[data-mode="scroll"] span {
+  line-height: 1.9 !important;
+  letter-spacing: 0.02em;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

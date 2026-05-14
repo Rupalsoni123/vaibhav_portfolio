@@ -1,170 +1,189 @@
-import React, { useState, useContext, useEffect } from 'react';
-import HamburgerMenu from './HamburgerMenu';
-import Navigation from './Navigation';
-import { ThemeContext } from '../utils/ThemeContext';
-import { Sun, Moon } from './Icons';
+import React, { useState, useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { ThemeContext } from "../utils/ThemeContext";
+import navLinks from "../data/navlinks";
 
-const Navbar = () => {
-    const [navOpen, setNavOpen] = useState(false);
-    const [scrolled, setScrolled] = useState(false);
-    const { theme, toggleTheme } = useContext(ThemeContext);
-    
-    const handleMenuClick = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        console.log('Menu clicked');
-        setNavOpen(prevValue => !prevValue);
+const SECTIONS = navLinks.map((n) => n.link.toLowerCase());
+
+const Navbar = ({ onOpenPalette }) => {
+  const { theme, mode, setMode } = useContext(ThemeContext);
+  const [open, setOpen] = useState(false);
+  const [active, setActive] = useState("home");
+  const [scrolled, setScrolled] = useState(false);
+
+  const cycleMode = () => {
+    const next = mode === "dark" ? "light" : mode === "light" ? "system" : "dark";
+    setMode(next);
+  };
+  const modeIcon = mode === "system" ? "◐" : theme === "dark" ? "☾" : "☀";
+
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolled(window.scrollY > 16);
+      let current = SECTIONS[0];
+      for (const id of SECTIONS) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+        const top = el.getBoundingClientRect().top;
+        if (top <= 120) current = id;
+      }
+      setActive(current);
     };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
-    const handleThemeToggle = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        console.log('Theme toggle clicked, current theme:', theme);
-        if (toggleTheme) {
-            toggleTheme();
-            console.log('Theme toggle function called');
-        } else {
-            console.error('toggleTheme function not available');
-        }
-    };
+  const go = (id) => (e) => {
+    e?.preventDefault();
+    const el = document.getElementById(id.toLowerCase());
+    if (el) window.scrollTo({ top: el.offsetTop - 80, behavior: "smooth" });
+    setOpen(false);
+  };
 
-    // Handle scroll effect
-    useEffect(() => {
-        const handleScroll = () => {
-            const isScrolled = window.scrollY > 20;
-            setScrolled(isScrolled);
-        };
+  return (
+    <nav
+      aria-label="Primary"
+      className={`p3-nav${scrolled ? " is-scrolled" : ""}`}
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 1000,
+        padding: "10px 0",
+        backdropFilter: "blur(18px) saturate(140%)",
+        WebkitBackdropFilter: "blur(18px) saturate(140%)",
+        transition: "background .25s ease, border-color .25s ease",
+      }}
+    >
+      <div
+        style={{
+          maxWidth: 1200,
+          margin: "0 auto",
+          padding: "0 24px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: 16,
+        }}
+      >
+        <a href="#home" onClick={go("home")} className="p3-nav-logo" aria-label="Vaibhav Soni - home">
+          <span>vaibhav</span>
+          <span className="slash">/</span>
+          <span>soni</span>
+        </a>
 
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+        <div className="nav-desk" style={{ display: "flex", alignItems: "center", gap: 2 }}>
+          {navLinks.map((n) => {
+            const id = n.link.toLowerCase();
+            return (
+              <a
+                key={n.id}
+                href={`#${id}`}
+                onClick={go(id)}
+                className="p3-nav-link"
+                data-active={active === id}
+              >
+                {n.link}
+              </a>
+            );
+          })}
+          <Link to="/lab" className="p3-nav-pill p3-nav-pill--accent" style={{ marginLeft: 8 }} title="Open Lab (OS shell)">
+            /lab
+          </Link>
+        </div>
 
-    return (
-        <>
-            <nav
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <button
+            type="button"
+            onClick={onOpenPalette}
+            aria-label="Open command palette"
+            title="Command palette (⌘K)"
+            className="p3-nav-pill nav-desk-only"
+          >
+            ⌘K
+          </button>
+
+          <button
+            type="button"
+            onClick={cycleMode}
+            aria-label={`Theme: ${mode}`}
+            title={`Theme: ${mode} (click to cycle)`}
+            className="p3-nav-pill"
+            style={{ minWidth: 36, height: 36, justifyContent: "center" }}
+          >
+            <span aria-hidden="true">{modeIcon}</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-label="Toggle menu"
+            aria-expanded={open}
+            className="p3-nav-pill nav-mobile-only"
+            style={{ display: "none", justifyContent: "center", width: 36, height: 36, fontSize: 16 }}
+          >
+            ☰
+          </button>
+        </div>
+      </div>
+
+      {open && (
+        <div
+          className="nav-mobile-open"
+          style={{
+            background: "var(--p3-bg-1)",
+            borderTop: "1px solid var(--p3-line)",
+            padding: 12,
+          }}
+        >
+          {navLinks.map((n) => {
+            const id = n.link.toLowerCase();
+            return (
+              <a
+                key={n.id}
+                href={`#${id}`}
+                onClick={go(id)}
                 style={{
-                    position: 'fixed',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    zIndex: 1000,
-                    background: scrolled 
-                        ? 'rgba(var(--bg-primary-rgb), 0.95)' 
-                        : 'transparent',
-                    backdropFilter: scrolled ? 'blur(10px)' : 'none',
-                    borderBottom: scrolled 
-                        ? '1px solid var(--border-color)' 
-                        : 'none',
-                    transition: 'all 0.3s ease',
-                    padding: '1rem 0'
+                  display: "block",
+                  padding: "10px 12px",
+                  fontFamily: "var(--font-sans)",
+                  fontSize: 15,
+                  color: active === id ? "var(--p3-accent)" : "var(--p3-ink)",
+                  textDecoration: "none",
                 }}
-            >
-                <div style={{
-                    maxWidth: '1200px',
-                    margin: '0 auto',
-                    padding: '0 2rem',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center'
-                }}>
-                    {/* Logo */}
-                    <div style={{
-                        fontSize: '1.5rem',
-                        fontWeight: '700',
-                        color: 'var(--text-primary)'
-                    }}>
-                        <span style={{ color: 'var(--primary-blue)' }}>Vaibhav</span>
-                        <span style={{ color: 'var(--text-primary)' }}>Soni</span>
-                    </div>
+              >
+                {n.link}
+              </a>
+            );
+          })}
+          <Link
+            to="/lab"
+            onClick={() => setOpen(false)}
+            style={{
+              display: "block",
+              padding: "10px 12px",
+              fontFamily: "var(--font-sans)",
+              fontSize: 15,
+              color: "var(--p3-accent)",
+              textDecoration: "none",
+            }}
+          >
+            /lab
+          </Link>
+        </div>
+      )}
 
-                    {/* Desktop Navigation */}
-                    <div style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '2rem'
-                    }}>
-                        <div className="hidden md:block">
-                            <Navigation />
-                        </div>
-
-                        {/* Theme Toggle */}
-                        <button
-                            type="button"
-                            onClick={handleThemeToggle}
-                            style={{
-                                width: '2.5rem',
-                                height: '2.5rem',
-                                borderRadius: '50%',
-                                border: '1px solid var(--border-color)',
-                                background: 'var(--card-bg)',
-                                color: 'var(--text-secondary)',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                cursor: 'pointer',
-                                transition: 'all 0.3s ease'
-                            }}
-                            onMouseEnter={(e) => {
-                                e.target.style.borderColor = 'var(--primary-blue)';
-                                e.target.style.color = 'var(--primary-blue)';
-                            }}
-                            onMouseLeave={(e) => {
-                                e.target.style.borderColor = 'var(--border-color)';
-                                e.target.style.color = 'var(--text-secondary)';
-                            }}
-                            aria-label="Toggle theme"
-                        >
-                            {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
-                        </button>
-
-                        {/* Mobile Menu Button */}
-                        <div className="block md:hidden">
-                            <HamburgerMenu 
-                                handleClick={handleMenuClick}
-                                navOpen={navOpen}
-                            />
-                        </div>
-                    </div>
-                </div>
-            </nav>
-
-            {/* Mobile Navigation Overlay */}
-            {navOpen && (
-                <div
-                    style={{
-                        position: 'fixed',
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        background: 'rgba(0, 0, 0, 0.8)',
-                        zIndex: 999,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center'
-                    }}
-                    className="md:hidden"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        setNavOpen(false);
-                    }}
-                >
-                    <div style={{
-                        background: 'var(--card-bg)',
-                        borderRadius: 'var(--border-radius-lg)',
-                        padding: '2rem',
-                        maxWidth: '90vw',
-                        width: '400px'
-                    }}
-                    onClick={(e) => e.stopPropagation()}
-                    >
-                        <Navigation mobile onLinkClick={() => setNavOpen(false)} />
-                    </div>
-                </div>
-            )}
-        </>
-    );
+      <style>{`
+        @media (max-width: 820px) {
+          .nav-desk { display: none !important; }
+          .nav-desk-only { display: none !important; }
+          .nav-mobile-only { display: inline-flex !important; }
+        }
+      `}</style>
+    </nav>
+  );
 };
 
 export default Navbar;

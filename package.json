@@ -14,6 +14,7 @@
   ],
   "scripts": {
     "dev": "vite",
+    "prebuild": "node scripts/generate-rss.mjs && node scripts/generate-contribs.mjs && node scripts/generate-og.mjs",
     "build": "vite build",
     "preview": "vite preview",
     "portfolio": "vite",
@@ -31,12 +32,14 @@
   },
   "dependencies": {
     "@sendgrid/mail": "^8.0.0",
+    "@vercel/analytics": "^2.0.1",
+    "@vercel/speed-insights": "^2.0.0",
     "framer-motion": "^11.3.2",
     "lucide-react": "^1.7.0",
+    "mermaid": "^11.15.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-scroll": "^1.8.9",
-    "react-type-animation": "^3.1.0"
+    "react-router-dom": "^7.15.0"
   },
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.2",
@@ -51,6 +54,7 @@
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.7",
     "postcss": "^8.4.31",
+    "sharp": "^0.34.5",
     "tailwindcss": "^3.3.3",
     "terser": "^5.46.1",
     "vite": "^6.4.1",

@@ -1,85 +1,187 @@
 import React, { useState, useMemo } from "react";
-import { useOS } from "../system/OSContext";
 import skills from "../data/skills";
 
 const Skills = () => {
-  const { isOverviewOpen } = useOS();
-  const [activeCategory, setActiveCategory] = useState("All");
+  const [active, setActive] = useState("All");
 
-  const categories = useMemo(() => {
-    const uniqueCategories = [...new Set(skills.map(s => s.category))];
-    return ["All", ...uniqueCategories];
-  }, []);
+  const categories = useMemo(
+    () => ["All", ...Array.from(new Set(skills.map((s) => s.category)))],
+    []
+  );
 
-  const filteredSkills = useMemo(() => {
-    if (activeCategory === "All") return skills;
-    return skills.filter(s => s.category === activeCategory);
-  }, [activeCategory]);
+  const grouped = useMemo(() => {
+    const list = active === "All" ? skills : skills.filter((s) => s.category === active);
+    return list.reduce((acc, s) => {
+      (acc[s.category] = acc[s.category] || []).push(s);
+      return acc;
+    }, {});
+  }, [active]);
+
+  const proficiencyDots = (level) => {
+    const filled = Math.round((level || 0) / 20); // 5-dot scale
+    return (
+      <span style={{ display: "inline-flex", gap: 3 }}>
+        {[0, 1, 2, 3, 4].map((i) => (
+          <span
+            key={i}
+            style={{
+              width: 6,
+              height: 6,
+              borderRadius: "50%",
+              background: i < filled ? "var(--p3-ok)" : "var(--p3-bg-2)",
+              border: "1px solid var(--p3-line)",
+            }}
+          />
+        ))}
+      </span>
+    );
+  };
 
   return (
-    <div className="flex flex-col h-full bg-[#1c1c1e] text-gray-100 font-sans select-none overflow-hidden sm:rounded-b-xl">
-      {/* Header - Ubuntu Inspired */}
-      <div className="px-8 py-10 bg-[#1a1a1b] border-b border-black/40">
-        <h2 className="text-2xl font-black text-white tracking-tight leading-none mb-3">Technical Arsenal</h2>
-        <div className="flex items-center gap-3">
-           <div className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse"></div>
-           <p className="text-[10px] text-gray-500 font-bold uppercase tracking-[0.2em]">Building, Automating & Operating Cloud-Native Infra</p>
-        </div>
-      </div>
-
-      {/* Categories Toolbar - Ubuntu breadcrumb style */}
-      <div className="px-6 py-4 bg-[#1e1e1f] border-b border-black/20 flex items-center gap-2 overflow-x-auto custom-scrollbar no-scrollbar scroll-smooth">
-        {categories.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setActiveCategory(cat)}
-            className={`whitespace-nowrap px-4 py-2 rounded-lg text-[11px] font-bold transition-all border ${
-              activeCategory === cat
-                ? "bg-indigo-600 text-white border-indigo-500 shadow-lg shadow-indigo-600/20"
-                : "text-gray-500 bg-white/5 border-transparent hover:bg-white/10 hover:text-gray-300"
-            }`}
+    <section
+      id="skills"
+      style={{
+        padding: "96px 24px",
+        background: "var(--p3-bg-0)",
+        borderTop: "1px solid var(--p3-line)",
+        color: "var(--p3-ink)",
+      }}
+    >
+      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+        <div style={{ marginBottom: 32 }}>
+          <div
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: 12,
+              color: "var(--p3-accent)",
+              textTransform: "uppercase",
+              letterSpacing: ".15em",
+              marginBottom: 8,
+            }}
           >
-            {cat}
-          </button>
-        ))}
-      </div>
+            ~/skills
+          </div>
+          <h2
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "clamp(28px, 4vw, 40px)",
+              fontWeight: 600,
+              margin: 0,
+              letterSpacing: "-0.02em",
+            }}
+          >
+            Technical arsenal
+          </h2>
+          <p style={{ color: "var(--p3-ink-mut)", margin: "8px 0 0", maxWidth: 600 }}>
+            Tools I reach for. Proficiency dots = years × depth, not vanity.
+          </p>
+        </div>
 
-      {/* Grid Content - Humanized Design */}
-      <div className="flex-1 overflow-y-auto p-8 custom-scrollbar bg-[#1c1c1e]">
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6 pb-12">
-          {filteredSkills.map(skill => (
-            <div 
-              key={skill.id} 
-              className="group relative bg-[#252526] border border-white/5 rounded-2xl p-6 flex flex-col items-center gap-5 transition-all hover:bg-[#2a2a2b] hover:border-indigo-500/30 hover:-translate-y-2 shadow-xl shadow-black/20"
-            >
-              {/* Original Icon - Preserved but re-styled */}
-              <div className="w-16 h-16 flex items-center justify-center rounded-2xl bg-[#1c1c1e] text-4xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-inner">
-                <span className="filter group-hover:drop-shadow-[0_0_15px_rgba(99,102,241,0.4)]">
-                   {skill.icon || skill.name.charAt(0)}
-                </span>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 32 }}>
+          {categories.map((c) => {
+            const on = c === active;
+            return (
+              <button
+                key={c}
+                onClick={() => setActive(c)}
+                style={{
+                  padding: "6px 12px",
+                  borderRadius: 999,
+                  fontFamily: "var(--font-mono)",
+                  fontSize: 11,
+                  fontWeight: 600,
+                  cursor: "pointer",
+                  background: on ? "var(--p3-accent)" : "transparent",
+                  color: on ? "var(--p3-bg-0)" : "var(--p3-ink-mut)",
+                  border: on ? "1px solid var(--p3-accent)" : "1px solid var(--p3-line)",
+                  textTransform: "uppercase",
+                  letterSpacing: ".06em",
+                }}
+              >
+                {c}
+              </button>
+            );
+          })}
+        </div>
+
+        <div style={{ display: "grid", gap: 32 }}>
+          {Object.entries(grouped).map(([cat, items]) => (
+            <div key={cat}>
+              <div
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: 11,
+                  color: "var(--p3-ink-mut)",
+                  textTransform: "uppercase",
+                  letterSpacing: ".15em",
+                  marginBottom: 12,
+                }}
+              >
+                {cat} · {items.length}
               </div>
-
-              <div className="text-center w-full">
-                <h3 className="text-white font-bold text-[14px] leading-tight tracking-tight mb-2 group-hover:text-indigo-400 transition-colors">
-                  {skill.name}
-                </h3>
-                <div className="inline-block text-[9px] text-gray-500 font-black uppercase tracking-widest px-2.5 py-1 rounded-full bg-black/20 border border-white/5">
-                  {skill.category.split(' ')[0]}
-                </div>
-              </div>
-
-              {/* Sophisticated Level Indicator */}
-              <div className="w-full mt-2 h-1 bg-black/40 rounded-full overflow-hidden border border-white/5">
-                 <div 
-                   className="h-full bg-gradient-to-r from-indigo-600 to-purple-500 transition-all duration-1000 ease-out" 
-                   style={{ width: isOverviewOpen ? '0%' : `${skill.level}%` }} 
-                 />
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))",
+                  gap: 10,
+                }}
+              >
+                {items.map((s) => (
+                  <div
+                    key={s.id}
+                    style={{
+                      background: "var(--p3-bg-1)",
+                      border: "1px solid var(--p3-line)",
+                      borderRadius: "var(--radius-md)",
+                      padding: 14,
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: 10,
+                      transition: "border-color .2s, transform .2s",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = "var(--p3-accent)";
+                      e.currentTarget.style.transform = "translateY(-2px)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = "var(--p3-line)";
+                      e.currentTarget.style.transform = "translateY(0)";
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: 40,
+                        height: 40,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        background: "var(--p3-bg-2)",
+                        borderRadius: 8,
+                        fontSize: 24,
+                      }}
+                    >
+                      {s.icon || s.name.charAt(0)}
+                    </div>
+                    <div
+                      style={{
+                        fontFamily: "var(--font-display)",
+                        fontWeight: 600,
+                        fontSize: 14,
+                        color: "var(--p3-ink)",
+                        lineHeight: 1.2,
+                      }}
+                    >
+                      {s.name}
+                    </div>
+                    {proficiencyDots(s.level)}
+                  </div>
+                ))}
               </div>
             </div>
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

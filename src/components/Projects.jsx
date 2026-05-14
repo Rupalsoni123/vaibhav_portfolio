@@ -1,184 +1,566 @@
-import React, { useState, useEffect } from "react";
-import { Code, ExternalLink, Rocket, Cloud, Server, ChevronRight, Layout, CheckCircle2, Clock, Globe, Shield, Terminal } from "lucide-react";
+import React, { useState, useMemo } from "react";
 import projectsData from "../data/projects";
-import { GitHub as Github } from "./Icons";
 
-const Projects = () => {
-  const [activeCategory, setActiveCategory] = useState("All");
-  const [selectedProjectId, setSelectedProjectId] = useState(projectsData[0]?.id);
-  const [displayProjectId, setDisplayProjectId] = useState(projectsData[0]?.id);
-  const [isAnimate, setIsAnimate] = useState(false);
+const slug = (s) =>
+  s
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 28);
 
-  const categories = ["All", ...new Set(projectsData.map(p => p.category))];
-  const filteredProjects = activeCategory === "All" ? projectsData : projectsData.filter(p => p.category === activeCategory);
-  
-  const selectedProject = projectsData.find(p => p.id === displayProjectId) || projectsData[0];
+const WindowChrome = ({ title }) => (
+  <div
+    style={{
+      display: "flex",
+      alignItems: "center",
+      gap: 8,
+      padding: "10px 14px",
+      background: "var(--p3-bg-2)",
+      borderBottom: "1px solid var(--p3-line)",
+    }}
+  >
+    <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#D9646F" }} />
+    <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#E8B339" }} />
+    <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#5FB67A" }} />
+    <span
+      style={{
+        marginLeft: 12,
+        fontFamily: "var(--font-mono)",
+        fontSize: 12,
+        color: "var(--p3-ink-mut)",
+        overflow: "hidden",
+        textOverflow: "ellipsis",
+        whiteSpace: "nowrap",
+      }}
+    >
+      {title}
+    </span>
+  </div>
+);
 
-  const handleProjectSelect = (id) => {
-    if (id === selectedProjectId) return;
-    
-    // 1. Kick off exit animation
-    setIsAnimate(true);
-    setSelectedProjectId(id);
-    
-    // 2. Wait for fade out, then swap data and trigger fade in
-    setTimeout(() => {
-      setDisplayProjectId(id);
-      setIsAnimate(false);
-    }, 400); // Slightly less than CSS duration for overlap
-  };
-
-  const getProjectIcon = (iconName, color = "text-indigo-400") => {
-    const iconMap = {
-      rocket: <Rocket size={20} className={color} />,
-      cloud: <Cloud size={20} className={color} />,
-      server: <Server size={20} className={color} />,
-      shield: <Shield size={20} className={color} />,
-      terminal: <Terminal size={20} className={color} />,
-      globe: <Globe size={20} className={color} />
-    };
-    return iconMap[iconName.toLowerCase()] || <Layout size={20} className={color} />;
-  };
-
+const MetricRow = ({ metrics = [] }) => {
+  if (!metrics.length) return null;
   return (
-    <div className="flex h-full bg-[#1c1c1e] text-gray-100 font-sans select-none overflow-hidden sm:rounded-b-xl border border-black/10">
-      
-      {/* LEFT PANEL: Ubuntu Dashboard Style */}
-      <div className="w-[340px] flex-shrink-0 bg-[#1a1a1b] border-r border-black/40 flex flex-col p-6 lg:p-8">
-        <h2 className="text-[11px] font-black text-gray-500 uppercase tracking-[0.25em] mb-6 px-1">Project Registry</h2>
-        
-        {/* Navigation Categories */}
-        <div className="flex flex-wrap gap-2 mb-8">
-          {categories.slice(0, 5).map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              className={`px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase transition-all ${
-                activeCategory === cat
-                  ? "bg-indigo-600/15 text-indigo-400 border border-indigo-500/20"
-                  : "bg-white/5 text-gray-600 border border-transparent hover:text-gray-300"
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: `repeat(${Math.min(metrics.length, 3)}, 1fr)`,
+        gap: 8,
+        margin: "12px 0",
+      }}
+    >
+      {metrics.slice(0, 3).map((m) => (
+        <div
+          key={m.label}
+          style={{
+            background: "var(--p3-bg-0)",
+            border: "1px solid var(--p3-line)",
+            borderRadius: 8,
+            padding: "8px 10px",
+          }}
+        >
+          <div
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: 10,
+              color: "var(--p3-ink-mut)",
+              textTransform: "uppercase",
+              letterSpacing: ".06em",
+            }}
+          >
+            {m.label}
+          </div>
+          <div
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: 18,
+              fontWeight: 600,
+              color: `var(--p3-${m.tone || "ok"})`,
+              lineHeight: 1.2,
+            }}
+          >
+            {m.value}
+          </div>
         </div>
+      ))}
+    </div>
+  );
+};
 
-        {/* Project List */}
-        <div className="flex-1 overflow-y-auto no-scrollbar space-y-2 pr-1">
-          {filteredProjects.map(project => (
-            <div 
-              key={project.id} 
-              onClick={() => handleProjectSelect(project.id)}
-              className={`group flex items-center gap-4 p-4 rounded-2xl cursor-pointer transition-all ${
-                selectedProjectId === project.id 
-                  ? "bg-indigo-600 text-white shadow-xl shadow-indigo-600/20 scale-[1.02]" 
-                  : "bg-white/5 border border-white/5 hover:bg-white/10"
-              }`}
-            >
-              <div className={`p-2.5 rounded-xl ${selectedProjectId === project.id ? "bg-white/20" : "bg-[#111119]"} transition-colors`}>
-                {getProjectIcon(project.icon, selectedProjectId === project.id ? "text-white" : "text-indigo-400")}
-              </div>
-              <div className="flex-1 min-w-0">
-                <h3 className={`text-[13px] font-bold truncate leading-none mb-1.5 ${selectedProjectId === project.id ? "text-white" : "text-gray-200 group-hover:text-indigo-400 transition-colors"}`}>
-                  {project.title}
-                </h3>
-                <p className={`text-[10px] font-medium uppercase tracking-widest ${selectedProjectId === project.id ? "text-white/60" : "text-gray-600"}`}>
-                  {project.category.split(' ')[0]}
-                </p>
-              </div>
-              {selectedProjectId === project.id && (
-                 <ChevronRight size={14} className="opacity-60" />
-              )}
-            </div>
-          ))}
-        </div>
+const TerminalCard = ({ project, onOpen }) => (
+  <article
+    style={{
+      background: "var(--p3-bg-1)",
+      border: "1px solid var(--p3-line)",
+      borderRadius: "var(--radius-lg)",
+      overflow: "hidden",
+      display: "flex",
+      flexDirection: "column",
+      boxShadow: "var(--shadow-md)",
+      transition: "transform .2s ease-out, border-color .2s",
+    }}
+    onMouseEnter={(e) => {
+      e.currentTarget.style.transform = "translateY(-2px)";
+      e.currentTarget.style.borderColor = "var(--p3-accent)";
+    }}
+    onMouseLeave={(e) => {
+      e.currentTarget.style.transform = "translateY(0)";
+      e.currentTarget.style.borderColor = "var(--p3-line)";
+    }}
+  >
+    <WindowChrome
+      title={`~/${(project.org || "projects").toLowerCase()}/${slug(project.title)}`}
+    />
+
+    <div style={{ padding: "16px 18px 18px", flex: 1, display: "flex", flexDirection: "column" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", gap: 12, marginBottom: 6 }}>
+        <span
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: 11,
+            color: "var(--p3-ink-mut)",
+            textTransform: "uppercase",
+            letterSpacing: ".08em",
+          }}
+        >
+          {project.category}
+        </span>
+        {project.org && (
+          <span
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: 10,
+              color: "var(--p3-accent)",
+              border: "1px solid var(--p3-line)",
+              padding: "2px 8px",
+              borderRadius: 4,
+            }}
+          >
+            {project.org}
+          </span>
+        )}
       </div>
 
-      {/* RIGHT PANEL: Professional Case Study Detail */}
-      <div className="flex-1 flex flex-col bg-[#1c1c1e] overflow-hidden lg:p-4">
-        {selectedProject ? (
-          <div className={`flex flex-col h-full bg-[#252526] lg:rounded-3xl shadow-2xl border border-white/5 overflow-hidden transition-all duration-400 ease-in-out ${isAnimate ? 'opacity-0 scale-[0.98] translate-y-4' : 'opacity-100 scale-100 translate-y-0'}`}>
-            
-            {/* Header: Ubuntu Gradient Style */}
-            <div className="p-8 lg:p-12 border-b border-black/20 bg-gradient-to-tr from-indigo-600/10 via-transparent to-purple-500/5">
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center gap-2 px-3 py-1 bg-white/5 rounded-full border border-white/10">
-                  {selectedProject.status === 'Completed' 
-                    ? <CheckCircle2 size={12} className="text-emerald-500" /> 
-                    : <Clock size={12} className="text-amber-500" />}
-                  <span className="text-[10px] font-black uppercase tracking-widest text-white">
-                    {selectedProject.status}
-                  </span>
-                </div>
-                <div className="flex items-center gap-2 text-[10px] text-gray-500 font-bold font-mono">
-                  <span className="text-indigo-400 opacity-50">#</span> {selectedProject.id.toString().padStart(3, '0')}
-                </div>
-              </div>
+      <h3
+        style={{
+          fontFamily: "var(--font-display)",
+          fontSize: 20,
+          fontWeight: 600,
+          color: "var(--p3-ink)",
+          margin: "0 0 8px",
+          lineHeight: 1.2,
+        }}
+      >
+        {project.title}
+      </h3>
 
-              <h1 className="text-3xl lg:text-4xl font-black text-white tracking-tight leading-tight mb-8">
-                {selectedProject.title}
-              </h1>
-              
-              <div className="flex flex-wrap gap-4">
-                {selectedProject.github !== undefined && (
-                  <button 
-                    onClick={() => selectedProject.github && window.open(selectedProject.github, '_blank')}
-                    className="flex items-center gap-3 px-6 py-3 bg-white text-[#1c1c1e] hover:bg-gray-200 rounded-xl text-[12px] font-black transition-all shadow-xl shadow-white/5 active:scale-95"
-                  >
-                    <Github width={16} height={16} /> REPOSITORY
-                  </button>
-                )}
-                {selectedProject.live && (
-                  <button 
-                    onClick={() => window.open(selectedProject.live, '_blank')}
-                    className="flex items-center gap-3 px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-[12px] font-black transition-all shadow-2xl shadow-indigo-600/20 active:scale-95"
-                  >
-                    <ExternalLink size={16} /> VIEW LIVE DEMO
-                  </button>
-                )}
+      <p
+        style={{
+          fontSize: 14,
+          color: "var(--p3-ink-mut)",
+          lineHeight: 1.55,
+          margin: "0 0 4px",
+          flex: 1,
+        }}
+      >
+        {project.description}
+      </p>
+
+      {project.role && (
+        <div
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: 11,
+            color: "var(--p3-warn)",
+            background: "rgba(232, 179, 57, 0.08)",
+            border: "1px solid rgba(232, 179, 57, 0.3)",
+            padding: "4px 8px",
+            borderRadius: 6,
+            marginTop: 8,
+            marginBottom: 4,
+          }}
+        >
+          scope: {project.role}
+        </div>
+      )}
+
+      <MetricRow metrics={project.metrics} />
+
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 4, marginBottom: 12 }}>
+        {project.technologies.slice(0, 5).map((t) => (
+          <span
+            key={t}
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: 11,
+              color: "var(--p3-ink-mut)",
+              background: "var(--p3-bg-2)",
+              padding: "2px 8px",
+              borderRadius: 4,
+              border: "1px solid var(--p3-line)",
+            }}
+          >
+            {t}
+          </span>
+        ))}
+        {project.technologies.length > 5 && (
+          <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--p3-ink-mut)" }}>
+            +{project.technologies.length - 5}
+          </span>
+        )}
+      </div>
+
+      <button
+        type="button"
+        onClick={() => onOpen(project)}
+        style={{
+          marginTop: "auto",
+          padding: "8px 12px",
+          background: "transparent",
+          color: "var(--p3-accent)",
+          border: "1px solid var(--p3-accent)",
+          borderRadius: 8,
+          fontFamily: "var(--font-mono)",
+          fontSize: 12,
+          fontWeight: 600,
+          cursor: "pointer",
+          textTransform: "lowercase",
+          letterSpacing: ".05em",
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.background = "var(--p3-accent)";
+          e.currentTarget.style.color = "var(--p3-bg-0)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.background = "transparent";
+          e.currentTarget.style.color = "var(--p3-accent)";
+        }}
+        aria-label={`View details for ${project.title}`}
+      >
+        $ cat details →
+      </button>
+    </div>
+  </article>
+);
+
+const DetailsModal = ({ project, onClose }) => {
+  if (!project) return null;
+  return (
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label={`${project.title} details`}
+      onClick={onClose}
+      style={{
+        position: "fixed",
+        inset: 0,
+        background: "rgba(14, 17, 22, 0.75)",
+        backdropFilter: "blur(6px)",
+        zIndex: 2000,
+        display: "flex",
+        justifyContent: "flex-end",
+        alignItems: "stretch",
+      }}
+    >
+      <aside
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          width: "min(600px, 100%)",
+          background: "var(--p3-bg-1)",
+          borderLeft: "1px solid var(--p3-line)",
+          overflowY: "auto",
+          boxShadow: "var(--shadow-xl)",
+        }}
+      >
+        <WindowChrome
+          title={`~/${(project.org || "projects").toLowerCase()}/${slug(project.title)}`}
+        />
+        <div style={{ padding: 24 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", gap: 16 }}>
+            <div>
+              <div
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: 11,
+                  color: "var(--p3-accent)",
+                  textTransform: "uppercase",
+                  letterSpacing: ".1em",
+                }}
+              >
+                {project.category} · {project.org}
               </div>
+              <h2
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontSize: 24,
+                  fontWeight: 600,
+                  color: "var(--p3-ink)",
+                  margin: "6px 0 0",
+                  lineHeight: 1.2,
+                }}
+              >
+                {project.title}
+              </h2>
             </div>
-
-            {/* Content: High Fidelity Details */}
-            <div className="flex-1 overflow-y-auto p-8 lg:p-12 custom-scrollbar space-y-12 bg-[#252526]">
-              {/* Mission/Goal */}
-              <div className="space-y-4">
-                <div className="flex items-center gap-2 mb-2">
-                   <div className="w-1 h-5 bg-indigo-500 rounded-full"></div>
-                   <h3 className="text-[11px] font-black text-indigo-400 uppercase tracking-widest">Core Mission</h3>
-                </div>
-                <p className="text-base text-gray-400 leading-relaxed font-medium">
-                  {selectedProject.longDescription || selectedProject.description}
-                </p>
-              </div>
-
-              {/* Stack: Styled Bricks */}
-              <div className="space-y-6">
-                <h3 className="text-[11px] font-black text-gray-500 uppercase tracking-widest flex items-center gap-3">
-                   <Code size={14}/> Integrated Technologies
-                </h3>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                  {selectedProject.technologies.map((tech, idx) => (
-                    <div 
-                      key={idx} 
-                      className="px-4 py-3 bg-white/5 border border-white/5 rounded-xl text-[12px] text-gray-300 font-bold hover:bg-indigo-600/20 hover:border-indigo-500/30 hover:text-white transition-all cursor-crosshair text-center uppercase tracking-tighter"
-                    >
-                      {tech}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
+            <button
+              onClick={onClose}
+              aria-label="Close details"
+              style={{
+                background: "transparent",
+                color: "var(--p3-ink-mut)",
+                border: "1px solid var(--p3-line)",
+                borderRadius: 6,
+                padding: "4px 10px",
+                cursor: "pointer",
+                fontFamily: "var(--font-mono)",
+                fontSize: 12,
+              }}
+            >
+              esc
+            </button>
           </div>
-        ) : (
-          <div className="flex items-center justify-center h-full opacity-10 flex-col gap-6">
-             <Rocket size={48} />
-             <p className="text-sm font-black uppercase tracking-[0.4em] ml-[0.4em]">Select an Operation</p>
+
+          {project.role && (
+            <div
+              style={{
+                marginTop: 16,
+                fontFamily: "var(--font-mono)",
+                fontSize: 12,
+                color: "var(--p3-warn)",
+                background: "rgba(232, 179, 57, 0.08)",
+                border: "1px solid rgba(232, 179, 57, 0.3)",
+                padding: "8px 12px",
+                borderRadius: 8,
+              }}
+            >
+              scope: {project.role}
+            </div>
+          )}
+
+          <p
+            style={{
+              marginTop: 16,
+              color: "var(--p3-ink)",
+              fontSize: 15,
+              lineHeight: 1.7,
+            }}
+          >
+            {project.longDescription || project.description}
+          </p>
+
+          {project.metrics && project.metrics.length > 0 && (
+            <>
+              <div
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: 11,
+                  color: "var(--p3-ink-mut)",
+                  textTransform: "uppercase",
+                  letterSpacing: ".1em",
+                  marginTop: 24,
+                  marginBottom: 8,
+                }}
+              >
+                metrics
+              </div>
+              <MetricRow metrics={project.metrics} />
+            </>
+          )}
+
+          <div
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: 11,
+              color: "var(--p3-ink-mut)",
+              textTransform: "uppercase",
+              letterSpacing: ".1em",
+              marginTop: 24,
+              marginBottom: 8,
+            }}
+          >
+            stack
+          </div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
+            {project.technologies.map((t) => (
+              <span
+                key={t}
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: 12,
+                  color: "var(--p3-ink)",
+                  background: "var(--p3-bg-2)",
+                  padding: "3px 10px",
+                  borderRadius: 4,
+                  border: "1px solid var(--p3-line)",
+                }}
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+
+          {project.evidenceStatus && (
+            <div
+              style={{
+                marginTop: 24,
+                padding: 12,
+                fontFamily: "var(--font-mono)",
+                fontSize: 11,
+                color: "var(--p3-ink-mut)",
+                background: "var(--p3-bg-0)",
+                border: "1px dashed var(--p3-line)",
+                borderRadius: 8,
+              }}
+            >
+              evidence: {project.evidenceStatus}
+            </div>
+          )}
+        </div>
+      </aside>
+    </div>
+  );
+};
+
+const Projects = () => {
+  const [active, setActive] = useState("All");
+  const [showAll, setShowAll] = useState(false);
+  const [selected, setSelected] = useState(null);
+
+  const categories = useMemo(
+    () => ["All", ...Array.from(new Set(projectsData.map((p) => p.category)))],
+    []
+  );
+
+  const filtered = useMemo(() => {
+    const base = active === "All" ? projectsData : projectsData.filter((p) => p.category === active);
+    const featured = base.filter((p) => p.featured);
+    const rest = base.filter((p) => !p.featured);
+    return showAll ? [...featured, ...rest] : featured;
+  }, [active, showAll]);
+
+  React.useEffect(() => {
+    if (!selected) return;
+    const onKey = (e) => {
+      if (e.key === "Escape") setSelected(null);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [selected]);
+
+  return (
+    <section
+      id="projects"
+      style={{
+        padding: "96px 24px",
+        background: "var(--p3-bg-0)",
+        borderTop: "1px solid var(--p3-line)",
+      }}
+    >
+      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+        <div
+          style={{
+            marginBottom: 32,
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "space-between",
+            alignItems: "end",
+            gap: 24,
+          }}
+        >
+          <div>
+            <div
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: 12,
+                color: "var(--p3-accent)",
+                textTransform: "uppercase",
+                letterSpacing: ".15em",
+                marginBottom: 8,
+              }}
+            >
+              ~/projects
+            </div>
+            <h2
+              style={{
+                fontFamily: "var(--font-display)",
+                fontSize: "clamp(28px, 4vw, 40px)",
+                fontWeight: 600,
+                color: "var(--p3-ink)",
+                margin: 0,
+                letterSpacing: "-0.02em",
+              }}
+            >
+              Selected work
+            </h2>
+            <p style={{ color: "var(--p3-ink-mut)", margin: "8px 0 0", maxWidth: 560 }}>
+              Production systems on AWS, GCP, Azure, DigitalOcean. Click any tile for stack and scope.
+            </p>
+          </div>
+
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+            {categories.slice(0, 7).map((c) => {
+              const on = c === active;
+              return (
+                <button
+                  key={c}
+                  onClick={() => setActive(c)}
+                  style={{
+                    padding: "6px 12px",
+                    borderRadius: 999,
+                    fontFamily: "var(--font-mono)",
+                    fontSize: 11,
+                    fontWeight: 600,
+                    cursor: "pointer",
+                    background: on ? "var(--p3-accent)" : "transparent",
+                    color: on ? "var(--p3-bg-0)" : "var(--p3-ink-mut)",
+                    border: on ? "1px solid var(--p3-accent)" : "1px solid var(--p3-line)",
+                    textTransform: "uppercase",
+                    letterSpacing: ".06em",
+                  }}
+                >
+                  {c}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        <div
+          style={{
+            display: "grid",
+            gap: 20,
+            gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
+          }}
+        >
+          {filtered.map((p) => (
+            <TerminalCard key={p.id} project={p} onOpen={setSelected} />
+          ))}
+        </div>
+
+        {!showAll && projectsData.some((p) => !p.featured) && (
+          <div style={{ textAlign: "center", marginTop: 32 }}>
+            <button
+              onClick={() => setShowAll(true)}
+              style={{
+                padding: "10px 18px",
+                background: "transparent",
+                color: "var(--p3-accent)",
+                border: "1px solid var(--p3-accent)",
+                borderRadius: "var(--radius-md)",
+                fontFamily: "var(--font-mono)",
+                fontSize: 13,
+                fontWeight: 600,
+                cursor: "pointer",
+              }}
+            >
+              $ ls -la projects/ &nbsp;→&nbsp; show all
+            </button>
           </div>
         )}
       </div>
-    </div>
+
+      <DetailsModal project={selected} onClose={() => setSelected(null)} />
+    </section>
   );
 };
 

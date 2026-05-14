@@ -1,43 +1,61 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useEffect, useMemo, useState, useCallback } from "react";
 
-export const ThemeContext = createContext();
+export const ThemeContext = createContext({
+  theme: "dark",
+  mode: "dark",
+  setMode: () => {},
+  toggleTheme: () => {},
+});
+
+const resolve = (mode) => {
+  if (mode === "system") {
+    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  }
+  return mode;
+};
 
 export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState(() => {
-    // Check for saved theme preference or default to light
-    const savedTheme = localStorage.getItem('theme');
-    return savedTheme || 'light';
-  });
+  const [mode, setModeState] = useState(() => localStorage.getItem("theme-mode") || "dark");
+  const [theme, setTheme] = useState(() => resolve(localStorage.getItem("theme-mode") || "dark"));
+
+  const apply = useCallback((nextTheme) => {
+    const root = document.documentElement;
+    root.classList.remove("light", "dark");
+    root.classList.add(nextTheme);
+    root.setAttribute("data-theme", nextTheme);
+    setTheme(nextTheme);
+  }, []);
 
   useEffect(() => {
-    const root = window.document.documentElement;
-    
-    // Remove both classes first
-    root.classList.remove('light', 'dark');
-    
-    // Add current theme class
-    root.classList.add(theme);
-    
-    // Set CSS custom properties based on theme
-    if (theme === 'dark') {
-      root.style.setProperty('--bg-primary-rgb', '23, 23, 23');
-      document.body.style.backgroundColor = 'var(--neutral-900)';
-    } else {
-      root.style.setProperty('--bg-primary-rgb', '250, 250, 250');
-      document.body.style.backgroundColor = 'var(--neutral-50)';
-    }
-    
-    // Save theme preference
-    localStorage.setItem('theme', theme);
-  }, [theme]);
+    apply(resolve(mode));
+    localStorage.setItem("theme-mode", mode);
+  }, [mode, apply]);
 
-  const toggleTheme = () => {
-    setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
-  };
+  useEffect(() => {
+    if (mode !== "system") return;
+    const mq = window.matchMedia("(prefers-color-scheme: dark)");
+    const handler = () => apply(mq.matches ? "dark" : "light");
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, [mode, apply]);
 
-  return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      {children}
-    </ThemeContext.Provider>
-  );
+  const setMode = useCallback((m) => setModeState(m), []);
+  const toggleTheme = useCallback(() => {
+    setModeState((m) => {
+      const current = resolve(m);
+      return current === "dark" ? "light" : "dark";
+    });
+  }, []);
+
+  useEffect(() => {
+    const cycle = () => {
+      setModeState((m) => (m === "dark" ? "light" : m === "light" ? "system" : "dark"));
+    };
+    window.addEventListener("p3:theme-cycle", cycle);
+    return () => window.removeEventListener("p3:theme-cycle", cycle);
+  }, []);
+
+  const value = useMemo(() => ({ theme, mode, setMode, toggleTheme }), [theme, mode, setMode, toggleTheme]);
+
+  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 };

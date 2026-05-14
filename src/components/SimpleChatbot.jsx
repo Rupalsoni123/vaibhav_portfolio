@@ -109,24 +109,39 @@ const SimpleChatbot = () => {
 
   return (
     <>
-      {/* Chatbot Toggle Button */}
+      {/* Chatbot toggle (FAB stack: bottom-most) */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 z-50 w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-full shadow-2xl transition-all duration-300 flex items-center justify-center"
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        animate={{ 
-          rotate: isOpen ? 180 : 0,
-          backgroundColor: isOpen ? '#dc2626' : '#2563eb'
+        aria-label={isOpen ? "Close assistant" : "Open assistant"}
+        title={isOpen ? "Close assistant" : "Open assistant"}
+        style={{
+          position: "fixed",
+          right: 20,
+          bottom: 20,
+          zIndex: 50,
+          width: 48,
+          height: 48,
+          borderRadius: 12,
+          background: isOpen ? "var(--p3-err)" : "var(--p3-accent)",
+          color: "var(--p3-bg-0)",
+          border: "1px solid var(--p3-line)",
+          boxShadow: "var(--shadow-lg)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          cursor: "pointer",
         }}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.94 }}
+        animate={{ rotate: isOpen ? 180 : 0 }}
       >
         {isOpen ? (
-          <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
         ) : (
-          <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+          <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
           </svg>
         )}
       </motion.button>
@@ -135,62 +150,133 @@ const SimpleChatbot = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.8, y: 20 }}
+            initial={{ opacity: 0, scale: 0.96, y: 16 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.8, y: 20 }}
-            className="fixed bottom-24 right-6 z-40 w-96 h-[600px] bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 flex flex-col overflow-hidden"
+            exit={{ opacity: 0, scale: 0.96, y: 16 }}
+            role="dialog"
+            aria-label="Portfolio assistant"
+            style={{
+              position: "fixed",
+              right: 20,
+              bottom: 80,
+              zIndex: 49,
+              width: "min(380px, calc(100vw - 40px))",
+              height: "min(560px, calc(100vh - 120px))",
+              background: "var(--p3-bg-1)",
+              border: "1px solid var(--p3-line)",
+              borderRadius: 14,
+              boxShadow: "var(--shadow-xl)",
+              display: "flex",
+              flexDirection: "column",
+              overflow: "hidden",
+            }}
           >
-            {/* Header */}
-            <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4 flex items-center justify-between">
-              <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="font-bold text-lg">Portfolio Assistant</h3>
-                </div>
-              </div>
+            {/* Header — terminal chrome */}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 10,
+                padding: "10px 14px",
+                background: "var(--p3-bg-2)",
+                borderBottom: "1px solid var(--p3-line)",
+              }}
+            >
+              <span style={{ width: 10, height: 10, borderRadius: "50%", background: "var(--p3-err)" }} />
+              <span style={{ width: 10, height: 10, borderRadius: "50%", background: "var(--p3-warn)" }} />
+              <span style={{ width: 10, height: 10, borderRadius: "50%", background: "var(--p3-ok)" }} />
+              <span
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: 12,
+                  color: "var(--p3-ink-mut)",
+                  marginLeft: 8,
+                }}
+              >
+                ~/assistant
+              </span>
             </div>
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50 dark:bg-gray-900">
+            <div
+              style={{
+                flex: 1,
+                overflowY: "auto",
+                padding: 14,
+                display: "flex",
+                flexDirection: "column",
+                gap: 10,
+                background: "var(--p3-bg-0)",
+              }}
+            >
               {messages.map((msg) => (
                 <motion.div
                   key={msg.id}
-                  initial={{ opacity: 0, y: 10 }}
+                  initial={{ opacity: 0, y: 6 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className={`flex ${msg.isBot ? 'justify-start' : 'justify-end'}`}
+                  style={{
+                    display: "flex",
+                    justifyContent: msg.isBot ? "flex-start" : "flex-end",
+                  }}
                 >
-                  <div className={`max-w-[85%] p-3 rounded-2xl ${
-                    msg.isBot 
-                      ? 'bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 shadow-md' 
-                      : 'bg-gradient-to-r from-blue-600 to-purple-600 text-white'
-                  }`}>
-                    <div 
-                      className="text-sm leading-relaxed"
+                  <div
+                    style={{
+                      maxWidth: "85%",
+                      padding: "10px 12px",
+                      borderRadius: 10,
+                      fontSize: 13,
+                      lineHeight: 1.5,
+                      background: msg.isBot ? "var(--p3-bg-1)" : "var(--p3-accent)",
+                      color: msg.isBot ? "var(--p3-ink)" : "var(--p3-bg-0)",
+                      border: msg.isBot ? "1px solid var(--p3-line)" : "none",
+                      fontFamily: msg.isBot ? "var(--font-sans)" : "var(--font-sans)",
+                    }}
+                  >
+                    <div
                       dangerouslySetInnerHTML={{ __html: formatMessage(msg.text) }}
                     />
-                    <div className={`text-xs mt-2 opacity-70 ${msg.isBot ? 'text-gray-500' : 'text-white/70'}`}>
-                      {msg.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                    <div
+                      style={{
+                        fontFamily: "var(--font-mono)",
+                        fontSize: 10,
+                        marginTop: 6,
+                        opacity: 0.65,
+                      }}
+                    >
+                      {msg.timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
                     </div>
                   </div>
                 </motion.div>
               ))}
-              
+
               {isTyping && (
                 <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="flex justify-start"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  style={{ display: "flex", justifyContent: "flex-start" }}
                 >
-                  <div className="bg-white dark:bg-gray-800 p-3 rounded-2xl shadow-md">
-                    <div className="flex space-x-1">
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                    </div>
+                  <div
+                    style={{
+                      padding: "10px 14px",
+                      background: "var(--p3-bg-1)",
+                      border: "1px solid var(--p3-line)",
+                      borderRadius: 10,
+                      display: "flex",
+                      gap: 4,
+                    }}
+                  >
+                    {[0, 0.15, 0.3].map((d) => (
+                      <span
+                        key={d}
+                        style={{
+                          width: 6,
+                          height: 6,
+                          borderRadius: "50%",
+                          background: "var(--p3-ink-mut)",
+                          animation: `chatdot 1s infinite ${d}s`,
+                        }}
+                      />
+                    ))}
                   </div>
                 </motion.div>
               )}
@@ -198,30 +284,58 @@ const SimpleChatbot = () => {
             </div>
 
             {/* Input */}
-            <div className="p-4 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
-              <div className="flex space-x-2">
-                <input
-                  type="text"
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  onKeyPress={handleKeyPress}
-                  placeholder="Ask me anything..."
-                  className="flex-1 p-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white text-sm"
-                  disabled={isTyping}
-                />
-                <motion.button
-                  onClick={() => handleSendMessage(message)}
-                  disabled={isTyping || !message.trim()}
-                  className="p-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:from-blue-700 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                  </svg>
-                </motion.button>
-              </div>
+            <div
+              style={{
+                padding: 12,
+                background: "var(--p3-bg-1)",
+                borderTop: "1px solid var(--p3-line)",
+                display: "flex",
+                gap: 8,
+              }}
+            >
+              <input
+                type="text"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                onKeyPress={handleKeyPress}
+                placeholder="$ ask me anything…"
+                disabled={isTyping}
+                aria-label="Ask the assistant"
+                style={{
+                  flex: 1,
+                  padding: "10px 12px",
+                  border: "1px solid var(--p3-line)",
+                  borderRadius: 8,
+                  background: "var(--p3-bg-0)",
+                  color: "var(--p3-ink)",
+                  fontFamily: "var(--font-mono)",
+                  fontSize: 13,
+                  outline: "none",
+                }}
+              />
+              <motion.button
+                onClick={() => handleSendMessage(message)}
+                disabled={isTyping || !message.trim()}
+                aria-label="Send message"
+                style={{
+                  padding: "0 14px",
+                  background: "var(--p3-accent)",
+                  color: "var(--p3-bg-0)",
+                  border: "none",
+                  borderRadius: 8,
+                  cursor: isTyping || !message.trim() ? "not-allowed" : "pointer",
+                  opacity: isTyping || !message.trim() ? 0.5 : 1,
+                  fontFamily: "var(--font-mono)",
+                  fontSize: 13,
+                  fontWeight: 700,
+                }}
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.96 }}
+              >
+                ↵
+              </motion.button>
             </div>
+            <style>{`@keyframes chatdot { 0%,80%,100%{opacity:.3} 40%{opacity:1} }`}</style>
           </motion.div>
         )}
       </AnimatePresence>
