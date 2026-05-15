@@ -270,7 +270,7 @@ const ProjectFilter = ({
                   
                   {searchTerm && (
                     <span className="px-2 py-1 bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-200 rounded-full">
-                      Search: "{searchTerm}"
+                      Search: &quot;{searchTerm}&quot;
                     </span>
                   )}
                   

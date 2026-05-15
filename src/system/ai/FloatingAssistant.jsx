@@ -123,7 +123,7 @@ const FloatingAssistant = () => {
           <div className="absolute right-full mr-4 whitespace-nowrap bg-[#1a1a1b]/90 backdrop-blur-xl border border-white/10 text-gray-200 text-[11px] font-medium py-1.5 px-4 rounded-full shadow-[0_4px_15px_rgba(0,0,0,0.3)] opacity-90 hover:opacity-100 transition-all flex items-center gap-2 cursor-pointer animate-fade-in"
                onClick={toggleChat}>
             <span className="w-2 h-2 rounded-full bg-green-400 shadow-[0_0_8px_rgba(74,222,128,0.6)] animate-pulse" />
-            Hi, I'm here!
+            Hi, I&apos;m here!
           </div>
         )}
         <button 

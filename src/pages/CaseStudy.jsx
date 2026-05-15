@@ -1,6 +1,7 @@
 import React, { useEffect, lazy, Suspense } from "react";
 import { Link, useParams, Navigate } from "react-router-dom";
 import caseStudies from "../data/caseStudies";
+import SEO from "../components/SEO";
 
 const Mermaid = lazy(() => import("../components/Mermaid"));
 
@@ -28,14 +29,19 @@ const CaseStudy = () => {
 
   useEffect(() => {
     document.body.setAttribute("data-mode", "scroll");
-    if (study) document.title = `${study.title} — Vaibhav Soni`;
     return () => document.body.removeAttribute("data-mode");
   }, [study]);
 
   if (!study) return <Navigate to="/" replace />;
 
   return (
-    <main
+    <>
+      <SEO 
+        title={study.title}
+        description={study.problem}
+        url={`/case-studies/${study.slug}`}
+      />
+      <main
       style={{
         padding: "120px 24px 96px",
         background: "var(--p3-bg-0)",
@@ -231,6 +237,7 @@ const CaseStudy = () => {
         </Section>
       </div>
     </main>
+    </>
   );
 };
 

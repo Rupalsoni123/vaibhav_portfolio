@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useContext } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ThemeContext } from '../utils/ThemeContext';
+
 import freeChatbot from '../utils/freeChatbot';
 
 const SimpleChatbot = () => {
@@ -16,7 +16,7 @@ const SimpleChatbot = () => {
   const [isTyping, setIsTyping] = useState(false);
   const [message, setMessage] = useState('');
   const messagesEndRef = useRef(null);
-  const { theme } = useContext(ThemeContext);
+
 
   // Client-side rate limit: 3 messages per rolling 60s window.
   // Stored in localStorage so it persists across page reloads but
@@ -42,7 +42,9 @@ const SimpleChatbot = () => {
     stamps.push(now);
     try {
       localStorage.setItem(RATE_KEY, JSON.stringify(stamps));
-    } catch {}
+    } catch {
+      // Ignore storage errors
+    }
     return { ok: true };
   };
 

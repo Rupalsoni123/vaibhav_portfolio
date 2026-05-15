@@ -45,7 +45,7 @@ class ErrorBoundary extends React.Component {
             marginBottom: '2rem',
             color: 'var(--text-secondary)'
           }}>
-            We're sorry, but there was an error loading this section.
+            We&apos;re sorry, but there was an error loading this section.
           </p>
           <button
             onClick={() => window.location.reload()}
@@ -64,7 +64,7 @@ class ErrorBoundary extends React.Component {
           </button>
           
           {/* Show error details in development */}
-          {process.env.NODE_ENV === 'development' && (
+          {import.meta.env.MODE === 'development' && (
             <details style={{
               marginTop: '2rem',
               padding: '1rem',

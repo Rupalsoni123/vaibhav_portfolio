@@ -35,7 +35,7 @@ const ActivitiesOverview = () => {
       <div className="os-overview__search" onClick={(e) => e.stopPropagation()}>
         <div className="flex items-center justify-center mb-6">
            <div className="w-16 h-16 rounded-full bg-white/5 p-1 border border-white/10 ring-4 ring-white/5 animate-glow">
-              <img src="/images/caricature.png" alt="Vaibhav" className="w-full h-full object-cover rounded-full" />
+              <img src="/images/caricature.png" alt="Vaibhav Soni" className="w-full h-full object-cover rounded-full" />
            </div>
         </div>
         <input 

@@ -11,7 +11,7 @@ const DOCK_ITEMS = [
 ];
 
 const Dock = () => {
-  const { openWindow, windows } = useOS();
+  const { openWindow, windows, restoreWindow } = useOS();
 
   return (
     <div className="os-dock">
@@ -37,9 +37,7 @@ const Dock = () => {
         <button
           key={w.id}
           className="dock-item minimized"
-          onClick={() => {
-            const { restoreWindow } = useOS();
-          }}
+          onClick={() => restoreWindow(w.id)}
           title={w.title}
         >
           <span className="dock-item-icon">{w.icon}</span>

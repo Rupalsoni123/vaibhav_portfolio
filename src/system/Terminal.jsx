@@ -65,8 +65,8 @@ const Terminal = () => {
              {activeTab.vimData.content || '~\n~\n~'}
            </div>
            <div className="flex-shrink-0 bg-[#333] px-3 py-1 flex justify-between items-center text-xs font-bold text-gray-300">
-             <span>"{activeTab.vimData.title}" {activeTab.vimData.content ? '[Read-Only]' : '[New File]'}</span>
-             <span className="bg-black/40 px-2 py-0.5 rounded text-white tracking-wider outline outline-1 outline-white/10 uppercase">Press 'q' to quit</span>
+             <span>&quot;{activeTab.vimData.title}&quot; {activeTab.vimData.content ? '[Read-Only]' : '[New File]'}</span>
+             <span className="bg-black/40 px-2 py-0.5 rounded text-white tracking-wider outline outline-1 outline-white/10 uppercase">Press &apos;q&apos; to quit</span>
            </div>
         </div>
       ) : (

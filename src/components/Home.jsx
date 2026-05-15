@@ -3,6 +3,7 @@ import Avatar from "./Avatar";
 import CursorGrid from "./CursorGrid";
 import contactInfo from "../data/contactInfo";
 import resume from "../assets/resume.pdf";
+import SEO from "./SEO";
 
 const STACK = [
   "AWS", "GCP", "Azure",
@@ -107,7 +108,9 @@ const Home = () => {
   };
 
   return (
-    <section
+    <>
+      <SEO />
+      <section
       id="home"
       style={{
         minHeight: "100vh",
@@ -175,7 +178,7 @@ const Home = () => {
               maxWidth: 540,
             }}
           >
-            I'm <strong style={{ color: "var(--p3-ink)" }}>Vaibhav Soni</strong> —
+            I&apos;m <strong style={{ color: "var(--p3-ink)" }}>Vaibhav Soni</strong> —
             I build the reliability layer. Production K8s on AWS/GCP/Azure,
             Terraform-first infra, CI/CD pipelines that actually catch bugs,
             observability that wakes the right person.
@@ -365,6 +368,7 @@ const Home = () => {
         }
       `}</style>
     </section>
+    </>
   );
 };
 

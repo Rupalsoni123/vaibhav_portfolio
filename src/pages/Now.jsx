@@ -1,17 +1,23 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import SEO from "../components/SEO";
 
 const Now = () => {
   useEffect(() => {
     document.body.setAttribute("data-mode", "scroll");
-    document.title = "Now — Vaibhav Soni";
     return () => document.body.removeAttribute("data-mode");
   }, []);
 
   const lastUpdated = "May 2026";
 
   return (
-    <main
+    <>
+      <SEO 
+        title="Now"
+        description="What I'm focused on right now. My current work, learning goals, and side projects."
+        url="/now"
+      />
+      <main
       style={{
         padding: "120px 24px 96px",
         background: "var(--p3-bg-0)",
@@ -54,7 +60,7 @@ const Now = () => {
             letterSpacing: "-0.02em",
           }}
         >
-          What I'm doing now
+          What I&apos;m doing now
         </h1>
         <p style={{ color: "var(--p3-ink-mut)", margin: "0 0 32px" }}>
           Snapshot of current focus. <em>Last updated: {lastUpdated}.</em>
@@ -70,7 +76,7 @@ const Now = () => {
           <p>
             <span className="p3-pill p3-pill--ok">learning</span>{" "}
             Going deeper on eBPF observability and Cilium networking. Reading
-            Google's SRE Workbook for the second time.
+            Google&apos;s SRE Workbook for the second time.
           </p>
           <p>
             <span className="p3-pill p3-pill--warn">side</span>{" "}
@@ -99,6 +105,7 @@ const Now = () => {
         </p>
       </div>
     </main>
+    </>
   );
 };
 

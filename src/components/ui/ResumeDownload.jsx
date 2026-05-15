@@ -9,7 +9,7 @@ const ResumeDownload = ({
   customText = null
 }) => {
   const [isDownloading, setIsDownloading] = useState(false);
-  const [showPreview, setShowPreviewModal] = useState(false);
+  const [isPreviewModalOpen, setShowPreviewModal] = useState(false);
   const { trackResumeDownload } = useAnalytics();
 
   const resumeData = {
@@ -143,7 +143,7 @@ const ResumeDownload = ({
 
         {/* Preview Modal */}
         <AnimatePresence>
-          {showPreview && (
+          {isPreviewModalOpen && (
             <motion.div
               className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4"
               initial={{ opacity: 0 }}

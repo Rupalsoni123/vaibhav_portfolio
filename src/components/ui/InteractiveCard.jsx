@@ -36,13 +36,14 @@ const InteractiveCard = ({
     setMousePosition({ x: 0, y: 0 });
   };
 
+  const baseTransform = magneticEffect 
+    ? `translate(${mousePosition.x}px, ${mousePosition.y}px) ${isHovered ? 'translateY(-8px) scale(1.02)' : ''}` 
+    : isHovered && hoverEffect ? 'translateY(-8px) scale(1.02)' : '';
+
   const cardStyle = {
-    transform: magneticEffect 
-      ? `translate(${mousePosition.x}px, ${mousePosition.y}px) ${isHovered ? 'translateY(-8px) scale(1.02)' : ''}` 
-      : isHovered && hoverEffect ? 'translateY(-8px) scale(1.02)' : '',
+    transform: `${isVisible ? 'translateY(0)' : 'translateY(30px)'} ${baseTransform}`.trim(),
     transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
     opacity: isVisible ? 1 : 0,
-    transform: `${isVisible ? 'translateY(0)' : 'translateY(30px)'} ${cardStyle?.transform || ''}`,
     ...style
   };
 

@@ -74,7 +74,7 @@ const SystemMenu = ({ isOpen }) => {
       {/* Profile Section (GNOME Style) */}
       <div className="px-4 py-3 flex items-center gap-3 mb-1 border-b border-white/[0.08]">
          <div className="w-8 h-8 rounded-full overflow-hidden bg-white/5 border border-white/10 shrink-0 shadow-sm">
-            <img src="/images/caricature.png" alt="Profile" className="w-full h-full object-cover" />
+            <img src="/images/caricature.png" alt="Vaibhav Soni" className="w-full h-full object-cover" />
          </div>
          <div className="text-left overflow-hidden">
             <p className="text-sm font-medium text-white truncate leading-none mb-1">Vaibhav Soni</p>
@@ -167,7 +167,7 @@ const TopBar = () => {
             onClick={toggleSystemMenu}
           >
             <div className="w-6 h-6 rounded-full overflow-hidden border border-white/10">
-              <img src={AVATAR_URL} alt="U" className="w-full h-full object-cover" />
+              <img src={AVATAR_URL} alt="Vaibhav Soni" className="w-full h-full object-cover" />
             </div>
             <GetIcon name="ChevronDown" size={12} className={`opacity-40 transition-transform ${isSystemMenuOpen ? 'rotate-180' : ''}`} />
           </button>

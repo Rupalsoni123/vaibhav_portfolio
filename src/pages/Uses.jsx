@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import SEO from "../components/SEO";
 
 const SECTIONS = [
   {
@@ -54,12 +55,17 @@ const SECTIONS = [
 const Uses = () => {
   useEffect(() => {
     document.body.setAttribute("data-mode", "scroll");
-    document.title = "Uses — Vaibhav Soni";
     return () => document.body.removeAttribute("data-mode");
   }, []);
 
   return (
-    <main
+    <>
+      <SEO 
+        title="Uses"
+        description="The tools, software, and hardware I use for DevOps engineering and software development."
+        url="/uses"
+      />
+      <main
       style={{
         padding: "120px 24px 96px",
         background: "var(--p3-bg-0)",
@@ -140,6 +146,7 @@ const Uses = () => {
         ))}
       </div>
     </main>
+    </>
   );
 };
 
