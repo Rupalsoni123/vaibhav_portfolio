@@ -229,7 +229,7 @@ const Home = () => {
                 fontFamily: "var(--font-sans)",
               }}
             >
-              ↓ Résumé
+              ↓ Resume
             </button>
           </div>
 
