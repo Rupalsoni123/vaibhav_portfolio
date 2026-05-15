@@ -58,7 +58,7 @@ const Contribs = () => {
         <a
           href={`https://github.com/${data.user}`}
           target="_blank"
-          rel="noreferrer"
+          rel="noopener noreferrer"
           style={{ color: "var(--p3-accent)", textDecoration: "none" }}
         >
           @{data.user} →

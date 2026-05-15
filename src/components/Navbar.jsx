@@ -6,16 +6,14 @@ import navLinks from "../data/navlinks";
 const SECTIONS = navLinks.map((n) => n.link.toLowerCase());
 
 const Navbar = ({ onOpenPalette }) => {
-  const { theme, mode, setMode } = useContext(ThemeContext);
+  const { theme, setMode } = useContext(ThemeContext);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("home");
   const [scrolled, setScrolled] = useState(false);
 
-  const cycleMode = () => {
-    const next = mode === "dark" ? "light" : mode === "light" ? "system" : "dark";
-    setMode(next);
-  };
-  const modeIcon = mode === "system" ? "◐" : theme === "dark" ? "☾" : "☀";
+  // Two-state toggle: just flip dark <-> light (no 'system' middle step).
+  const cycleMode = () => setMode(theme === "dark" ? "light" : "dark");
+  const modeIcon = theme === "dark" ? "☾" : "☀";
 
   useEffect(() => {
     const onScroll = () => {
@@ -108,8 +106,8 @@ const Navbar = ({ onOpenPalette }) => {
           <button
             type="button"
             onClick={cycleMode}
-            aria-label={`Theme: ${mode}`}
-            title={`Theme: ${mode} (click to cycle)`}
+            aria-label={`Toggle theme (current: ${theme})`}
+            title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
             className="p3-nav-pill"
             style={{ minWidth: 36, height: 36, justifyContent: "center" }}
           >

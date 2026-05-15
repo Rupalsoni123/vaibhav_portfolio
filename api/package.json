@@ -1,6 +1,7 @@
 {
   "name": "portfolio-amazon-q-api",
   "version": "1.0.0",
+  "type": "module",
   "description": "Amazon Q CLI integration API for portfolio chatbot",
   "main": "amazon-q.js",
   "scripts": {

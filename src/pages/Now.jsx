@@ -95,7 +95,7 @@ const Now = () => {
             fontSize: 12,
           }}
         >
-          Inspired by <a href="https://nownownow.com/about" target="_blank" rel="noreferrer" style={{ color: "var(--p3-accent)" }}>nownownow.com</a>.
+          Inspired by <a href="https://nownownow.com/about" target="_blank" rel="noopener noreferrer" style={{ color: "var(--p3-accent)" }}>nownownow.com</a>.
         </p>
       </div>
     </main>

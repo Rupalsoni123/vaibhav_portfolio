@@ -48,8 +48,12 @@ export const ThemeProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
+    // Two-state flip: dark <-> light. 'system' stays available via setMode("system").
     const cycle = () => {
-      setModeState((m) => (m === "dark" ? "light" : m === "light" ? "system" : "dark"));
+      setModeState((m) => {
+        const current = resolve(m);
+        return current === "dark" ? "light" : "dark";
+      });
     };
     window.addEventListener("p3:theme-cycle", cycle);
     return () => window.removeEventListener("p3:theme-cycle", cycle);

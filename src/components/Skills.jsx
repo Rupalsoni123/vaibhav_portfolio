@@ -148,19 +148,8 @@ const Skills = () => {
                       e.currentTarget.style.transform = "translateY(0)";
                     }}
                   >
-                    <div
-                      style={{
-                        width: 40,
-                        height: 40,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        background: "var(--p3-bg-2)",
-                        borderRadius: 8,
-                        fontSize: 24,
-                      }}
-                    >
-                      {s.icon || s.name.charAt(0)}
+                    <div className="p3-skill-icon">
+                      {s.icon || <span>{s.name.charAt(0)}</span>}
                     </div>
                     <div
                       style={{

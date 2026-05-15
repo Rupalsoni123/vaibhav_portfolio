@@ -113,6 +113,32 @@ body[data-mode="scroll"] #root {
   background-size: 24px 24px;
 }
 
+/* Skill icon container — forces all SVGs to fit consistently */
+.p3-skill-icon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--p3-bg-2);
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 6px;
+}
+.p3-skill-icon > svg,
+.p3-skill-icon > img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  display: block;
+}
+.p3-skill-icon > span {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--p3-ink);
+}
+
 /* Theme-reactive navbar surfaces */
 .p3-nav {
   background: color-mix(in srgb, var(--p3-bg-0) 55%, transparent);

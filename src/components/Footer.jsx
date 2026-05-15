@@ -130,7 +130,7 @@ const Footer = () => {
                       key={l.label}
                       href={l.ext}
                       target={l.ext.startsWith("http") ? "_blank" : undefined}
-                      rel="noreferrer"
+                      rel="noopener noreferrer"
                       style={linkStyle}
                     >
                       {l.label}

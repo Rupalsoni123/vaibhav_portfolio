@@ -6,7 +6,7 @@
   <atom:link href="https://vaibhavsoni21.vercel.app/rss.xml" rel="self" type="application/rss+xml" />
   <description>DevOps engineering notes: K8s, Terraform, CI/CD, SRE.</description>
   <language>en-us</language>
-  <lastBuildDate>Thu, 14 May 2026 12:31:43 GMT</lastBuildDate>
+  <lastBuildDate>Fri, 15 May 2026 05:22:58 GMT</lastBuildDate>
   <item>
     <title>Deploying AI PoCs: what an infra engineer actually owns</title>
     <link>https://vaibhavsoni21.vercel.app/#blog</link>

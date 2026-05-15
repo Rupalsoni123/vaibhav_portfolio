@@ -18,6 +18,34 @@ const SimpleChatbot = () => {
   const messagesEndRef = useRef(null);
   const { theme } = useContext(ThemeContext);
 
+  // Client-side rate limit: 3 messages per rolling 60s window.
+  // Stored in localStorage so it persists across page reloads but
+  // not across browsers/incognito. Server-side limit is the real gate.
+  const RATE_KEY = "p3-chat-stamps";
+  const RATE_MAX = 3;
+  const RATE_WINDOW_MS = 60 * 1000;
+
+  const checkClientRate = () => {
+    const now = Date.now();
+    let stamps = [];
+    try {
+      stamps = JSON.parse(localStorage.getItem(RATE_KEY) || "[]");
+    } catch {
+      stamps = [];
+    }
+    stamps = stamps.filter((t) => now - t < RATE_WINDOW_MS);
+    if (stamps.length >= RATE_MAX) {
+      const oldest = stamps[0];
+      const waitSec = Math.max(1, Math.ceil((RATE_WINDOW_MS - (now - oldest)) / 1000));
+      return { ok: false, waitSec };
+    }
+    stamps.push(now);
+    try {
+      localStorage.setItem(RATE_KEY, JSON.stringify(stamps));
+    } catch {}
+    return { ok: true };
+  };
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -48,6 +76,19 @@ const SimpleChatbot = () => {
         timestamp: new Date()
       };
       setMessages(prev => [...prev, errorMessage]);
+      setMessage('');
+      return;
+    }
+
+    const rate = checkClientRate();
+    if (!rate.ok) {
+      const limitMessage = {
+        id: Date.now(),
+        text: `Thanks for being curious — you've asked a few questions in the last minute. Let's pause for about **${rate.waitSec}s** so I can give every visitor a fair turn.`,
+        isBot: true,
+        timestamp: new Date()
+      };
+      setMessages(prev => [...prev, limitMessage]);
       setMessage('');
       return;
     }
@@ -99,12 +140,24 @@ const SimpleChatbot = () => {
     }
   };
 
+  // Escape HTML first to prevent XSS, then apply markdown-lite formatting.
+  const escapeHtml = (s) =>
+    String(s)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+
   const formatMessage = (text) => {
-    return text
-      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-      .replace(/\*(.*?)\*/g, '<em>$1</em>')
-      .replace(/`(.*?)`/g, '<code class="bg-gray-100 dark:bg-gray-700 px-1 rounded text-sm">$1</code>')
-      .replace(/\n/g, '<br>');
+    return escapeHtml(text)
+      .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+      .replace(/\*(.*?)\*/g, "<em>$1</em>")
+      .replace(
+        /`(.*?)`/g,
+        '<code style="background: var(--p3-bg-2); padding: 1px 6px; border-radius: 4px; font-family: var(--font-mono); font-size: 12px;">$1</code>'
+      )
+      .replace(/\n/g, "<br>");
   };
 
   return (

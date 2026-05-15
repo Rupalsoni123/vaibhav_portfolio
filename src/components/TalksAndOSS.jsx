@@ -63,7 +63,7 @@ const Row = ({ children, href }) => {
   );
   if (!href) return inner;
   return (
-    <a href={href} style={{ textDecoration: "none", display: "block" }} target={href.startsWith("http") ? "_blank" : undefined} rel="noreferrer">
+    <a href={href} style={{ textDecoration: "none", display: "block" }} target={href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer">
       {inner}
     </a>
   );

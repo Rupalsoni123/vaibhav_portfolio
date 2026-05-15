@@ -31,29 +31,72 @@ const labelStyle = {
   marginBottom: 6,
 };
 
+const LIMITS = { name: 80, email: 120, subject: 150, message: 2000 };
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 const Contact = () => {
-  const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+    website: "", // honeypot — must stay empty
+  });
   const [busy, setBusy] = useState(false);
   const [status, setStatus] = useState({ type: "", message: "" });
+  const [mountedAt] = useState(() => Date.now());
 
-  const onChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    const cap = LIMITS[name];
+    setForm({ ...form, [name]: cap ? value.slice(0, cap) : value });
+  };
 
   const onSubmit = async (e) => {
     e.preventDefault();
+
+    // Honeypot filled = bot
+    if (form.website) {
+      setStatus({ type: "success", message: "Message sent. Reply within 24h." });
+      return;
+    }
+    // Form submitted absurdly fast = bot (< 2s after mount)
+    if (Date.now() - mountedAt < 2000) {
+      setStatus({ type: "error", message: "Please take a moment to fill the form." });
+      return;
+    }
+    if (!EMAIL_RE.test(form.email)) {
+      setStatus({ type: "error", message: "Please enter a valid email." });
+      return;
+    }
+    if (form.message.trim().length < 8) {
+      setStatus({ type: "error", message: "Message is too short." });
+      return;
+    }
+
     setBusy(true);
     setStatus({ type: "", message: "" });
     try {
       const res = await fetch("https://getform.io/f/bjjowvwb", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, _gotcha: "" }),
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          name: form.name.slice(0, LIMITS.name),
+          email: form.email.slice(0, LIMITS.email),
+          subject: form.subject.slice(0, LIMITS.subject),
+          message: form.message.slice(0, LIMITS.message),
+          _gotcha: "",
+        }),
       });
       if (!res.ok) throw new Error("HTTP");
       setStatus({ type: "success", message: "Message sent. Reply within 24h." });
-      setForm({ name: "", email: "", subject: "", message: "" });
+      setForm({ name: "", email: "", subject: "", message: "", website: "" });
       setTimeout(() => setStatus({ type: "", message: "" }), 5000);
     } catch {
-      setStatus({ type: "error", message: "Send failed. Try email: vaibhavsoni5567@gmail.com" });
+      setStatus({
+        type: "error",
+        message: "Send failed. Email vaibhavsoni5567@gmail.com directly.",
+      });
     } finally {
       setBusy(false);
     }
@@ -137,7 +180,7 @@ const Contact = () => {
                 key={c.label}
                 href={c.link}
                 target={c.link.startsWith("http") ? "_blank" : undefined}
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 style={{
                   display: "block",
                   padding: 10,
@@ -198,6 +241,22 @@ const Contact = () => {
               gap: 16,
             }}
           >
+            {/* Honeypot — hidden from humans, often filled by bots. */}
+            <div
+              aria-hidden="true"
+              style={{ position: "absolute", left: "-10000px", top: "auto", width: 1, height: 1, overflow: "hidden" }}
+            >
+              <label htmlFor="website">Website (leave blank)</label>
+              <input
+                id="website"
+                name="website"
+                type="text"
+                tabIndex="-1"
+                autoComplete="off"
+                value={form.website}
+                onChange={onChange}
+              />
+            </div>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }} className="form-row">
               <div>
                 <label style={labelStyle}>Name</label>
