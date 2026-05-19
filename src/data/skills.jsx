@@ -1,4 +1,4 @@
-import ReactJs, { Bash, Bootstrap, C, Canva, CPlusPlus, CSS, Docker, ExpressJS, FireBase, Git, GitHub, Bitbucket, AzureIcon, GCP, Heroku, HTML, Java, JQuery, Prometheus, JS, Kotlin, Kubernetes, TerragruntLogo, MaterialUI, MongoDB, MySQL, NextJs, NodeJS, PHP, PostGreSql, PostMan, Python, Redux, TailwindCSS, TS, VSCode, Redis, AWS, Ansible, Kafka, DBeaver, GithubActions, Gitlab, Grafana, Jira, Serverless, Nginx, RabbitMQ, SonarQube, Terraform, Jenkins } from "../components/SkillIcons";
+import ReactJs, { Bash, Bootstrap, C, Canva, CPlusPlus, CSS, Docker, ExpressJS, FireBase, Git, GitHub, Bitbucket, AzureIcon, GCP, Heroku, HTML, Java, JQuery, Prometheus, JS, Kotlin, Kubernetes, TerragruntLogo, MaterialUI, MongoDB, MySQL, NextJs, NodeJS, PHP, PostGreSql, PostMan, Python, Redux, TailwindCSS, TS, VSCode, Redis, AWS, Ansible, Kafka, DBeaver, GithubActions, Gitlab, Grafana, Jira, Serverless, Nginx, RabbitMQ, SonarQube, Terraform, Jenkins, Oracle, DigitalOcean } from "../components/SkillIcons";
 
 const skills = [
     {
@@ -34,6 +34,30 @@ const skills = [
         style: {
             shadow: "shadow-[#0078D4]",
             cover: "from-black to-[#0078D4] rounded-b-md",
+            opacity: "opacity-80"
+        }
+    },
+    {
+        id: 101,
+        icon: <DigitalOcean />,
+        name: "DigitalOcean",
+        category: "Cloud Platforms",
+        level: 40,
+        style: {
+            shadow: "shadow-[#0080FF]",
+            cover: "from-black to-[#0080FF] rounded-b-md",
+            opacity: "opacity-80"
+        }
+    },
+    {
+        id: 102,
+        icon: <Oracle />,
+        name: "Oracle Cloud",
+        category: "Cloud Platforms",
+        level: 20,
+        style: {
+            shadow: "shadow-[#C74634]",
+            cover: "from-black to-[#C74634] rounded-b-md",
             opacity: "opacity-80"
         }
     },

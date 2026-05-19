@@ -18,7 +18,7 @@ const Avatar = ({ size = 180, alt = "Vaibhav Soni", style = {}, eager = false, .
       height={size}
       loading={eager ? "eager" : "lazy"}
       decoding="async"
-      fetchPriority={eager ? "high" : "auto"}
+      fetchpriority={eager ? "high" : "auto"}
       style={{
         width: size,
         height: size,

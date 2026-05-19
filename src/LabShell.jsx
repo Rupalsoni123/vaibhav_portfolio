@@ -39,11 +39,25 @@ const OSShell = () => {
 const LabShell = () => {
   useEffect(() => {
     document.body.removeAttribute("data-mode");
+    document.body.setAttribute("data-lab", "true");
+    return () => document.body.removeAttribute("data-lab");
   }, []);
   return (
-    <OSProvider>
-      <OSShell />
-    </OSProvider>
+    <div
+      className="dark"
+      data-theme="dark"
+      style={{
+        position: "fixed",
+        inset: 0,
+        background: "#000",
+        color: "#fff",
+        overflow: "hidden",
+      }}
+    >
+      <OSProvider>
+        <OSShell />
+      </OSProvider>
+    </div>
   );
 };
 
