@@ -39,13 +39,13 @@ const projectsData = [
   {
     id: 2,
     org: "HighSky",
-    title: "Asterisk Calling Server — Custom Docker Image",
+    title: "VoIP Calling Server — Custom Docker Image",
     category: "Containerization",
     description:
-      "Created and maintained a custom Docker image for an Asterisk calling server pinned to a specific version. Preserved runtime config via docker commit and pushed images to client infrastructure.",
+      "Created and maintained a custom Docker image for a VoIP calling server pinned to a specific version. Preserved runtime config via docker commit and pushed images to client infrastructure.",
     longDescription:
-      "Created and maintained a custom Docker image for an Asterisk calling server with an exact version requirement. Used `docker commit` to preserve configured runtime changes, then pushed the images to client infrastructure for deployment consistency. Documented the image build process so the client could reproduce it.",
-    technologies: ["Docker", "Asterisk", "Custom Images", "Linux"],
+      "Created and maintained a custom Docker image for a VoIP calling server with an exact version requirement. Used `docker commit` to preserve configured runtime changes, then pushed the images to client infrastructure for deployment consistency. Documented the image build process so the client could reproduce it.",
+    technologies: ["Docker", "VoIP", "Custom Images", "Linux"],
     metrics: [
       { label: "version pinning", value: "exact", tone: "ok" },
       { label: "drift", value: "0", tone: "ok" },
@@ -57,12 +57,12 @@ const projectsData = [
   {
     id: 3,
     org: "HighSky",
-    title: "Metropolis — AWS Deployment & Ops",
+    title: "Healthcare Diagnostics Platform Project — AWS Deployment & Ops",
     category: "Cloud Infrastructure",
     description:
-      "Owned deployment and operational activities for the Metropolis project. Frequent AWS deployments, infrastructure reporting, DB server tracking, environment management.",
+      "Owned deployment and operational activities for a healthcare diagnostics platform client project. Frequent AWS deployments, infrastructure reporting, DB server tracking, environment management.",
     longDescription:
-      "Handled deployment and operational activities for the Metropolis project for a defined period. Managed frequent deployments on AWS and supported routine operational tasks including infrastructure reporting, database server tracking, and environment management.",
+      "Handled deployment and operational activities for a healthcare diagnostics platform client project for a defined period. Managed frequent deployments on AWS and supported routine operational tasks including infrastructure reporting, database server tracking, and environment management.",
     technologies: ["AWS", "Bash", "Deployment Ops", "Linux"],
     icon: "cloud",
     status: "Completed",
@@ -73,12 +73,12 @@ const projectsData = [
   {
     id: 4,
     org: "Inexture",
-    title: "Helpr — GKE Multi-Environment Platform",
+    title: "Service Marketplace Platform — GKE Multi-Environment",
     category: "Kubernetes",
     description:
       "Worked on GKE deployments across multiple environments. Resolved production and staging issues to improve application stability.",
     longDescription:
-      "Worked on Google Kubernetes Engine (GKE) deployments for the Helpr platform. Supported multiple environments (dev, staging, production), resolved deploy and runtime issues, and helped improve application stability through configuration and routing fixes.",
+      "Worked on Google Kubernetes Engine (GKE) deployments for a service marketplace platform. Supported multiple environments (dev, staging, production), resolved deploy and runtime issues, and helped improve application stability through configuration and routing fixes.",
     technologies: ["GKE", "Kubernetes", "GCP", "Helm"],
     metrics: [
       { label: "environments", value: "3", tone: "ok" },
@@ -91,12 +91,12 @@ const projectsData = [
   {
     id: 5,
     org: "Inexture",
-    title: "MassAI — CI/CD + Elasticsearch on Cloud",
+    title: "AI Search Platform — CI/CD + Elasticsearch on Cloud",
     category: "CI/CD",
     description:
       "Managed CI/CD pipelines, Docker images, and Elasticsearch integration. Multi-environment support and release-phase deployment ops.",
     longDescription:
-      "Managed CI/CD pipelines and production Docker images for the MassAI project. Supported Elasticsearch integration used for AI data retrieval. Assisted in cloud infrastructure across dev, staging, and production environments during release phases.",
+      "Managed CI/CD pipelines and production Docker images for an AI search platform. Supported Elasticsearch integration used for AI data retrieval. Assisted in cloud infrastructure across dev, staging, and production environments during release phases.",
     technologies: ["Jenkins", "Docker", "Elasticsearch", "Cloud Infrastructure", "CI/CD"],
     icon: "rocket",
     status: "Completed",
@@ -105,12 +105,12 @@ const projectsData = [
   {
     id: 6,
     org: "Inexture",
-    title: "Solvere — Multi-Tenant Routing",
+    title: "Multi-Tenant SaaS Platform — Routing & Ops",
     category: "Multi-Tenant",
     description:
       "Handled multi-tenant routing, deployment issues, and service availability management across environments.",
     longDescription:
-      "Handled multi-tenant Nginx routing, deployment issue resolution, and continuous service availability for the Solvere project. Helped maintain reliable client separation through routing configuration and environment isolation.",
+      "Handled multi-tenant Nginx routing, deployment issue resolution, and continuous service availability for a multi-tenant SaaS project. Helped maintain reliable client separation through routing configuration and environment isolation.",
     technologies: ["Nginx", "Multi-tenant", "Routing", "Deployment Ops"],
     icon: "rocket",
     status: "In Progress",
@@ -119,12 +119,12 @@ const projectsData = [
   {
     id: 7,
     org: "Inexture",
-    title: "SmartmintAI — CI/CD on AWS",
+    title: "AI Trading Platform — CI/CD on AWS",
     category: "CI/CD",
     description:
       "Owned CI/CD pipelines, Dockerized services, and AWS account ops. Resolved deployment + environment stability issues for reliable releases.",
     longDescription:
-      "Managed CI/CD pipelines, Dockerized services, and AWS account infrastructure for the SmartmintAI platform. Handled deployment orchestration and resolved environment stability issues during critical release phases.",
+      "Managed CI/CD pipelines, Dockerized services, and AWS account infrastructure for an AI trading platform. Handled deployment orchestration and resolved environment stability issues during critical release phases.",
     technologies: ["Jenkins", "Docker", "AWS", "CI/CD"],
     icon: "rocket",
     status: "Completed",
@@ -133,7 +133,7 @@ const projectsData = [
   {
     id: 8,
     org: "Inexture",
-    title: "ADCA Collab — Test-Gated CI/CD + Cost Estimation",
+    title: "Collaboration Platform — Test-Gated CI/CD + Cost Estimation",
     category: "CI/CD",
     description:
       "Designed a test-based CI/CD pipeline that validated builds before merge into Dev. Provided cloud cost estimations to the client.",
@@ -150,7 +150,7 @@ const projectsData = [
   {
     id: 9,
     org: "Inexture",
-    title: "ChainTerms — Drupal on Docker",
+    title: "Drupal on Docker",
     category: "Containerization",
     description: "Deployed Drupal applications across multiple environments via Docker. Maintained deployment workflows.",
     longDescription:
@@ -163,12 +163,12 @@ const projectsData = [
   {
     id: 10,
     org: "Inexture",
-    title: "Lawvidia-AI — CI/CD Support",
+    title: "Legal AI Platform — CI/CD Support",
     category: "CI/CD",
     description:
       "Supported CI/CD workflows and Docker deployments. Managed environment configurations across multiple stages.",
     longDescription:
-      "Supported CI/CD workflows and Docker-based deployments on the Lawvidia-AI project. Managed environment configurations across dev, test, and staging to keep the promotion pipeline smooth.",
+      "Supported CI/CD workflows and Docker-based deployments on a legal AI platform. Managed environment configurations across dev, test, and staging to keep the promotion pipeline smooth.",
     technologies: ["Jenkins", "Docker", "CI/CD"],
     icon: "rocket",
     status: "Completed",
@@ -177,12 +177,12 @@ const projectsData = [
   {
     id: 11,
     org: "Inexture",
-    title: "DDA — Infrastructure Support",
+    title: "Enterprise Portal — Infrastructure Support",
     category: "Deployment Ops",
     description:
       "Provided infrastructure support, validated deployments, and assisted in troubleshooting environment-related issues.",
     longDescription:
-      "Provided infrastructure support, validated deployments, and assisted in troubleshooting environment-related issues to ensure deployment reliability for the DDA project.",
+      "Provided infrastructure support, validated deployments, and assisted in troubleshooting environment-related issues to ensure deployment reliability for an enterprise portal project.",
     technologies: ["Infrastructure Support", "Deployment Validation", "Linux"],
     icon: "terminal",
     status: "Completed",
@@ -191,12 +191,12 @@ const projectsData = [
   {
     id: 12,
     org: "Inexture",
-    title: "NetSuite — Deploy + Monitor",
+    title: "Inventory Solutions — Deploy + Monitor",
     category: "Deployment Ops",
     description:
       "Deployment support, monitoring assistance, and issue troubleshooting across environments.",
     longDescription:
-      "Provided deployment support, monitoring assistance, and issue troubleshooting across environments to maintain application stability for the NetSuite project.",
+      "Provided deployment support, monitoring assistance, and issue troubleshooting across environments to maintain application stability for an inventory management project.",
     technologies: ["Monitoring", "CI/CD", "Support Operations"],
     icon: "server",
     status: "Completed",
@@ -205,12 +205,12 @@ const projectsData = [
   {
     id: 13,
     org: "Inexture",
-    title: "NextGen Global — GCP Setup",
+    title: "Enterprise SaaS — GCP Setup",
     category: "Cloud Infrastructure",
     description:
       "Set up GCP accounts and configured cloud infrastructure required for application deployment and environment setup.",
     longDescription:
-      "Set up GCP accounts and configured the cloud infrastructure required for application deployment and environment setup on the NextGen Global project.",
+      "Set up GCP accounts and configured the cloud infrastructure required for application deployment and environment setup on an enterprise SaaS project.",
     technologies: ["GCP", "Cloud Infrastructure", "IAM"],
     icon: "cloud",
     status: "Completed",
@@ -219,12 +219,12 @@ const projectsData = [
   {
     id: 14,
     org: "Inexture",
-    title: "IDBF — CI/CD + Validation",
+    title: "Information Platform — CI/CD + Validation",
     category: "CI/CD",
     description:
       "CI/CD setup, deployment verification, and environment issue resolution for stable releases.",
     longDescription:
-      "Handled CI/CD setup, deployment verification, and environment issue resolution to support stable releases on the IDBF project.",
+      "Handled CI/CD setup, deployment verification, and environment issue resolution to support stable releases on an information platform project.",
     technologies: ["Jenkins", "Deployment Validation", "CI/CD"],
     icon: "rocket",
     status: "Completed",
@@ -236,12 +236,12 @@ const projectsData = [
   {
     id: 15,
     org: "Inexture",
-    title: "AI-Enterprise-GPT — Deployment",
+    title: "Enterprise GPT Platform — Deployment",
     category: "AI PoC (Deploy-only)",
     description:
       "Deployed a ChatGPT-style platform supporting multiple AI model deployments, API key integration, downloadable models, OCR, and image processing.",
     longDescription:
-      "Deployment + infrastructure support for an AI Enterprise GPT PoC. Containerized the app, configured Nginx reverse proxy, managed TLS/SSL with Certbot, and ran Jenkins pipelines with SonarQube quality gates + automated tests. Application and model development were owned by other teams.",
+      "Deployment + infrastructure support for an enterprise GPT PoC. Containerized the app, configured Nginx reverse proxy, managed TLS/SSL with Certbot, and ran Jenkins pipelines with SonarQube quality gates + automated tests. Application and model development were owned by other teams.",
     technologies: ["Jenkins", "SonarQube", "Docker", "Nginx", "Certbot", "CI/CD"],
     role: "Deployment + infrastructure (app/model dev owned separately).",
     icon: "rocket",
@@ -266,12 +266,12 @@ const projectsData = [
   {
     id: 17,
     org: "Inexture",
-    title: "Connect Database — Deployment",
+    title: "Natural Language DB Query — Deployment",
     category: "AI PoC (Deploy-only)",
     description:
       "Deployed an AI-powered DB interface that lets users connect via host credentials and query in natural language.",
     longDescription:
-      "Deployment + environment support for the Connect Database PoC. Handled containerization, reverse proxy, TLS, and pipeline integration. App logic and model integration were not part of my scope.",
+      "Deployment + environment support for a natural-language database query PoC. Handled containerization, reverse proxy, TLS, and pipeline integration. App logic and model integration were not part of my scope.",
     technologies: ["Jenkins", "Docker", "Nginx", "Certbot", "CI/CD"],
     role: "Deployment + environment only.",
     icon: "server",
@@ -281,12 +281,12 @@ const projectsData = [
   {
     id: 18,
     org: "Inexture",
-    title: "Mock Interview AI — Deployment",
+    title: "AI Mock Interview Platform — Deployment",
     category: "AI PoC (Deploy-only)",
     description:
       "Supported deployment of an AI interview platform with video/text interviews, resume analysis, confidence eval, and automated scoring.",
     longDescription:
-      "Deployment support for a Mock Interview AI PoC. Application features (scoring, resume analysis, video pipeline) were built by the dev/ML team; my work was the deployment pipeline and environment configuration.",
+      "Deployment support for an AI mock-interview PoC. Application features (scoring, resume analysis, video pipeline) were built by the dev/ML team; my work was the deployment pipeline and environment configuration.",
     technologies: ["Jenkins", "Docker", "Nginx", "CI/CD"],
     role: "Deployment only.",
     icon: "rocket",
@@ -296,12 +296,12 @@ const projectsData = [
   {
     id: 19,
     org: "Inexture",
-    title: "PolyverseAI — Deployment",
+    title: "Multilingual AI Platform — Deployment",
     category: "AI PoC (Deploy-only)",
     description:
       "Deployed a multilingual communication platform with seamless translation support across native languages.",
     longDescription:
-      "Deployment + infrastructure support for the PolyverseAI PoC. Set up Jenkins pipelines for a monorepo (frontend + backend) with conditional stages, containerization, and Nginx reverse proxy.",
+      "Deployment + infrastructure support for a multilingual AI PoC. Set up Jenkins pipelines for a monorepo (frontend + backend) with conditional stages, containerization, and Nginx reverse proxy.",
     technologies: ["Jenkins", "Docker", "Nginx", "Certbot", "CI/CD"],
     role: "Deployment + infrastructure only.",
     icon: "rocket",
@@ -311,12 +311,12 @@ const projectsData = [
   {
     id: 20,
     org: "Inexture",
-    title: "TensorCut — Deployment",
+    title: "AI Image Processing Platform — Deployment",
     category: "AI PoC (Deploy-only)",
     description:
       "Supported deployment of AI background removal + image upscaling up to 4K.",
     longDescription:
-      "Deployment support for TensorCut PoC. ML features (background removal, upscaling) were owned by the ML team. I set up the deploy pipeline, container runtime, and Nginx/TLS.",
+      "Deployment support for an AI image processing PoC. ML features (background removal, upscaling) were owned by the ML team. I set up the deploy pipeline, container runtime, and Nginx/TLS.",
     technologies: ["Jenkins", "Docker", "Nginx", "Certbot", "CI/CD"],
     role: "Deployment only.",
     icon: "terminal",
@@ -326,7 +326,7 @@ const projectsData = [
   {
     id: 21,
     org: "Inexture",
-    title: "NextGenCaterAI — Deployment",
+    title: "Agentic AI Catering Platform — Deployment",
     category: "AI PoC (Deploy-only)",
     description:
       "Deployed an Agentic AI catering recommendation platform that suggests restaurants by event + budget.",

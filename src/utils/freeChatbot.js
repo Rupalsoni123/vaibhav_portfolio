@@ -84,7 +84,7 @@ Container orchestration platform for:
 1. **Trading Bot Infrastructure** - Jenkins CI/CD, AWS deployment
 2. **Azure Migration** - 240+ resources to Terraform
 3. **Kubernetes Cluster** - DigitalOcean production setup
-4. **DDA Liferay Environment** - Multi-developer setup
+4. **Enterprise Portal Setup** - Multi-developer Liferay environment
 5. **AWS Automation** - Terragrunt, Organizations
 
 Each project showcases different DevOps skills and technologies.`,

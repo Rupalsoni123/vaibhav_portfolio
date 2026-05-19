@@ -158,22 +158,22 @@ This project demonstrated the power of Kubernetes for running complex, distribut
   },
   {
     id: 3,
-    title: "Pinning Asterisk: when docker commit beats a Dockerfile",
-    slug: "asterisk-docker-commit-image",
+    title: "Pinning a VoIP server: when docker commit beats a Dockerfile",
+    slug: "voip-docker-commit-image",
     excerpt:
-      "Client needed an exact-version Asterisk calling server. The clean Dockerfile path lost — runtime state forced a different approach.",
-    content: `# Pinning Asterisk: when docker commit beats a Dockerfile
+      "Client needed an exact-version VoIP calling server. The clean Dockerfile path lost — runtime state forced a different approach.",
+    content: `# Pinning a VoIP server: when docker commit beats a Dockerfile
 
 ## Context
-HighSky client. Asterisk calling server. The client had a specific version that worked. Newer versions broke their dialplan. Couldn't change the version, couldn't change the dialplan.
+HighSky client engagement. VoIP calling server. The client had a specific version that worked. Newer versions broke their dialplan. Couldn't change the version, couldn't change the dialplan.
 
 ## What "build from Dockerfile" couldn't do
-The exact version of Asterisk we needed was pinned by a runtime configuration that gets baked in after a one-time interactive setup. Running that setup on every CI rebuild meant:
+The exact version of the VoIP server we needed was pinned by a runtime configuration that gets baked in after a one-time interactive setup. Running that setup on every CI rebuild meant:
 - Non-deterministic config
 - Risk of the build host's package mirror serving a slightly newer minor
 
 ## The pragmatic path
-- Stand up the exact Asterisk version once on a clean Debian base.
+- Stand up the exact VoIP server version once on a clean Debian base.
 - Run the interactive config until the dialplan worked.
 - \`docker commit\` the running container into an image.
 - Tag and push to the client's registry.
@@ -186,7 +186,7 @@ The exact version of Asterisk we needed was pinned by a runtime configuration th
 "Reproducible from a Dockerfile" is the right north star, not the only star. When a vendor's app expects state at runtime, \`docker commit\` + a written runbook is sometimes the honest answer.
 `,
     category: "containers",
-    tags: ["docker", "asterisk", "voip", "pragmatism"],
+    tags: ["docker", "voip", "pragmatism"],
     author: "Vaibhav Soni",
     featured: true,
     readTime: "5 min read",

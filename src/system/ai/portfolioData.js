@@ -52,9 +52,9 @@ Bachelor of Commerce (B.Com)
 Maharishi Dayanand Saraswati University | Rajasthan, India | 2020 - 2023
 
 Key Projects:
-- Helpr: Production Microservices Platform (GCP). Designed and operated a production-grade microservices platform on private GKE clusters with Istio.
+- Service Marketplace Platform: Production Microservices Platform (GCP). Designed and operated a production-grade microservices platform on private GKE clusters with Istio.
 - Trading Bot: Automated CI/CD & Cloud Deployment (AWS). Architected end-to-end CI/CD pipeline using Jenkins for a containerized trading application.
-- Solvere: Multi-Tenant SaaS Platform. Built and deployed a multi-tenant SaaS platform using Docker, Django, and TypeScript.
+- Multi-Tenant SaaS Platform. Built and deployed a multi-tenant SaaS platform using Docker, Django, and TypeScript.
 - CI/CD Platform Modernization: Migrated Jenkins from legacy infrastructure to a Dockerized architecture for improved reliability.
 - Azure Infrastructure as Code Migration: Led large-scale Azure infrastructure migration from manual provisioning to Terraform.
 

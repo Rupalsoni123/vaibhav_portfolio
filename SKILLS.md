@@ -49,7 +49,7 @@ This document provides a detailed breakdown of my technical skills and proficien
 - Custom image creation and optimization
 - Multi-stage builds
 - Private registry management
-- Specialized configurations (e.g., FreePBX with Asterisk-9)
+- Specialized configurations (e.g., VoIP/telephony stack with version pinning)
 
 ### Kubernetes
 - cluster deployment

@@ -8,11 +8,11 @@ const EXPERIENCE = [
     location: "Ahmedabad, India",
     points: [
       "Owned CI/CD pipelines, Dockerized services, and deployment ops across 11 projects + 7 AI PoCs (GKE, AWS, GCP).",
-      "Worked on GKE deployments for Helpr — multi-environment support, prod/staging issue resolution.",
-      "Designed a test-gated Jenkins pipeline for ADCA Collab that blocks broken merges into Dev; also produced client-side cloud cost estimations.",
+      "Worked on GKE deployments for a service marketplace platform — multi-environment support, prod/staging issue resolution.",
+      "Designed a test-gated Jenkins pipeline for a collaboration platform that blocks broken merges into Dev; also produced client-side cloud cost estimations.",
       "For AI PoCs: built Jenkins pipelines with SonarQube quality gates + automated test stages, conditional monorepo stages (FE/BE), Docker runtime, Nginx reverse proxy, Certbot TLS.",
       "AI PoC scope was deployment + infrastructure only — application and model development were handled by other teams.",
-      "Multi-tenant Nginx routing for Solvere; Elasticsearch + CI/CD for MassAI; GCP account setup for NextGen Global.",
+      "Multi-tenant Nginx routing for a SaaS platform; Elasticsearch + CI/CD for an AI search platform; GCP account setup for an enterprise SaaS project.",
     ],
   },
     {
@@ -33,8 +33,8 @@ const EXPERIENCE = [
     location: "Ahmedabad, India",
     points: [
       "Designed and deployed a Kubernetes cluster on DigitalOcean hosting Apache Kafka + ZooKeeper for distributed messaging.",
-      "Built and maintained a version-pinned custom Docker image for an Asterisk calling server; pushed to client infrastructure for deploy consistency.",
-      "Owned deploy + ops for the Metropolis project on AWS: frequent deploys, infra reporting, DB-server tracking, environment management.",
+      "Built and maintained a version-pinned custom Docker image for a VoIP calling server; pushed to client infrastructure for deploy consistency.",
+      "Deployment + ops for a healthcare diagnostics platform client project on AWS: frequent deploys, infra reporting, DB-server tracking, environment management.",
     ],
   },
 

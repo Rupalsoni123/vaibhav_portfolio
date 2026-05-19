@@ -42,16 +42,15 @@ This document showcases my key DevOps and infrastructure projects based on my pr
 
 ### Docker Container Customization
 
-**Description:** Designed and built a custom Docker image for FreePBX with an embedded Asterisk-9 server, customized for specific client requirements.
+**Description:** Designed and built a custom Docker image for a VoIP/telephony stack pinned to a specific version, customized for specific client requirements.
 
 **Key Technologies:**
 - Docker
-- FreePBX
-- Asterisk-9
+- VoIP/Telephony Stack
 - Private container registry
 
 **Achievements:**
-- Customized Asterisk configurations to support advanced client needs, including SIP trunking and call routing
+- Customized VoIP configurations to support advanced client needs, including SIP trunking and call routing
 - Pushed the customized Docker image to a private registry for reuse in Kubernetes deployments
 - Enabled consistent rollouts across environments based on client-specific requirements
 - Streamlined deployment process for specialized communication infrastructure
@@ -106,7 +105,7 @@ This document showcases my key DevOps and infrastructure projects based on my pr
 
 ---
 
-### DDA – Liferay Environment Setup & Troubleshooting
+### Enterprise Portal – Liferay Environment Setup & Troubleshooting
 
 **Description:** Provisioned and managed dedicated Liferay development environments with comprehensive troubleshooting and optimization for multiple developers.
 
