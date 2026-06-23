@@ -15,8 +15,8 @@ const ResumeDownload = ({
   const resumeData = {
     filename: 'Vaibhav_Soni_DevOps_Engineer_Resume.pdf',
     url: '/resume/Vaibhav_Soni_Resume.pdf',
-    lastUpdated: '2025-10-10',
-    size: '245 KB',
+    lastUpdated: '2026-06-23',
+    size: '187 KB',
     pages: 2
   };
 
